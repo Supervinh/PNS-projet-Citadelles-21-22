@@ -7,8 +7,10 @@ public class Joueur {
     Argent or;
     CartePersonnage personnage;
     List<CarteQuartier> quartiers;
+    boolean estRoi;
 
     Joueur(String nom){
         this.nom = nom;
+        this.estRoi = false;
     }
 }
