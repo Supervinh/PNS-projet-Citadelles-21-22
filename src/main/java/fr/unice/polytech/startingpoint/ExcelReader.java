@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.xmlbeans.impl.piccolo.util.IndexedObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ExcelReader {
-    private File excelCardFile = new File("data/Cards.xlsx");
-    private File excelCharacterFile = new File("data/Characters.xlsx");
+    private final File excelCardFile = new File("data/Cards.xlsx");
+    private final File excelCharacterFile = new File("data/Characters.xlsx");
 
     public ExcelReader() {
     }
@@ -50,16 +51,46 @@ public class ExcelReader {
         }
     }
 
-    public ArrayList<CarteQuartier> recupererQuartiers() {
-
-        return null;
-    }
-
     public File getExcelCardFile() {
         return this.excelCardFile;
     }
 
     public File getExcelCharacterFile() {
         return this.excelCharacterFile;
+    }
+
+    public ArrayList<CarteQuartier> recupererQuartiers() {
+        ArrayList<CarteQuartier> quartiersTemp = new ArrayList<>();
+        XSSFSheet sheet = fileToSheet(this.excelCardFile);
+        int count = 0;
+        for (Row row : sheet) {
+            count++;
+            if (count == 1) continue;
+            for (int i = 1; i <= row.getCell(2).getNumericCellValue(); i++) {
+                quartiersTemp.add(new CarteQuartier(
+                        row.getCell(0).getNumericCellValue() + (0.1*i),
+                        row.getCell(1).getStringCellValue(),
+                        row.getCell(3).getStringCellValue(),
+                        row.getCell(4).getNumericCellValue(),
+                        row.getCell(5).getStringCellValue()));
+            }
+        }
+        return quartiersTemp;
+    }
+
+    public ArrayList<CartePersonnage> recupererPersonnage() {
+        ArrayList<CartePersonnage> personnagesTemp = new ArrayList<>();
+        XSSFSheet sheet = fileToSheet(this.excelCharacterFile);
+        int count = 0;
+        for (Row row : sheet) {
+            count++;
+            if (count == 1) continue;
+            personnagesTemp.add(new CartePersonnage(
+                    row.getCell(0).getNumericCellValue(),
+                    row.getCell(1).getStringCellValue(),
+                    row.getCell(2).getStringCellValue(),
+                    row.getCell(3).getStringCellValue()));
+        }
+        return personnagesTemp;
     }
 }

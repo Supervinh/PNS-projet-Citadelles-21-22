@@ -1,11 +1,14 @@
 package fr.unice.polytech.startingpoint;
 
 public class Argent {
-    int nombreOr;
-
+    private int nombreOr = 0;
 
     public Argent() {
-        this.nombreOr = 2;
+        this.piocherOr();
+    }
+
+    public Argent(int n) {
+        this.ajouterOr(n);
     }
 
     public void piocherOr() {

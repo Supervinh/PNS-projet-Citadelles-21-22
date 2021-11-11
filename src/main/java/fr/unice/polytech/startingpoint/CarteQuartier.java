@@ -1,42 +1,34 @@
 package fr.unice.polytech.startingpoint;
 
 public class CarteQuartier {
-    double iD;
-    String name;
-    int quantity;
-    String jewl;
-    int price;
-    String effects;
-    String description;
+    private double id;
+    private String name;
+    private String jewl;
+    private int price;
+    private String description;
 
-    public CarteQuartier(double iD, String name, int quantity, String jewl, int price) {
-        this.iD = iD;
+    public CarteQuartier(double id, String name, String jewl, double price) {
+        this.id = id;
         this.name = name;
-        this.quantity = quantity;
         this.jewl = jewl;
-        this.price = price;
-        this.effects = null;
+        this.price = (int) price;
         this.description = null;
     }
-    public CarteQuartier(double iD, String name, int quantity, String jewl, int price, String effects, String description) {
-        this.iD = iD;
+    public CarteQuartier(double id, String name, String jewl, double price, String description) {
+        this.id = id;
         this.name = name;
-        this.quantity = quantity;
         this.jewl = jewl;
-        this.price = price;
-        this.effects = effects;
+        this.price = (int) price;
         this.description = description;
     }
 
     @Override
     public String toString() {
         return "CarteQuartier{" +
-                "iD=" + iD +
+                "iD=" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", quantity=" + quantity +
                 ", jewl='" + jewl + '\'' +
                 ", price=" + price +
-                ", effects='" + effects + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
