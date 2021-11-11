@@ -1,23 +1,35 @@
 package fr.unice.polytech.startingpoint;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-public class ExcelReader
-{
-    public static void main(String[] args)
-    {
-        String file_type = "Cards";
-        try
-        {
-            File file = new File("data/" + file_type + ".xlsx");   //creating a new file instance
-            FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file
-            XSSFWorkbook wb = new XSSFWorkbook(fis);    //creating Workbook instance that refers to .xlsx file
-            XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class ExcelReader {
+    private File excelCardFile = new File("data/Cards.xlsx");
+    private File excelCharacterFile = new File("data/Characters.xlsx");
+
+    public ExcelReader() {
+    }
+
+    public XSSFSheet fileToSheet(File file) {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            return new XSSFWorkbook(fis).getSheetAt(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void printExcel(File file) {
+        try {
+            XSSFSheet sheet = fileToSheet(file); //creating a Sheet object to retrieve object
             for (Row row : sheet) {     //iterating over excel file
                 Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column
                 while (cellIterator.hasNext()) {
@@ -31,12 +43,23 @@ public class ExcelReader
                         }
                     }
                 }
-                System.out.println("");
+                System.out.println();
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<CarteQuartier> recupererQuartiers() {
+
+        return null;
+    }
+
+    public File getExcelCardFile() {
+        return this.excelCardFile;
+    }
+
+    public File getExcelCharacterFile() {
+        return this.excelCharacterFile;
     }
 }
