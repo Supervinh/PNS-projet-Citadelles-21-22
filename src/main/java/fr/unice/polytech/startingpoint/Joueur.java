@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Joueur {
-    private String nom;
-    private Argent or = new Argent();
+    private final String nom;
+    private final Argent or = new Argent();
     private CartePersonnage personnage;
-    private List<CarteQuartier> quartiers = new ArrayList<>();
+    private final List<CarteQuartier> quartiers = new ArrayList<>();
     private boolean estRoi = false;
 
     public Joueur(String nom) {
@@ -30,12 +30,12 @@ public class Joueur {
         return quartiers;
     }
 
-    public void setEstRoi(boolean b) {
-        this.estRoi = b;
-    }
-
     public boolean isEstRoi() {
         return estRoi;
+    }
+
+    public void setEstRoi(boolean b) {
+        this.estRoi = b;
     }
 
     @Override
