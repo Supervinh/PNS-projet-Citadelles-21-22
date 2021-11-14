@@ -20,6 +20,22 @@ public class CartePersonnage {
         this.description = description;
     }
 
+    public double getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getJewl() {
+        return jewl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "CartePersonnage{" +
