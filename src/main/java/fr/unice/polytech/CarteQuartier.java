@@ -1,11 +1,11 @@
 package fr.unice.polytech;
 
 public class CarteQuartier {
-    private double id;
-    private String name;
-    private String jewl;
-    private int price;
-    private String description;
+    private final double id;
+    private final String name;
+    private final String jewl;
+    private final int price;
+    private final String description;
 
     public CarteQuartier(double id, String name, String jewl, double price) {
         this.id = id;
@@ -14,6 +14,7 @@ public class CarteQuartier {
         this.price = (int) price;
         this.description = null;
     }
+
     public CarteQuartier(double id, String name, String jewl, double price, String description) {
         this.id = id;
         this.name = name;

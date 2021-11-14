@@ -1,10 +1,10 @@
 package fr.unice.polytech;
 
 public class CartePersonnage {
-    private double id;
-    private String name;
-    private String jewl;
-    private String description;
+    private final double id;
+    private final String name;
+    private final String jewl;
+    private final String description;
 
     public CartePersonnage(double id, String name, String jewl) {
         this.id = id;

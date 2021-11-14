@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class MoteurDeJeu {
 
@@ -18,12 +19,16 @@ public class MoteurDeJeu {
     public static boolean Auto = true;
     public static Scanner sc = new Scanner(System.in);
 
+    public static void pause(int x) throws InterruptedException {
+        TimeUnit.MILLISECONDS.sleep(x);
+    }
+
 
     public static String hello() {
         return "Citadelle Grp.H";
     }
 
-    public static void main(String... args) {
+    public static void main(String... args) throws InterruptedException {
         System.out.println(MoteurDeJeu.hello());
         System.out.println(deck);
 
@@ -54,7 +59,15 @@ public class MoteurDeJeu {
                 joueur.construireQuartier();
             }
             System.out.println("\n" + list2Joueurs);
-
+            MoteurDeJeu.pause(100);
+        }
+        list2Joueurs.forEach(Joueur::calculePoints);
+        int maxScore = list2Joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
+        Joueur winner = list2Joueurs.stream().filter(joueur -> joueur.getPoints()==maxScore).findFirst().orElse(null);
+        if (winner!=null) {
+            System.out.println("\nLe Gagnant est: " + winner.getNom() + " avec " + winner.getPoints() + " points");
+        } else {
+            System.out.println("\nPas de Gagnant");
         }
     }
 }

@@ -9,10 +9,11 @@ public class Joueur {
     private final String nom;
     private final List<CarteQuartier> quartiers = new ArrayList<>();
     private final List<CarteQuartier> quartiersConstruit = new ArrayList<>();
+    private final boolean estIA;
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
-    private final boolean estIA;
+    private int points = 0;
 
     public Joueur(String nom) {
         this.nom = nom;
@@ -48,8 +49,8 @@ public class Joueur {
             System.out.println(" - Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
             if (this.estIA) {
-                CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size()-1));
-                this.ajouteOr(-1*choix.getPrice());
+                CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
+                this.ajouteOr(-1 * choix.getPrice());
                 System.out.println("Vous avez construit: " + choix);
                 this.quartiersConstruit.add(choix);
                 this.quartiers.remove(choix);
@@ -58,7 +59,7 @@ public class Joueur {
                 int numChoix = MoteurDeJeu.sc.nextInt() - 1;
                 if (0 <= numChoix && numChoix < quartiersAchetable.size()) {
                     CarteQuartier choix = quartiersAchetable.get(numChoix);
-                    this.ajouteOr(-1*choix.getPrice());
+                    this.ajouteOr(-1 * choix.getPrice());
                     System.out.println("Vous avez construit: " + choix);
                     this.quartiersConstruit.add(choix);
                     this.quartiers.remove(choix);
@@ -89,6 +90,10 @@ public class Joueur {
         this.or += n;
     }
 
+    public void calculePoints() {
+        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrice).sum();
+    }
+
     public String getNom() {
         return nom;
     }
@@ -115,6 +120,10 @@ public class Joueur {
 
     public void setEstRoi(boolean b) {
         this.estRoi = b;
+    }
+
+    public int getPoints() {
+        return points;
     }
 
     @Override
