@@ -1,4 +1,4 @@
-package fr.unice.polytech.startingpoint;
+package fr.unice.polytech;
 
 public class CartePersonnage {
     private double id;

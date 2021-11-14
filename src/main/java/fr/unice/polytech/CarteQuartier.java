@@ -1,4 +1,4 @@
-package fr.unice.polytech.startingpoint;
+package fr.unice.polytech;
 
 public class CarteQuartier {
     private double id;
@@ -20,6 +20,26 @@ public class CarteQuartier {
         this.jewl = jewl;
         this.price = (int) price;
         this.description = description;
+    }
+
+    public double getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getJewl() {
+        return jewl;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
