@@ -1,9 +1,7 @@
 package fr.unice.polytech;
 
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
