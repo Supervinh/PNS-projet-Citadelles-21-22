@@ -33,7 +33,7 @@ public class MoteurDeJeu {
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             if (MoteurDeJeu.Auto) {
                 System.out.println(" - Joueur " + i + ": CPU" + i);
-                list2Joueurs.add(new Joueur("CPU" + i));
+                list2Joueurs.add(new Joueur("CPU" + i, true));
             } else {
                 System.out.print(" - Joueur " + i + ": ");
                 list2Joueurs.add(new Joueur(sc.nextLine()));
@@ -46,14 +46,14 @@ public class MoteurDeJeu {
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
-                if (new Random().nextBoolean()) { // 50/50 entre piocher or et piocher quartier
-                    joueur.piocherOr();
-                } else {
+                if (joueur.getQuartiers().size() == 0) {
                     joueur.piocherQuartier();
+                } else {
+                    joueur.piocherOr();
                 }
                 joueur.construireQuartier();
-                System.out.println(list2Joueurs);
             }
+            System.out.println("\n" + list2Joueurs);
 
         }
     }
