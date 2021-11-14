@@ -22,8 +22,10 @@ public class Joueur {
     }
 
     public void piocherQuartier() {
-        System.out.println("Vous avez pioché: " + null); //Quartier au lieu de null
+        CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
+        System.out.println("Vous avez pioché: " + cq); //Quartier au lieu de null
         // Piocher MoteurDeJeu.carteAPiocher fois et défausser si en trop
+        this.quartiers.add(cq);
     }
 
     public void construireQuartier() {

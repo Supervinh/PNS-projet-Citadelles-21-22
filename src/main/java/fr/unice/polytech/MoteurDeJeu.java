@@ -40,7 +40,9 @@ public class MoteurDeJeu {
             }
         }
 
+        int nb2Tours = 0;
         while (list2Joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruit().size() < MoteurDeJeu.nombre2QuartiersAConstruire)) {
+            System.out.println("\n##### Tour " + nb2Tours++ + " #####");
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
