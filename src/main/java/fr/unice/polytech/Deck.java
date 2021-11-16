@@ -40,11 +40,7 @@ public class Deck {
         Random random = new Random();
         int nb;
         nb = random.nextInt(7);
-        if (!this.personnages.isEmpty()) {
-            return this.personnages.remove(nb);
-        }
-        System.out.println("Plus de Personnages");
-        return null;
+        return this.personnages.remove(nb);
     }
 
     public void ajoutePersonnage(CartePersonnage personnage) {
@@ -56,6 +52,15 @@ public class Deck {
     public void recreerDeckPersonnages(){
         ExcelReader ER = new ExcelReader();
         this.personnages=ER.recupererPersonnage();
+        this.melangerPersonnage();
+    }
+
+    public ArrayList<CarteQuartier> getQuartiers() {
+        return quartiers;
+    }
+
+    public ArrayList<CartePersonnage> getPersonnages() {
+        return personnages;
     }
 
     @Override

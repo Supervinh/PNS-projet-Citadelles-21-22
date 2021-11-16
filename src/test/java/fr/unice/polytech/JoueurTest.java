@@ -27,4 +27,22 @@ class JoueurTest {
         Joueur j4=new Joueur(null, true);
         assertEquals(null,j4.getNom());
     }
+
+    @Test
+    void piocherPersoDifferents(){
+        Joueur j1=new Joueur("1",true);
+        Joueur j2=new Joueur("2",true);
+        j1.piocherPersonnage();
+        j2.piocherPersonnage();
+        assertNotEquals(j1.getPersonnage(),j2.getPersonnage());
+    }
+
+    @Test
+    void piocherCartesDifferentes(){
+        Joueur j1=new Joueur("1",true);
+        Joueur j2=new Joueur("2",true);
+        j1.piocherQuartier();
+        j2.piocherQuartier();
+        assertNotEquals(j1.getQuartiers(),j2.getQuartiers());
+    }
 }

@@ -74,7 +74,7 @@ public class Joueur {
                     if (numChoix == -1) {
                         System.out.println("Vous avez choisi de ne pas construire de quartier");
                     } else {
-                        System.out.println("Vous avez choisi un choix non proposé. Ressayez\n");
+                        System.out.println("Vous avez choisi un choix non proposé. Reessayez\n");
                         this.construireQuartier();
                     }
                 }
