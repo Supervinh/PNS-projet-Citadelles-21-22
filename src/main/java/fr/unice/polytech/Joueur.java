@@ -41,6 +41,13 @@ public class Joueur {
         }
     }
 
+    public void piocherPersonnage() {
+        CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
+        System.out.println("Vous avez pioché: " + cp.getName());
+        this.personnage=cp;
+
+    }
+
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
