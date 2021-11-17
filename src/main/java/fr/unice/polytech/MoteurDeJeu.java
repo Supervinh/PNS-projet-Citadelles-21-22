@@ -49,6 +49,7 @@ public class MoteurDeJeu {
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
+                joueur.piocherPersonnage();
                 if (joueur.getQuartiers().size() == 0) {
                     joueur.piocherQuartier();
                 } else {
@@ -56,6 +57,7 @@ public class MoteurDeJeu {
                 }
                 joueur.construireQuartier();
             }
+            deck.recreerDeckPersonnages();
             System.out.println("\n" + list2Joueurs);
             MoteurDeJeu.pause(100);
         }

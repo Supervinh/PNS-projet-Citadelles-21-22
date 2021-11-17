@@ -41,6 +41,13 @@ public class Joueur {
         }
     }
 
+    public void piocherPersonnage() {
+        CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
+        System.out.println("Vous avez pioché: " + cp.getName());
+        this.personnage=cp;
+
+    }
+
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
@@ -67,7 +74,7 @@ public class Joueur {
                     if (numChoix == -1) {
                         System.out.println("Vous avez choisi de ne pas construire de quartier");
                     } else {
-                        System.out.println("Vous avez choisi un choix non proposé. Ressayez\n");
+                        System.out.println("Vous avez choisi un choix non proposé. Reessayez\n");
                         this.construireQuartier();
                     }
                 }
