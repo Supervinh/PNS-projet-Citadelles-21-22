@@ -24,7 +24,7 @@ public class CartePersonnage {
         return id;
     }
 
-    public String getName() {
+    public String getNom() {
         return nom;
     }
 

@@ -14,7 +14,7 @@ class CartePersonnageTest {
     @Test
     void isNotEmpty(){
         CartePersonnage cp= new CartePersonnage(1,"Assassin",null,"description");
-        assertEquals("Assassin",cp.getName());
+        assertEquals("Assassin",cp.getNom());
         assertEquals(1,cp.getId());
         assertEquals(null,cp.getJewl());
         assertNotEquals(null,cp.getDescription());
