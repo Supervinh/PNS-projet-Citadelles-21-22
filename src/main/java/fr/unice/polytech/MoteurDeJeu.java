@@ -25,7 +25,7 @@ public class MoteurDeJeu {
         return "Citadelle Grp.H";
     }
 
-    public static void main(String... args) throws InterruptedException {
+    public static void main(String... args) {
         System.out.println(MoteurDeJeu.hello());
         System.out.println(deck);
 
@@ -40,10 +40,11 @@ public class MoteurDeJeu {
         int nb2Tours = 0;
         while (list2Joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruits().size() < MoteurDeJeu.nombre2QuartiersAConstruire)) {
             System.out.println("\n##### Tour " + ++nb2Tours + " #####");
+            list2Joueurs.forEach(Joueur::piocherPersonnage);
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
-                joueur.piocherPersonnage();
+
                 if (joueur.getQuartiers().size() == 0) {
                     joueur.piocherQuartier();
                 } else {
@@ -53,7 +54,6 @@ public class MoteurDeJeu {
             }
             deck.recreerDeckPersonnages();
             System.out.println("\n" + list2Joueurs);
-            // MoteurDeJeu.pause(100);
         }
         list2Joueurs.forEach(Joueur::calculePoints);
         int maxScore = list2Joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);

@@ -49,9 +49,9 @@ public class Deck {
         }
     }
 
-    public void recreerDeckPersonnages(){
+    public void recreerDeckPersonnages() {
         ExcelReader ER = new ExcelReader();
-        this.personnages=ER.recupererPersonnage();
+        this.personnages = ER.recupererPersonnage();
         this.melangerPersonnage();
     }
 
