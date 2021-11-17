@@ -49,7 +49,7 @@ public class Joueur {
     }
 
     public void construireQuartier() {
-        ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList());
+        ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
             System.out.println("Construire Quartier - Vous avez " + this.or + " pieces d'or");
             AtomicInteger i = new AtomicInteger(1);
@@ -57,7 +57,7 @@ public class Joueur {
             quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
             if (this.estIA) {
                 CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
-                this.ajouteOr(-1 * choix.getPrice());
+                this.ajouteOr(-1 * choix.getPrix());
                 System.out.println("Vous avez construit: " + choix);
                 this.quartiersConstruit.add(choix);
                 this.quartiers.remove(choix);
@@ -66,7 +66,7 @@ public class Joueur {
                 int numChoix = MoteurDeJeu.sc.nextInt() - 1;
                 if (0 <= numChoix && numChoix < quartiersAchetable.size()) {
                     CarteQuartier choix = quartiersAchetable.get(numChoix);
-                    this.ajouteOr(-1 * choix.getPrice());
+                    this.ajouteOr(-1 * choix.getPrix());
                     System.out.println("Vous avez construit: " + choix);
                     this.quartiersConstruit.add(choix);
                     this.quartiers.remove(choix);
@@ -85,7 +85,7 @@ public class Joueur {
     }
 
     public int nombre2QuartiersConstructible() {
-        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList()).size();
+        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
     }
 
     public void piocherOr() {
@@ -98,7 +98,7 @@ public class Joueur {
     }
 
     public void calculePoints() {
-        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrice).sum();
+        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrix).sum();
     }
 
     public String getNom() {
