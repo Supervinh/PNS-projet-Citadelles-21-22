@@ -40,10 +40,11 @@ public class MoteurDeJeu {
         int nb2Tours = 0;
         while (list2Joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruits().size() < MoteurDeJeu.nombre2QuartiersAConstruire)) {
             System.out.println("\n##### Tour " + ++nb2Tours + " #####");
+            list2Joueurs.forEach(Joueur::piocherPersonnage);
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
-                joueur.piocherPersonnage();
+
                 if (joueur.getQuartiers().size() == 0) {
                     joueur.piocherQuartier();
                 } else {
