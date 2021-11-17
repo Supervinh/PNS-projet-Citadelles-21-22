@@ -40,8 +40,8 @@ public class CartePersonnage {
     public String toString() {
         return "CartePersonnage{" +
                 "id=" + id +
-                ", name='" + nom + '\'' +
-                ", jewl='" + gemme + '\'' +
+                ", nom='" + nom + '\'' +
+                ", gemme='" + gemme + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

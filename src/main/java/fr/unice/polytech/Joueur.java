@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Joueur {
     private final String nom;
     private final List<CarteQuartier> quartiers = new ArrayList<>();
-    private final List<CarteQuartier> quartiersConstruit = new ArrayList<>();
+    private final List<CarteQuartier> quartiersConstruits = new ArrayList<>();
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
@@ -33,7 +33,7 @@ public class Joueur {
     public void piocherPersonnage() {
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
         System.out.println("Vous avez pioché: " + cp.getNom());
-        this.personnage=cp;
+        this.personnage = cp;
 
     }
 
@@ -47,7 +47,7 @@ public class Joueur {
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
             this.ajouteOr(-1 * choix.getPrix());
             System.out.println("Vous avez construit: " + choix);
-            this.quartiersConstruit.add(choix);
+            this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
             System.out.println("Vous n'avez pas assez de pieces d'or afin de construire.");
@@ -68,7 +68,7 @@ public class Joueur {
     }
 
     public void calculePoints() {
-        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrix).sum();
+        this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
     }
 
     public String getNom() {
@@ -87,8 +87,8 @@ public class Joueur {
         return quartiers;
     }
 
-    public List<CarteQuartier> getQuartiersConstruit() {
-        return quartiersConstruit;
+    public List<CarteQuartier> getQuartiersConstruits() {
+        return quartiersConstruits;
     }
 
     public boolean isEstRoi() {
@@ -106,12 +106,12 @@ public class Joueur {
     @Override
     public String toString() {
         return "Joueur{" +
-                "nom='" + nom  +
+                "nom='" + nom +
                 ", or=" + or +
                 ", estRoi=" + estRoi +
-                ", personnage=" + personnage +
+                ", personnage=" + this.getPersonnage().getNom() +
                 ", quartiers=" + quartiers +
-                ", quartiersConstruit=" + quartiersConstruit +
+                ", quartiersConstruits=" + quartiersConstruits +
                 '}';
     }
 }

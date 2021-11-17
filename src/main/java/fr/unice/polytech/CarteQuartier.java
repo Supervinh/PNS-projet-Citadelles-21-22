@@ -46,10 +46,10 @@ public class CarteQuartier {
     @Override
     public String toString() {
         return "CarteQuartier{" +
-                "iD=" + id + '\'' +
-                ", name='" + nom + '\'' +
-                ", jewl='" + gemme + '\'' +
-                ", price=" + prix +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", gemme='" + gemme + '\'' +
+                ", prix=" + prix +
                 ", description='" + description + '\'' +
                 '}';
     }
