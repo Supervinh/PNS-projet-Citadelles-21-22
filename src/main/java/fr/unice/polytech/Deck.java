@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Deck {
     private final ArrayList<CarteQuartier> quartiers;
-    private ArrayList<CartePersonnage> personnages;
+    private final ArrayList<CartePersonnage> personnages;
 
     public Deck() {
         ExcelReader ER = new ExcelReader();
@@ -47,12 +47,6 @@ public class Deck {
         if (!this.personnages.contains(personnage)) {
             this.personnages.add(personnage);
         }
-    }
-
-    public void recreerDeckPersonnages() {
-        ExcelReader ER = new ExcelReader();
-        this.personnages = ER.recupererPersonnage();
-        this.melangerPersonnage();
     }
 
     public ArrayList<CarteQuartier> getQuartiers() {

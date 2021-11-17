@@ -33,17 +33,4 @@ class DeckTest {
         d.piocherPersonnage();
         assertNotEquals(i,d.getPersonnages().size());
     }
-
-    @Test
-    void recreer(){
-        int i1=d.getPersonnages().size();
-        d.piocherPersonnage();
-        int i2=d.getPersonnages().size();
-        d.recreerDeckPersonnages();
-        int i3=d.getPersonnages().size();
-        assertEquals(i1,i3);
-        assertNotEquals(i2,i3);
-
-
-    }
 }

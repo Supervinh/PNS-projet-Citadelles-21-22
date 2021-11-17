@@ -22,7 +22,7 @@ public class MoteurDeJeu {
 
 
     public static String hello() {
-        return "Citadelle Grp.H";
+        return "Citadelle Grp.H - Jeux entre Bots";
     }
 
     public static void main(String... args) {
@@ -52,7 +52,7 @@ public class MoteurDeJeu {
                 }
                 joueur.construireQuartier();
             }
-            deck.recreerDeckPersonnages();
+            list2Joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
             System.out.println("\n" + list2Joueurs);
         }
         list2Joueurs.forEach(Joueur::calculePoints);
