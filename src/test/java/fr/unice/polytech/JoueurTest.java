@@ -45,4 +45,16 @@ class JoueurTest {
         j2.piocherQuartier();
         assertNotEquals(j1.getQuartiers(),j2.getQuartiers());
     }
+
+    @Test
+    void pointsCorrect(){
+        Joueur j1=new Joueur("1");
+        assertEquals(0,j1.getPoints());
+    }
+
+    @Test
+    void estRoi(){
+        Joueur j1=new Joueur("1");
+        assertFalse(j1.isEstRoi());
+    }
 }
