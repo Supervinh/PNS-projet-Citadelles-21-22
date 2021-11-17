@@ -2,20 +2,20 @@ package fr.unice.polytech;
 
 public class CartePersonnage {
     private final double id;
-    private final String name;
+    private final String nom;
     private final String jewl;
     private final String description;
 
-    public CartePersonnage(double id, String name, String jewl) {
+    public CartePersonnage(double id, String nom, String jewl) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
         this.jewl = jewl;
         this.description = null;
     }
 
-    public CartePersonnage(double id, String name, String jewl, String description) {
+    public CartePersonnage(double id, String nom, String jewl, String description) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
         this.jewl = jewl;
         this.description = description;
     }
@@ -25,7 +25,7 @@ public class CartePersonnage {
     }
 
     public String getName() {
-        return name;
+        return nom;
     }
 
     public String getJewl() {
@@ -40,7 +40,7 @@ public class CartePersonnage {
     public String toString() {
         return "CartePersonnage{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + nom + '\'' +
                 ", jewl='" + jewl + '\'' +
                 ", description='" + description + '\'' +
                 '}';
