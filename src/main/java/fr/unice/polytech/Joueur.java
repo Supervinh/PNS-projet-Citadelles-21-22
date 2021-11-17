@@ -33,7 +33,7 @@ public class Joueur {
 
     public void piocherPersonnage() {
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        System.out.println(this.getNom() + " a pioché: " + cp.getNom());
+        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.RED + cp.getNom() + CouleurConsole.RESET);
         this.personnage = cp;
 
     }
