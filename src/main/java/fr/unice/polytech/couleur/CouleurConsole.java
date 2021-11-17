@@ -1,6 +1,4 @@
-package fr.unice.polytech.Couleur;
-
-import org.apache.poi.hssf.util.HSSFColor;
+package fr.unice.polytech.couleur;
 
 /**
  * @author https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println

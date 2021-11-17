@@ -1,6 +1,6 @@
 package fr.unice.polytech;
 
-import fr.unice.polytech.Couleur.CouleurConsole;
+import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
