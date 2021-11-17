@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class JoueurTest {
     @Test
     void notEmpty(){
-        Joueur j1= new Joueur("1", true);
+        Joueur j1= new Joueur("1");
         assertEquals(MoteurDeJeu.or2Depart,j1.getOr());
         assertNotEquals(null,j1.getQuartiers());
     }
 
     @Test
     void aPiocheOr(){
-        Joueur j2=new Joueur("2", true);
+        Joueur j2=new Joueur("2");
         j2.piocherOr();
         assertNotEquals(MoteurDeJeu.or2Depart,j2.getOr());
         assertEquals(MoteurDeJeu.orAPiocher+MoteurDeJeu.or2Depart, j2.getOr());
@@ -22,16 +22,16 @@ class JoueurTest {
 
     @Test
     void nomCorrect(){
-        Joueur j3=new Joueur("3", true);
+        Joueur j3=new Joueur("3");
         assertEquals("3", j3.getNom());
-        Joueur j4=new Joueur(null, true);
+        Joueur j4=new Joueur(null);
         assertEquals(null,j4.getNom());
     }
 
     @Test
     void piocherPersoDifferents(){
-        Joueur j1=new Joueur("1",true);
-        Joueur j2=new Joueur("2",true);
+        Joueur j1=new Joueur("1");
+        Joueur j2=new Joueur("2");
         j1.piocherPersonnage();
         j2.piocherPersonnage();
         assertNotEquals(j1.getPersonnage(),j2.getPersonnage());
@@ -39,8 +39,8 @@ class JoueurTest {
 
     @Test
     void piocherCartesDifferentes(){
-        Joueur j1=new Joueur("1",true);
-        Joueur j2=new Joueur("2",true);
+        Joueur j1=new Joueur("1");
+        Joueur j2=new Joueur("2");
         j1.piocherQuartier();
         j2.piocherQuartier();
         assertNotEquals(j1.getQuartiers(),j2.getQuartiers());

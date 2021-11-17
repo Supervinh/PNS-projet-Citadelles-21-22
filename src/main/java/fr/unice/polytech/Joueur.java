@@ -9,7 +9,6 @@ public class Joueur {
     private final String nom;
     private final List<CarteQuartier> quartiers = new ArrayList<>();
     private final List<CarteQuartier> quartiersConstruit = new ArrayList<>();
-    private final boolean estIA;
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
@@ -17,16 +16,6 @@ public class Joueur {
 
     public Joueur(String nom) {
         this.nom = nom;
-        this.estIA = false;
-        this.ajouteOr(MoteurDeJeu.or2Depart);
-        for (int i = 0; i < MoteurDeJeu.carte2Depart; i++) {
-            this.quartiers.add(MoteurDeJeu.deck.piocherQuartier());
-        }
-    }
-
-    public Joueur(String nom, boolean b) {
-        this.nom = nom;
-        this.estIA = b;
         this.ajouteOr(MoteurDeJeu.or2Depart);
         for (int i = 0; i < MoteurDeJeu.carte2Depart; i++) {
             this.quartiers.add(MoteurDeJeu.deck.piocherQuartier());
@@ -55,30 +44,11 @@ public class Joueur {
             AtomicInteger i = new AtomicInteger(1);
             System.out.println(" - Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
-            if (this.estIA) {
-                CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
-                this.ajouteOr(-1 * choix.getPrice());
-                System.out.println("Vous avez construit: " + choix);
-                this.quartiersConstruit.add(choix);
-                this.quartiers.remove(choix);
-            } else {
-                System.out.print("Entrez le numéro de votre choix: ");
-                int numChoix = MoteurDeJeu.sc.nextInt() - 1;
-                if (0 <= numChoix && numChoix < quartiersAchetable.size()) {
-                    CarteQuartier choix = quartiersAchetable.get(numChoix);
-                    this.ajouteOr(-1 * choix.getPrice());
-                    System.out.println("Vous avez construit: " + choix);
-                    this.quartiersConstruit.add(choix);
-                    this.quartiers.remove(choix);
-                } else {
-                    if (numChoix == -1) {
-                        System.out.println("Vous avez choisi de ne pas construire de quartier");
-                    } else {
-                        System.out.println("Vous avez choisi un choix non proposé. Reessayez\n");
-                        this.construireQuartier();
-                    }
-                }
-            }
+            CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
+            this.ajouteOr(-1 * choix.getPrice());
+            System.out.println("Vous avez construit: " + choix);
+            this.quartiersConstruit.add(choix);
+            this.quartiers.remove(choix);
         } else {
             System.out.println("Vous n'avez pas assez de pieces d'or afin de construire.");
         }

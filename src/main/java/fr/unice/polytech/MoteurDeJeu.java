@@ -14,7 +14,6 @@ public class MoteurDeJeu {
     public static int carte2Depart = 4;
     public static int carteAPiocher = 1;
     public static int nombre2QuartiersAConstruire = 8;
-    public static boolean Auto = true;
     public static Scanner sc = new Scanner(System.in);
 
     public static void pause(int x) throws InterruptedException {
@@ -34,13 +33,8 @@ public class MoteurDeJeu {
         ArrayList<Joueur> list2Joueurs = new ArrayList<>();
         System.out.println("\n### Entrez Nom des Joueurs ###");
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            if (MoteurDeJeu.Auto) {
-                System.out.println(" - Joueur " + i + ": CPU" + i);
-                list2Joueurs.add(new Joueur("CPU" + i, true));
-            } else {
-                System.out.print(" - Joueur " + i + ": ");
-                list2Joueurs.add(new Joueur(sc.nextLine()));
-            }
+            System.out.println(" - Joueur " + i + ": CPU" + i);
+            list2Joueurs.add(new Joueur("CPU" + i));
         }
 
         int nb2Tours = 0;
