@@ -84,7 +84,7 @@ public class Joueur {
         }
     }
 
-    public int nombre2QuartiersConstruisable() {
+    public int nombre2QuartiersConstructible() {
         return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList()).size();
     }
 
