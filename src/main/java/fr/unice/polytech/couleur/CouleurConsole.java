@@ -89,4 +89,12 @@ public class CouleurConsole {
     public String seperateur1() {
         return RED + " #" + WHITE_BRIGHT + "#" + RED + "# " + RESET;
     }
+
+    public String seperateur2() {
+        return BLUE + " #" + BLACK_BRIGHT + "#" + BLUE + "#" + BLACK_BRIGHT + "#" + BLUE + "# " + RESET;
+    }
+
+    public String tire() {
+        return PURPLE_BRIGHT + " - " + RESET;
+    }
 }

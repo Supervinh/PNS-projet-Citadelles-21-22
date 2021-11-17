@@ -24,7 +24,7 @@ public class MoteurDeJeu {
         this.initialiseJoueur();
         int nb2Tours = 0;
         while (this.pasFini()) {
-            System.out.println("\n##### Tour " + ++nb2Tours + " #####");
+            System.out.println("\n" + cc.seperateur2() + CouleurConsole.WHITE_BRIGHT + "Tour " + ++nb2Tours + cc.seperateur2());
             this.joueurs.forEach(Joueur::piocherPersonnage);
             for (Joueur joueur : this.joueurs) { //Chaque joueur joue les uns après les autres
                 this.tour2Jeu(joueur);
@@ -41,14 +41,14 @@ public class MoteurDeJeu {
     }
 
     public String hello() {
-        return "Citadelle Grp.H - Jeux entre Bots";
+        return cc.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + cc.seperateur1();
     }
 
     public void initialiseJoueur() {
         System.out.println("\n" + cc.seperateur1() + CouleurConsole.WHITE_BRIGHT + "Entrez Nom des Joueurs" + cc.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            System.out.println(" - Joueur " + i + ": CPU" + i);
-            this.joueurs.add(new Joueur("CPU" + i));
+            System.out.println(cc.tire() + "Joueur " + i + ": CPU" + i);
+            this.joueurs.add(new Joueur(CouleurConsole.CYAN_BOLD + "CPU" + i + CouleurConsole.RESET));
         }
     }
 
@@ -57,7 +57,7 @@ public class MoteurDeJeu {
     }
 
     public void tour2Jeu(Joueur joueur) {
-        System.out.println("\n### Tour de " + joueur.getNom() + " ###");
+        System.out.println("\n" + cc.seperateur1() + CouleurConsole.WHITE_BRIGHT + "Tour de " + joueur.getNom() + cc.seperateur1());
         if (joueur.getQuartiers().size() == 0) {
             joueur.piocherQuartier();
         } else {
@@ -71,7 +71,7 @@ public class MoteurDeJeu {
         int maxScore = this.joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
         Joueur winner = this.joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).findFirst().orElse(null);
         if (winner != null) {
-            System.out.println("\nLe Gagnant est: " + winner.getNom() + " avec " + winner.getPoints() + " points");
+            System.out.println("\nLe Gagnant est: " + winner.getNom() + " avec " + CouleurConsole.YELLOW_BRIGHT + winner.getPoints() + CouleurConsole.RESET + " points");
         } else {
             System.out.println("\nPas de Gagnant");
         }

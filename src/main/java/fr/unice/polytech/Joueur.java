@@ -1,5 +1,7 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.couleur.CouleurConsole;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -39,17 +41,17 @@ public class Joueur {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
-            System.out.println("Construire Quartier -" + this.getNom() + " a " + this.or + " pieces d'or");
+            System.out.println("Construire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
             AtomicInteger i = new AtomicInteger(1);
-            System.out.println(" - Choix 0: Ne pas construire");
-            quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
+            System.out.println(MoteurDeJeu.cc.tire() + "Choix 0: Ne pas construire");
+            quartiersAchetable.forEach(quartier -> System.out.println(MoteurDeJeu.cc.tire() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
             this.ajouteOr(-1 * choix.getPrix());
             System.out.println(this.getNom() + " a construit: " + choix);
             this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
-            System.out.println(this.getNom() + " n'a pas assez de pieces d'or pour construire.");
+            System.out.println(this.getNom() + " n'a pas assez de pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET + " pour construire.");
         }
     }
 
@@ -58,8 +60,8 @@ public class Joueur {
     }
 
     public void piocherOr() {
-        System.out.println(this.getNom() + " a pioché: " + MoteurDeJeu.orAPiocher + " pieces d'or");
         this.ajouteOr(MoteurDeJeu.orAPiocher);
+        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.YELLOW_BOLD_BRIGHT + MoteurDeJeu.orAPiocher + CouleurConsole.RESET + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
     }
 
     private void ajouteOr(int n) {
@@ -103,23 +105,23 @@ public class Joueur {
     }
 
     public String getNom2QuartierDansListe(ArrayList<CarteQuartier> list) {
-        StringBuilder txt = new StringBuilder("[");
+        StringBuilder txt = new StringBuilder("[" + CouleurConsole.GREEN);
         for (int i = 0; i < list.size(); i++) {
             txt.append(list.get(i).getNom());
             if (i != list.size() - 1) {
                 txt.append(", ");
             }
         }
-        return txt.append("]").toString();
+        return txt.append(CouleurConsole.RESET + "]").toString();
     }
 
     @Override
     public String toString() {
         return "Joueur{" +
-                "nom='" + nom +
-                ", or=" + or +
-                ", estRoi=" + estRoi +
-                ", personnage=" + this.getPersonnage().getNom() +
+                "nom=" + nom +
+                ", or=" + CouleurConsole.YELLOW_BRIGHT + or + CouleurConsole.RESET +
+                ", estRoi=" + CouleurConsole.BLUE + estRoi + CouleurConsole.RESET +
+                ", personnage=" + CouleurConsole.RED + this.getPersonnage().getNom() + CouleurConsole.RESET +
                 ", quartiers=" + this.getNom2QuartierDansListe(quartiers) +
                 ", quartiersConstruits=" + this.getNom2QuartierDansListe(quartiersConstruits) +
                 '}';

@@ -1,5 +1,7 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.couleur.CouleurConsole;
+
 public class CarteQuartier {
     private final double id;
     private final String nom;
@@ -46,11 +48,11 @@ public class CarteQuartier {
     @Override
     public String toString() {
         return "CarteQuartier{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", gemme='" + gemme + '\'' +
-                ", prix=" + prix +
-                ", description='" + description + '\'' +
+                "id=" + CouleurConsole.CYAN_BRIGHT + id + CouleurConsole.RESET +
+                ", nom=" + CouleurConsole.GREEN + nom + CouleurConsole.RESET +
+                ", gemme=" + CouleurConsole.PURPLE + gemme + CouleurConsole.RESET +
+                ", prix=" + CouleurConsole.YELLOW_BRIGHT + prix + CouleurConsole.RESET +
+                ", description=" + CouleurConsole.BLACK_BRIGHT + description + CouleurConsole.RESET +
                 '}';
     }
 }
