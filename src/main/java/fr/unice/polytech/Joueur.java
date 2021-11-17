@@ -1,14 +1,13 @@
 package fr.unice.polytech;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Joueur {
     private final String nom;
-    private final List<CarteQuartier> quartiers = new ArrayList<>();
-    private final List<CarteQuartier> quartiersConstruits = new ArrayList<>();
+    private final ArrayList<CarteQuartier> quartiers = new ArrayList<>();
+    private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
@@ -83,11 +82,11 @@ public class Joueur {
         return personnage;
     }
 
-    public List<CarteQuartier> getQuartiers() {
+    public ArrayList<CarteQuartier> getQuartiers() {
         return quartiers;
     }
 
-    public List<CarteQuartier> getQuartiersConstruits() {
+    public ArrayList<CarteQuartier> getQuartiersConstruits() {
         return quartiersConstruits;
     }
 
@@ -103,6 +102,17 @@ public class Joueur {
         return points;
     }
 
+    public String getNom2QuartierDansListe(ArrayList<CarteQuartier> list) {
+        StringBuilder txt = new StringBuilder("[");
+        for (int i = 0; i < list.size(); i++) {
+            txt.append(list.get(i).getNom());
+            if (i != list.size() - 1) {
+                txt.append(", ");
+            }
+        }
+        return txt.append("]").toString();
+    }
+
     @Override
     public String toString() {
         return "Joueur{" +
@@ -110,8 +120,8 @@ public class Joueur {
                 ", or=" + or +
                 ", estRoi=" + estRoi +
                 ", personnage=" + this.getPersonnage().getNom() +
-                ", quartiers=" + quartiers +
-                ", quartiersConstruits=" + quartiersConstruits +
+                ", quartiers=" + this.getNom2QuartierDansListe(quartiers) +
+                ", quartiersConstruits=" + this.getNom2QuartierDansListe(quartiersConstruits) +
                 '}';
     }
 }
