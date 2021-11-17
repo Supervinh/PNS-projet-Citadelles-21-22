@@ -1,9 +1,7 @@
 package fr.unice.polytech;
 
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -63,8 +61,8 @@ public class MoteurDeJeu {
         }
         list2Joueurs.forEach(Joueur::calculePoints);
         int maxScore = list2Joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
-        Joueur winner = list2Joueurs.stream().filter(joueur -> joueur.getPoints()==maxScore).findFirst().orElse(null);
-        if (winner!=null) {
+        Joueur winner = list2Joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).findFirst().orElse(null);
+        if (winner != null) {
             System.out.println("\nLe Gagnant est: " + winner.getNom() + " avec " + winner.getPoints() + " points");
         } else {
             System.out.println("\nPas de Gagnant");
