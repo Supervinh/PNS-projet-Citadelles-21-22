@@ -45,7 +45,7 @@ public class MoteurDeJeu {
 
         int nb2Tours = 0;
         while (list2Joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruit().size() < MoteurDeJeu.nombre2QuartiersAConstruire)) {
-            System.out.println("\n##### Tour " + nb2Tours++ + " #####");
+            System.out.println("\n##### Tour " + ++nb2Tours + " #####");
             for (Joueur joueur : list2Joueurs) {
                 System.out.println("\n### Tour de " + joueur.getNom() + " ###");
                 // Actions a faire
@@ -59,7 +59,7 @@ public class MoteurDeJeu {
             }
             deck.recreerDeckPersonnages();
             System.out.println("\n" + list2Joueurs);
-            MoteurDeJeu.pause(100);
+            // MoteurDeJeu.pause(100);
         }
         list2Joueurs.forEach(Joueur::calculePoints);
         int maxScore = list2Joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
