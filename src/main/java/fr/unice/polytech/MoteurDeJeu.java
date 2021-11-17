@@ -25,7 +25,7 @@ public class MoteurDeJeu {
         return "Citadelle Grp.H";
     }
 
-    public static void main(String... args) throws InterruptedException {
+    public static void main(String... args) {
         System.out.println(MoteurDeJeu.hello());
         System.out.println(deck);
 
@@ -54,7 +54,6 @@ public class MoteurDeJeu {
             }
             deck.recreerDeckPersonnages();
             System.out.println("\n" + list2Joueurs);
-            // MoteurDeJeu.pause(100);
         }
         list2Joueurs.forEach(Joueur::calculePoints);
         int maxScore = list2Joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);

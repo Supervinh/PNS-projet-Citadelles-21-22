@@ -24,14 +24,14 @@ public class Joueur {
     public void piocherQuartier() {
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
             CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
-            System.out.println(this.getNom()+" a pioché: " + cq);
+            System.out.println(this.getNom() + " a pioché: " + cq);
             this.quartiers.add(cq);
         }
     }
 
     public void piocherPersonnage() {
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        System.out.println(this.getNom()+" a pioché: " + cp.getNom());
+        System.out.println(this.getNom() + " a pioché: " + cp.getNom());
         this.personnage = cp;
 
     }
@@ -39,17 +39,17 @@ public class Joueur {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
-            System.out.println("Construire Quartier -"+this.getNom() +" a " + this.or + " pieces d'or");
+            System.out.println("Construire Quartier -" + this.getNom() + " a " + this.or + " pieces d'or");
             AtomicInteger i = new AtomicInteger(1);
             System.out.println(" - Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
             this.ajouteOr(-1 * choix.getPrix());
-            System.out.println(this.getNom()+" a construit: " + choix);
+            System.out.println(this.getNom() + " a construit: " + choix);
             this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
-            System.out.println(this.getNom()+" n'a pas assez de pieces d'or pour construire.");
+            System.out.println(this.getNom() + " n'a pas assez de pieces d'or pour construire.");
         }
     }
 
@@ -58,7 +58,7 @@ public class Joueur {
     }
 
     public void piocherOr() {
-        System.out.println(this.getNom()+" a pioché: " + MoteurDeJeu.orAPiocher + " pieces d'or");
+        System.out.println(this.getNom() + " a pioché: " + MoteurDeJeu.orAPiocher + " pieces d'or");
         this.ajouteOr(MoteurDeJeu.orAPiocher);
     }
 
