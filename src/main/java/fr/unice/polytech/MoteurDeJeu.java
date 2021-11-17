@@ -25,6 +25,10 @@ public class MoteurDeJeu {
         return "Citadelle Grp.H - Jeux entre Bots";
     }
 
+    public MoteurDeJeu() {
+
+    }
+
     public static void main(String... args) {
         System.out.println(MoteurDeJeu.hello());
         System.out.println(deck);
