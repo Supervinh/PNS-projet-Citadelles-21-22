@@ -2,24 +2,24 @@ package fr.unice.polytech;
 
 public class CarteQuartier {
     private final double id;
-    private final String name;
-    private final String jewl;
-    private final int price;
+    private final String nom;
+    private final String gemme;
+    private final int prix;
     private final String description;
 
-    public CarteQuartier(double id, String name, String jewl, double price) {
+    public CarteQuartier(double id, String nom, String gemme, double prix) {
         this.id = id;
-        this.name = name;
-        this.jewl = jewl;
-        this.price = (int) price;
+        this.nom = nom;
+        this.gemme = gemme;
+        this.prix = (int) prix;
         this.description = null;
     }
 
-    public CarteQuartier(double id, String name, String jewl, double price, String description) {
+    public CarteQuartier(double id, String nom, String gemme, double prix, String description) {
         this.id = id;
-        this.name = name;
-        this.jewl = jewl;
-        this.price = (int) price;
+        this.nom = nom;
+        this.gemme = gemme;
+        this.prix = (int) prix;
         this.description = description;
     }
 
@@ -27,16 +27,16 @@ public class CarteQuartier {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public String getJewl() {
-        return jewl;
+    public String getGemme() {
+        return gemme;
     }
 
-    public int getPrice() {
-        return price;
+    public int getPrix() {
+        return prix;
     }
 
     public String getDescription() {
@@ -47,9 +47,9 @@ public class CarteQuartier {
     public String toString() {
         return "CarteQuartier{" +
                 "iD=" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", jewl='" + jewl + '\'' +
-                ", price=" + price +
+                ", name='" + nom + '\'' +
+                ", jewl='" + gemme + '\'' +
+                ", price=" + prix +
                 ", description='" + description + '\'' +
                 '}';
     }

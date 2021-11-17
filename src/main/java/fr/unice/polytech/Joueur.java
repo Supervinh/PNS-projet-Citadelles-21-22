@@ -32,20 +32,20 @@ public class Joueur {
 
     public void piocherPersonnage() {
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        System.out.println("Vous avez pioché: " + cp.getName());
+        System.out.println("Vous avez pioché: " + cp.getNom());
         this.personnage=cp;
 
     }
 
     public void construireQuartier() {
-        ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList());
+        ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList());
         if (quartiersAchetable.size() > 0) {
             System.out.println("Construire Quartier - Vous avez " + this.or + " pieces d'or");
             AtomicInteger i = new AtomicInteger(1);
             System.out.println(" - Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(" - Choix " + (i.getAndIncrement()) + ": " + quartier));
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
-            this.ajouteOr(-1 * choix.getPrice());
+            this.ajouteOr(-1 * choix.getPrix());
             System.out.println("Vous avez construit: " + choix);
             this.quartiersConstruit.add(choix);
             this.quartiers.remove(choix);
@@ -54,8 +54,8 @@ public class Joueur {
         }
     }
 
-    public int nombre2QuartiersConstruisable() {
-        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrice() <= this.or).toList()).size();
+    public int nombre2QuartiersConstructible() {
+        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
     }
 
     public void piocherOr() {
@@ -68,7 +68,7 @@ public class Joueur {
     }
 
     public void calculePoints() {
-        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrice).sum();
+        this.points = this.quartiersConstruit.stream().mapToInt(CarteQuartier::getPrix).sum();
     }
 
     public String getNom() {
@@ -106,12 +106,12 @@ public class Joueur {
     @Override
     public String toString() {
         return "Joueur{" +
-                "nom='" + nom +
+                "nom='" + nom  +
                 ", or=" + or +
+                ", estRoi=" + estRoi +
                 ", personnage=" + personnage +
                 ", quartiers=" + quartiers +
                 ", quartiersConstruit=" + quartiersConstruit +
-                ", estRoi=" + estRoi +
                 '}';
     }
 }

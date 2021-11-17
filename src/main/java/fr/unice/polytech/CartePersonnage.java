@@ -2,21 +2,21 @@ package fr.unice.polytech;
 
 public class CartePersonnage {
     private final double id;
-    private final String name;
-    private final String jewl;
+    private final String nom;
+    private final String gemme;
     private final String description;
 
-    public CartePersonnage(double id, String name, String jewl) {
+    public CartePersonnage(double id, String nom, String gemme) {
         this.id = id;
-        this.name = name;
-        this.jewl = jewl;
+        this.nom = nom;
+        this.gemme = gemme;
         this.description = null;
     }
 
-    public CartePersonnage(double id, String name, String jewl, String description) {
+    public CartePersonnage(double id, String nom, String gemme, String description) {
         this.id = id;
-        this.name = name;
-        this.jewl = jewl;
+        this.nom = nom;
+        this.gemme = gemme;
         this.description = description;
     }
 
@@ -24,12 +24,12 @@ public class CartePersonnage {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public String getJewl() {
-        return jewl;
+    public String getGemme() {
+        return gemme;
     }
 
     public String getDescription() {
@@ -40,8 +40,8 @@ public class CartePersonnage {
     public String toString() {
         return "CartePersonnage{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", jewl='" + jewl + '\'' +
+                ", name='" + nom + '\'' +
+                ", jewl='" + gemme + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
