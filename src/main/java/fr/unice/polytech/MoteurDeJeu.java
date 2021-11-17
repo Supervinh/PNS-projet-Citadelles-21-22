@@ -1,6 +1,6 @@
 package fr.unice.polytech;
 
-
+import fr.unice.polytech.Couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +15,7 @@ public class MoteurDeJeu {
     public static int carteAPiocher = 1;
     public static int nombre2QuartiersAConstruire = 8;
     public static Scanner sc = new Scanner(System.in);
+    public static CouleurConsole cc = new CouleurConsole();
 
     public static void pause(int x) throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(x);
