@@ -1,6 +1,6 @@
 package fr.unice.polytech;
 
-
+import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -37,6 +37,7 @@ public class MoteurDeJeu {
         this.obtenirGagnant();
 
     }
+    public static CouleurConsole cc = new CouleurConsole();
 
     public static void pause(int x) throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(x);
