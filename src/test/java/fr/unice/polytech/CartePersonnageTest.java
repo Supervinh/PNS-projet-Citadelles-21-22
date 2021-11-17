@@ -16,7 +16,7 @@ class CartePersonnageTest {
         CartePersonnage cp= new CartePersonnage(1,"Assassin",null,"description");
         assertEquals("Assassin",cp.getNom());
         assertEquals(1,cp.getId());
-        assertEquals(null,cp.getJewl());
+        assertEquals(null,cp.getGemme());
         assertNotEquals(null,cp.getDescription());
     }
 }
