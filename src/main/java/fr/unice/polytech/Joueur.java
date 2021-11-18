@@ -85,7 +85,8 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void jouer() {
-        this.strat.prochainTour();
+        if (!this.estTue) this.strat.prochainTour();
+        else System.out.println(this.getNom() + " est " + CouleurConsole.RED + "Mort" + CouleurConsole.RESET);
     }
 
     public String getNom2Strategie() {
@@ -121,7 +122,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void tue(Joueur joueur) {
-        System.out.println(this.getNom() + " a tué " + joueur.getNom());
+        System.out.println(this.getNom() + " a " + CouleurConsole.RED + "tué " + CouleurConsole.RESET + joueur.getNom());
         joueur.estTue = true;
     }
 
