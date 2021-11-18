@@ -42,7 +42,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void construireQuartier() {
-        ArrayList<CarteQuartier> quartiersAchetable = new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList());
+        ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
             System.out.println("Construire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
             AtomicInteger i = new AtomicInteger(1);
@@ -56,6 +56,14 @@ public class Joueur implements Comparable<Joueur> {
         } else {
             System.out.println(this.getNom() + " n'a pas assez de pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET + " pour construire.");
         }
+    }
+
+    public ArrayList<CarteQuartier> quartiersConstructible() {
+        return new ArrayList<>(this.quartiers.stream().filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
+    }
+
+    public boolean contientQuartier(String nom) {
+        return this.quartiersConstruits.stream().anyMatch(quartier -> quartier.getNom().equals(nom));
     }
 
     public int nombre2QuartiersConstructible() {
@@ -73,6 +81,7 @@ public class Joueur implements Comparable<Joueur> {
 
     public void calculePoints() {
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
+        this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getId() > 25).count(); // Bonus
     }
 
     public void jouer() {
