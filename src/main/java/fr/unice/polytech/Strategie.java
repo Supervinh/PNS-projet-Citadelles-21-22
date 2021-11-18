@@ -5,8 +5,13 @@ import fr.unice.polytech.couleur.CouleurConsole;
 import fr.unice.polytech.pouvoirs.IPouvoir;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Strategie {
     private final Joueur joueur;
+    private Joueur cible;
     private IStrategie iStrategie = new SuffisammentQuartier();
     private IPouvoir iPouvoir;
 
@@ -54,14 +59,17 @@ public class Strategie {
     public void prochainTour() {
         this.choisirStrat();
         System.out.println(this.joueur.getNom2Strategie());
-        this.iStrategie.utiliserStrategie(this.joueur);
-//        this.actionPersonnage();
-//        this.iPouvoir.utiliserPouvoir();
+        if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+
+        this.actionPersonnage();
+        ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
+        cibles.remove(this.joueur);
+        this.cible = cibles.get(new Random().nextInt(cibles.size()));
+        if (this.iPouvoir != null) this.iPouvoir.utiliserPouvoir(this.joueur, this.cible);
     }
 
     @Override
     public String toString() {
-//        this.choisirStrat();
         return "Strategie=" + CouleurConsole.GREEN + this.iStrategie.nomStrategie() + CouleurConsole.RESET;
     }
 }
