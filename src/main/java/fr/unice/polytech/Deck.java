@@ -37,10 +37,7 @@ public class Deck {
     }
 
     public CartePersonnage piocherPersonnage() {
-        Random random = new Random();
-        int nb;
-        nb = random.nextInt(7);
-        return this.personnages.remove(nb);
+        return this.personnages.remove(new Random().nextInt(this.personnages.size()));
     }
 
     public void ajoutePersonnage(CartePersonnage personnage) {
