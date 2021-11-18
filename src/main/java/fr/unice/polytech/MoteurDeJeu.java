@@ -5,6 +5,7 @@ import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoteurDeJeu {
 
@@ -16,23 +17,29 @@ public class MoteurDeJeu {
     public static int carteAPiocher = 1;
     public static int nombre2QuartiersAConstruire = 8;
     public static CouleurConsole cc = new CouleurConsole();
-    public ArrayList<Joueur> joueurs = new ArrayList<>();
+    public static ArrayList<Joueur> joueurs;
     private int nb2Tours = 0;
 
     public MoteurDeJeu() {
         deck = new Deck();
+        joueurs = new ArrayList<>();
         System.out.println(this.hello());
         System.out.println("\n" + deck);
 
         this.initialiseJoueur();
         while (this.pasFini()) {
             System.out.println("\n" + cc.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + cc.seperateur2());
-            this.joueurs.forEach(Joueur::piocherPersonnage);
-            for (Joueur joueur : this.joueurs) { //Chaque joueur joue les uns après les autres
-                this.tour2Jeu(joueur);
+            joueurs.forEach(Joueur::piocherPersonnage);
+            AtomicInteger k = new AtomicInteger(0);
+            int roiIndex = joueurs.stream().peek(v -> k.incrementAndGet()).anyMatch(Joueur::isEstRoi) ? k.get() - 1 : -1;
+            for (int i = roiIndex; i < joueurs.size(); i++) {
+                this.tour2Jeu(joueurs.get(i));
             }
-            this.joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
-            System.out.println("\n" + this.joueurs);
+            for (int i = 0; i < roiIndex; i++) {
+                this.tour2Jeu(joueurs.get(i));
+            }
+            joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
+            System.out.println("\n" + joueurs);
         }
         this.obtenirGagnant();
     }
@@ -49,12 +56,13 @@ public class MoteurDeJeu {
         System.out.println("\n" + cc.seperateur1() + CouleurConsole.RESET + "Entrez Nom des Joueurs" + cc.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             System.out.println(cc.tire() + "Joueur " + i + ": CPU" + i);
-            this.joueurs.add(new Joueur(CouleurConsole.CYAN_BOLD + "CPU" + i + CouleurConsole.RESET));
+            joueurs.add(new Joueur(CouleurConsole.CYAN_BOLD + "CPU" + i + CouleurConsole.RESET));
         }
+        joueurs.get(0).setEstRoi(true);
     }
 
     public boolean pasFini() {
-        return (this.joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruits().size() < MoteurDeJeu.nombre2QuartiersAConstruire));
+        return (joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruits().size() < MoteurDeJeu.nombre2QuartiersAConstruire));
     }
 
     public void tour2Jeu(Joueur joueur) {
@@ -63,9 +71,9 @@ public class MoteurDeJeu {
     }
 
     public void obtenirGagnant() {
-        this.joueurs.forEach(Joueur::calculePoints);
-        int maxScore = this.joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
-        ArrayList<Joueur> winners = new ArrayList<>(this.joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).toList());
+        joueurs.forEach(Joueur::calculePoints);
+        int maxScore = joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
+        ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).toList());
         switch (winners.size()) {
             case 1 -> System.out.print("\nLe " + CouleurConsole.RED + "Gagnant" + CouleurConsole.RESET + " est ");
             case 0 -> System.out.println("\nPas de " + CouleurConsole.RED + "Gagnant" + CouleurConsole.RESET);
@@ -76,8 +84,8 @@ public class MoteurDeJeu {
     }
 
     public void montrerClassement() {
-        Collections.sort(this.joueurs);
+        Collections.sort(joueurs);
         System.out.println("\n" + cc.seperateur2() + CouleurConsole.CYAN_BRIGHT + "Classement apres " + this.nb2Tours + " Tours" + cc.seperateur2());
-        this.joueurs.forEach(joueur -> System.out.println(cc.tire() + joueur.getNom() + " a " + CouleurConsole.YELLOW_BRIGHT + joueur.getPoints() + CouleurConsole.RESET + " points"));
+        joueurs.forEach(joueur -> System.out.println(cc.tire() + joueur.getNom() + " a " + CouleurConsole.YELLOW_BRIGHT + joueur.getPoints() + CouleurConsole.RESET + " points"));
     }
 }
