@@ -1,5 +1,7 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.couleur.CouleurConsole;
+
 public class CartePersonnage {
     private final double id;
     private final String nom;
@@ -39,10 +41,10 @@ public class CartePersonnage {
     @Override
     public String toString() {
         return "CartePersonnage{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", gemme='" + gemme + '\'' +
-                ", description='" + description + '\'' +
+                "id=" + CouleurConsole.CYAN_BRIGHT + id + CouleurConsole.RESET +
+                ", nom=" + CouleurConsole.GREEN + nom + CouleurConsole.RESET +
+                ", gemme=" + CouleurConsole.PURPLE + gemme + CouleurConsole.RESET +
+                ", description=" + CouleurConsole.BLACK_BRIGHT + description + CouleurConsole.RESET +
                 '}';
     }
 }
