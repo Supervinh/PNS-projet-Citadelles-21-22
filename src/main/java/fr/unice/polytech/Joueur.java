@@ -10,11 +10,12 @@ public class Joueur implements Comparable<Joueur> {
     private final String nom;
     private final ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
+    private final Strategie strat;
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
+    private boolean estTue = false;
     private int points = 0;
-    private Strategie strat;
 
     public Joueur(String nom) {
         this.nom = nom;
@@ -34,10 +35,10 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void piocherPersonnage() {
+        this.estTue = false;
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
         System.out.println(this.getNom() + " a pioché: " + CouleurConsole.RED + cp.getNom() + CouleurConsole.RESET);
         this.personnage = cp;
-
     }
 
     public void construireQuartier() {
@@ -108,6 +109,11 @@ public class Joueur implements Comparable<Joueur> {
 
     public void setEstRoi(boolean b) {
         this.estRoi = b;
+    }
+
+    public void tue(Joueur joueur) {
+        System.out.println(this.getNom() + " a tué " + joueur.getNom());
+        joueur.estTue = true;
     }
 
     public int getPoints() {
