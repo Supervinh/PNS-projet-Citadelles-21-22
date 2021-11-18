@@ -4,7 +4,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.xmlbeans.impl.piccolo.util.IndexedObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -68,7 +67,7 @@ public class ExcelReader {
             if (count == 1) continue;
             for (int i = 1; i <= row.getCell(2).getNumericCellValue(); i++) {
                 quartiersTemp.add(new CarteQuartier(
-                        row.getCell(0).getNumericCellValue() + (0.1*i),
+                        row.getCell(0).getNumericCellValue() + (0.1 * i),
                         row.getCell(1).getStringCellValue(),
                         row.getCell(3).getStringCellValue(),
                         row.getCell(4).getNumericCellValue(),
