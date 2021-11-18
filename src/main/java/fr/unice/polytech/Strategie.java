@@ -38,7 +38,7 @@ public class Strategie {
             this.iStrategie = new SuffisammentQuartier();
             parDefaut = false;
         }
-        if (this.joueur.getOr() < 4) {
+        if (this.joueur.getOr() < 2) {
             this.iStrategie = new EconomiserArgent();
             parDefaut = false;
         }
@@ -53,6 +53,7 @@ public class Strategie {
 
     public void prochainTour() {
         this.choisirStrat();
+        System.out.println(this.joueur.getNom2Strategie());
         this.iStrategie.utiliserStrategie(this.joueur);
 //        this.actionPersonnage();
 //        this.iPouvoir.utiliserPouvoir();
@@ -60,7 +61,7 @@ public class Strategie {
 
     @Override
     public String toString() {
-        this.choisirStrat();
+//        this.choisirStrat();
         return "Strategie=" + CouleurConsole.GREEN + this.iStrategie.nomStrategie() + CouleurConsole.RESET;
     }
 }
