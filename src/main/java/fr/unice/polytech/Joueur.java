@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Joueur {
+public class Joueur implements Comparable<Joueur> {
     private final String nom;
     private final ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
@@ -14,6 +14,7 @@ public class Joueur {
     private CartePersonnage personnage;
     private boolean estRoi = false;
     private int points = 0;
+    private Strategie strat;
 
     public Joueur(String nom) {
         this.nom = nom;
@@ -21,6 +22,7 @@ public class Joueur {
         for (int i = 0; i < MoteurDeJeu.carte2Depart; i++) {
             this.quartiers.add(MoteurDeJeu.deck.piocherQuartier());
         }
+        this.strat = new Strategie(this);
     }
 
     public void piocherQuartier() {
@@ -70,6 +72,14 @@ public class Joueur {
 
     public void calculePoints() {
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
+    }
+
+    public void jouer() {
+        this.strat.prochainTour();
+    }
+
+    public String getNom2Strategie() {
+        return this.strat.toString();
     }
 
     public String getNom() {
@@ -125,5 +135,10 @@ public class Joueur {
                 ", quartiers=" + this.getNom2QuartierDansListe(quartiers) +
                 ", quartiersConstruits=" + this.getNom2QuartierDansListe(quartiersConstruits) +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Joueur j) {
+        return j.getPoints() - this.getPoints();
     }
 }
