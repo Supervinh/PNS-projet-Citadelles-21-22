@@ -121,9 +121,13 @@ public class Joueur implements Comparable<Joueur> {
         this.estRoi = b;
     }
 
+    public boolean isEstTue() {
+        return estTue;
+    }
+
     public void tue(Joueur joueur) {
-        System.out.println(this.getNom() + " a " + CouleurConsole.RED + "tué " + CouleurConsole.RESET + joueur.getNom());
         joueur.estTue = true;
+        if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setEstRoi(false);
     }
 
     public int getPoints() {
