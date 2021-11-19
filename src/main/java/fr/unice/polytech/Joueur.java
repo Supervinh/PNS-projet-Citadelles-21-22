@@ -5,6 +5,7 @@ import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class Joueur implements Comparable<Joueur> {
     private final String nom;
@@ -15,6 +16,7 @@ public class Joueur implements Comparable<Joueur> {
     private CartePersonnage personnage;
     private boolean estRoi = false;
     private boolean estTue = false;
+    private boolean first = false;
     private int points = 0;
 
     public Joueur(String nom) {
@@ -81,7 +83,16 @@ public class Joueur implements Comparable<Joueur> {
 
     public void calculePoints() {
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
-        this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getId() > 25).count(); // Bonus
+        this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getId() > 25).count();
+        if (this.quartiersConstruits.size() >= MoteurDeJeu.nombre2QuartiersAConstruire) {
+            this.points += 2;
+            if (this.first) {
+                this.points += 2;
+            }
+        }
+        if (this.quartiersConstruits.stream().collect(Collectors.groupingBy(CarteQuartier::getGemme, Collectors.counting())).size() >= 5) {
+            this.points += 3;
+        }
     }
 
     public void jouer() {
@@ -123,6 +134,14 @@ public class Joueur implements Comparable<Joueur> {
 
     public boolean isEstTue() {
         return estTue;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
+    public void setFirst(boolean b) {
+        this.first = b;
     }
 
     public void tue(Joueur joueur) {
