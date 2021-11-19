@@ -4,7 +4,6 @@ import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoteurDeJeu {
@@ -23,25 +22,27 @@ public class MoteurDeJeu {
     private boolean avaitRoi = true;
 
     public MoteurDeJeu() {
+        // Initialise le packet de carte ainsi que les Joueurs.
         deck = new Deck();
         joueurs = new ArrayList<>();
         System.out.println(this.hello());
-        System.out.println("\n" + deck);
-
+        System.out.println(deck);
         this.initialiseJoueur();
+
         int nommbre2Personnages = deck.getPersonnages().size();
         while (this.pasFini()) {
             System.out.println("\n" + cc.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + cc.seperateur2());
 
+            // Trouver le Joueur 'estRoi=True' pour qu'il pioche en premier.
             AtomicInteger k = new AtomicInteger(0);
-            if (joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isEstRoi) && this.avaitRoi) {
-                this.roiIndex = k.get() - 1;
-                joueurs.get(this.roiIndex).setEstRoi(true);
-            } else {
+            this.roiIndex = joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isEstRoi) ? k.get() - 1 : this.roiIndex;
+            if (!this.avaitRoi) {
                 joueurs.get(this.roiIndex).setEstRoi(false);
-                joueurs.get((this.roiIndex + 1) % nombre2Joueur).setEstRoi(true);
+                this.roiIndex = (this.roiIndex + 1) % nombre2Joueur;
+                joueurs.get(this.roiIndex).setEstRoi(true);
             }
 
+            // Joueur Pioche leur personnage dans l'ordre 'horaire' (ordre de la liste) commençant par le Joueur 'estRoi=True'.
             for (int i = this.roiIndex; i < joueurs.size(); i++) {
                 joueurs.get(i).piocherPersonnage();
             }
@@ -49,24 +50,24 @@ public class MoteurDeJeu {
                 joueurs.get(i).piocherPersonnage();
             }
 
+            // Joueur joue leur tour dans l'ordre des numéros des cartes personnage.
             for (int i = 1; i <= nommbre2Personnages; i++) {
                 for (Joueur joueur : joueurs) {
                     if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
                 }
             }
+
+            // Affichage de l'état du Joueur après le Tour. Cherche à savoir quelle method utiliser pour passer le 'estRoi=True'. Puis les Joueurs remettent leur carte dans le packet.
             System.out.println("\n" + joueurs);
             this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
             joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
         }
         this.obtenirGagnant();
-    }
-
-    public static void pause(int x) throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(x);
+        this.montrerClassement();
     }
 
     public String hello() {
-        return cc.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + cc.seperateur1();
+        return cc.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + cc.seperateur1() + "\n";
     }
 
     public void initialiseJoueur() {
@@ -97,7 +98,6 @@ public class MoteurDeJeu {
             default -> System.out.println("\nLes " + CouleurConsole.RED + "Gagnants" + CouleurConsole.RESET + " sont: ");
         }
         winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.YELLOW_BRIGHT + winner.getPoints() + CouleurConsole.RESET + " points"));
-        this.montrerClassement();
     }
 
     public void montrerClassement() {
