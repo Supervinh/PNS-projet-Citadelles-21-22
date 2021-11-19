@@ -30,7 +30,7 @@ public class MoteurDeJeu {
         this.initialiseJoueur();
 
         int nommbre2Personnages = deck.getPersonnages().size();
-        while (this.pasFini()) {
+        while (joueurs.stream().noneMatch(Joueur::isFirst)) {
             System.out.println("\n" + cc.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + cc.seperateur2());
 
             // Trouver le Joueur 'estRoi=True' pour qu'il pioche en premier.
@@ -79,13 +79,13 @@ public class MoteurDeJeu {
         joueurs.get(0).setEstRoi(true);
     }
 
-    public boolean pasFini() {
-        return (joueurs.stream().anyMatch(joueur -> joueur.getQuartiersConstruits().size() < MoteurDeJeu.nombre2QuartiersAConstruire));
-    }
-
     public void tour2Jeu(Joueur joueur) {
         System.out.println("\n" + cc.seperateur1() + CouleurConsole.RESET + "Tour de " + joueur.getNom() + cc.seperateur1());
         joueur.jouer();
+        if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
+            joueur.setFirst(true);
+            System.out.println(joueur.getNom() + " a fini en " + CouleurConsole.RED_BRIGHT + "Premier" + CouleurConsole.RESET);
+        }
     }
 
     public void obtenirGagnant() {
