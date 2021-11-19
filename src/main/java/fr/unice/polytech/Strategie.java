@@ -4,6 +4,7 @@ import fr.unice.polytech.Strategies.*;
 import fr.unice.polytech.couleur.CouleurConsole;
 import fr.unice.polytech.pouvoirs.IPouvoir;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
+import fr.unice.polytech.pouvoirs.PouvoirRoi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Strategie {
             case "Assasin" -> this.iPouvoir = new PouvoirAssassin();
             case "Voleur" -> this.iPouvoir = null;
             case "Magicien" -> this.iPouvoir = null;
-            case "Roi" -> this.iPouvoir = null; // Choisir une stratégie par personnage
+            case "Roi" -> this.iPouvoir = new PouvoirRoi(); // Choisir une stratégie par personnage
             case "Évêque" -> this.iPouvoir = null;
             case "Marchand" -> this.iPouvoir = null;
             case "Architecte" -> this.iPouvoir = null;
