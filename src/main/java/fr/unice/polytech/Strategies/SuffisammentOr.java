@@ -12,6 +12,6 @@ public class SuffisammentOr implements IStrategie {
 
     @Override
     public String nomStrategie() {
-        return "Suffisament d'Or";
+        return "Suffisamment d'Or";
     }
 }
