@@ -8,5 +8,8 @@ public class PouvoirEveque implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur, Joueur cible) {
+        joueur.getQuartiersConstruits().stream()
+                .filter(quartier->quartier.getGemme().equals("Religion"))
+                .forEach(quartier->joueur.ajouteOr(1));
     }
 }

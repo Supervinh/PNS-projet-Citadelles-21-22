@@ -28,7 +28,7 @@ public class Strategie {
             case "Voleur" -> this.iPouvoir = null;
             case "Magicien" -> this.iPouvoir = null;
             case "Roi" -> this.iPouvoir = new PouvoirRoi(); // Choisir une stratégie par personnage
-            case "Évêque" -> this.iPouvoir = null;
+            case "Évêque" -> this.iPouvoir = new PouvoirEveque();
             case "Marchand" -> this.iPouvoir = null;
             case "Architecte" -> this.iPouvoir = null;
             case "Condottiere" -> this.iPouvoir = new PouvoirCondottiere(); // Choisir une stratégie par personnage

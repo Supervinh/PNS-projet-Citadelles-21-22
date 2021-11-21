@@ -77,7 +77,7 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println(this.getNom() + " a pioché: " + CouleurConsole.YELLOW_BOLD_BRIGHT + MoteurDeJeu.orAPiocher + CouleurConsole.RESET + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
     }
 
-    private void ajouteOr(int n) {
+    public void ajouteOr(int n) {
         this.or += n;
     }
 
