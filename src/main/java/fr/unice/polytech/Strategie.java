@@ -2,11 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.Strategies.*;
 import fr.unice.polytech.couleur.CouleurConsole;
-import fr.unice.polytech.pouvoirs.IPouvoir;
-import fr.unice.polytech.pouvoirs.PouvoirAssassin;
-import fr.unice.polytech.pouvoirs.PouvoirRoi;
-import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
-import fr.unice.polytech.pouvoirs.PouvoirEveque;
+import fr.unice.polytech.pouvoirs.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +25,7 @@ public class Strategie {
             case "Magicien" -> this.iPouvoir = null;
             case "Roi" -> this.iPouvoir = new PouvoirRoi(); // Choisir une stratégie par personnage
             case "Évêque" -> this.iPouvoir = new PouvoirEveque();
-            case "Marchand" -> this.iPouvoir = null;
+            case "Marchand" -> this.iPouvoir = new PouvoirMarchand();
             case "Architecte" -> this.iPouvoir = null;
             case "Condottiere" -> this.iPouvoir = new PouvoirCondottiere(); // Choisir une stratégie par personnage
             default -> this.iPouvoir = null;
