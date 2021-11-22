@@ -13,13 +13,14 @@ public class PouvoirCondottiere implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur, Joueur cible) {
-        while(cible.getPersonnage().getNom()=="Évêque" || cible.getQuartiersConstruits().size()==0 || cible.getQuartiersConstruits().size()==8){
+        while (cible.getPersonnage().getNom().equals("Évêque") || cible.getQuartiersConstruits().size() == 0 || cible.getQuartiersConstruits().size() == 8) {
             ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
             cibles.remove(joueur);
-            cible = cibles.get(new Random().nextInt(cibles.size()));}
+            cible = cibles.get(new Random().nextInt(cibles.size()));
+        }
         Random r = new Random();
         int numquartier = r.nextInt(cible.getQuartiersConstruits().size());
-        CarteQuartier quartierdetruit=cible.getQuartiersConstruits().remove(numquartier);
-        System.out.println(joueur.getNom() + " a détruit le quartier " + CouleurConsole.GREEN+ quartierdetruit.getNom()+ CouleurConsole.RESET+" de " + cible.getNom() + CouleurConsole.RESET);
+        CarteQuartier quartierdetruit = cible.getQuartiersConstruits().remove(numquartier);
+        System.out.println(joueur.getNom() + " a détruit le quartier " + CouleurConsole.GREEN + quartierdetruit.getNom() + CouleurConsole.RESET + " de " + cible.getNom());
     }
 }

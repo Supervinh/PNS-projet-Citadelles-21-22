@@ -57,7 +57,7 @@ public class Strategie {
 
     public void prochainTour() {
         this.choisirStrat();
-        System.out.println(this.joueur.getNom2Strategie());
+        System.out.println("Strategie=" + CouleurConsole.GREEN + this.joueur.getNom2Strategie() + CouleurConsole.RESET);
         if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
 
         this.actionPersonnage();
@@ -69,6 +69,6 @@ public class Strategie {
 
     @Override
     public String toString() {
-        return "Strategie=" + CouleurConsole.GREEN + this.iStrategie.nomStrategie() + CouleurConsole.RESET;
+        return this.iStrategie.nomStrategie();
     }
 }

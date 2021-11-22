@@ -15,7 +15,6 @@ public class MoteurDeJeu {
     public static int carte2Depart = 4;
     public static int carteAPiocher = 1;
     public static int nombre2QuartiersAConstruire = 8;
-    public static CouleurConsole cc = new CouleurConsole();
     public static ArrayList<Joueur> joueurs;
     private int nb2Tours = 0;
     private int roiIndex = 0;
@@ -31,7 +30,7 @@ public class MoteurDeJeu {
 
         int nommbre2Personnages = deck.getPersonnages().size();
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
-            System.out.println("\n" + cc.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + cc.seperateur2());
+            System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
 
             // Trouver le Joueur 'estRoi=True' pour qu'il pioche en premier.
             AtomicInteger k = new AtomicInteger(0);
@@ -67,20 +66,20 @@ public class MoteurDeJeu {
     }
 
     public String hello() {
-        return cc.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + cc.seperateur1() + "\n";
+        return CouleurConsole.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + CouleurConsole.seperateur1() + "\n";
     }
 
     public void initialiseJoueur() {
-        System.out.println("\n" + cc.seperateur1() + CouleurConsole.RESET + "Entrez Nom des Joueurs" + cc.seperateur1());
+        System.out.println("\n" + CouleurConsole.seperateur1() + CouleurConsole.RESET + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            System.out.println(cc.tire() + "Joueur " + i + ": " + CouleurConsole.CYAN_BOLD + "CPU" + i + CouleurConsole.RESET);
-            joueurs.add(new Joueur(CouleurConsole.CYAN_BOLD + "CPU" + i + CouleurConsole.RESET));
+            System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.CYAN + "CPU" + i + CouleurConsole.RESET);
+            joueurs.add(new Joueur(CouleurConsole.CYAN + "CPU" + i + CouleurConsole.RESET));
         }
         joueurs.get(0).setEstRoi(true);
     }
 
     public void tour2Jeu(Joueur joueur) {
-        System.out.println("\n" + cc.seperateur1() + CouleurConsole.RESET + "Tour de " + joueur.getNom() + cc.seperateur1());
+        System.out.println("\n" + CouleurConsole.seperateur1() + CouleurConsole.RESET + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
@@ -102,7 +101,7 @@ public class MoteurDeJeu {
 
     public void montrerClassement() {
         Collections.sort(joueurs);
-        System.out.println("\n" + cc.seperateur2() + CouleurConsole.CYAN_BRIGHT + "Classement apres " + this.nb2Tours + " Tours" + cc.seperateur2());
-        joueurs.forEach(joueur -> System.out.println(cc.tire() + joueur.getNom() + " a " + CouleurConsole.YELLOW_BRIGHT + joueur.getPoints() + CouleurConsole.RESET + " points"));
+        System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.CYAN_BRIGHT + "Classement apres " + this.nb2Tours + " Tours" + CouleurConsole.seperateur2());
+        joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.YELLOW_BRIGHT + joueur.getPoints() + CouleurConsole.RESET + " points"));
     }
 }

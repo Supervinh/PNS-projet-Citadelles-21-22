@@ -8,10 +8,10 @@ public class PouvoirMarchand implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur, Joueur cible) {
         joueur.ajouteOr(1);
-        AtomicInteger cpt= new AtomicInteger(1);
+        AtomicInteger cpt = new AtomicInteger(1);
         joueur.getQuartiersConstruits().stream()
-                .filter(quartier->quartier.getGemme().equals("Commerce et Artisanat"))
-                .forEach(quartier->{
+                .filter(quartier -> quartier.getGemme().equals("Commerce et Artisanat"))
+                .forEach(quartier -> {
                     joueur.ajouteOr(1);
                     cpt.getAndIncrement();
                 });

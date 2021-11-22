@@ -86,15 +86,40 @@ public class CouleurConsole {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public String seperateur1() {
+    public static String seperateur1() {
         return RED + " #" + RESET + "#" + RED + "# " + RESET;
     }
 
-    public String seperateur2() {
+    public static String seperateur2() {
         return BLUE + " #" + BLACK_BRIGHT + "#" + BLUE + "#" + BLACK_BRIGHT + "#" + BLUE + "# " + RESET;
     }
 
-    public String tire() {
+    public static String tire() {
         return PURPLE_BRIGHT + " - " + RESET;
+    }
+
+    public static String printBlack(String text) {
+        return BLACK + text + RESET;
+    }
+    public static String printRed(String text) {
+        return RED + text + RESET;
+    }
+    public static String printGreen(String text) {
+        return GREEN + text + RESET;
+    }
+    public static String printYellow(String text) {
+        return YELLOW + text + RESET;
+    }
+    public static String printBlue(String text) {
+        return BLUE + text + RESET;
+    }
+    public static String printPurple(String text) {
+        return PURPLE + text + RESET;
+    }
+    public static String printCyan(String text) {
+        return CYAN + text + RESET;
+    }
+    public static String printWhite(String text) {
+        return WHITE + text + RESET;
     }
 }
