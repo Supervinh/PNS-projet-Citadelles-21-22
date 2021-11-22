@@ -48,11 +48,11 @@ public class CarteQuartier {
     @Override
     public String toString() {
         return "CarteQuartier{" +
-                "id=" + CouleurConsole.CYAN_BRIGHT + id + CouleurConsole.RESET +
-                ", nom=" + CouleurConsole.GREEN + nom + CouleurConsole.RESET +
-                ", gemme=" + CouleurConsole.PURPLE + gemme + CouleurConsole.RESET +
-                ", prix=" + CouleurConsole.YELLOW_BRIGHT + prix + CouleurConsole.RESET +
-                ", description=" + CouleurConsole.BLACK_BRIGHT + description + CouleurConsole.RESET +
+                "id=" + CouleurConsole.printTurquoise("" + id) +
+                ", nom=" + CouleurConsole.printGreen(nom) +
+                ", gemme=" + CouleurConsole.printPurple(gemme) +
+                ", prix=" + CouleurConsole.printGold("" + prix) +
+                ", description=" + CouleurConsole.printGrey(description) +
                 '}';
     }
 }

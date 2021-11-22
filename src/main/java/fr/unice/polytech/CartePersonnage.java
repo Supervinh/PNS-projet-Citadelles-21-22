@@ -41,10 +41,10 @@ public class CartePersonnage {
     @Override
     public String toString() {
         return "CartePersonnage{" +
-                "id=" + CouleurConsole.CYAN_BRIGHT + id + CouleurConsole.RESET +
-                ", nom=" + CouleurConsole.GREEN + nom + CouleurConsole.RESET +
-                ", gemme=" + CouleurConsole.PURPLE + gemme + CouleurConsole.RESET +
-                ", description=" + CouleurConsole.BLACK_BRIGHT + description + CouleurConsole.RESET +
+                "id=" + CouleurConsole.printTurquoise("" + id) +
+                ", nom=" + CouleurConsole.printGreen(nom) +
+                ", gemme=" + CouleurConsole.printPurple(gemme) +
+                ", description=" + CouleurConsole.printGrey(description) +
                 '}';
     }
 }

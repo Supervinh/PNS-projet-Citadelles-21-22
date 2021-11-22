@@ -30,7 +30,7 @@ public class MoteurDeJeu {
 
         int nommbre2Personnages = deck.getPersonnages().size();
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
-            System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.RESET + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
+            System.out.println("\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
 
             // Trouver le Joueur 'estRoi=True' pour qu'il pioche en premier.
             AtomicInteger k = new AtomicInteger(0);
@@ -70,20 +70,20 @@ public class MoteurDeJeu {
     }
 
     public void initialiseJoueur() {
-        System.out.println("\n" + CouleurConsole.seperateur1() + CouleurConsole.RESET + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
+        System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.CYAN + "CPU" + i + CouleurConsole.RESET);
-            joueurs.add(new Joueur(CouleurConsole.CYAN + "CPU" + i + CouleurConsole.RESET));
+            System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
+            joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
         }
         joueurs.get(0).setEstRoi(true);
     }
 
     public void tour2Jeu(Joueur joueur) {
-        System.out.println("\n" + CouleurConsole.seperateur1() + CouleurConsole.RESET + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
+        System.out.println("\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
-            System.out.println(joueur.getNom() + " a fini en " + CouleurConsole.RED_BRIGHT + "Premier" + CouleurConsole.RESET);
+            System.out.println(joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
         }
     }
 
@@ -91,17 +91,18 @@ public class MoteurDeJeu {
         joueurs.forEach(Joueur::calculePoints);
         int maxScore = joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
         ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).toList());
+        System.out.println();
         switch (winners.size()) {
-            case 1 -> System.out.print("\nLe " + CouleurConsole.RED + "Gagnant" + CouleurConsole.RESET + " est ");
-            case 0 -> System.out.println("\nPas de " + CouleurConsole.RED + "Gagnant" + CouleurConsole.RESET);
-            default -> System.out.println("\nLes " + CouleurConsole.RED + "Gagnants" + CouleurConsole.RESET + " sont: ");
+            case 0 -> System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
+            case 1 -> System.out.print("Le " + CouleurConsole.printRed("Gagnant") + " est ");
+            default -> System.out.println("Les " + CouleurConsole.printRed("Gagnants") + " sont: ");
         }
-        winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.YELLOW_BRIGHT + winner.getPoints() + CouleurConsole.RESET + " points"));
+        winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points"));
     }
 
     public void montrerClassement() {
         Collections.sort(joueurs);
-        System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.CYAN_BRIGHT + "Classement apres " + this.nb2Tours + " Tours" + CouleurConsole.seperateur2());
-        joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.YELLOW_BRIGHT + joueur.getPoints() + CouleurConsole.RESET + " points"));
+        System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
+        joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 }

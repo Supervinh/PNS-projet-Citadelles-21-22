@@ -122,4 +122,13 @@ public class CouleurConsole {
     public static String printWhite(String text) {
         return WHITE + text + RESET;
     }
+    public static String printGold(String text) {
+        return YELLOW_BRIGHT + text + RESET;
+    }
+    public static String printTurquoise(String text) {
+        return CYAN_BRIGHT + text + RESET;
+    }
+    public static String printGrey(String text) {
+        return BLACK_BRIGHT + text + RESET;
+    }
 }

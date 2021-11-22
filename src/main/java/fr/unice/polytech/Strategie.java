@@ -57,7 +57,7 @@ public class Strategie {
 
     public void prochainTour() {
         this.choisirStrat();
-        System.out.println("Strategie=" + CouleurConsole.GREEN + this.joueur.getNom2Strategie() + CouleurConsole.RESET);
+        System.out.println("Strategie=" + CouleurConsole.printGreen(this.joueur.getNom2Strategie()));
         if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
 
         this.actionPersonnage();

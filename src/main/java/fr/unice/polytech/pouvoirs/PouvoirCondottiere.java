@@ -21,6 +21,6 @@ public class PouvoirCondottiere implements IPouvoir {
         Random r = new Random();
         int numquartier = r.nextInt(cible.getQuartiersConstruits().size());
         CarteQuartier quartierdetruit = cible.getQuartiersConstruits().remove(numquartier);
-        System.out.println(joueur.getNom() + " a détruit le quartier " + CouleurConsole.GREEN + quartierdetruit.getNom() + CouleurConsole.RESET + " de " + cible.getNom());
+        System.out.println(joueur.getNom() + " a détruit le quartier " + CouleurConsole.printGreen(quartierdetruit.getNom()) + " de " + cible.getNom());
     }
 }

@@ -39,14 +39,14 @@ public class Joueur implements Comparable<Joueur> {
     public void piocherPersonnage() {
         this.estTue = false;
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.RED + cp.getNom() + CouleurConsole.RESET);
+        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.printRed(cp.getNom()));
         this.personnage = cp;
     }
 
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
-            System.out.println("Construire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
+            System.out.println("Construire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
             AtomicInteger i = new AtomicInteger(1);
             System.out.println(CouleurConsole.tire() + "Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.tire() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
@@ -56,7 +56,7 @@ public class Joueur implements Comparable<Joueur> {
             this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
-            System.out.println(this.getNom() + " n'a pas assez de pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET + " pour construire.");
+            System.out.println(this.getNom() + " n'a pas assez de pieces d'" + CouleurConsole.printGold("or") + " pour construire.");
         }
     }
 
@@ -74,7 +74,7 @@ public class Joueur implements Comparable<Joueur> {
 
     public void piocherOr() {
         this.ajouteOr(MoteurDeJeu.orAPiocher);
-        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.YELLOW_BOLD_BRIGHT + MoteurDeJeu.orAPiocher + CouleurConsole.RESET + " pieces d'" + CouleurConsole.YELLOW_BOLD_BRIGHT + "or" + CouleurConsole.RESET);
+        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pieces d'" + CouleurConsole.printGold("or"));
     }
 
     public void ajouteOr(int n) {
@@ -96,10 +96,10 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void jouer() {
-        System.out.println("Personnage=" + CouleurConsole.RED + this.getPersonnage().getNom() + CouleurConsole.RESET);
-        System.out.println("Or=" + CouleurConsole.YELLOW_BRIGHT + this.getOr() + CouleurConsole.RESET);
+        System.out.println("Personnage=" + CouleurConsole.printRed(this.getPersonnage().getNom()));
+        System.out.println("Or=" + CouleurConsole.printGold("" + this.getOr()));
         if (!this.estTue) this.strat.prochainTour();
-        else System.out.println(this.getNom() + " est " + CouleurConsole.RED + "Mort" + CouleurConsole.RESET);
+        else System.out.println(this.getNom() + " est " + CouleurConsole.printRed("Mort"));
     }
 
     public String getNom2Strategie() {
@@ -170,9 +170,9 @@ public class Joueur implements Comparable<Joueur> {
     public String toString() {
         return "Joueur{" +
                 "nom=" + nom +
-                ", or=" + CouleurConsole.YELLOW_BRIGHT + or + CouleurConsole.RESET +
-                ", estRoi=" + CouleurConsole.BLUE + estRoi + CouleurConsole.RESET +
-                ", personnage=" + CouleurConsole.RED + this.getPersonnage().getNom() + CouleurConsole.RESET +
+                ", or=" + CouleurConsole.printGold("" + or) +
+                ", estRoi=" + CouleurConsole.printBlue("" + estRoi) +
+                ", personnage=" + CouleurConsole.printRed(this.getPersonnage().getNom()) +
                 ", quartiers=" + this.getNom2QuartierDansListe(quartiers) +
                 ", quartiersConstruits=" + this.getNom2QuartierDansListe(quartiersConstruits) +
                 '}';

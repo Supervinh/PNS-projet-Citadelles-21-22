@@ -7,7 +7,7 @@ public class PouvoirAssassin implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur, Joueur cible) {
-        System.out.println(joueur.getNom() + " a " + CouleurConsole.RED + "tué " + CouleurConsole.RESET + cible.getNom());
+        System.out.println(joueur.getNom() + " a " + CouleurConsole.printRed("tué ") + cible.getNom());
         joueur.tue(cible);
     }
 }
