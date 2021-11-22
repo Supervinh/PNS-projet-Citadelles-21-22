@@ -46,7 +46,7 @@ public class Strategie {
             this.iStrategie = new EconomiserArgent();
             parDefaut = false;
         }
-        if (this.joueur.getOr() > 10) {
+        if (this.joueur.getOr() > 6) {
             this.iStrategie = new SuffisammentOr();
             parDefaut = false;
         }
