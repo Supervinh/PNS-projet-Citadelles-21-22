@@ -131,4 +131,8 @@ public class CouleurConsole {
     public static String printGrey(String text) {
         return BLACK_BRIGHT + text + RESET;
     }
+    public static String printPink(String text) {
+        return PURPLE_BRIGHT + text + RESET;
+    }
+
 }
