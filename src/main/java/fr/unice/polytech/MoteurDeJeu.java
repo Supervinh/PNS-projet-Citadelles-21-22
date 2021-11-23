@@ -24,7 +24,7 @@ public class MoteurDeJeu {
         // Initialise le packet de carte ainsi que les Joueurs.
         deck = new Deck();
         joueurs = new ArrayList<>();
-        System.out.println(this.hello());
+        this.hello();
         System.out.println(deck);
         this.initialiseJoueur();
 
@@ -65,8 +65,12 @@ public class MoteurDeJeu {
         this.montrerClassement();
     }
 
-    public String hello() {
-        return CouleurConsole.seperateur1() + "Citadelle Grp.H - Jeux entre Bots" + CouleurConsole.seperateur1() + "\n";
+    public void hello() {
+        System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));
+        System.out.println(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Grp.H"));
+        System.out.println(CouleurConsole.printGold("|     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.printWhite("Jeux de"));
+        System.out.println(CouleurConsole.printGold("\\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.printRed("Bots IA"));
+        System.out.println();
     }
 
     public void initialiseJoueur() {
