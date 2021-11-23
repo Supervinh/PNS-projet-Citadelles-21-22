@@ -13,7 +13,6 @@ public class PouvoirRoi implements IPouvoir {
         MoteurDeJeu.joueurs.forEach(j -> j.setEstRoi(false));
         joueur.setEstRoi(true);
         System.out.println(joueur.getNom() + " est le Nouveau " + CouleurConsole.printGold("Roi"));
-
         this.recupererTaxes(joueur);
     }
 
