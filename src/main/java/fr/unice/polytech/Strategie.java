@@ -52,17 +52,17 @@ public class Strategie {
 
     public void prochainTour() {
         this.choisirStrat();
-        tour2Jeu(joueur.getPersonnage().getNom());
-    }
-
-    public void tour2Jeu(String nomPersonnage){
-        if (nomPersonnage.equals("Marchand") || nomPersonnage.equals("Évêque")){
+        String nomPersonnage = joueur.getPersonnage().getNom();
+        if (nomPersonnage.equals("Marchand") || nomPersonnage.equals("Évêque")) {
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
+            System.out.println();
+            this.choisirStrat();
             if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
-        }
-        else{
+        } else {
             if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+            this.choisirStrat();
+            System.out.println();
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
         }
