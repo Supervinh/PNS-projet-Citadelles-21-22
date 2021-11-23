@@ -1,9 +1,7 @@
 package fr.unice.polytech;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,9 +33,9 @@ public class ExcelReader {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
                     switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_STRING ->    //field that represents string cell type
+                        case STRING ->    //field that represents string cell type
                                 System.out.print(cell.getStringCellValue() + "\t\t\t");
-                        case Cell.CELL_TYPE_NUMERIC ->    //field that represents number cell type
+                        case NUMERIC ->    //field that represents number cell type
                                 System.out.print(cell.getNumericCellValue() + "\t\t\t");
                         default -> {
                         }
