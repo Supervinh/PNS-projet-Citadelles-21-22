@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class Strategie {
     private final Joueur joueur;
-    private Joueur cible;
     private IStrategie iStrategie = new SuffisammentQuartier();
     private IPouvoir iPouvoir;
 
@@ -21,13 +20,13 @@ public class Strategie {
     private void actionPersonnage() {
         switch (this.joueur.getPersonnage().getNom()) {
             case "Assasin" -> this.iPouvoir = new PouvoirAssassin();
-            case "Voleur" -> this.iPouvoir = null;
-            case "Magicien" -> this.iPouvoir = null;
-            case "Roi" -> this.iPouvoir = new PouvoirRoi(); // Choisir une stratégie par personnage
+            case "Voleur" -> this.iPouvoir = new PouvoirVoleur();
+            case "Magicien" -> this.iPouvoir = new PouvoirMagicien();
+            case "Roi" -> this.iPouvoir = new PouvoirRoi();
             case "Évêque" -> this.iPouvoir = new PouvoirEveque();
             case "Marchand" -> this.iPouvoir = new PouvoirMarchand();
             case "Architecte" -> this.iPouvoir = new PouvoirArchitecte();
-            case "Condottiere" -> this.iPouvoir = new PouvoirCondottiere(); // Choisir une stratégie par personnage
+            case "Condottiere" -> this.iPouvoir = new PouvoirCondottiere();
             default -> this.iPouvoir = null;
         }
     }
@@ -59,12 +58,7 @@ public class Strategie {
         this.choisirStrat();
         System.out.println("Strategie=" + CouleurConsole.printGreen(this.joueur.getNom2Strategie()));
         if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
-
         this.actionPersonnage();
-        ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
-        cibles.remove(this.joueur);
-        this.cible = cibles.get(new Random().nextInt(cibles.size()));
-        if (this.iPouvoir != null) this.iPouvoir.utiliserPouvoir(this.joueur, this.cible);
     }
 
     @Override

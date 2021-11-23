@@ -3,8 +3,9 @@ package fr.unice.polytech.pouvoirs;
 import fr.unice.polytech.Joueur;
 
 public class PouvoirArchitecte implements IPouvoir {
+
     @Override
-    public void utiliserPouvoir(Joueur joueur, Joueur cible) {
+    public void utiliserPouvoir(Joueur joueur) {
         for (int i = 0; i < 2; i++) joueur.piocherQuartier();
         for (int i = 0; i < 2; i++) {
             switch (joueur.getNom2Strategie()) {

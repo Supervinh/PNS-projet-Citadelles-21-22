@@ -7,7 +7,7 @@ import fr.unice.polytech.couleur.CouleurConsole;
 public class PouvoirRoi implements IPouvoir {
 
     @Override
-    public void utiliserPouvoir(Joueur joueur, Joueur cible) {
+    public void utiliserPouvoir(Joueur joueur) {
         MoteurDeJeu.joueurs.forEach(j -> j.setEstRoi(false));
         joueur.setEstRoi(true);
         System.out.println(joueur.getNom() + " est le Nouveau " + CouleurConsole.printGold("Roi"));

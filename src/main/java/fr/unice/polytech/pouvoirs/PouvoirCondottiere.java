@@ -12,10 +12,14 @@ import java.util.Random;
 public class PouvoirCondottiere implements IPouvoir {
 
     @Override
-    public void utiliserPouvoir(Joueur joueur, Joueur cible) {
+    public void utiliserPouvoir(Joueur joueur) {
+
+        ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
+        cibles.remove(joueur);
+        Joueur cible = cibles.get(new Random().nextInt(cibles.size()));
+
+
         while (cible.getPersonnage().getNom().equals("Évêque") || cible.getQuartiersConstruits().size() == 0 || cible.getQuartiersConstruits().size() == 8) {
-            ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
-            cibles.remove(joueur);
             cible = cibles.get(new Random().nextInt(cibles.size()));
         }
         Random r = new Random();
