@@ -53,9 +53,20 @@ public class Strategie {
     public void prochainTour() {
         this.choisirStrat();
         System.out.println("Strategie=" + CouleurConsole.printGreen(this.joueur.getNom2Strategie()));
-        if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
-        this.actionPersonnage();
-        this.iPouvoir.utiliserPouvoir(this.joueur);
+        tour2Jeu(joueur.getPersonnage().getNom());
+    }
+
+    public void tour2Jeu(String nomPersonnage){
+        if (nomPersonnage.equals("Marchand") || nomPersonnage.equals("Évêque")){
+            this.actionPersonnage();
+            this.iPouvoir.utiliserPouvoir(this.joueur);
+            if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+        }
+        else{
+            if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+            this.actionPersonnage();
+            this.iPouvoir.utiliserPouvoir(this.joueur);
+        }
     }
 
     @Override
