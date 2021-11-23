@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Joueur implements Comparable<Joueur> {
     private final String nom;
-    private final ArrayList<CarteQuartier> quartiers = new ArrayList<>();
+    private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
     private final Strategie strat;
     private int or = 0;
@@ -120,6 +120,10 @@ public class Joueur implements Comparable<Joueur> {
 
     public ArrayList<CarteQuartier> getQuartiers() {
         return quartiers;
+    }
+
+    public void setQuartiers(ArrayList<CarteQuartier> quartiers) {
+        this.quartiers = quartiers;
     }
 
     public ArrayList<CarteQuartier> getQuartiersConstruits() {
