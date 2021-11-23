@@ -14,23 +14,23 @@ class DeckTest {
     }
 
     @Test
-    void piocheQuartier(){
+    void piocheQuartier() {
         assertNotNull(d.piocherQuartier());
     }
 
     @Test
-    void piochePersoDifferents(){
-        CartePersonnage cp1=d.piocherPersonnage();
-        CartePersonnage cp2=d.piocherPersonnage();
-        assertNotEquals(cp1,cp2);
+    void piochePersoDifferents() {
+        CartePersonnage cp1 = d.piocherPersonnage();
+        CartePersonnage cp2 = d.piocherPersonnage();
+        assertNotEquals(cp1, cp2);
     }
 
     @Test
-    void bienajoute(){
-        int i=d.getPersonnages().size();
+    void bienajoute() {
+        int i = d.getPersonnages().size();
         d.ajoutePersonnage(d.piocherPersonnage());
-        assertEquals(i,d.getPersonnages().size());
+        assertEquals(i, d.getPersonnages().size());
         d.piocherPersonnage();
-        assertNotEquals(i,d.getPersonnages().size());
+        assertNotEquals(i, d.getPersonnages().size());
     }
 }

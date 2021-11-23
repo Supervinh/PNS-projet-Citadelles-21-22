@@ -19,53 +19,24 @@ public class MoteurDeJeu {
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
+    private final int nombre2Personnages;
 
     public MoteurDeJeu() {
-        // Initialise le packet de carte ainsi que les Joueurs.
         deck = new Deck();
         joueurs = new ArrayList<>();
+        this.nombre2Personnages = deck.getPersonnages().size();
+    }
+
+    public void jouer() {
         this.hello();
         System.out.println(deck);
         this.initialiseJoueur();
-
-        int nommbre2Personnages = deck.getPersonnages().size();
-        while (joueurs.stream().noneMatch(Joueur::isFirst)) {
-            System.out.println("\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
-
-            // Trouver le Joueur 'estRoi=True' pour qu'il pioche en premier.
-            AtomicInteger k = new AtomicInteger(0);
-            this.roiIndex = joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isEstRoi) ? k.get() - 1 : this.roiIndex;
-            if (!this.avaitRoi) {
-                joueurs.get(this.roiIndex).setEstRoi(false);
-                this.roiIndex = (this.roiIndex + 1) % nombre2Joueur;
-                joueurs.get(this.roiIndex).setEstRoi(true);
-            }
-
-            // Joueur Pioche leur personnage dans l'ordre 'horaire' (ordre de la liste) commençant par le Joueur 'estRoi=True'.
-            for (int i = this.roiIndex; i < joueurs.size(); i++) {
-                joueurs.get(i).piocherPersonnage();
-            }
-            for (int i = 0; i < this.roiIndex; i++) {
-                joueurs.get(i).piocherPersonnage();
-            }
-
-            // Joueur joue leur tour dans l'ordre des numéros des cartes personnage.
-            for (int i = 1; i <= nommbre2Personnages; i++) {
-                for (Joueur joueur : joueurs) {
-                    if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
-                }
-            }
-
-            // Affichage de l'état du Joueur après le Tour. Cherche à savoir quelle method utiliser pour passer le 'estRoi=True'. Puis les Joueurs remettent leur carte dans le packet.
-            System.out.println("\n" + joueurs);
-            this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
-            joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
-        }
+        this.lancerJeux();
         this.obtenirGagnant();
         this.montrerClassement();
     }
 
-    public void hello() {
+    private void hello() {
         System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));
         System.out.println(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Grp.H"));
         System.out.println(CouleurConsole.printGold("|     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.printWhite("Jeux de"));
@@ -73,7 +44,7 @@ public class MoteurDeJeu {
         System.out.println();
     }
 
-    public void initialiseJoueur() {
+    private void initialiseJoueur() {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
@@ -82,7 +53,37 @@ public class MoteurDeJeu {
         joueurs.get(0).setEstRoi(true);
     }
 
-    public void tour2Jeu(Joueur joueur) {
+    private void trouverQuiEstRoi() {
+        AtomicInteger k = new AtomicInteger(0);
+        this.roiIndex = joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isEstRoi) ? k.get() - 1 : this.roiIndex;
+        if (!this.avaitRoi) {
+            joueurs.get(this.roiIndex).setEstRoi(false);
+            this.roiIndex = (this.roiIndex + 1) % nombre2Joueur;
+            joueurs.get(this.roiIndex).setEstRoi(true);
+        }
+    }
+
+    private void Piochage2Personnage() {
+        for (int i = this.roiIndex; i < joueurs.size(); i++) {
+            joueurs.get(i).piocherPersonnage();
+        }
+        for (int i = 0; i < this.roiIndex; i++) {
+            joueurs.get(i).piocherPersonnage();
+        }
+    }
+
+    private void jouerDansLOrdreDesPersonnages() {
+        for (int i = 1; i <= this.nombre2Personnages; i++) {
+            for (Joueur joueur : joueurs) {
+                if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
+            }
+        }
+        System.out.println("\n" + joueurs);
+        this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
+        joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
+    }
+
+    private void tour2Jeu(Joueur joueur) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
@@ -91,7 +92,16 @@ public class MoteurDeJeu {
         }
     }
 
-    public void obtenirGagnant() {
+    private void lancerJeux() {
+        while (joueurs.stream().noneMatch(Joueur::isFirst)) {
+            System.out.println("\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
+            this.trouverQuiEstRoi();
+            this.Piochage2Personnage();
+            this.jouerDansLOrdreDesPersonnages();
+        }
+    }
+
+    private void obtenirGagnant() {
         joueurs.forEach(Joueur::calculePoints);
         int maxScore = joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
         ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).toList());
@@ -104,7 +114,7 @@ public class MoteurDeJeu {
         winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points"));
     }
 
-    public void montrerClassement() {
+    private void montrerClassement() {
         Collections.sort(joueurs);
         System.out.println("\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
