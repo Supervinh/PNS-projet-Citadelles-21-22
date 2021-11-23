@@ -23,11 +23,19 @@ public class PouvoirAssassin implements IPouvoir {
                 .findFirst()
                 .orElse(null);
 
+        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if (cible != null) {
-            System.out.println(joueur.getNom() + " a " + CouleurConsole.printRed("tué " + cible.getNom()));
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a " + CouleurConsole.printRed("tué " + cible.getNom()));
             joueur.tue(cible);
         } else {
-            System.out.println(joueur.getNom() + " a essayé de " + CouleurConsole.printRed("tuer ") + cibleNomPersonnage.getArticle() + cibleNomPersonnage.getNom());
+            String article;
+            switch (cibleNomPersonnage.getArticle()) {
+                case "Le " -> article = "le ";
+                case "La " -> article = "la ";
+                case "L'" -> article = "l'";
+                default -> article = cibleNomPersonnage.getArticle();
+            }
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a essayé de " + CouleurConsole.printRed("tuer ") + article + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
         }
     }
 

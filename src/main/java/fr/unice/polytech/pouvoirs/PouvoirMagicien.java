@@ -4,6 +4,7 @@ import fr.unice.polytech.CartePersonnage;
 import fr.unice.polytech.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +24,22 @@ public class PouvoirMagicien implements IPouvoir {
                 .findFirst()
                 .orElse(null);
 
+        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if (cible != null) {
             ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
             joueur.setQuartiers(cible.getQuartiers());
             cible.setQuartiers(temporaire);
 
-            System.out.println(joueur.getNom() + " a échangé ses cartes avec " + cible.getNom());
+            System.out.println(CouleurConsole.printRed("| ") +joueur.getNom() + " a échangé ses cartes avec " + cible.getNom());
         } else {
-            System.out.println(joueur.getNom() + " a essayé d'échanger ses cartes avec " + cibleNomPersonnage.getNom());
+            String article;
+            switch (cibleNomPersonnage.getArticle()) {
+                case "Le" -> article = "le";
+                case "L'" -> article = "l'";
+                case "La" -> article = "la";
+                default -> article = cibleNomPersonnage.getArticle();
+            }
+            System.out.println(CouleurConsole.printRed("| ") +joueur.getNom() + " a essayé d'échanger ses cartes avec " + article + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
         }
     }
 
