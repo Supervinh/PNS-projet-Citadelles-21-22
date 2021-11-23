@@ -46,7 +46,7 @@ public class Joueur implements Comparable<Joueur> {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
-            System.out.println("Construire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
+            System.out.println("\nConstruire Quartier - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
             AtomicInteger i = new AtomicInteger(1);
             System.out.println(CouleurConsole.tire() + "Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.tire() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
@@ -96,15 +96,20 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void jouer() {
-        System.out.println();
-        System.out.println("Personnage: " + CouleurConsole.printRed(this.getPersonnage().getNom()));
-        System.out.println("Pièces d'or: " + CouleurConsole.printGold("" + this.getOr()));
-        System.out.println("Stratégie: " + CouleurConsole.printPurple(this.getNom2Strategie()));
-        System.out.println("Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
-        System.out.println("Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
-        System.out.println();
+        this.printDetails();
         if (!this.estTue) this.strat.prochainTour();
         else System.out.println(this.getNom() + " est " + CouleurConsole.printRed("Mort"));
+    }
+
+    private void printDetails() {
+        System.out.println();
+        System.out.println(CouleurConsole.printBlue("| Details Joueur"));
+        System.out.println(CouleurConsole.printBlue("| ") + "Personnage: " + CouleurConsole.printRed(this.getPersonnage().getNom()));
+        System.out.println(CouleurConsole.printBlue("| ") + "Pièces d'or: " + CouleurConsole.printGold("" + this.getOr()));
+        System.out.println(CouleurConsole.printBlue("| ") + "Stratégie: " + CouleurConsole.printPurple(this.getNom2Strategie()));
+        System.out.println(CouleurConsole.printBlue("| ") + "Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
+        System.out.println(CouleurConsole.printBlue("| ") + "Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
+        System.out.println();
     }
 
     public String getNom2Strategie() {
