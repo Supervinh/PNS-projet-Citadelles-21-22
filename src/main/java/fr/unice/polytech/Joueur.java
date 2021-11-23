@@ -134,6 +134,8 @@ public class Joueur implements Comparable<Joueur> {
         this.estRoi = b;
     }
 
+    public void setOr(int or){ this.or = or;}
+
     public boolean isEstTue() {
         return estTue;
     }
