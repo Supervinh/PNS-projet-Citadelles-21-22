@@ -1,6 +1,7 @@
 package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Joueur;
+import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,6 +17,7 @@ public class PouvoirMarchand implements IPouvoir {
                     joueur.ajouteOr(1);
                     cpt.getAndIncrement();
                 });
-        System.out.println(joueur.getNom() + " a pioché " + cpt + " pièce(s) d'or supplémentaire(s).");
+        boolean plurielle = cpt.get() > 1;
+        System.out.println(joueur.getNom() + " a pioché " + CouleurConsole.printGold("" + cpt) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.printGold("or") + " supplémentaire" + (plurielle ? "s" : "") + ".");
     }
 }
