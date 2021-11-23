@@ -10,9 +10,14 @@ public class PouvoirMarchand implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         joueur.ajouteOr(1);
+        this.recupererTaxes(joueur);
+    }
+
+    public void recupererTaxes(Joueur joueur) {
+        System.out.println("Collecting Taxes from " + joueur.getPersonnage().getGemme());
         AtomicInteger cpt = new AtomicInteger(1);
         joueur.getQuartiersConstruits().stream()
-                .filter(quartier -> quartier.getGemme().equals("Commerce et Artisanat"))
+                .filter(quartier -> quartier.getGemme().equals(joueur.getPersonnage().getGemme()))
                 .forEach(quartier -> {
                     joueur.ajouteOr(1);
                     cpt.getAndIncrement();

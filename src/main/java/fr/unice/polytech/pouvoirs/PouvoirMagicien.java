@@ -4,7 +4,6 @@ import fr.unice.polytech.CartePersonnage;
 import fr.unice.polytech.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +15,7 @@ public class PouvoirMagicien implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
 
         // Choix de Cible utilisant un nom de Personnage
-        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
-        cibles.remove(joueur.getPersonnage());
-        CartePersonnage cibleNomPersonnage = cibles.get(new Random().nextInt(cibles.size()));
+        CartePersonnage cibleNomPersonnage = this.cibleAleatoire(joueur);
 
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
@@ -26,20 +23,20 @@ public class PouvoirMagicien implements IPouvoir {
                 .findFirst()
                 .orElse(null);
 
-
         if (cible != null) {
-            ArrayList<CarteQuartier> temporaire = new ArrayList<>();
-
-            temporaire = joueur.getQuartiers();
+            ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
             joueur.setQuartiers(cible.getQuartiers());
             cible.setQuartiers(temporaire);
 
-            System.out.println(joueur.getNom() + " a échangé ses cartes avec " + cibleNomPersonnage.getNom());
-
+            System.out.println(joueur.getNom() + " a échangé ses cartes avec " + cible.getNom());
         } else {
             System.out.println(joueur.getNom() + " a essayé d'échanger ses cartes avec " + cibleNomPersonnage.getNom());
         }
+    }
 
-
+    public CartePersonnage cibleAleatoire(Joueur joueur) {
+        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
+        cibles.remove(joueur.getPersonnage());
+        return cibles.get(new Random().nextInt(cibles.size()));
     }
 }
