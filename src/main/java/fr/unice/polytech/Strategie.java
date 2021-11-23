@@ -4,10 +4,6 @@ import fr.unice.polytech.Strategies.*;
 import fr.unice.polytech.couleur.CouleurConsole;
 import fr.unice.polytech.pouvoirs.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class Strategie {
     private final Joueur joueur;
     private IStrategie iStrategie = new SuffisammentQuartier();
@@ -19,15 +15,15 @@ public class Strategie {
 
     private void actionPersonnage() {
         switch (this.joueur.getPersonnage().getNom()) {
-            case "Assasin" -> this.iPouvoir = new PouvoirAssassin();
-            case "Voleur" -> this.iPouvoir = new PouvoirVoleur();
-            case "Magicien" -> this.iPouvoir = new PouvoirMagicien();
-            case "Roi" -> this.iPouvoir = new PouvoirRoi();
-            case "Évêque" -> this.iPouvoir = new PouvoirEveque();
-            case "Marchand" -> this.iPouvoir = new PouvoirMarchand();
-            case "Architecte" -> this.iPouvoir = new PouvoirArchitecte();
-            case "Condottiere" -> this.iPouvoir = new PouvoirCondottiere();
-            default -> this.iPouvoir = null;
+            case "Assassin" -> iPouvoir = new PouvoirAssassin();
+            case "Voleur" -> iPouvoir = new PouvoirVoleur();
+            case "Magicien" -> iPouvoir = new PouvoirMagicien();
+            case "Roi" -> iPouvoir = new PouvoirRoi();
+            case "Évêque" -> iPouvoir = new PouvoirEveque();
+            case "Marchand" -> iPouvoir = new PouvoirMarchand();
+            case "Architecte" -> iPouvoir = new PouvoirArchitecte();
+            case "Condottiere" -> iPouvoir = new PouvoirCondottiere();
+            default -> iPouvoir = null;
         }
     }
 
@@ -59,6 +55,7 @@ public class Strategie {
         System.out.println("Strategie=" + CouleurConsole.printGreen(this.joueur.getNom2Strategie()));
         if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
         this.actionPersonnage();
+        this.iPouvoir.utiliserPouvoir(this.joueur);
     }
 
     @Override

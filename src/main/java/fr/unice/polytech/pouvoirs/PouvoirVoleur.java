@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PouvoirVoleur implements IPouvoir{
+public class PouvoirVoleur implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur) {
