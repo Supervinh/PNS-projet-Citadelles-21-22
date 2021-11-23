@@ -28,7 +28,7 @@ public class PouvoirMagicien implements IPouvoir {
 
 
         if (cible != null) {
-            ArrayList<CarteQuartier> temporaire = new ArrayList<>();
+            ArrayList<CarteQuartier> temporaire;
 
             temporaire = joueur.getQuartiers();
             joueur.setQuartiers(cible.getQuartiers());
