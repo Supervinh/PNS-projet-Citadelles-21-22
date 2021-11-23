@@ -86,7 +86,8 @@ public class ExcelReader {
                     row.getCell(0).getNumericCellValue(),
                     row.getCell(1).getStringCellValue(),
                     row.getCell(2).getStringCellValue(),
-                    row.getCell(3).getStringCellValue()));
+                    row.getCell(3).getStringCellValue(),
+                    row.getCell(4).getStringCellValue()));
         }
         return personnagesTemp;
     }
