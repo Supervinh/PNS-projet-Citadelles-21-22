@@ -88,7 +88,7 @@ public class MoteurDeJeu {
         joueur.jouer();
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
-            System.out.println(joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
+            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
         }
     }
 
