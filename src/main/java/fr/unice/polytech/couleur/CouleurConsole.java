@@ -87,7 +87,7 @@ public class CouleurConsole {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public static String seperateur1() {
-        return RED + " #" + RESET + "#" + RED + "# " + RESET;
+        return RED + " #" + RESET + "#" + RED + "#" + RESET + "#" + RED + "# " + RESET;
     }
 
     public static String seperateur2() {

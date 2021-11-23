@@ -52,7 +52,6 @@ public class Strategie {
 
     public void prochainTour() {
         this.choisirStrat();
-        System.out.println("Strategie=" + CouleurConsole.printGreen(this.joueur.getNom2Strategie()));
         tour2Jeu(joueur.getPersonnage().getNom());
     }
 
@@ -67,6 +66,11 @@ public class Strategie {
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
         }
+    }
+
+    public IStrategie getiStrategie() {
+        this.choisirStrat();
+        return iStrategie;
     }
 
     @Override

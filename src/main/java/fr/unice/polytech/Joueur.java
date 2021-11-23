@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class Joueur implements Comparable<Joueur> {
     private final String nom;
-    private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
     private final Strategie strat;
+    private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     private int or = 0;
     private CartePersonnage personnage;
     private boolean estRoi = false;
@@ -96,14 +96,19 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void jouer() {
-        System.out.println("Personnage=" + CouleurConsole.printRed(this.getPersonnage().getNom()));
-        System.out.println("Or=" + CouleurConsole.printGold("" + this.getOr()));
+        System.out.println();
+        System.out.println("Personnage: " + CouleurConsole.printRed(this.getPersonnage().getNom()));
+        System.out.println("Pièces d'or: " + CouleurConsole.printGold("" + this.getOr()));
+        System.out.println("Stratégie: " + CouleurConsole.printPurple(this.getNom2Strategie()));
+        System.out.println("Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
+        System.out.println("Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
+        System.out.println();
         if (!this.estTue) this.strat.prochainTour();
         else System.out.println(this.getNom() + " est " + CouleurConsole.printRed("Mort"));
     }
 
     public String getNom2Strategie() {
-        return this.strat.toString();
+        return this.strat.getiStrategie().nomStrategie();
     }
 
     public String getNom() {
@@ -112,6 +117,10 @@ public class Joueur implements Comparable<Joueur> {
 
     public int getOr() {
         return or;
+    }
+
+    public void setOr(int or) {
+        this.or = or;
     }
 
     public CartePersonnage getPersonnage() {
@@ -137,8 +146,6 @@ public class Joueur implements Comparable<Joueur> {
     public void setEstRoi(boolean b) {
         this.estRoi = b;
     }
-
-    public void setOr(int or){ this.or = or;}
 
     public boolean isEstTue() {
         return estTue;
