@@ -2,11 +2,13 @@ package fr.unice.polytech;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Deck {
     private final ArrayList<CarteQuartier> quartiers;
     private final ArrayList<CartePersonnage> personnages;
+    private final ArrayList<CartePersonnage> personnagesPossibles;
 
     public Deck() {
         ExcelReader ER = new ExcelReader();
@@ -14,6 +16,7 @@ public class Deck {
         this.personnages = ER.recupererPersonnage();
         this.melangerQuartiers();
         this.melangerPersonnage();
+        this.personnagesPossibles = new ArrayList<>(List.copyOf(this.personnages));
     }
 
     public void melangerQuartiers() {
@@ -52,6 +55,10 @@ public class Deck {
 
     public ArrayList<CartePersonnage> getPersonnages() {
         return personnages;
+    }
+
+    public ArrayList<CartePersonnage> getPersonnagesPossibles() {
+        return personnagesPossibles;
     }
 
     @Override
