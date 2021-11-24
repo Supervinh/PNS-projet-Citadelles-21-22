@@ -1,12 +1,12 @@
 package fr.unice.polytech;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ExcelReader {
     private final File excelCardFile = new File("data/Cards.xlsx");
@@ -23,37 +23,6 @@ public class ExcelReader {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public void printExcel(File file) {
-        try {
-            XSSFSheet sheet = fileToSheet(file); //creating a Sheet object to retrieve object
-            for (Row row : sheet) {     //iterating over excel file
-                Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    switch (cell.getCellType()) {
-                        case STRING ->    //field that represents string cell type
-                                System.out.print(cell.getStringCellValue() + "\t\t\t");
-                        case NUMERIC ->    //field that represents number cell type
-                                System.out.print(cell.getNumericCellValue() + "\t\t\t");
-                        default -> {
-                        }
-                    }
-                }
-                System.out.println();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public File getExcelCardFile() {
-        return this.excelCardFile;
-    }
-
-    public File getExcelCharacterFile() {
-        return this.excelCharacterFile;
     }
 
     public ArrayList<CarteQuartier> recupererQuartiers() {
