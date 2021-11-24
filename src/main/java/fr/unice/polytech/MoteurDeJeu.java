@@ -78,7 +78,7 @@ public class MoteurDeJeu {
                 if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
             }
         }
-        System.out.println("\n" + joueurs);
+        // System.out.println("\n" + joueurs);
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
     }
