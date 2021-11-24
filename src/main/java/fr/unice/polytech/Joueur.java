@@ -18,6 +18,7 @@ public class Joueur implements Comparable<Joueur> {
     private boolean estTue = false;
     private boolean first = false;
     private int points = 0;
+    private int id;
 
     public Joueur(String nom) {
         this.nom = nom;
@@ -128,6 +129,8 @@ public class Joueur implements Comparable<Joueur> {
         this.or = or;
     }
 
+    public void setPersonnage(CartePersonnage personnage) {this.personnage = personnage; }
+
     public CartePersonnage getPersonnage() {
         return personnage;
     }
@@ -171,6 +174,12 @@ public class Joueur implements Comparable<Joueur> {
 
     public int getPoints() {
         return points;
+    }
+
+    public int getId() {return id;}
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom2QuartierDansListe(ArrayList<CarteQuartier> list) {
