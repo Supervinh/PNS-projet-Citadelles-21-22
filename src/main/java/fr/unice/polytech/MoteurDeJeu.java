@@ -29,7 +29,6 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        System.out.println(deck);
         this.printJoueursInitialises(joueurs);
         this.lancerJeux(joueurs);
         this.printGagnant(joueurs);

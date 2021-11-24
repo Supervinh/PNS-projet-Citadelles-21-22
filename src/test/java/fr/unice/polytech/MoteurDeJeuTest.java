@@ -12,7 +12,7 @@ class MoteurDeJeuTest {
 
     void goodsetup(){m=new MoteurDeJeu();
         joueurs=new ArrayList<>();
-        m.printJoueursInitialises(joueurs);
+        m.initialiseJoueurs(joueurs);
         m.piocherPersonnage(joueurs);}
 
     @Test
