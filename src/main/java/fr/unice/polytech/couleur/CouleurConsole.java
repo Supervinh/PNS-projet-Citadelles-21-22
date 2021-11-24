@@ -94,7 +94,7 @@ public class CouleurConsole {
         return BLUE + " #" + BLACK_BRIGHT + "#" + BLUE + "#" + BLACK_BRIGHT + "#" + BLUE + "# " + RESET;
     }
 
-    public static String tire() {
+    public static String tiret() {
         return PURPLE_BRIGHT + " - " + RESET;
     }
 

@@ -30,7 +30,7 @@ public class MoteurDeJeu {
     public void jouer() {
         this.hello();
         System.out.println(deck);
-        this.initialiseJoueur(joueurs);
+        this.printJoueursInitialises(joueurs);
         this.lancerJeux(joueurs);
         this.printGagnant(joueurs);
         this.montrerClassement(joueurs);
@@ -44,12 +44,16 @@ public class MoteurDeJeu {
         System.out.println();
     }
 
-    void initialiseJoueur(ArrayList<Joueur> joueurs) {
+    private void printJoueursInitialises(ArrayList<Joueur> joueurs) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
+        initialiseJoueurs(joueurs);
+        joueurs.forEach(joueur -> {System.out.println(CouleurConsole.tiret() + "Joueur " + joueur.getId() + ": " + CouleurConsole.printCyan("CPU" + joueur.getId()));});
+    }
+
+    void initialiseJoueurs(ArrayList<Joueur> joueurs){
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
-            joueurs.get(i - 1).setId(i);
+            joueurs.get(i-1).setId(i);
         }
         joueurs.get(0).setEstRoi(true);
     }
@@ -63,13 +67,16 @@ public class MoteurDeJeu {
             joueurs.get(this.roiIndex).setEstRoi(true);
         }
     }
+    void joueurPiochePersonnage(Joueur joueur){
+        joueur.piocherPersonnage();
+    }
 
     void piocherPersonnage(ArrayList<Joueur> joueurs) {
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
-            joueurs.get(i).piocherPersonnage();
+            joueurPiochePersonnage(joueurs.get(i));
         }
         for (int i = 0; i < this.roiIndex; i++) {
-            joueurs.get(i).piocherPersonnage();
+            joueurPiochePersonnage(joueurs.get(i));
         }
     }
 
@@ -87,13 +94,18 @@ public class MoteurDeJeu {
     void tour2Jeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
-        if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
-            joueur.setFirst(true);
-            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
-        }
+        if(verifieFini(joueur)) {
+            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));}
         joueur.calculePoints();
     }
 
+    boolean verifieFini(Joueur joueur){
+        if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
+            joueur.setFirst(true);
+            return true;
+            }
+        return false;
+    }
     void lancerJeux(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
@@ -126,6 +138,6 @@ public class MoteurDeJeu {
     private void montrerClassement(ArrayList<Joueur> joueurs) {
         Collections.sort(joueurs);
         System.out.println("\n\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
-        joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
+        joueurs.forEach(joueur -> System.out.println(CouleurConsole.tiret() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 }
