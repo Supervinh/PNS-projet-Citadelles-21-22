@@ -35,11 +35,11 @@ public class MoteurDeJeu {
         System.out.println(deck);
         this.initialiseJoueur(joueurs);
         this.lancerJeux(joueurs);
-        this.obtenirGagnant(joueurs);
+        this.printGagnant(joueurs);
         this.montrerClassement(joueurs);
     }
 
-    private void hello() {
+    void hello() {
         System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));
         System.out.println(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Grp.H"));
         System.out.println(CouleurConsole.printGold("|     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.printWhite("Jeux de"));
@@ -47,16 +47,17 @@ public class MoteurDeJeu {
         System.out.println();
     }
 
-    private void initialiseJoueur(ArrayList<Joueur> joueurs) {
+    void initialiseJoueur(ArrayList<Joueur> joueurs) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
+            joueurs.get(i-1).setId(i);
         }
         joueurs.get(0).setEstRoi(true);
     }
 
-    private void trouverQuiEstRoi(ArrayList<Joueur> joueurs) {
+    void trouverQuiEstRoi(ArrayList<Joueur> joueurs) {
         AtomicInteger k = new AtomicInteger(0);
         this.roiIndex = joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isEstRoi) ? k.get() - 1 : this.roiIndex;
         if (!this.avaitRoi) {
@@ -66,7 +67,7 @@ public class MoteurDeJeu {
         }
     }
 
-    private void Piochage2Personnage(ArrayList<Joueur> joueurs) {
+    void piocherPersonnage(ArrayList<Joueur> joueurs) {
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
             joueurs.get(i).piocherPersonnage();
         }
@@ -75,7 +76,7 @@ public class MoteurDeJeu {
         }
     }
 
-    private void jouerDansLOrdreDesPersonnages(ArrayList<Joueur> joueurs) {
+    void jouerDansLOrdreDesPersonnages(ArrayList<Joueur> joueurs) {
         for (int i = 1; i <= this.nombre2Personnages; i++) {
             for (Joueur joueur : joueurs) {
                 if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
@@ -86,28 +87,37 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
     }
 
-    private void tour2Jeu(Joueur joueur) {
+    void tour2Jeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
             System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
         }
+        joueur.calculePoints();
     }
 
-    private void lancerJeux(ArrayList<Joueur> joueurs) {
+    void lancerJeux(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
             this.trouverQuiEstRoi(joueurs);
-            this.Piochage2Personnage(joueurs);
+            this.piocherPersonnage(joueurs);
             this.jouerDansLOrdreDesPersonnages(joueurs);
         }
     }
 
-    private void obtenirGagnant(ArrayList<Joueur> joueurs) {
-        joueurs.forEach(Joueur::calculePoints);
+    int obtenirMaxPoints(ArrayList<Joueur> joueurs){
         int maxScore = joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
-        ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == maxScore).toList());
+        return maxScore;
+    }
+
+    ArrayList<Joueur> obtenirGagnant(ArrayList<Joueur> joueurs) {
+        ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
+        return winners;
+    }
+
+    private void printGagnant(ArrayList<Joueur> joueurs){
+        ArrayList<Joueur> winners = obtenirGagnant(joueurs);
         System.out.println("\n");
         switch (winners.size()) {
             case 0 -> System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
@@ -117,13 +127,14 @@ public class MoteurDeJeu {
         winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points"));
     }
 
-    private void montrerClassement(ArrayList<Joueur> joueurs) {
+
+    void montrerClassement(ArrayList<Joueur> joueurs) {
         Collections.sort(joueurs);
         System.out.println("\n\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 
-    private boolean joueursDifferents(ArrayList<Joueur> joueurs){
+    boolean joueursDifferents(ArrayList<Joueur> joueurs){
         Set<Joueur> setjoueurs = new HashSet<>();
         for(Joueur joueur : joueurs){
             if(setjoueurs.add(joueur)==false){
