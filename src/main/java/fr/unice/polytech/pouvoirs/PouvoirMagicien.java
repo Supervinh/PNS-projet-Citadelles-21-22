@@ -32,14 +32,7 @@ public class PouvoirMagicien implements IPouvoir {
 
             System.out.println(CouleurConsole.printRed("| ") +joueur.getNom() + " a échangé ses cartes avec " + cible.getNom());
         } else {
-            String article;
-            switch (cibleNomPersonnage.getArticle()) {
-                case "Le" -> article = "le";
-                case "L'" -> article = "l'";
-                case "La" -> article = "la";
-                default -> article = cibleNomPersonnage.getArticle();
-            }
-            System.out.println(CouleurConsole.printRed("| ") +joueur.getNom() + " a essayé d'échanger ses cartes avec " + article + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
+            System.out.println(CouleurConsole.printRed("| ") +joueur.getNom() + " a essayé d'échanger ses cartes avec " + cibleNomPersonnage.getArticle().toLowerCase() + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
         }
     }
 

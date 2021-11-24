@@ -35,7 +35,8 @@ public class PouvoirVoleur implements IPouvoir {
         } else {
             String article;
             switch (" de " + cibleNomPersonnage.getArticle()) {
-                case " de Le ", " de La " -> article = " du ";
+                case " de Le " -> article = " du ";
+                case " de La " -> article = " de la ";
                 case " de L'" -> article = " de l'";
                 default -> article = " de " + cibleNomPersonnage.getArticle();
             }
