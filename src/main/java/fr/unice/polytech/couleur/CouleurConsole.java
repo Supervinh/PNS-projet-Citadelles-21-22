@@ -2,7 +2,7 @@ package fr.unice.polytech.couleur;
 
 /**
  * @author https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
- * Pouvant être amélioer
+ * Pouvant être amélioré
  */
 public class CouleurConsole {
     public static final String RESET = "\033[0m";  // Text Reset
