@@ -20,7 +20,6 @@ class MoteurDeJeuTest {
     @Test
     void ordi1gagne(){
         goodsetup();
-        assertTrue(m.joueursDifferents(joueurs));
         for(int i=0;i<5;i++){
             joueurs.get(i).setPoints(30-i);
         }
