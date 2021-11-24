@@ -209,4 +209,9 @@ public class Joueur implements Comparable<Joueur> {
     public int compareTo(Joueur j) {
         return j.getPoints() - this.getPoints();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

@@ -2,11 +2,8 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MoteurDeJeu {
@@ -19,10 +16,10 @@ public class MoteurDeJeu {
     public static int carteAPiocher = 1;
     public static int nombre2QuartiersAConstruire = 8;
     public static ArrayList<Joueur> joueurs;
+    private final int nombre2Personnages;
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
-    private final int nombre2Personnages;
 
     public MoteurDeJeu() {
         deck = new Deck();
@@ -52,7 +49,7 @@ public class MoteurDeJeu {
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
-            joueurs.get(i-1).setId(i);
+            joueurs.get(i - 1).setId(i);
         }
         joueurs.get(0).setEstRoi(true);
     }
@@ -106,17 +103,15 @@ public class MoteurDeJeu {
         }
     }
 
-    int obtenirMaxPoints(ArrayList<Joueur> joueurs){
-        int maxScore = joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
-        return maxScore;
+    int obtenirMaxPoints(ArrayList<Joueur> joueurs) {
+        return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
     ArrayList<Joueur> obtenirGagnant(ArrayList<Joueur> joueurs) {
-        ArrayList<Joueur> winners = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
-        return winners;
+        return new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
     }
 
-    private void printGagnant(ArrayList<Joueur> joueurs){
+    private void printGagnant(ArrayList<Joueur> joueurs) {
         ArrayList<Joueur> winners = obtenirGagnant(joueurs);
         System.out.println("\n");
         switch (winners.size()) {
@@ -128,19 +123,9 @@ public class MoteurDeJeu {
     }
 
 
-    void montrerClassement(ArrayList<Joueur> joueurs) {
+    private void montrerClassement(ArrayList<Joueur> joueurs) {
         Collections.sort(joueurs);
         System.out.println("\n\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tire() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
-
-    boolean joueursDifferents(ArrayList<Joueur> joueurs){
-        Set<Joueur> setjoueurs = new HashSet<>();
-        for(Joueur joueur : joueurs){
-            if(setjoueurs.add(joueur)==false){
-                return false;
-            }
-            setjoueurs.add(joueur);
-        }
-        return true;}
 }
