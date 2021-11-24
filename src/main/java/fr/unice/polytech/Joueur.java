@@ -49,8 +49,8 @@ public class Joueur implements Comparable<Joueur> {
         if (quartiersAchetable.size() > 0) {
             System.out.println("\n" + CouleurConsole.printPink("| Construire Quartier") + " - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
             AtomicInteger i = new AtomicInteger(1);
-            System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tire() + "Choix 0: Ne pas construire");
-            quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tire() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
+            System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
+            quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
             this.ajouteOr(-1 * choix.getPrix());
             System.out.println(CouleurConsole.printPink("| ") + this.getNom() + " a construit: " + CouleurConsole.printGreen(choix.getNom()));

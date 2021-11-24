@@ -1,11 +1,9 @@
 package fr.unice.polytech;
 
-import fr.unice.polytech.pouvoirs.PouvoirMarchand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +19,7 @@ public class PouvoirMarchandTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
-        moteurDeJeu.initialiseJoueur(joueurs);
+        moteurDeJeu.printJoueursInitialises(joueurs);
         joueur = joueurs.get(1);
         joueur.setPersonnage(new CartePersonnage(6,"Marchand","Commerce et Artisanat","Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or."));
         quartier = new CarteQuartier(11.2, "Comptoir", "Commerce et Artisanat", 3);
