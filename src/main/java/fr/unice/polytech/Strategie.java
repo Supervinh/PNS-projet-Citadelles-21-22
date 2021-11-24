@@ -13,7 +13,7 @@ public class Strategie {
         this.joueur = joueur;
     }
 
-    void actionPersonnage() {
+    public void actionPersonnage() {
         switch (this.joueur.getPersonnage().getNom()) {
             case "Assassin" -> iPouvoir = new PouvoirAssassin();
             case "Voleur" -> iPouvoir = new PouvoirVoleur();

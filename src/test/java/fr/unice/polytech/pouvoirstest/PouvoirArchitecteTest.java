@@ -1,5 +1,6 @@
-package fr.unice.polytech;
+package fr.unice.polytech.pouvoirstest;
 
+import fr.unice.polytech.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
