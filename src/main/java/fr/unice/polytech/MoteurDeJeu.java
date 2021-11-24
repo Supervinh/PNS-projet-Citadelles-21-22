@@ -49,7 +49,7 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> {System.out.println(CouleurConsole.tiret() + "Joueur " + joueur.getId() + ": " + CouleurConsole.printCyan("CPU" + joueur.getId()));});
     }
 
-    void initialiseJoueurs(ArrayList<Joueur> joueurs){
+    public void initialiseJoueurs(ArrayList<Joueur> joueurs){
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
             joueurs.get(i-1).setId(i);
