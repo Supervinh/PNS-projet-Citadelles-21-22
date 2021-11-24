@@ -128,6 +128,8 @@ public class Joueur implements Comparable<Joueur> {
         this.or = or;
     }
 
+    public void setPersonnage(CartePersonnage personnage) {this.personnage = personnage; }
+
     public CartePersonnage getPersonnage() {
         return personnage;
     }

@@ -8,7 +8,7 @@ class CartePersonnageTest {
     @Test
     void isNull() {
         CartePersonnage cp = new CartePersonnage(1, "Assassin", null);
-        assertNull(cp.getDescription());
+        assertEquals("",cp.getDescription());
     }
 
     @Test

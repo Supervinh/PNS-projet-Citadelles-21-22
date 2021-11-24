@@ -47,7 +47,7 @@ public class MoteurDeJeu {
         System.out.println();
     }
 
-    private void initialiseJoueur(ArrayList<Joueur> joueurs) {
+    public void initialiseJoueur(ArrayList<Joueur> joueurs) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             System.out.println(CouleurConsole.tire() + "Joueur " + i + ": " + CouleurConsole.printCyan("CPU" + i));
