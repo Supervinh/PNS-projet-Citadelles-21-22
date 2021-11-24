@@ -182,6 +182,10 @@ public class Joueur implements Comparable<Joueur> {
         this.id = id;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public String getNom2QuartierDansListe(ArrayList<CarteQuartier> list) {
         StringBuilder txt = new StringBuilder("[" + CouleurConsole.GREEN);
         for (int i = 0; i < list.size(); i++) {
