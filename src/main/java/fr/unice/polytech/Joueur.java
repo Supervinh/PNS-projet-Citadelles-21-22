@@ -167,11 +167,6 @@ public class Joueur implements Comparable<Joueur> {
         this.first = b;
     }
 
-    public void tue(Joueur joueur) {
-        joueur.estTue = true;
-        if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setEstRoi(false);
-    }
-
     public int getPoints() {
         return points;
     }
@@ -184,6 +179,10 @@ public class Joueur implements Comparable<Joueur> {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public void setEstTue(boolean estTue) {
+        this.estTue = estTue;
     }
 
     public String getNom2QuartierDansListe(ArrayList<CarteQuartier> list) {

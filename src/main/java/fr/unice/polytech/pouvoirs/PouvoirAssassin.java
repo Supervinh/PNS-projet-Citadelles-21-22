@@ -26,7 +26,7 @@ public class PouvoirAssassin implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if (cible != null) {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a " + CouleurConsole.printRed("tué " + cible.getNom()));
-            joueur.tue(cible);
+            this.tue(cible);
         } else {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a essayé de " + CouleurConsole.printRed("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
         }
@@ -35,6 +35,10 @@ public class PouvoirAssassin implements IPouvoir {
     public CartePersonnage cibleAleatoire(Joueur joueur) {
         ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
         cibles.remove(joueur.getPersonnage());
-        return cibles.get(new Random().nextInt(cibles.size()));
+        return cibles.get(new Random().nextInt(cibles.size()));}
+
+    public void tue(Joueur joueur) {
+        joueur.setEstTue(true);
+        if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setEstRoi(false);
     }
 }
