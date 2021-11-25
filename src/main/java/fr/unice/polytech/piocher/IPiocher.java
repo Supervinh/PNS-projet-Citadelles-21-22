@@ -1,8 +1,8 @@
-package fr.unice.polytech.Strategies;
+package fr.unice.polytech.piocher;
 
 import fr.unice.polytech.Joueur;
 
-public interface IStrategie {
+public interface IPiocher {
 
     void utiliserStrategie(Joueur joueur);
 
