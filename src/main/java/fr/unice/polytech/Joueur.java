@@ -28,6 +28,11 @@ public class Joueur implements Comparable<Joueur> {
         this.strat = new Strategie(this);
     }
 
+    public Joueur(String nom, String strategie) {
+        this(nom);
+        this.getStrat().setStrategie(strategie);
+    }
+
     public void piocherQuartier() {
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
             CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
