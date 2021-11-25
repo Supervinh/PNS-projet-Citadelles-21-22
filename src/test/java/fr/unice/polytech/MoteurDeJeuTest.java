@@ -22,7 +22,6 @@ class MoteurDeJeuTest {
             joueurs.get(i).setPoints(30-i);
         }
         assertEquals(1,m.obtenirGagnant(joueurs).size());
-        assertEquals(m.obtenirGagnant(joueurs).get(0).getId(),1);
     }
 
 
