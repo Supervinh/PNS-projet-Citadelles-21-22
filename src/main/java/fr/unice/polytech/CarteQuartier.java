@@ -2,7 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-public class CarteQuartier {
+public class CarteQuartier implements Comparable<CarteQuartier> {
     private final double id;
     private final String nom;
     private final String gemme;
@@ -54,5 +54,10 @@ public class CarteQuartier {
                 ", prix=" + CouleurConsole.printGold("" + prix) +
                 ", description=" + CouleurConsole.printGrey(description) +
                 '}';
+    }
+
+    @Override
+    public int compareTo(CarteQuartier cq) {
+        return cq.prix - this.prix;
     }
 }
