@@ -29,6 +29,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
+        this.initialiseJoueurs(joueurs);
         this.printJoueursInitialises(joueurs);
         this.lancerJeux(joueurs);
         this.printGagnant(joueurs);
@@ -45,14 +46,14 @@ public class MoteurDeJeu {
 
     void printJoueursInitialises(ArrayList<Joueur> joueurs) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
-        initialiseJoueurs(joueurs);
-        joueurs.forEach(joueur -> {System.out.println(CouleurConsole.tiret() + "Joueur " + joueur.getId() + ": " + CouleurConsole.printCyan("CPU" + joueur.getId()));});
+        for (int i = 1; i <= joueurs.size(); i++) {
+            System.out.println(CouleurConsole.tiret() + "Joueur " + i + ": " + joueurs.get(i-1).getNom());
+        }
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs){
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
-            joueurs.get(i-1).setId(i);
         }
         joueurs.get(0).setEstRoi(true);
     }
