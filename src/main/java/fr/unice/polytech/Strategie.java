@@ -2,14 +2,26 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.piocher.*;
 import fr.unice.polytech.pouvoirs.*;
+import fr.unice.polytech.strategie.IStrategie;
+import fr.unice.polytech.strategie.QuartierMerveilles;
+import fr.unice.polytech.strategie.RusherQuartiers;
 
 public class Strategie {
     private final Joueur joueur;
     private IPiocher iPiocher = new SuffisammentQuartier();
     private IPouvoir iPouvoir;
+    private IStrategie iStrategie;
 
     public Strategie(Joueur joueur) {
         this.joueur = joueur;
+    }
+
+    public void setStrategie(String strategie) {
+        switch (strategie) {
+            case "Rusher" -> iStrategie = new RusherQuartiers();
+            case "Merveille" -> iStrategie = new QuartierMerveilles();
+            default -> iStrategie = null;
+        }
     }
 
     public void actionPersonnage() {
@@ -26,7 +38,7 @@ public class Strategie {
         }
     }
 
-    public void choisirStrat() {
+    public void choisirType2Piochage() {
         boolean parDefaut = true;
         if (this.joueur.getQuartiers().size() < 2) { // Check le nombre de bonnes cartes dans la main
             this.iPiocher = new RechercheMeilleurQuartier();
@@ -50,17 +62,17 @@ public class Strategie {
     }
 
     public void prochainTour() {
-        this.choisirStrat();
+        this.choisirType2Piochage();
         String nomPersonnage = joueur.getPersonnage().getNom();
         if (nomPersonnage.equals("Marchand") || nomPersonnage.equals("Évêque")) {
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
             System.out.println();
-            this.choisirStrat();
+            this.choisirType2Piochage();
             if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
         } else {
             if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
-            this.choisirStrat();
+            this.choisirType2Piochage();
             System.out.println();
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
@@ -68,7 +80,7 @@ public class Strategie {
     }
 
     public IPiocher getiPiocher() {
-        this.choisirStrat();
+        this.choisirType2Piochage();
         return iPiocher;
     }
 
