@@ -1,17 +1,17 @@
-package fr.unice.polytech.Strategies;
+package fr.unice.polytech.piocher;
 
 import fr.unice.polytech.Joueur;
 
-public class SuffisammentOr implements IStrategie {
+public class SuffisammentQuartier implements IPiocher {
 
     @Override
     public void utiliserStrategie(Joueur joueur) {
-        joueur.piocherQuartier();
+        joueur.piocherOr();
         joueur.construireQuartier();
     }
 
     @Override
     public String nomStrategie() {
-        return "Suffisamment d'Or";
+        return "Suffisamment de Quartiers";
     }
 }

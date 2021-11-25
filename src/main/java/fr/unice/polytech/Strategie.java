@@ -1,12 +1,11 @@
 package fr.unice.polytech;
 
-import fr.unice.polytech.Strategies.*;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.piocher.*;
 import fr.unice.polytech.pouvoirs.*;
 
 public class Strategie {
     private final Joueur joueur;
-    private IStrategie iStrategie = new SuffisammentQuartier();
+    private IPiocher iPiocher = new SuffisammentQuartier();
     private IPouvoir iPouvoir;
 
     public Strategie(Joueur joueur) {
@@ -27,26 +26,26 @@ public class Strategie {
         }
     }
 
-    private void choisirStrat() {
+    public void choisirStrat() {
         boolean parDefaut = true;
         if (this.joueur.getQuartiers().size() < 2) { // Check le nombre de bonnes cartes dans la main
-            this.iStrategie = new RechercheMeilleurQuartier();
+            this.iPiocher = new RechercheMeilleurQuartier();
             parDefaut = false;
         }
         if (this.joueur.getQuartiers().size() > 6) {
-            this.iStrategie = new SuffisammentQuartier();
+            this.iPiocher = new SuffisammentQuartier();
             parDefaut = false;
         }
         if (this.joueur.getOr() < 2) {
-            this.iStrategie = new EconomiserArgent();
+            this.iPiocher = new EconomiserArgent();
             parDefaut = false;
         }
         if (this.joueur.getOr() > 6) {
-            this.iStrategie = new SuffisammentOr();
+            this.iPiocher = new SuffisammentOr();
             parDefaut = false;
         }
         if (parDefaut) {
-            this.iStrategie = new SuffisammentQuartier();
+            this.iPiocher = new SuffisammentQuartier();
         }
     }
 
@@ -58,9 +57,9 @@ public class Strategie {
             this.iPouvoir.utiliserPouvoir(this.joueur);
             System.out.println();
             this.choisirStrat();
-            if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+            if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
         } else {
-            if (this.iStrategie != null) this.iStrategie.utiliserStrategie(this.joueur);
+            if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
             this.choisirStrat();
             System.out.println();
             this.actionPersonnage();
@@ -68,13 +67,13 @@ public class Strategie {
         }
     }
 
-    public IStrategie getiStrategie() {
+    public IPiocher getiPiocher() {
         this.choisirStrat();
-        return iStrategie;
+        return iPiocher;
     }
 
     @Override
     public String toString() {
-        return this.iStrategie.nomStrategie();
+        return this.iPiocher.nomStrategie();
     }
 }

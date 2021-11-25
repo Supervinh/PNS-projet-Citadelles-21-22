@@ -1,8 +1,8 @@
-package fr.unice.polytech.Strategies;
+package fr.unice.polytech.piocher;
 
 import fr.unice.polytech.Joueur;
 
-public class EconomiserArgent implements IStrategie {
+public class EconomiserArgent implements IPiocher {
 
     @Override
     public void utiliserStrategie(Joueur joueur) {
