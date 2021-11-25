@@ -14,6 +14,7 @@ public class PouvoirArchitecte implements IPouvoir {
             joueur.piocherQuartier();
         }
         for (int i = 0; i < n; i++) {
+            joueur.getStrat().choisirStrat();
             switch (joueur.getNom2Strategie()) {
                 case "Suffisamment de Quartiers", "Suffisamment d'Or" -> joueur.construireQuartier();
                 default -> System.out.println(CouleurConsole.printRed("| ") + "Aucun quartier supplémentaire construit");
