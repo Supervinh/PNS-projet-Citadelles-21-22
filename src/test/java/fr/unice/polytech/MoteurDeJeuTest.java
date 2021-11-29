@@ -13,6 +13,7 @@ class MoteurDeJeuTest {
     void goodsetup(){m=new MoteurDeJeu();
         joueurs=new ArrayList<>();
         m.initialiseJoueurs(joueurs);
+        m.printJoueursInitialises(joueurs);
         m.piocherPersonnage(joueurs);}
 
     @Test
@@ -24,7 +25,33 @@ class MoteurDeJeuTest {
         assertEquals(1,m.obtenirGagnant(joueurs).size());
     }
 
+    @Test
+    void trouverRoi(){
+        goodsetup();
+        m.trouverQuiEstRoi(joueurs);
+        assertTrue((joueurs.get(0)).isEstRoi());
+        for (int j=1; j < joueurs.size() ;j++){
+            assertFalse(joueurs.get(j).isEstRoi());
+        }
+    }
 
+    @Test
+    void jeuPasFini(){
+        goodsetup();
+        assertFalse(m.verifieFini(joueurs.get(0)));
+    }
+
+    @Test
+    void jeuFini(){
+        goodsetup();
+        joueurs.get(0).setOr(10000);
+        for (int i=0; i < 8; i++) {
+            joueurs.get(0).piocherQuartier();
+            joueurs.get(0).construireQuartier();
+        }
+        assertEquals(8, joueurs.get(0).getQuartiersConstruits().size());
+        assertTrue(m.verifieFini(joueurs.get(0)));
+    }
 
 
 }
