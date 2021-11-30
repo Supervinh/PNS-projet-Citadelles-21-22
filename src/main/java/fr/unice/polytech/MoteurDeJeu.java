@@ -119,20 +119,23 @@ public class MoteurDeJeu {
         return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
-    ArrayList<Joueur> obtenirGagnant(ArrayList<Joueur> joueurs) {
-        return new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
+    Joueur obtenirGagnant(ArrayList<Joueur> joueurs) {
+        ArrayList<Joueur> gagnants= new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
+        if(gagnants.size()>1){
+            int premierjoueur=gagnants.stream().mapToInt(Joueur::getIdCarte).min().orElse(0);
+            gagnants= new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getIdCarte() == premierjoueur).toList());
+        }
+        return gagnants.get(0);
     }
 
     private void printGagnant(ArrayList<Joueur> joueurs) {
-        ArrayList<Joueur> winners = obtenirGagnant(joueurs);
+        Joueur winner = obtenirGagnant(joueurs);
         System.out.println("\n");
-        switch (winners.size()) {
-            case 0 -> System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
-            case 1 -> System.out.print("Le " + CouleurConsole.printRed("Gagnant") + " est ");
-            default -> System.out.println("Les " + CouleurConsole.printRed("Gagnants") + " sont: ");
-        }
-        winners.forEach(winner -> System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points"));
+        if(winner==null) System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
+        else{ System.out.print("Le " + CouleurConsole.printRed("Gagnant") + " est ");}
+        System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points");
     }
+
 
 
     private void montrerClassement(ArrayList<Joueur> joueurs) {

@@ -117,6 +117,9 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println();
     }
 
+    public int getIdCarte(){
+        return (int) this.personnage.getId();
+    }
     public String getNom2Strategie() {
         return this.strat.getiPiocher().nomStrategie();
     }
