@@ -136,8 +136,6 @@ public class MoteurDeJeu {
         System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points");
     }
 
-
-
     private void montrerClassement(ArrayList<Joueur> joueurs) {
         Collections.sort(joueurs);
         System.out.println("\n\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
