@@ -149,7 +149,7 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tiret() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 
-    public void setJoueurs(ArrayList<Joueur> joueursAjoutes){
+    public void setJoueurs(ArrayList<Joueur> joueursAjoutes) {
         joueurs = joueursAjoutes;
     }
 }
