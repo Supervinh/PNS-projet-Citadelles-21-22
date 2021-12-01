@@ -15,12 +15,9 @@ public class PouvoirCondottiere implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
 
         // Choix de Cible utilisant un Joueur
-        ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
-        cibles.removeIf(j -> j.equals(joueur) || j.getPersonnage().getNom().equals("Évêque") || j.getQuartiersConstruits().size() <= 0 || j.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire );
-        Joueur cible = cibles.get(new Random().nextInt(cibles.size()));
+        Joueur cible = cibleAleatoire(joueur);
 
-        Random r = new Random();
-        int numQuartier = r.nextInt(cible.getQuartiersConstruits().size());
+        int numQuartier = choixQuartierAleatoire(joueur, cible);
         CarteQuartier quartierDetruit=cible.getQuartiersConstruits().get(numQuartier);
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if(hasEnoughMoney(joueur,quartierDetruit)){
@@ -30,6 +27,17 @@ public class PouvoirCondottiere implements IPouvoir {
         }
         else{System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " n'a pas détruit de quartier.");}
         this.recupererTaxes(joueur);
+    }
+
+    public Joueur cibleAleatoire(Joueur joueur){
+        ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.joueurs));
+        cibles.removeIf(j -> j.equals(joueur) || j.getPersonnage().getNom().equals("Évêque") || j.getQuartiersConstruits().size() <= 0 || j.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire );
+        return cibles.get(new Random().nextInt(cibles.size()));
+    }
+
+    public int choixQuartierAleatoire(Joueur joueur, Joueur cible){
+        Random r = new Random();
+        return r.nextInt(cible.getQuartiersConstruits().size());
     }
 
     public boolean hasEnoughMoney(Joueur joueur, CarteQuartier quartier){
