@@ -22,7 +22,7 @@ class MoteurDeJeuTest {
         for(int i=0;i<5;i++){
             joueurs.get(i).setPoints(30-i);
         }
-        assertEquals(1,m.obtenirGagnant(joueurs));
+        assertEquals(joueurs.get(0),m.obtenirGagnant(joueurs));
     }
 
     @Test
