@@ -17,7 +17,7 @@ public class PouvoirCondottiere implements IPouvoir {
         // Choix de Cible utilisant un Joueur
         Joueur cible = cibleAleatoire(joueur);
 
-        int numQuartier = choixQuartierAleatoire(joueur, cible);
+        int numQuartier = choixQuartierAleatoire(cible);
         CarteQuartier quartierDetruit=cible.getQuartiersConstruits().get(numQuartier);
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if(hasEnoughMoney(joueur,quartierDetruit)){
@@ -35,7 +35,7 @@ public class PouvoirCondottiere implements IPouvoir {
         return cibles.get(new Random().nextInt(cibles.size()));
     }
 
-    public int choixQuartierAleatoire(Joueur joueur, Joueur cible){
+    public int choixQuartierAleatoire(Joueur cible){
         Random r = new Random();
         return r.nextInt(cible.getQuartiersConstruits().size());
     }

@@ -1,10 +1,14 @@
 package fr.unice.polytech.pouvoirstest;
 
 import fr.unice.polytech.*;
+import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +25,7 @@ class PouvoirCondottiereTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.initMocks(this);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.initialiseJoueurs(joueurs);
 
@@ -38,6 +43,7 @@ class PouvoirCondottiereTest {
 
         quartierc1 = new CarteQuartier(14.2, "Tour de guet", "Soldatesque", 1);
         quartiersc1.add(quartierc1);
+        moteurDeJeu.setJoueurs(joueurs);
     }
 
     @Test
@@ -49,6 +55,24 @@ class PouvoirCondottiereTest {
         strategie = new Strategie(condottiere);
         strategie.actionPersonnage();
         //assertEquals(1,condottiere.getOr());
+    }
+
+    @Test
+    void pouvoirTest(){
+        PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
+        for (Joueur joueur: MoteurDeJeu.joueurs){
+            if (joueur.getPersonnage()==null) joueur.piocherPersonnage();
+        }
+        marchand.setOr(50);
+        marchand.setQuartiers(quartiersc1);
+        marchand.construireQuartier();
+        marchand.setOr(-10);
+        condottiere.setOr(50);
+        strategie = new Strategie(condottiere);
+        strategie.actionPersonnage();
+        strategie.prochainTour();
+        assertEquals(0, marchand.getQuartiersConstruits().size());
     }
 
 }
