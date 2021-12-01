@@ -148,4 +148,8 @@ public class MoteurDeJeu {
         System.out.println("\n\n" + CouleurConsole.seperateur2() + CouleurConsole.printTurquoise("Classement apres " + this.nb2Tours + " Tours") + CouleurConsole.seperateur2());
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tiret() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
+
+    public void setJoueurs(ArrayList<Joueur> joueursAjoutes){
+        joueurs = joueursAjoutes;
+    }
 }
