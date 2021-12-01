@@ -11,7 +11,7 @@ public class PouvoirArchitecte implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         for (int i = 0; i < n; i++) {
             System.out.print(CouleurConsole.printRed("| "));
-            joueur.piocherQuartier();
+            joueur.getQuartiers().add(joueur.piocherQuartier());
         }
         for (int i = 0; i < n; i++) {
             joueur.getStrat().choisirType2Piochage();

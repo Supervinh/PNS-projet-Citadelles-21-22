@@ -6,7 +6,7 @@ public class RechercheMeilleurQuartier implements IPiocher {
 
     @Override
     public void utiliserStrategie(Joueur joueur) {
-        joueur.piocherQuartier();
+        joueur.ajouterQuartierEnMain();
     }
 
     @Override

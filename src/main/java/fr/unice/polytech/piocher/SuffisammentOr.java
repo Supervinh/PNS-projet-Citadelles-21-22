@@ -6,7 +6,7 @@ public class SuffisammentOr implements IPiocher {
 
     @Override
     public void utiliserStrategie(Joueur joueur) {
-        joueur.piocherQuartier();
+        joueur.ajouterQuartierEnMain();
         joueur.construireQuartier();
     }
 

@@ -13,7 +13,7 @@ public class MoteurDeJeu {
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
     public static int carte2Depart = 4;
-    public static int carteAPiocher = 1;
+    public static int carteAPiocher = 2;
     public static int nombre2QuartiersAConstruire = 8;
     public static ArrayList<Joueur> joueurs;
     private final int nombre2Personnages;
