@@ -39,6 +39,10 @@ public class Deck {
         return null;
     }
 
+    public void ajouterQuartierDeck(CarteQuartier cq) {
+        this.quartiers.add(cq);
+    }
+
     public CartePersonnage piocherPersonnage() {
         return this.personnages.remove(new Random().nextInt(this.personnages.size()));
     }

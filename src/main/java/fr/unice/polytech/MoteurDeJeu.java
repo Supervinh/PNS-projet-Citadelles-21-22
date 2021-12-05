@@ -13,7 +13,7 @@ public class MoteurDeJeu {
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
     public static int carte2Depart = 4;
-    public static int carteAPiocher = 1;
+    public static int carteAPiocher = 2;
     public static int nombre2QuartiersAConstruire = 8;
     public static ArrayList<Joueur> joueurs;
     private final int nombre2Personnages;
@@ -47,11 +47,11 @@ public class MoteurDeJeu {
     void printJoueursInitialises(ArrayList<Joueur> joueurs) {
         System.out.println("\n" + CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= joueurs.size(); i++) {
-            System.out.println(CouleurConsole.tiret() + "Joueur " + i + ": " + joueurs.get(i-1).getNom());
+            System.out.println(CouleurConsole.tiret() + "Joueur " + i + ": " + joueurs.get(i - 1).getNom());
         }
     }
 
-    public void initialiseJoueurs(ArrayList<Joueur> joueurs){
+    public void initialiseJoueurs(ArrayList<Joueur> joueurs) {
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
             joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
         }
@@ -67,7 +67,8 @@ public class MoteurDeJeu {
             joueurs.get(this.roiIndex).setEstRoi(true);
         }
     }
-    void joueurPiochePersonnage(Joueur joueur){
+
+    void joueurPiochePersonnage(Joueur joueur) {
         joueur.piocherPersonnage();
     }
 
@@ -94,18 +95,20 @@ public class MoteurDeJeu {
     void tour2Jeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
-        if(verifieFini(joueur)) {
-            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));}
+        if (verifieFini(joueur)) {
+            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
+        }
         joueur.calculePoints();
     }
 
-    boolean verifieFini(Joueur joueur){
+    boolean verifieFini(Joueur joueur) {
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
             return true;
-            }
+        }
         return false;
     }
+
     void lancerJeux(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
@@ -119,11 +122,12 @@ public class MoteurDeJeu {
         return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
+    // TODO Premier Element ?
     Joueur obtenirGagnant(ArrayList<Joueur> joueurs) {
-        ArrayList<Joueur> gagnants= new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
-        if(gagnants.size()>1){
-            int premierjoueur=gagnants.stream().mapToInt(Joueur::getIdCarte).min().orElse(0);
-            gagnants= new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getIdCarte() == premierjoueur).toList());
+        ArrayList<Joueur> gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
+        if (gagnants.size() > 1) {
+            int premierJoueur = gagnants.stream().mapToInt(Joueur::getIdCarte).min().orElse(0);
+            gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getIdCarte() == premierJoueur).toList());
         }
         return gagnants.get(0);
     }
@@ -131,9 +135,12 @@ public class MoteurDeJeu {
     private void printGagnant(ArrayList<Joueur> joueurs) {
         Joueur winner = obtenirGagnant(joueurs);
         System.out.println("\n");
-        if(winner==null) System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
-        else{ System.out.print("Le " + CouleurConsole.printRed("Gagnant") + " est ");}
-        System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points");
+        if (winner == null) {
+            System.out.println("Pas de " + CouleurConsole.printRed("Gagnant"));
+        } else {
+            System.out.print("Le " + CouleurConsole.printRed("Gagnant") + " est ");
+            System.out.println(winner.getNom() + " avec " + CouleurConsole.printGold("" + winner.getPoints()) + " points");
+        }
     }
 
     private void montrerClassement(ArrayList<Joueur> joueurs) {
@@ -142,7 +149,7 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tiret() + joueur.getNom() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 
-    public void setJoueurs(ArrayList<Joueur> joueursAjoutes){
+    public void setJoueurs(ArrayList<Joueur> joueursAjoutes) {
         joueurs = joueursAjoutes;
     }
 }

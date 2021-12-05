@@ -33,12 +33,37 @@ public class Joueur implements Comparable<Joueur> {
         this.getStrat().setStrategie(strategie);
     }
 
-    public void piocherQuartier() {
+    public void ajouterQuartierEnMain() {
+        ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
-            CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
-            System.out.println(this.getNom() + " a pioché: " + cq);
-            this.quartiers.add(cq);
+            quartiersPioches.add(piocherQuartier());
         }
+        this.quartiers.add(this.choixQuartier(quartiersPioches));
+    }
+
+    public CarteQuartier piocherQuartier() {
+        CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
+        System.out.println(this.getNom() + " a pioché: " + cq.getNom());
+        return cq;
+    }
+
+    public CarteQuartier choixQuartier(ArrayList<CarteQuartier> quartiersPioches) {
+        int k = new Random().nextInt(quartiersPioches.size());
+        CarteQuartier cq = quartiersPioches.get(k);
+        for (int i = 0; i < quartiersPioches.size(); i++) {
+            if (!this.getQuartiers().contains(quartiersPioches.get(i)) && !this.getQuartiersConstruits().contains(quartiersPioches.get(i))) {
+                cq = quartiersPioches.get(i);
+                k = i;
+                break;
+            }
+        }
+        for (int i = 0; i < quartiersPioches.size(); i++) {
+            if (i != k) {
+                MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
+            }
+        }
+        System.out.println(this.getNom() + " a choisi: " + cq.getNom());
+        return cq;
     }
 
     public void piocherPersonnage() {
@@ -117,9 +142,11 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println();
     }
 
-    public int getIdCarte(){
+    // TODO Remove ?
+    public int getIdCarte() {
         return (int) this.personnage.getId();
     }
+
     public String getNom2Strategie() {
         return this.strat.getiPiocher().nomStrategie();
     }
