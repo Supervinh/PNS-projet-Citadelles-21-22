@@ -1,12 +1,18 @@
 package fr.unice.polytech;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurTest {
 
-    MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
+    MoteurDeJeu moteurDeJeu;
+
+    @BeforeEach
+    public void setUp() {
+        moteurDeJeu = new MoteurDeJeu();
+    }
 
     @Test
     void notEmpty() {

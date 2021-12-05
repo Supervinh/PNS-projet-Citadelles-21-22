@@ -4,14 +4,14 @@
 
     <groupId>projet2-ps5-21-22-ps5-21-22-projet2-h</groupId> <!-- CHANGE ME -->
     <artifactId>Citadelles-Groupe-H</artifactId> <!-- CHANGE ME -->
-    <version>0.2</version> <!-- CHANGE ME -->
+    <version>0.3</version> <!-- CHANGE ME -->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- CHANGE ME IF NEEDED, other : ISO-8859-1 -->
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <mockito.version>4.0.0</mockito.version>
     </properties>
 
