@@ -1,11 +1,13 @@
-Knowledge Exchange
+# Citadelle - Group H
 
-Comment est faite l'architecture du projet ? Et quels choix vous ont amené à la réaliser ainsi ? Où trouver les infos dans la doc ?
+* Knowledge Exchange
 
-Qui est responsable de quoi / qui a fait quoi ?
+* Comment est faite l'architecture du projet ? Et quels choix vous ont amené à la réaliser ainsi ? Où trouver les infos dans la doc ?
 
-Quel est le process de l'équipe (comment git est utilisé, ...)
+* Qui est responsable de quoi / qui a fait quoi ?
 
-Avancement sur les fonctionnalités (quelles slices sont faites ? lesquelles restent à faire ?)
+* Quel est le process de l'équipe (comment git est utilisé, ...)
 
-Etat de la base de code : quelles parties sont bien faites ? Quelles parties sont à refactor et pourquoi ?
+* Avancement sur les fonctionnalités (quelles slices sont faites ? lesquelles restent à faire ?)
+
+* Etat de la base de code : quelles parties sont bien faites ? Quelles parties sont à refactor et pourquoi ?

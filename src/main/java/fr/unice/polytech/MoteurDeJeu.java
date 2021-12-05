@@ -87,7 +87,6 @@ public class MoteurDeJeu {
                 if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
             }
         }
-        // System.out.println("\n" + joueurs);
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
     }
@@ -122,12 +121,11 @@ public class MoteurDeJeu {
         return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
-    // TODO Premier Element ?
     Joueur obtenirGagnant(ArrayList<Joueur> joueurs) {
         ArrayList<Joueur> gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirMaxPoints(joueurs)).toList());
         if (gagnants.size() > 1) {
-            int premierJoueur = gagnants.stream().mapToInt(Joueur::getIdCarte).min().orElse(0);
-            gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getIdCarte() == premierJoueur).toList());
+            int premierJoueur = gagnants.stream().mapToInt(joueur -> (int) joueur.getPersonnage().getId()).min().orElse(0);
+            gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPersonnage().getId() == premierJoueur).toList());
         }
         return gagnants.get(0);
     }

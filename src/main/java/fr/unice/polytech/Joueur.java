@@ -28,9 +28,9 @@ public class Joueur implements Comparable<Joueur> {
         this.strat = new Strategie(this);
     }
 
-    public Joueur(String nom, String strategie) {
+    public Joueur(String nom, String NomStrategie) {
         this(nom);
-        this.getStrat().setStrategie(strategie);
+        this.getStrat().setStrategie(NomStrategie);
     }
 
     public void ajouterQuartierEnMain() {
@@ -43,7 +43,7 @@ public class Joueur implements Comparable<Joueur> {
 
     public CarteQuartier piocherQuartier() {
         CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
-        System.out.println(this.getNom() + " a pioché: " + cq.getNom());
+        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.printGreen(cq.getNom()));
         return cq;
     }
 
@@ -62,7 +62,7 @@ public class Joueur implements Comparable<Joueur> {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
             }
         }
-        System.out.println(this.getNom() + " a choisi: " + cq.getNom());
+        System.out.println(this.getNom() + " a choisi: " + CouleurConsole.printGreen(cq.getNom()));
         return cq;
     }
 
@@ -140,11 +140,6 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println(CouleurConsole.printBlue("| ") + "Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
         System.out.println(CouleurConsole.printBlue("| ") + "Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNom).map(CouleurConsole::printGreen).toList());
         System.out.println();
-    }
-
-    // TODO Remove ?
-    public int getIdCarte() {
-        return (int) this.personnage.getId();
     }
 
     public String getNom2Strategie() {
