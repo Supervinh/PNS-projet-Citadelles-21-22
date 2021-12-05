@@ -84,6 +84,7 @@ public class Strategie {
         return iPiocher;
     }
 
+
     @Override
     public String toString() {
         return this.iPiocher.nomStrategie();

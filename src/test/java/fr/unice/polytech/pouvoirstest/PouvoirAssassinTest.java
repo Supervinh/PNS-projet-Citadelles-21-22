@@ -3,12 +3,11 @@ package fr.unice.polytech.pouvoirstest;
 import fr.unice.polytech.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.Strategie;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
@@ -23,14 +22,12 @@ class PouvoirAssassinTest {
     CartePersonnage personnage;
 
 
-    //@Mock
-    //PouvoirAssassin pouvoir;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        //MockitoAnnotations.initMocks(this);
         moteurDeJeu.initialiseJoueurs(joueurs);
-        personnage = new CartePersonnage(6.0, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
+        personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         moteurDeJeu.piocherPersonnage(joueurs);
         assassin = joueurs.stream()
                 .filter(joueur -> joueur.getPersonnage().getNom().equals("Assassin"))
@@ -56,9 +53,10 @@ class PouvoirAssassinTest {
     @Test
     void estTue() {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
+        Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(assassin);
+        Mockito.doCallRealMethod().when(pouvoir).tue(marchand);
         Mockito.when(pouvoir.cibleAleatoire(assassin)).thenReturn(personnage);
-        assassin.getStrat().prochainTour();
-
+        pouvoir.utiliserPouvoir(assassin);
         assertTrue(marchand.isEstTue());
     }
 

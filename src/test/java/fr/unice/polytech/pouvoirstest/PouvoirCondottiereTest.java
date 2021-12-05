@@ -54,12 +54,15 @@ class PouvoirCondottiereTest {
         assertEquals(1,condottiere.getOr());
         strategie = new Strategie(condottiere);
         strategie.actionPersonnage();
-        //assertEquals(1,condottiere.getOr());
+        assertEquals(1,condottiere.getOr());
     }
 
     @Test
     void pouvoirTest(){
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
+        Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
+        Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
         for (Joueur joueur: MoteurDeJeu.joueurs){
             if (joueur.getPersonnage()==null) joueur.piocherPersonnage();
@@ -69,7 +72,7 @@ class PouvoirCondottiereTest {
         marchand.construireQuartier();
         marchand.setOr(-10);
         condottiere.setOr(50);
-        condottiere.getStrat().prochainTour();
+        pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiersConstruits().size());
     }
 

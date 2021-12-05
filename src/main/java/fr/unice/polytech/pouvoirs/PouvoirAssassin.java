@@ -16,14 +16,11 @@ public class PouvoirAssassin implements IPouvoir {
 
         // Choix de Cible utilisant un nom de Personnage
         CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
-        System.out.println("cible " + cibleNomPersonnage);
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
-                .filter(j -> j.getPersonnage().equals(cibleNomPersonnage))
+                .filter(j -> j.getPersonnage().getNom().equals(cibleNomPersonnage.getNom()))
                 .findFirst()
                 .orElse(null);
-        System.out.println("joueur " + joueur.getNom());
-        System.out.println("cible " + cible);
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if (cible != null) {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a " + CouleurConsole.printRed("tué " + cible.getNom()));
