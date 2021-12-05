@@ -71,7 +71,7 @@ public class MoteurDeJeu {
         joueur.piocherPersonnage();
     }
 
-    void piocherPersonnage(ArrayList<Joueur> joueurs) {
+    public void piocherPersonnage(ArrayList<Joueur> joueurs) {
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
             joueurPiochePersonnage(joueurs.get(i));
         }

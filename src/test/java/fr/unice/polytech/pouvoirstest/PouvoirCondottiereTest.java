@@ -69,9 +69,7 @@ class PouvoirCondottiereTest {
         marchand.construireQuartier();
         marchand.setOr(-10);
         condottiere.setOr(50);
-        strategie = new Strategie(condottiere);
-        strategie.actionPersonnage();
-        strategie.prochainTour();
+        condottiere.getStrat().prochainTour();
         assertEquals(0, marchand.getQuartiersConstruits().size());
     }
 

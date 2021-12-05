@@ -15,14 +15,15 @@ public class PouvoirAssassin implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
 
         // Choix de Cible utilisant un nom de Personnage
-        CartePersonnage cibleNomPersonnage = this.cibleAleatoire(joueur);
-
+        CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
+        System.out.println("cible " + cibleNomPersonnage);
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
                 .filter(j -> j.getPersonnage().equals(cibleNomPersonnage))
                 .findFirst()
                 .orElse(null);
-
+        System.out.println("joueur " + joueur.getNom());
+        System.out.println("cible " + cible);
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         if (cible != null) {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a " + CouleurConsole.printRed("tué " + cible.getNom()));
