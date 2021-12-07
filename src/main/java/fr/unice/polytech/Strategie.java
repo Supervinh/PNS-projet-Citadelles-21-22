@@ -16,6 +16,11 @@ public class Strategie {
         this.joueur = joueur;
     }
 
+    public IPiocher getiPiocher() {
+        this.choisirType2Piochage();
+        return iPiocher;
+    }
+
     public void setStrategie(String strategie) {
         switch (strategie) {
             case "Rusher" -> iStrategie = new RusherQuartiers();
@@ -78,12 +83,6 @@ public class Strategie {
             this.iPouvoir.utiliserPouvoir(this.joueur);
         }
     }
-
-    public IPiocher getiPiocher() {
-        this.choisirType2Piochage();
-        return iPiocher;
-    }
-
 
     @Override
     public String toString() {
