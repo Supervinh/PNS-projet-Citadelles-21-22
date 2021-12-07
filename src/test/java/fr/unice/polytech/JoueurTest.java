@@ -64,6 +64,6 @@ class JoueurTest {
     @Test
     void estRoi() {
         Joueur j1 = new Joueur("1");
-        assertFalse(j1.isEstRoi());
+        assertFalse(j1.isRoi());
     }
 }

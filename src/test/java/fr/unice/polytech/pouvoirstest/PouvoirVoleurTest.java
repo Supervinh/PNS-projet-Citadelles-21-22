@@ -69,7 +69,7 @@ class PouvoirVoleurTest {
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);
-        marchand.setEstTue(true);
+        marchand.setMort(true);
         assertTrue(pouvoir.estPersonnageMort(personnage));
 
     }

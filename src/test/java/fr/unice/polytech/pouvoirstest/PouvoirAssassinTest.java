@@ -39,7 +39,7 @@ class PouvoirAssassinTest {
         Mockito.doCallRealMethod().when(pouvoir).tue(marchand);
         Mockito.when(pouvoir.cibleAleatoire(assassin)).thenReturn(personnage);
         pouvoir.utiliserPouvoir(assassin);
-        assertTrue(marchand.isEstTue());
+        assertTrue(marchand.isMort());
     }
 
 }

@@ -31,9 +31,9 @@ class MoteurDeJeuTest {
     void trouverRoi() {
         goodSetup();
         m.trouverQuiEstRoi(joueurs);
-        assertTrue((joueurs.get(0)).isEstRoi());
+        assertTrue((joueurs.get(0)).isRoi());
         for (int j = 1; j < joueurs.size(); j++) {
-            assertFalse(joueurs.get(j).isEstRoi());
+            assertFalse(joueurs.get(j).isRoi());
         }
     }
 

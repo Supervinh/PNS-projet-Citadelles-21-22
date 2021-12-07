@@ -36,7 +36,7 @@ public class PouvoirRoiTest {
         joueur.ajouteOr(1);
         joueur.construireQuartier();
         strategie.prochainTour();
-        assertTrue(joueur.isEstRoi());
+        assertTrue(joueur.isRoi());
         assertEquals(3, joueur.getOr());
 
     }
