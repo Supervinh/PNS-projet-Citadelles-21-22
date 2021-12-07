@@ -44,6 +44,9 @@ public class MoteurDeJeu {
         joueurs = joueursAjoutes;
     }
 
+    public static void setCarteAPiocher(int carteAPiocher) {
+        MoteurDeJeu.carteAPiocher = carteAPiocher;
+    }
 
     public void hello() {
         System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));

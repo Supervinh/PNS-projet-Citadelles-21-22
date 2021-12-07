@@ -163,10 +163,19 @@ public class Joueur implements Comparable<Joueur> {
     public void ajouterQuartierEnMain() {
         System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
         ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
+
+        this.quartiersConstruits.forEach(quartier -> {
+            if (quartier.getNom().equals("Manufacture") && this.getOr()>=3) {
+                this.setOr(getOr()-3);
+                MoteurDeJeu.setCarteAPiocher(3);
+            }
+        });
+
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
             System.out.print(CouleurConsole.printPurple("| "));
             quartiersPioches.add(piocherQuartier());
         }
+
         System.out.print(CouleurConsole.printPurple("| "));
         this.quartiers.add(this.choixQuartier(quartiersPioches));
     }
