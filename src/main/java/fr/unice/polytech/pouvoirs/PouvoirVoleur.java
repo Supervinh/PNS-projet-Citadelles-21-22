@@ -15,9 +15,7 @@ public class PouvoirVoleur implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
 
         // Choix de Cible utilisant un nom de Personnage
-        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
-        cibles.removeIf(c -> c.getNom().equals(joueur.getPersonnage().getNom()) || c.getNom().equals("Assassin") || this.estPersonnageMort(c));
-        CartePersonnage cibleNomPersonnage = cibles.get(new Random().nextInt(cibles.size()));
+        CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
 
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
@@ -42,6 +40,12 @@ public class PouvoirVoleur implements IPouvoir {
             }
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a essayé de voler les pièces d'" + CouleurConsole.printGold("or") + article + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
         }
+    }
+
+    public CartePersonnage cibleAleatoire(Joueur joueur) {
+        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
+        cibles.removeIf(c -> c.getNom().equals(joueur.getPersonnage().getNom()) || c.getNom().equals("Assassin") || this.estPersonnageMort(c));
+        return cibles.get(new Random().nextInt(cibles.size()));
     }
 
     public boolean estPersonnageMort(CartePersonnage cp) {

@@ -20,7 +20,7 @@ public class PouvoirMagicien implements IPouvoir {
 
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
-                .filter(j -> j.getPersonnage().equals(cibleNomPersonnage))
+                .filter(j -> j.getPersonnage().getNom().equals(cibleNomPersonnage.getNom()))
                 .findFirst()
                 .orElse(null);
 
