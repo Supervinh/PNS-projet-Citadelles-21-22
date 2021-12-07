@@ -129,6 +129,8 @@ public class Joueur implements Comparable<Joueur> {
         if (this.quartiersConstruits.stream().collect(Collectors.groupingBy(CarteQuartier::getGemme, Collectors.counting())).size() >= 5) {
             this.points += 3;
         }
+
+        this.quartiersConstruits.forEach(quartiers -> {if(quartiers.getNom().equals("Université") || quartiers.getNom().equals("Dracoport")) {this.points+= 8;}});
     }
 
     public void jouer() {
