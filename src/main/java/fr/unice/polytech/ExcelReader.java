@@ -7,10 +7,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ExcelReader {
     private final File excelCardFile = new File("data/Cards.xlsx");
     private final File excelCharacterFile = new File("data/Characters.xlsx");
+    private final File excelRandomNames = new File("data/Names.xlsx");
 
     public ExcelReader() {
     }
@@ -59,5 +61,11 @@ public class ExcelReader {
                     row.getCell(4).getStringCellValue()));
         }
         return personnagesTemp;
+    }
+
+    public String getRandomName() {
+        XSSFSheet sheet = fileToSheet(this.excelRandomNames);
+        String name = sheet.getRow(new Random().nextInt(sheet.getLastRowNum())).getCell(0).getStringCellValue().replace("\u008F", "");
+        return name.charAt(0) + name.substring(1).toLowerCase();
     }
 }

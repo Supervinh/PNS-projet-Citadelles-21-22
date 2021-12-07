@@ -16,17 +16,18 @@ public class MoteurDeJeu {
     public static int carteAPiocher = 2;
     public static int nombre2QuartiersAConstruire = 8;
     public static ArrayList<Joueur> joueurs;
+    public static ArrayList<Joueur> personnagesConnus;
     private final int nombre2Personnages;
+    public ArrayList<CartePersonnage> cartesVisibles = new ArrayList<>();
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
     private CartePersonnage carteCachee;
-    public CartePersonnage[] cartesVisibles= new CartePersonnage[2] ;
-    public static ArrayList<Joueur> personnagesConnus =new ArrayList<>();
 
     public MoteurDeJeu() {
         deck = new Deck();
         joueurs = new ArrayList<>();
+        personnagesConnus = new ArrayList<>();
         this.nombre2Personnages = deck.getPersonnages().size();
     }
 
@@ -34,7 +35,7 @@ public class MoteurDeJeu {
         this.hello();
         this.initialiseJoueurs(joueurs);
         this.printJoueursInitialises(joueurs);
-        this.lancerJeu(joueurs);
+        this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
         this.montrerClassement(joueurs);
     }
@@ -55,8 +56,9 @@ public class MoteurDeJeu {
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs) {
+        ExcelReader ER = new ExcelReader();
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
+            joueurs.add(new Joueur(CouleurConsole.printCyan(ER.getRandomName())));
         }
         joueurs.get(0).setEstRoi(true);
     }
@@ -77,10 +79,13 @@ public class MoteurDeJeu {
 
     public void piocherPersonnage(ArrayList<Joueur> joueurs) {
         initialisePileCartes();
+        System.out.println(CouleurConsole.printGreen("\n| Piocher les Personnages"));
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
+            System.out.print(CouleurConsole.printGreen("| "));
             joueurPiochePersonnage(joueurs.get(i));
         }
         for (int i = 0; i < this.roiIndex; i++) {
+            System.out.print(CouleurConsole.printGreen("| "));
             joueurPiochePersonnage(joueurs.get(i));
         }
     }
@@ -93,9 +98,9 @@ public class MoteurDeJeu {
         }
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
-        if(MoteurDeJeu.nombre2Joueur<=5){deck.ajoutePersonnage(cartesVisibles[0]);}
-        if(MoteurDeJeu.nombre2Joueur==4){deck.ajoutePersonnage(cartesVisibles[1]);}
-        deck.ajoutePersonnage(carteCachee);
+
+        this.cartesVisibles.forEach(cp -> deck.ajoutePersonnage(cp));
+        deck.ajoutePersonnage(this.carteCachee);
     }
 
     void tour2Jeu(Joueur joueur) {
@@ -103,7 +108,7 @@ public class MoteurDeJeu {
         joueur.jouer();
         personnagesConnus.add(joueur);
         if (verifieFini(joueur)) {
-            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
+            System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
         joueur.calculePoints();
     }
@@ -116,9 +121,9 @@ public class MoteurDeJeu {
         return false;
     }
 
-    void lancerJeu(ArrayList<Joueur> joueurs) {
+    void lancerTourDeJeu(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
-            personnagesConnus =new ArrayList<>();
+            personnagesConnus = new ArrayList<>();
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
             this.trouverQuiEstRoi(joueurs);
             this.piocherPersonnage(joueurs);
@@ -160,16 +165,18 @@ public class MoteurDeJeu {
         joueurs = joueursAjoutes;
     }
 
-    public void initialisePileCartes(){
-        if(nombre2Joueur==4){
-            cartesVisibles[0]= deck.piocherPersonnage();
-            cartesVisibles[1]= deck.piocherPersonnage();
-            System.out.println("Cartes visibles: "+cartesVisibles[0].getNom()+cartesVisibles[1].getNom());
+    public void initialisePileCartes() {
+        this.cartesVisibles.clear();
+        if (nombre2Joueur == 4) {
+            this.cartesVisibles.add(deck.piocherPersonnage());
+            this.cartesVisibles.add(deck.piocherPersonnage());
         }
-        if(nombre2Joueur==5){
-            cartesVisibles[0]= deck.piocherPersonnage();
-            System.out.println("Carte visible:"+cartesVisibles[0].getNom());
+        if (nombre2Joueur == 5) {
+            this.cartesVisibles.add(deck.piocherPersonnage());
         }
-        carteCachee = deck.piocherPersonnage();
+        System.out.print("Carte Visible: ");
+        this.cartesVisibles.forEach(cp -> System.out.print(CouleurConsole.printRed(cp.getNom()) + " "));
+        this.carteCachee = deck.piocherPersonnage();
+        System.out.println();
     }
 }
