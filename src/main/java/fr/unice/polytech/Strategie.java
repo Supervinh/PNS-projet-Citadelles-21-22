@@ -86,6 +86,10 @@ public class Strategie {
 
     @Override
     public String toString() {
-        return this.iPiocher.nomStrategie();
+        return "Strategie{" +
+                "iPiocher=" + iPiocher +
+                ", iPouvoir=" + iPouvoir +
+                ", iStrategie=" + iStrategie +
+                '}';
     }
 }
