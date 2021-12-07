@@ -163,28 +163,36 @@ public class Joueur implements Comparable<Joueur> {
     public void ajouterQuartierEnMain() {
         System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
         ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
+        int nbCartes=MoteurDeJeu.carteAPiocher;
 
-        this.quartiersConstruits.forEach(quartier -> {
-            if (quartier.getNom().equals("Manufacture") && this.getOr()>=3) {
-                this.setOr(getOr()-3);
-                MoteurDeJeu.setCarteAPiocher(3);
+        if (this.contientQuartier("Manufacture") && this.getOr()>=3) {
+            this.setOr(getOr()-3);
+            nbCartes=3;}
+
+        if (this.contientQuartier("Laboratoire")) {
+            this.setOr(getOr() + 1);
+            this.quartiers.remove(new Random().nextInt(quartiers.size()));
+        }
+
+        if (this.contientQuartier("Observatoire")) {
+            nbCartes = 3;
             }
-        });
 
-        this.quartiersConstruits.forEach(quartier -> {
-            if (quartier.getNom().equals("Laboratoire")) {
-                this.setOr(getOr()+1);
-                this.quartiers.remove(new Random().nextInt(quartiers.size()));
-            }
-        });
-
-        for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
+        for (int i = 0; i < nbCartes; i++) {
             System.out.print(CouleurConsole.printPurple("| "));
             quartiersPioches.add(piocherQuartier());
         }
 
         System.out.print(CouleurConsole.printPurple("| "));
-        this.quartiers.add(this.choixQuartier(quartiersPioches));
+        if (this.contientQuartier("Bibliothèque")) {
+            for(int i=0; i<2;i++){
+                quartiers.add(quartiersPioches.get(i));
+                System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
+            }
+        }
+        else{
+            this.quartiers.add(this.choixQuartier(quartiersPioches));
+        }
     }
 
     public CarteQuartier piocherQuartier() {
@@ -196,6 +204,7 @@ public class Joueur implements Comparable<Joueur> {
     public CarteQuartier choixQuartier(ArrayList<CarteQuartier> quartiersPioches) {
         int k = new Random().nextInt(quartiersPioches.size());
         CarteQuartier cq = quartiersPioches.get(k);
+
         for (int i = 0; i < quartiersPioches.size(); i++) {
             if (!this.getQuartiers().contains(quartiersPioches.get(i)) && !this.getQuartiersConstruits().contains(quartiersPioches.get(i))) {
                 cq = quartiersPioches.get(i);
