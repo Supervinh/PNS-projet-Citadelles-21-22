@@ -34,32 +34,48 @@ public class CartePersonnage {
     }
 
     public double getId() {
-        return id;
+        return this.id;
+    }
+
+    public String getIdColoured() {
+        return CouleurConsole.printTurquoise("" + this.id);
     }
 
     public String getNom() {
-        return nom;
+        return this.nom;
+    }
+
+    public String getNomColoured() {
+        return CouleurConsole.printGreen(this.nom);
     }
 
     public String getGemme() {
-        return gemme;
+        return this.gemme;
+    }
+
+    public String getGemmeColoured() {
+        return CouleurConsole.printPurple(this.gemme);
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
+    }
+
+    public String getDescriptionColoured() {
+        return CouleurConsole.printGrey(this.description);
     }
 
     public String getArticle() {
-        return article;
+        return this.article;
     }
 
     @Override
     public String toString() {
         return "CartePersonnage{" +
-                "id=" + CouleurConsole.printTurquoise("" + id) +
-                ", nom=" + CouleurConsole.printGreen(nom) +
-                ", gemme=" + CouleurConsole.printPurple(gemme) +
-                ", description=" + CouleurConsole.printGrey(description) +
+                "id=" + this.getIdColoured() +
+                ", nom=" + this.getNomColoured() +
+                ", gemme=" + this.getGemmeColoured() +
+                ", description=" + this.getDescriptionColoured() +
                 '}';
     }
 }
