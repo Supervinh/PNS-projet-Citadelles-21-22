@@ -130,7 +130,7 @@ public class Joueur implements Comparable<Joueur> {
             this.points += 3;
         }
 
-        this.quartiersConstruits.forEach(quartiers -> {if(quartiers.getNom().equals("Université")) {this.points+= 2;}});
+        this.quartiersConstruits.forEach(quartiers -> {if(quartiers.getNom().equals("Université") || quartiers.getNom().equals("Dracoport")) {this.points+= 8;}});
     }
 
     public void jouer() {
