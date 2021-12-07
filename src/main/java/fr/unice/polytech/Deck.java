@@ -14,43 +14,9 @@ public class Deck {
         ExcelReader ER = new ExcelReader();
         this.quartiers = ER.recupererQuartiers();
         this.personnages = ER.recupererPersonnage();
-        this.melangerQuartiers();
-        this.melangerPersonnage();
         this.personnagesPossibles = new ArrayList<>(List.copyOf(this.personnages));
-    }
-
-    public void melangerQuartiers() {
-        for (CarteQuartier cq : this.quartiers) {
-            Collections.shuffle(this.quartiers);
-        }
-    }
-
-    public void melangerPersonnage() {
-        for (CartePersonnage cp : this.personnages) {
-            Collections.shuffle(this.personnages);
-        }
-    }
-
-    public CarteQuartier piocherQuartier() {
-        if (!this.quartiers.isEmpty()) {
-            return this.quartiers.remove(0);
-        }
-        System.out.println("Plus de Quartiers");
-        return null;
-    }
-
-    public void ajouterQuartierDeck(CarteQuartier cq) {
-        this.quartiers.add(cq);
-    }
-
-    public CartePersonnage piocherPersonnage() {
-        return this.personnages.remove(new Random().nextInt(this.personnages.size()));
-    }
-
-    public void ajoutePersonnage(CartePersonnage personnage) {
-        if (!this.personnages.contains(personnage)) {
-            this.personnages.add(personnage);
-        }
+        this.melagerArrayList(this.quartiers);
+        this.melagerArrayList(this.personnages);
     }
 
     public ArrayList<CarteQuartier> getQuartiers() {
@@ -63,6 +29,47 @@ public class Deck {
 
     public ArrayList<CartePersonnage> getPersonnagesPossibles() {
         return personnagesPossibles;
+    }
+
+    public void melagerArrayList(ArrayList<?> arrayList) {
+        for (Object e : arrayList) {
+            Collections.shuffle(arrayList);
+        }
+    }
+
+    public CarteQuartier piocherQuartier() {
+        if (!this.quartiers.isEmpty()) {
+            return this.quartiers.remove(0);
+        } else {
+            System.out.println("Plus de Quartiers...");
+            return null;
+        }
+    }
+
+    public CartePersonnage piocherPersonnage() {
+        if (!this.personnages.isEmpty()) {
+            return this.personnages.remove(new Random().nextInt(this.personnages.size()));
+        } else {
+            System.out.println("Plus de Personnages...");
+            return null;
+        }
+
+    }
+
+    public void ajouterQuartierDeck(CarteQuartier cq) {
+        if (!this.quartiers.contains(cq)) {
+            this.quartiers.add(cq);
+        } else {
+            System.out.println("Le Deck Contiens deja: " + cq.getNomColoured());
+        }
+    }
+
+    public void ajoutePersonnage(CartePersonnage personnage) {
+        if (!this.personnages.contains(personnage)) {
+            this.personnages.add(personnage);
+        } else {
+            System.out.println("Le Deck Contiens deja: " + personnage.getNomColoured());
+        }
     }
 
     @Override
