@@ -11,6 +11,6 @@ public class RusherQuartiers implements IStrategie {
     public CarteQuartier quartierAConstruire(ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
         Collections.sort(carteQuartiers);
-        return carteQuartiers.get(0);
+        return carteQuartiers.get(carteQuartiers.size()-1);
     }
 }
