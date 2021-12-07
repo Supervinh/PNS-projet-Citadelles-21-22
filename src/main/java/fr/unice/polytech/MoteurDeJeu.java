@@ -92,7 +92,7 @@ public class MoteurDeJeu {
         }
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
-        deck.ajoutePersonnage(cartesVisibles[0]);
+        if(MoteurDeJeu.nombre2Joueur<=5){deck.ajoutePersonnage(cartesVisibles[0]);}
         if(MoteurDeJeu.nombre2Joueur==4){deck.ajoutePersonnage(cartesVisibles[1]);}
         deck.ajoutePersonnage(carteCachee);
     }
@@ -168,6 +168,5 @@ public class MoteurDeJeu {
             System.out.println("Carte visible:"+cartesVisibles[0].getNom());
         }
         carteCachee = deck.piocherPersonnage();
-        //System.out.println("Carte Cachée:"+carteCachee.getNom());
     }
 }
