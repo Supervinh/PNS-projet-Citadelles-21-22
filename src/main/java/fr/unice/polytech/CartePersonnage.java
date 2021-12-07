@@ -46,7 +46,7 @@ public class CartePersonnage {
     }
 
     public String getNomColoured() {
-        return CouleurConsole.printGreen(this.nom);
+        return CouleurConsole.printRed(this.nom);
     }
 
     public String getGemme() {

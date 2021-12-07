@@ -14,7 +14,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
         this.nom = nom;
         this.gemme = gemme;
         this.prix = (int) prix;
-        this.description = null;
+        this.description = "None";
     }
 
     public CarteQuartier(double id, String nom, String gemme, double prix, String description) {
@@ -26,7 +26,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     public double getId() {
-        return id;
+        return this.id;
     }
 
     public String getIdColoured() {
@@ -34,7 +34,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     public String getNom() {
-        return nom;
+        return this.nom;
     }
 
     public String getNomColoured() {
@@ -42,7 +42,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     public String getGemme() {
-        return gemme;
+        return this.gemme;
     }
 
     public String getGemmeColoured() {
@@ -50,15 +50,15 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     public int getPrix() {
-        return prix;
+        return this.prix;
     }
 
     public String getPrixColoured() {
-        return CouleurConsole.printGold("" + prix) + " pieces d'" + CouleurConsole.printGold("Or");
+        return CouleurConsole.printGold("" + this.prix) + " pièce" + (this.prix > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or");
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getDescriptionColoured() {
