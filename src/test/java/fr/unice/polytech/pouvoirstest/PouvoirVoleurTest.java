@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class PouvoirVoleurTest {
@@ -39,6 +40,15 @@ class PouvoirVoleurTest {
         Mockito.when(pouvoir.cibleAleatoire(voleur)).thenReturn(personnage);
         pouvoir.utiliserPouvoir(voleur);
         assertEquals(4, voleur.getOr());
+    }
+
+    @Test
+    void estMort(){
+        PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
+        Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);
+        marchand.setEstTue(true);
+        assertTrue(pouvoir.estPersonnageMort(personnage));
+
     }
 
 }
