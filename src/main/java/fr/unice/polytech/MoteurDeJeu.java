@@ -20,8 +20,8 @@ public class MoteurDeJeu {
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
-    public static CartePersonnage carteCachee;
-    public static ArrayList<CartePersonnage> cartesVisibles = new ArrayList<>();
+    public CartePersonnage carteCachee;
+    public CartePersonnage[] cartesVisibles= new CartePersonnage[2] ;
 
     public MoteurDeJeu() {
         deck = new Deck();
@@ -75,6 +75,7 @@ public class MoteurDeJeu {
     }
 
     public void piocherPersonnage(ArrayList<Joueur> joueurs) {
+        initialisePileCartes();
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
             joueurPiochePersonnage(joueurs.get(i));
         }
@@ -91,7 +92,8 @@ public class MoteurDeJeu {
         }
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isEstTue());
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
-        cartesVisibles.forEach(c->deck.ajoutePersonnage(c));
+        if(MoteurDeJeu.nombre2Joueur<=5){deck.ajoutePersonnage(cartesVisibles[0]);}
+        if(MoteurDeJeu.nombre2Joueur==4){deck.ajoutePersonnage(cartesVisibles[1]);}
         deck.ajoutePersonnage(carteCachee);
     }
 
@@ -115,7 +117,6 @@ public class MoteurDeJeu {
     void lancerJeu(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
-            this.initialisePileCartes();
             this.trouverQuiEstRoi(joueurs);
             this.piocherPersonnage(joueurs);
             this.jouerDansLOrdreDesPersonnages(joueurs);
@@ -158,16 +159,14 @@ public class MoteurDeJeu {
 
     public void initialisePileCartes(){
         if(nombre2Joueur==4){
-            cartesVisibles.add(deck.piocherPersonnage());
-            cartesVisibles.add(deck.piocherPersonnage());
-            System.out.println("Cartes visibles: ");
-            cartesVisibles.forEach(c-> System.out.println(c.getNom()));
+            cartesVisibles[0]= deck.piocherPersonnage();
+            cartesVisibles[1]= deck.piocherPersonnage();
+            System.out.println("Cartes visibles: "+cartesVisibles[0].getNom()+cartesVisibles[1].getNom());
         }
         if(nombre2Joueur==5){
-            cartesVisibles.add(deck.piocherPersonnage());
-            System.out.println("Carte visible: " + cartesVisibles.get(0).getNom());
+            cartesVisibles[0]= deck.piocherPersonnage();
+            System.out.println("Carte visible:"+cartesVisibles[0].getNom());
         }
         carteCachee = deck.piocherPersonnage();
-        System.out.println(carteCachee.getNom());
     }
 }
