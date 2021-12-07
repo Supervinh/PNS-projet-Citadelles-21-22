@@ -54,7 +54,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     public String getPrixColoured() {
-        return CouleurConsole.printGold("" + prix) + "pieces d'" + CouleurConsole.printGold("Or");
+        return CouleurConsole.printGold("" + prix) + " pieces d'" + CouleurConsole.printGold("Or");
     }
 
     public String getDescription() {
