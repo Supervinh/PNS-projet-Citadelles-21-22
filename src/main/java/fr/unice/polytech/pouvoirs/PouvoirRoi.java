@@ -8,8 +8,8 @@ public class PouvoirRoi implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-        MoteurDeJeu.joueurs.forEach(j -> j.setEstRoi(false));
-        joueur.setEstRoi(true);
+        MoteurDeJeu.joueurs.forEach(j -> j.setRoi(false));
+        joueur.setRoi(true);
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " est le Nouveau " + CouleurConsole.printGold("Roi"));
         this.recupererTaxes(joueur);

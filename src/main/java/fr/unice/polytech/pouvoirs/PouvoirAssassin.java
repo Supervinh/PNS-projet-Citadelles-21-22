@@ -37,7 +37,7 @@ public class PouvoirAssassin implements IPouvoir {
     }
 
     public void tue(Joueur joueur) {
-        joueur.setEstTue(true);
-        if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setEstRoi(false);
+        joueur.setMort(true);
+        if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setRoi(false);
     }
 }

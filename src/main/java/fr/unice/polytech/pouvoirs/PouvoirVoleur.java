@@ -49,7 +49,7 @@ public class PouvoirVoleur implements IPouvoir {
     }
 
     public boolean estPersonnageMort(CartePersonnage cp) {
-        return MoteurDeJeu.joueurs.stream().filter(joueur -> joueur.getPersonnage().equals(cp)).anyMatch(Joueur::isEstTue);
+        return MoteurDeJeu.joueurs.stream().filter(joueur -> joueur.getPersonnage().equals(cp)).anyMatch(Joueur::isMort);
     }
 
 }
