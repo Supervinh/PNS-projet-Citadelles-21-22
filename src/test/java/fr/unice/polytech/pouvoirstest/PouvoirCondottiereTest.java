@@ -25,7 +25,6 @@ class PouvoirCondottiereTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.initialiseJoueurs(joueurs);
 
@@ -64,13 +63,9 @@ class PouvoirCondottiereTest {
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
-        for (Joueur joueur: MoteurDeJeu.joueurs){
-            if (joueur.getPersonnage()==null) joueur.piocherPersonnage();
-        }
         marchand.setOr(50);
         marchand.setQuartiers(quartiersc1);
         marchand.construireQuartier();
-        marchand.setOr(-10);
         condottiere.setOr(50);
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiersConstruits().size());
