@@ -171,6 +171,13 @@ public class Joueur implements Comparable<Joueur> {
             }
         });
 
+        this.quartiersConstruits.forEach(quartier -> {
+            if (quartier.getNom().equals("Laboratoire")) {
+                this.setOr(getOr()+1);
+                this.quartiers.remove(new Random().nextInt(quartiers.size()));
+            }
+        });
+
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
             System.out.print(CouleurConsole.printPurple("| "));
             quartiersPioches.add(piocherQuartier());
