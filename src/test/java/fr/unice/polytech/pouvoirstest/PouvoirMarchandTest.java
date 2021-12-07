@@ -26,7 +26,6 @@ public class PouvoirMarchandTest {
         quartier = new CarteQuartier(11.2, "Comptoir", "Commerce et Artisanat", 3);
         quartiers.add(quartier);
         strategie = new Strategie(joueur);
-        //strategie.actionPersonnage();
     }
 
     @Test
