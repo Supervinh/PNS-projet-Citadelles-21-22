@@ -34,10 +34,13 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void ajouterQuartierEnMain() {
+        System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
         ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
         for (int i = 0; i < MoteurDeJeu.carteAPiocher; i++) {
+            System.out.print(CouleurConsole.printPurple("| "));
             quartiersPioches.add(piocherQuartier());
         }
+        System.out.print(CouleurConsole.printPurple("| "));
         this.quartiers.add(this.choixQuartier(quartiersPioches));
     }
 
@@ -76,13 +79,15 @@ public class Joueur implements Comparable<Joueur> {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
-            System.out.println("\n" + CouleurConsole.printPink("| Construire Quartier") + " - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
             AtomicInteger i = new AtomicInteger(1);
+            System.out.println("\n" + CouleurConsole.printPink("| Construire Quartier") + " - " + this.getNom() + " a " + this.or + " pieces d'" + CouleurConsole.printGold("or"));
             System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
-            quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier));
+            quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
+
             CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
-            this.ajouteOr(-1 * choix.getPrix());
             System.out.println(CouleurConsole.printPink("| ") + this.getNom() + " a construit: " + CouleurConsole.printGreen(choix.getNom()));
+
+            this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
@@ -104,7 +109,8 @@ public class Joueur implements Comparable<Joueur> {
 
     public void piocherOr() {
         this.ajouteOr(MoteurDeJeu.orAPiocher);
-        System.out.println(this.getNom() + " a pioché: " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pieces d'" + CouleurConsole.printGold("or"));
+        System.out.println(CouleurConsole.printGold("| Piocher Or"));
+        System.out.println(CouleurConsole.printGold("| ") + this.getNom() + " a pioché: " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pieces d'" + CouleurConsole.printGold("or"));
     }
 
     public void ajouteOr(int n) {
