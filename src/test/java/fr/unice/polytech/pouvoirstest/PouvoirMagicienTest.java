@@ -39,8 +39,6 @@ class PouvoirMagicienTest {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(magicien);
         Mockito.when(pouvoir.cibleAleatoire(magicien)).thenReturn(personnage);
-        System.out.println(magicien);
-        System.out.println(marchand);
         magicien.setQuartiers(quartiers);
         pouvoir.utiliserPouvoir(magicien);
         assertEquals(4, magicien.getQuartiers().size());

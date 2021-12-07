@@ -1,10 +1,8 @@
 package fr.unice.polytech.pouvoirstest;
 
 import fr.unice.polytech.CartePersonnage;
-import fr.unice.polytech.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.pouvoirs.PouvoirMagicien;
 import fr.unice.polytech.pouvoirs.PouvoirVoleur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
