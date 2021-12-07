@@ -15,7 +15,7 @@ public class PouvoirVoleur implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
 
         // Choix de Cible utilisant un nom de Personnage
-       CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
+        CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
 
         // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
@@ -42,11 +42,12 @@ public class PouvoirVoleur implements IPouvoir {
         }
     }
 
-    public CartePersonnage cibleAleatoire(Joueur joueur){
+    public CartePersonnage cibleAleatoire(Joueur joueur) {
         ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
         cibles.removeIf(c -> c.getNom().equals(joueur.getPersonnage().getNom()) || c.getNom().equals("Assassin") || this.estPersonnageMort(c));
         return cibles.get(new Random().nextInt(cibles.size()));
     }
+
     public boolean estPersonnageMort(CartePersonnage cp) {
         return MoteurDeJeu.joueurs.stream().filter(joueur -> joueur.getPersonnage().equals(cp)).anyMatch(Joueur::isEstTue);
     }

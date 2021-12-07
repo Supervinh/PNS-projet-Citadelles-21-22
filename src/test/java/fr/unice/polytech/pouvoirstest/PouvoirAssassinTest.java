@@ -3,7 +3,6 @@ package fr.unice.polytech.pouvoirstest;
 import fr.unice.polytech.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.Strategie;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -23,10 +21,8 @@ class PouvoirAssassinTest {
     CartePersonnage personnage;
 
 
-
     @BeforeEach
     void setUp() {
-        //MockitoAnnotations.initMocks(this);
         moteurDeJeu.initialiseJoueurs(joueurs);
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         assassin = joueurs.get(0);
