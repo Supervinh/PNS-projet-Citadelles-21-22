@@ -55,8 +55,9 @@ public class MoteurDeJeu {
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs) {
+        ExcelReader ER = new ExcelReader();
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            joueurs.add(new Joueur(CouleurConsole.printCyan(new ExcelReader().getRandomName())));
+            joueurs.add(new Joueur(CouleurConsole.printCyan(ER.getRandomName())));
         }
         joueurs.get(0).setEstRoi(true);
     }
@@ -103,7 +104,7 @@ public class MoteurDeJeu {
         joueur.jouer();
         personnagesConnus.add(joueur);
         if (verifieFini(joueur)) {
-            System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
+            System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
         joueur.calculePoints();
     }
