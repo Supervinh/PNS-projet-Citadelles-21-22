@@ -65,7 +65,7 @@ public class ExcelReader {
 
     public String getRandomName() {
         XSSFSheet sheet = fileToSheet(this.excelRandomNames);
-        String name = sheet.getRow(new Random().nextInt(sheet.getLastRowNum())).getCell(0).getStringCellValue();
+        String name = sheet.getRow(new Random().nextInt(sheet.getLastRowNum())).getCell(0).getStringCellValue().replace("\u008F", "");
         return name.charAt(0) + name.substring(1).toLowerCase();
     }
 }
