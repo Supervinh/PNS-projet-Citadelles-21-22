@@ -33,6 +33,20 @@ class PouvoirVoleurTest {
         moteurDeJeu.setJoueurs(joueurs);
     }
 
+    void specialSetUp(){
+        marchand.setPersonnage(new CartePersonnage(3, "Assassin", null));
+        joueurs.remove(voleur);
+        joueurs.remove(marchand);
+        System.out.println(joueurs.size());
+        for (Joueur joueur : joueurs) {
+            joueur.piocherPersonnage();
+            while (joueur.getPersonnage().getNom().equals("Marchand") || joueur.getPersonnage().getNom().equals("Voleur"))
+                joueur.piocherPersonnage();
+        }
+        joueurs.add(voleur);
+        joueurs.add(marchand);
+    }
+
     @Test
     void aVole() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
@@ -42,6 +56,15 @@ class PouvoirVoleurTest {
         assertEquals(4, voleur.getOr());
     }
 
+    @Test
+    void neVolePas(){
+        PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
+        Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
+        Mockito.when(pouvoir.cibleAleatoire(voleur)).thenReturn(personnage);
+        specialSetUp();
+        pouvoir.utiliserPouvoir(voleur);
+        assertEquals(2, voleur.getOr());
+    }
     @Test
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
