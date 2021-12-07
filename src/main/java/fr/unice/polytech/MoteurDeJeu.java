@@ -56,7 +56,7 @@ public class MoteurDeJeu {
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs) {
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            joueurs.add(new Joueur(CouleurConsole.printCyan("CPU" + i)));
+            joueurs.add(new Joueur(CouleurConsole.printCyan(new ExcelReader().getRandomName())));
         }
         joueurs.get(0).setEstRoi(true);
     }
