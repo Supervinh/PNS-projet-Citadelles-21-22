@@ -44,6 +44,7 @@ public class MoteurDeJeu {
         joueurs = joueursAjoutes;
     }
 
+
     public void hello() {
         System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));
         System.out.println(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Grp.H"));
@@ -97,10 +98,28 @@ public class MoteurDeJeu {
         this.cartesVisibles.clear();
         if (nombre2Joueur == 4) {
             this.cartesVisibles.add(deck.piocherPersonnage());
+            if(this.cartesVisibles.get(0).getNom().equals("Roi")){
+                this.cartesVisibles.remove(0);
+                do{
+                    this.cartesVisibles.add(deck.piocherPersonnage());
+                }while(this.cartesVisibles.get(0).getNom().equals("Roi"));
+            }
             this.cartesVisibles.add(deck.piocherPersonnage());
+            if(this.cartesVisibles.get(1).getNom().equals("Roi")){
+                this.cartesVisibles.remove(1);
+                do{
+                    this.cartesVisibles.add(deck.piocherPersonnage());
+                }while(this.cartesVisibles.get(1).getNom().equals("Roi"));
+            }
         }
         if (nombre2Joueur == 5) {
             this.cartesVisibles.add(deck.piocherPersonnage());
+            if(this.cartesVisibles.get(0).getNom().equals("Roi")){
+                this.cartesVisibles.clear();
+                do{
+                    this.cartesVisibles.add(deck.piocherPersonnage());
+                }while(this.cartesVisibles.get(0).getNom().equals("Roi"));
+            }
         }
         System.out.print("Carte Visible: ");
         this.cartesVisibles.forEach(cp -> System.out.print(cp.getNomColoured() + " "));
