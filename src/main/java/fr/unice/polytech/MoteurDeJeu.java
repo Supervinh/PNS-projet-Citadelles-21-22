@@ -20,8 +20,9 @@ public class MoteurDeJeu {
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
-    public CartePersonnage carteCachee;
+    private CartePersonnage carteCachee;
     public CartePersonnage[] cartesVisibles= new CartePersonnage[2] ;
+    public static ArrayList<Joueur> personnagesConnus =new ArrayList<>();
 
     public MoteurDeJeu() {
         deck = new Deck();
@@ -100,6 +101,7 @@ public class MoteurDeJeu {
     void tour2Jeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNom() + CouleurConsole.seperateur1());
         joueur.jouer();
+        personnagesConnus.add(joueur);
         if (verifieFini(joueur)) {
             System.out.println("\n" + joueur.getNom() + " a fini en " + CouleurConsole.printBlue("Premier"));
         }
@@ -116,6 +118,7 @@ public class MoteurDeJeu {
 
     void lancerJeu(ArrayList<Joueur> joueurs) {
         while (joueurs.stream().noneMatch(Joueur::isFirst)) {
+            personnagesConnus =new ArrayList<>();
             System.out.println("\n\n\n" + CouleurConsole.seperateur2() + "Tour " + ++this.nb2Tours + CouleurConsole.seperateur2());
             this.trouverQuiEstRoi(joueurs);
             this.piocherPersonnage(joueurs);
