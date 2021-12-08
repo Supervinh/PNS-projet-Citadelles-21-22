@@ -13,23 +13,19 @@ public class PouvoirVoleur implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-
-        // Choix de Cible utilisant un nom de Personnage
         CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
-
-        // Si Cible est attribuée a un Joueur ou pas
         Joueur cible = MoteurDeJeu.joueurs.stream()
                 .filter(j -> j.getPersonnage().equals(cibleNomPersonnage))
                 .findFirst()
                 .orElse(null);
 
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
+        System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
         if (cible != null) {
             int montant = cible.getOr();
             boolean plurielle = montant > 1;
             joueur.ajouteOr(montant);
             cible.setOr(0);
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a volé " + CouleurConsole.printGold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.printGold("or") + " à " + cible.getNom());
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.printGold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.printGold("Or") + " à " + cible.getNomColoured());
         } else {
             String article;
             switch (" de " + cibleNomPersonnage.getArticle()) {
@@ -38,7 +34,7 @@ public class PouvoirVoleur implements IPouvoir {
                 case " de L'" -> article = " de l'";
                 default -> article = " de " + cibleNomPersonnage.getArticle();
             }
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a essayé de voler les pièces d'" + CouleurConsole.printGold("or") + article + CouleurConsole.printRed(cibleNomPersonnage.getNom()));
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a essayé de voler les pièces d'" + CouleurConsole.printGold("Or") + article + cibleNomPersonnage.getNomColoured());
         }
     }
 

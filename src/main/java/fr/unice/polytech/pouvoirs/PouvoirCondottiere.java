@@ -18,15 +18,16 @@ public class PouvoirCondottiere implements IPouvoir {
         Joueur cible = cibleAleatoire();
 
         CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
+        System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
         if (quartierDetruit != null) {
             cible.getQuartiersConstruits().remove(quartierDetruit);
             MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-            joueur.ajouteOr(1-quartierDetruit.getPrix());
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a détruit le quartier " + CouleurConsole.printGreen(quartierDetruit.getNom()) + " de " + cible.getNom());
+            joueur.ajouteOr(1 - quartierDetruit.getPrix());
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
         } else {
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " n'a pas détruit de quartier.");
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
         }
+        System.out.println(CouleurConsole.printRed("|"));
         this.recupererTaxes(joueur);
     }
 

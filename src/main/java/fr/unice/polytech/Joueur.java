@@ -226,7 +226,7 @@ public class Joueur implements Comparable<Joueur> {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
             }
         }
-        System.out.println("\n" + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+        System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
         return cq;
     }
 
@@ -279,6 +279,7 @@ public class Joueur implements Comparable<Joueur> {
                 ", personnage=" + this.personnage.getNomColoured() +
                 ", quartiers=" + this.quartiers.stream().map(CarteQuartier::getNomColoured).toList() +
                 ", quartiersConstruits=" + this.quartiersConstruits.stream().map(CarteQuartier::getNomColoured).toList() +
+                ", strategie=" + this.getNomStrategieColoured() +
                 '}';
     }
 
