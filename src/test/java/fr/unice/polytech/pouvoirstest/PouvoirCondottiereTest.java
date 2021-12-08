@@ -1,9 +1,11 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.*;
+import fr.unice.polytech.CartePersonnage;
+import fr.unice.polytech.CarteQuartier;
+import fr.unice.polytech.Joueur;
+import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -55,7 +57,7 @@ class PouvoirCondottiereTest {
     }
 
     @Test
-    void pasDeTaxe(){
+    void pasDeTaxe() {
         PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(condottiere);
         quartierc1 = new CarteQuartier(1, "Temple", "Religion", 1);
@@ -83,7 +85,7 @@ class PouvoirCondottiereTest {
     }
 
     @Test
-    void pasDestruction(){
+    void pasDestruction() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         assertNull(pouvoir.choixQuartierAleatoire(condottiere, marchand));
