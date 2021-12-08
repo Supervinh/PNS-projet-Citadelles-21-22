@@ -33,7 +33,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs);
+        this.initialiseJoueurs(joueurs, true);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -86,10 +86,14 @@ public class MoteurDeJeu {
         joueur.calculePoints();
     }
 
-    public void initialiseJoueurs(ArrayList<Joueur> joueurs) {
+    public void initialiseJoueurs(ArrayList<Joueur> joueurs, boolean nameless) {
         ExcelReader ER = new ExcelReader();
         for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
-            joueurs.add(new Joueur(ER.getRandomName()));
+            if (nameless) {
+                joueurs.add(new Joueur());
+            } else {
+                joueurs.add(new Joueur(ER.getRandomName()));
+            }
         }
         joueurs.get(0).setRoi(true);
     }
@@ -98,14 +102,14 @@ public class MoteurDeJeu {
         this.cartesVisibles.clear();
         if (nombre2Joueur == 4) {
             this.cartesVisibles.add(deck.piocherPersonnage());
-            while(this.cartesVisibles.get(0).getNom().equals("Roi")) {
+            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
                 deck.ajoutePersonnage(this.cartesVisibles.get(0));
                 this.cartesVisibles.remove(0);
                 this.cartesVisibles.add(deck.piocherPersonnage());
             }
 
             this.cartesVisibles.add(deck.piocherPersonnage());
-            while(this.cartesVisibles.get(0).getNom().equals("Roi")) {
+            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
                 deck.ajoutePersonnage(this.cartesVisibles.get(1));
                 this.cartesVisibles.remove(1);
                 this.cartesVisibles.add(deck.piocherPersonnage());
@@ -113,7 +117,7 @@ public class MoteurDeJeu {
         }
         if (nombre2Joueur == 5) {
             this.cartesVisibles.add(deck.piocherPersonnage());
-            while(this.cartesVisibles.get(0).getNom().equals("Roi")) {
+            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
                 deck.ajoutePersonnage(this.cartesVisibles.get(0));
                 this.cartesVisibles.clear();
                 this.cartesVisibles.add(deck.piocherPersonnage());
