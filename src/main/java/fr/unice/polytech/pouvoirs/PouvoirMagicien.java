@@ -10,8 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*
+ * Le pouvoir du magicien permet au personnage d'échanger des cartes avec un joueur ou avec la pioche.
+ */
 public class PouvoirMagicien implements IPouvoir {
 
+    /**
+     * L'utilisation du pouvoir, on choisit l'action que l'on fait.
+     * @param joueur Le joueur en question.
+     */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
@@ -19,6 +26,10 @@ public class PouvoirMagicien implements IPouvoir {
         choixAction(joueur,choisit());
     }
 
+    /**
+     * On échange nos cartes avec un joueur. On choisit une cible aléatoirement et on échange toutes nos cartes avec lui.
+     * @param joueur Le joueur en question.
+     */
     public void echangerCartesAvecJoueur(Joueur joueur) {
         CartePersonnage cibleNomPersonnage = this.cibleAleatoire(joueur);
         Joueur cible = MoteurDeJeu.joueurs.stream()
@@ -32,6 +43,12 @@ public class PouvoirMagicien implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
     }
 
+    /**
+     * On échange des cartes avec la pioche. Si on entre une valeur négative ça reviens à mettre 0, si on entre une valeur trop grande on met le
+     * maximum des cartes dans la main. Puis on échange le nombre définit de cartes avec la pioche et les cartes échangées donc remis dans la pile.
+     * @param joueur Le joueur en question.
+     * @param nb Le nombre de cartes à échanger.
+     */
     public void echangerCartesAvecPioche(Joueur joueur, int nb) {
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger des cartes avec la pioche");
         if (nb > joueur.getQuartiers().size()) {
@@ -48,12 +65,21 @@ public class PouvoirMagicien implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé " + CouleurConsole.printPurple("" + nb) + " cartes avec la pioche.");
     }
 
+    /**
+     * Un chiffre aléatoire entre 0 et 1.
+     * @return Retourne 0 ou 1.
+     */
     public int choisit(){
         Random r=new Random();
         int i=r.nextInt(2);
         return i;
     }
 
+    /**
+     * On choisit aléatoirement si on échange ses cartes avec un joueur ou avec la pioche.
+     * @param joueur Le joueur en question.
+     * @param i Un chiffre entre 0 et 1 qui permet de faire le choix.
+     */
     public void choixAction(Joueur joueur, int i){
         Random r=new Random();
         int nb=0;
@@ -64,6 +90,11 @@ public class PouvoirMagicien implements IPouvoir {
         }
     }
 
+    /**
+     * Sélectionne un personnage de manière aléatoire mais pas lui même.
+     * @param joueur Le joueur en question.
+     * @return Retourne une carte de personnage.
+     */
     public CartePersonnage cibleAleatoire(Joueur joueur) {
         ArrayList<Joueur> cibles = new ArrayList<>(MoteurDeJeu.joueurs);
         cibles.remove(joueur);

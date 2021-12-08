@@ -9,8 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Le pouvoir de l'assassin permet au personnage de tuer un autre personnage.
+ */
 public class PouvoirAssassin implements IPouvoir {
 
+    /**
+     * On sélectionne un personnage. Si le personnage exsite on tue le joueur ayant ce personnage sinon il ne se passe rien.
+     * @param joueur Le joueur en question.
+     */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
 
@@ -25,6 +32,11 @@ public class PouvoirAssassin implements IPouvoir {
         }
     }
 
+    /**
+     * Permet de sélectionner une cible existante, donc un joueur.
+     * @param cibleNomPersonnage Une carte de personnage.
+     * @return Retourne un joueur.
+     */
     public Joueur cibleExistante(CartePersonnage cibleNomPersonnage) {
         return MoteurDeJeu.joueurs.stream()
                 .filter(j -> j.getPersonnage().getNom().equals(cibleNomPersonnage.getNom()))
@@ -32,12 +44,21 @@ public class PouvoirAssassin implements IPouvoir {
                 .orElse(null);
     }
 
+    /**
+     * Sélectionne un personnage de manière aléatoire mais pas lui même.
+     * @param joueur Le joueur en question.
+     * @return Retourne une carte de personnage.
+     */
     public CartePersonnage cibleAleatoire(Joueur joueur) {
         ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
         cibles.remove(joueur.getPersonnage());
         return cibles.get(new Random().nextInt(cibles.size()));
     }
 
+    /**
+     * On tue le joueur.
+     * @param joueur Le joueur en question.
+     */
     public void tue(Joueur joueur) {
         joueur.setMort(true);
         if (joueur.getPersonnage().getNom().equals("Roi")) joueur.setRoi(false);
