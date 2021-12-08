@@ -24,7 +24,7 @@ public class PouvoirMagicien implements IPouvoir {
 
     }
 
-    private void echangerCartesAvecJoueur(Joueur joueur) {
+    public void echangerCartesAvecJoueur(Joueur joueur) {
         CartePersonnage cibleNomPersonnage = this.cibleAleatoire(joueur);
 
         // Si Cible est attribuée a un Joueur ou pas
@@ -59,9 +59,9 @@ public class PouvoirMagicien implements IPouvoir {
     public void choixAction(Joueur joueur){
         Random r=new Random();
         int i=r.nextInt(2);
-        int nbcartes=0;
-        if(joueur.getQuartiers().size()>0){nbcartes=r.nextInt(joueur.getQuartiers().size());}
-        if(i==0){echangerCartesAvecPioche(joueur,nbcartes);}
+        int nb=0;
+        if(joueur.getQuartiers().size()>0){nb=r.nextInt(joueur.getQuartiers().size());}
+        if(i==0){echangerCartesAvecPioche(joueur,nb);}
         else{
             echangerCartesAvecJoueur(joueur);
         }
