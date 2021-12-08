@@ -99,6 +99,7 @@ public class MoteurDeJeu {
         if (nombre2Joueur == 4) {
             this.cartesVisibles.add(deck.piocherPersonnage());
             if(this.cartesVisibles.get(0).getNom().equals("Roi")){
+                deck.ajoutePersonnage(this.cartesVisibles.get(0));
                 this.cartesVisibles.remove(0);
                 do{
                     this.cartesVisibles.add(deck.piocherPersonnage());
@@ -106,6 +107,7 @@ public class MoteurDeJeu {
             }
             this.cartesVisibles.add(deck.piocherPersonnage());
             if(this.cartesVisibles.get(1).getNom().equals("Roi")){
+                deck.ajoutePersonnage(this.cartesVisibles.get(1));
                 this.cartesVisibles.remove(1);
                 do{
                     this.cartesVisibles.add(deck.piocherPersonnage());
@@ -115,6 +117,7 @@ public class MoteurDeJeu {
         if (nombre2Joueur == 5) {
             this.cartesVisibles.add(deck.piocherPersonnage());
             if(this.cartesVisibles.get(0).getNom().equals("Roi")){
+                deck.ajoutePersonnage(this.cartesVisibles.get(0));
                 this.cartesVisibles.clear();
                 do{
                     this.cartesVisibles.add(deck.piocherPersonnage());
