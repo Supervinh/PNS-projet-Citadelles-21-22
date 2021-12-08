@@ -34,11 +34,12 @@ public class PouvoirEvequeTest {
     @Test
     void taxesAjoutTest() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
+        Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(eveque);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(eveque);
         eveque.setQuartiers(quartiers);
         eveque.ajouteOr(1);
         eveque.construireQuartier();
-        taxe.recupererTaxes(eveque);
+        taxe.utiliserPouvoir(eveque);
         assertEquals(1, eveque.getOr());
     }
 
