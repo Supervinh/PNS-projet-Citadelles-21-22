@@ -183,14 +183,16 @@ public class Joueur implements Comparable<Joueur> {
             quartiersPioches.add(piocherQuartier());
         }
 
-        System.out.print(CouleurConsole.printPurple("| "));
+
         if (this.contientQuartier("Bibliothèque")) {
             for(int i=0; i<2;i++){
                 quartiers.add(quartiersPioches.get(i));
+                System.out.print(CouleurConsole.printPurple("| "));
                 System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
             }
         }
         else{
+            System.out.print(CouleurConsole.printPurple("| "));
             this.quartiers.add(this.choixQuartier(quartiersPioches));
         }
     }
