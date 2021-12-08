@@ -60,7 +60,7 @@ public class Deck {
         if (!this.quartiers.contains(cq)) {
             this.quartiers.add(cq);
         } else {
-            System.out.println("Le Deck Contiens deja: " + cq.getNomColoured());
+            System.out.println("Le Deck contient déjà: " + cq.getNomColoured());
         }
     }
 

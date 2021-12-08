@@ -22,7 +22,7 @@ public class PouvoirCondottiere implements IPouvoir {
         if (quartierDetruit != null) {
             cible.getQuartiersConstruits().remove(quartierDetruit);
             MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-            joueur.setOr(-quartierDetruit.getPrix() + 1);
+            joueur.ajouteOr(1-quartierDetruit.getPrix());
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " a détruit le quartier " + CouleurConsole.printGreen(quartierDetruit.getNom()) + " de " + cible.getNom());
         } else {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNom() + " n'a pas détruit de quartier.");

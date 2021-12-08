@@ -23,7 +23,7 @@ public class PouvoirArchitecteTest {
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         joueur = joueurs.get(1);
-        joueur.setPersonnage(new CartePersonnage(7, "Architecte", "Aucun", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
+        joueur.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
         strategie = new Strategie(joueur);
         strategie.actionPersonnage();
     }
