@@ -109,7 +109,10 @@ public class MoteurDeJeu {
         }
         System.out.print("Carte Visible: ");
         this.cartesVisibles.forEach(cp -> System.out.print(cp.getNomColoured() + " "));
+        System.out.println();
+
         this.carteCachee = deck.piocherPersonnage();
+        System.out.print("Carte Cachée: "+ carteCachee.getNomColoured());
         System.out.println();
     }
 
