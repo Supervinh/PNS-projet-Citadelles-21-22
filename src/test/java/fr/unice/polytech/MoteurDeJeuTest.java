@@ -1,6 +1,7 @@
 package fr.unice.polytech;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,30 @@ class MoteurDeJeuTest {
         for (int i = 0; i < 8; i++) joueurs.get(0).construireQuartier();
         assertEquals(8, joueurs.get(0).getQuartiersConstruits().size());
         assertTrue(m.verifieFini(joueurs.get(0)));
+    }
+
+    @Test
+    void initialiserCartes4J(){
+        MoteurDeJeu m = new MoteurDeJeu();
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        for (int i = 0; i<4; i++){
+            joueurs.add(new Joueur("CPU" + i));
+        }
+        m.setJoueurs(joueurs);
+        m.initialisePileCartes();
+        assertEquals(5, MoteurDeJeu.deck.getPersonnages().size());
+    }
+
+    @Test
+    void initialiserCartes5J(){
+        MoteurDeJeu m = new MoteurDeJeu();
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        for (int i = 0; i<5; i++){
+            joueurs.add(new Joueur("CPU" + i));
+        }
+        m.setJoueurs(joueurs);
+        m.initialisePileCartes();
+        assertEquals(6, MoteurDeJeu.deck.getPersonnages().size());
     }
 
 

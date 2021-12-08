@@ -42,6 +42,7 @@ public class MoteurDeJeu {
 
     public void setJoueurs(ArrayList<Joueur> joueursAjoutes) {
         joueurs = joueursAjoutes;
+        nombre2Joueur = joueurs.size();
     }
 
     public void hello() {
