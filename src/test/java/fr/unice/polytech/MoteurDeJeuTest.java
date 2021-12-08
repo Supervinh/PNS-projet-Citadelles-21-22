@@ -13,7 +13,7 @@ class MoteurDeJeuTest {
     void goodSetup() {
         m = new MoteurDeJeu();
         joueurs = new ArrayList<>();
-        m.initialiseJoueurs(joueurs);
+        m.initialiseJoueurs(joueurs, true);
         m.printJoueursInitialises(joueurs);
         m.piocherPersonnage(joueurs);
     }

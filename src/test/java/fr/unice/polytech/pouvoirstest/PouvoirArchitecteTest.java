@@ -1,6 +1,9 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.*;
+import fr.unice.polytech.CartePersonnage;
+import fr.unice.polytech.Joueur;
+import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.Strategie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +21,7 @@ public class PouvoirArchitecteTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
-        moteurDeJeu.initialiseJoueurs(joueurs);
+        moteurDeJeu.initialiseJoueurs(joueurs, true);
         joueur = joueurs.get(1);
         joueur.setPersonnage(new CartePersonnage(7, "Architecte", "Aucun", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
         strategie = new Strategie(joueur);
@@ -28,7 +31,7 @@ public class PouvoirArchitecteTest {
     @Test
     void piocheQuartierTest() {
         System.out.println("Pioche \n");
-        joueur.setQuartiers(new ArrayList<CarteQuartier>());
+        joueur.setQuartiers(new ArrayList<>());
         joueur.setOr(-5);
         strategie.prochainTour();
         assertEquals(joueur.getQuartiers().size(), 2);

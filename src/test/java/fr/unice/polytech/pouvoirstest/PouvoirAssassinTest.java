@@ -23,7 +23,7 @@ class PouvoirAssassinTest {
 
     @BeforeEach
     void setUp() {
-        moteurDeJeu.initialiseJoueurs(joueurs);
+        moteurDeJeu.initialiseJoueurs(joueurs, true);
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         assassin = joueurs.get(0);
         marchand = joueurs.get(1);

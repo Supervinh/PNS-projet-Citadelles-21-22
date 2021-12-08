@@ -20,7 +20,7 @@ public class PouvoirEvequeTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
-        moteurDeJeu.initialiseJoueurs(joueurs);
+        moteurDeJeu.initialiseJoueurs(joueurs, true);
         joueur = joueurs.get(1);
         joueur.setPersonnage(new CartePersonnage(5, "Évêque", "Religion", "L'Évêque ne peut pas être attaqué par le Condottière. Chaque quartier religieux qu'il possède lui rapporte une pièce d'or."));
         quartier = new CarteQuartier(3, "Monastère", "Religion", 3);

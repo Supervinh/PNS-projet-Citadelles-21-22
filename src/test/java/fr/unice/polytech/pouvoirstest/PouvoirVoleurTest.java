@@ -21,10 +21,9 @@ class PouvoirVoleurTest {
     Joueur marchand;
     CartePersonnage personnage;
 
-
     @BeforeEach
     void setUp() {
-        moteurDeJeu.initialiseJoueurs(joueurs);
+        moteurDeJeu.initialiseJoueurs(joueurs, true);
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         voleur = joueurs.get(0);
         marchand = joueurs.get(1);
@@ -33,7 +32,7 @@ class PouvoirVoleurTest {
         moteurDeJeu.setJoueurs(joueurs);
     }
 
-    void specialSetUp(){
+    void specialSetUp() {
         marchand.setPersonnage(new CartePersonnage(3, "Assassin", null));
         joueurs.remove(voleur);
         joueurs.remove(marchand);
@@ -57,7 +56,7 @@ class PouvoirVoleurTest {
     }
 
     @Test
-    void neVolePas(){
+    void neVolePas() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
         Mockito.when(pouvoir.cibleAleatoire(voleur)).thenReturn(personnage);
@@ -65,13 +64,12 @@ class PouvoirVoleurTest {
         pouvoir.utiliserPouvoir(voleur);
         assertEquals(2, voleur.getOr());
     }
+
     @Test
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);
         marchand.setMort(true);
         assertTrue(pouvoir.estPersonnageMort(personnage));
-
     }
-
 }

@@ -3,6 +3,7 @@ package fr.unice.polytech.pouvoirstest;
 import fr.unice.polytech.*;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -24,7 +25,7 @@ class PouvoirCondottiereTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
-        moteurDeJeu.initialiseJoueurs(joueurs);
+        moteurDeJeu.initialiseJoueurs(joueurs, true);
 
         condottiere = joueurs.get(0);
         condottiere.setPersonnage(new CartePersonnage(8, "Condottiere", "Soldatesque", "Le Condottiere peut détruire un quartier de son choix en payant à la banque le coût de construction du quartier moins un. Chaque quartier militaire qu'il possède lui rapporte une pièce d'or."));
@@ -60,7 +61,7 @@ class PouvoirCondottiereTest {
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
-        Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
+        Mockito.when(pouvoir.cibleAleatoire()).thenReturn(marchand);
         marchand.setOr(50);
         marchand.setQuartiers(quartiersc1);
         marchand.construireQuartier();
