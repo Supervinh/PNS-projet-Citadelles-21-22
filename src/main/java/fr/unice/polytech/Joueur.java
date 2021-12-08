@@ -8,9 +8,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class Joueur implements Comparable<Joueur> {
+    private static int numJoueur = 0;
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
-    private final String nom;
     private final Strategie strategie;
+    private String nom;
     private int or = 0;
     private int points = 0;
     private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
@@ -19,13 +20,18 @@ public class Joueur implements Comparable<Joueur> {
     private boolean mort = false;
     private boolean first = false;
 
-    public Joueur(String nom) {
-        this.nom = nom;
+    public Joueur() {
+        this.nom = "CPU" + ++numJoueur;
         this.ajouteOr(MoteurDeJeu.or2Depart);
         for (int i = 0; i < MoteurDeJeu.carte2Depart; i++) {
             this.quartiers.add(MoteurDeJeu.deck.piocherQuartier());
         }
         this.strategie = new Strategie(this);
+    }
+
+    public Joueur(String nom) {
+        this();
+        this.nom = nom;
     }
 
     public Joueur(String nom, String NomStrategie) {
@@ -163,21 +169,22 @@ public class Joueur implements Comparable<Joueur> {
     public void ajouterQuartierEnMain() {
         System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
         ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
-        int nbCartes=MoteurDeJeu.carteAPiocher;
+        int nbCartes = MoteurDeJeu.carteAPiocher;
 
-        if (this.contientQuartier("Manufacture") && this.getOr()>=3) {
-            this.setOr(getOr()-3);
-            nbCartes=3;}
+        if (this.contientQuartier("Manufacture") && this.getOr() >= 3) {
+            this.setOr(getOr() - 3);
+            nbCartes = 3;
+        }
 
         if (this.contientQuartier("Laboratoire")) {
             this.setOr(getOr() + 1);
-            int taille =quartiers.size();
+            int taille = quartiers.size();
             if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
         }
 
         if (this.contientQuartier("Observatoire")) {
             nbCartes = 3;
-            }
+        }
 
         for (int i = 0; i < nbCartes; i++) {
             System.out.print(CouleurConsole.printPurple("| "));
@@ -186,13 +193,12 @@ public class Joueur implements Comparable<Joueur> {
 
 
         if (this.contientQuartier("Bibliothèque")) {
-            for(int i=0; i<2;i++){
+            for (int i = 0; i < 2; i++) {
                 quartiers.add(quartiersPioches.get(i));
                 System.out.print(CouleurConsole.printPurple("| "));
                 System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
             }
-        }
-        else{
+        } else {
             System.out.print(CouleurConsole.printPurple("| "));
             this.quartiers.add(this.choixQuartier(quartiersPioches));
         }
