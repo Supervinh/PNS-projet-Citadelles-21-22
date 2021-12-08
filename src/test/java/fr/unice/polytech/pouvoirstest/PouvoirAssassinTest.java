@@ -45,7 +45,7 @@ class PouvoirAssassinTest {
     }
 
     @Test
-    void pasTue() {
+    void pas2Cible() {
         CartePersonnage voleur = new CartePersonnage(2, "Voleur", "None");
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).cibleExistante(voleur);

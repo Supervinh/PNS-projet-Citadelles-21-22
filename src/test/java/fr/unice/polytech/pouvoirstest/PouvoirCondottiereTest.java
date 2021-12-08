@@ -17,7 +17,6 @@ class PouvoirCondottiereTest {
     Joueur eveque;
     Joueur joueurAyantFini;
     MoteurDeJeu moteurDeJeu;
-    Strategie strategie;
     ArrayList<Joueur> joueurs = new ArrayList<>();
     ArrayList<CarteQuartier> quartiersc1 = new ArrayList<>();
     CarteQuartier quartierc1;
@@ -46,12 +45,24 @@ class PouvoirCondottiereTest {
 
     @Test
     void taxesAjoutTest() {
+        PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(taxe).recupererTaxes(condottiere);
         condottiere.setQuartiers(quartiersc1);
-        assertEquals(2, condottiere.getOr());
         condottiere.construireQuartier();
-        assertEquals(1, condottiere.getOr());
-        strategie = new Strategie(condottiere);
-        strategie.actionPersonnage();
+        taxe.recupererTaxes(condottiere);
+        assertEquals(2, condottiere.getOr());
+    }
+
+    @Test
+    void pasDeTaxe(){
+        PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(taxe).recupererTaxes(condottiere);
+        quartierc1 = new CarteQuartier(1, "Temple", "Religion", 1);
+        quartiersc1.remove(0);
+        quartiersc1.add(quartierc1);
+        condottiere.setQuartiers(quartiersc1);
+        condottiere.construireQuartier();
+        taxe.recupererTaxes(condottiere);
         assertEquals(1, condottiere.getOr());
     }
 
