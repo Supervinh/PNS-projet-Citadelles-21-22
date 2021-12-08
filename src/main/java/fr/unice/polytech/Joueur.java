@@ -136,7 +136,7 @@ public class Joueur implements Comparable<Joueur> {
     public void piocherOr() {
         this.ajouteOr(MoteurDeJeu.orAPiocher);
         System.out.println(CouleurConsole.printGold("| Piocher Or"));
-        System.out.println(CouleurConsole.printGold("| ") + this.getNomColoured() + " a pioché: " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pièce" + (MoteurDeJeu.orAPiocher > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or"));
+        System.out.println(CouleurConsole.printGold("| ") + this.getNomColoured() + " a pioché " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pièce" + (MoteurDeJeu.orAPiocher > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or"));
     }
 
     public void ajouteOr(int n) {
