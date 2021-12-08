@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -27,7 +28,7 @@ class PouvoirAssassinTest {
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         assassin = joueurs.get(0);
         marchand = joueurs.get(1);
-        assassin.setPersonnage(new CartePersonnage(1, "Assassin", null, "L'Assassin peut tuer le personnage de son choix. Celui-ci ne pourra pas jouer ce tour-ci"));
+        assassin.setPersonnage(new CartePersonnage(1, "Assassin", "None", "L'Assassin peut tuer le personnage de son choix. Celui-ci ne pourra pas jouer ce tour-ci"));
         marchand.setPersonnage(personnage);
         moteurDeJeu.setJoueurs(joueurs);
     }
@@ -37,9 +38,27 @@ class PouvoirAssassinTest {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(assassin);
         Mockito.doCallRealMethod().when(pouvoir).tue(marchand);
+        Mockito.doCallRealMethod().when(pouvoir).cibleExistante(personnage);
         Mockito.when(pouvoir.cibleAleatoire(assassin)).thenReturn(personnage);
         pouvoir.utiliserPouvoir(assassin);
         assertTrue(marchand.isMort());
+    }
+
+    @Test
+    void pasTue() {
+        CartePersonnage voleur = new CartePersonnage(2, "Voleur", "None");
+        PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
+        Mockito.doCallRealMethod().when(pouvoir).cibleExistante(voleur);
+        joueurs.remove(assassin);
+        joueurs.remove(marchand);
+        for (Joueur joueur : joueurs) {
+            do {
+                joueur.piocherPersonnage();
+            }
+            while (joueur.getPersonnage().getNom().equals("Voleur"));
+        }
+
+        assertNull(pouvoir.cibleExistante(voleur));
     }
 
 }
