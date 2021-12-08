@@ -13,10 +13,7 @@ public class PouvoirCondottiere implements IPouvoir {
 
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-
-        // Choix de Cible utilisant un Joueur
         Joueur cible = cibleAleatoire();
-
         CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
         System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
         if (quartierDetruit != null) {
