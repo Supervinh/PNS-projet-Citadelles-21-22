@@ -16,6 +16,7 @@ public class PouvoirVoleur implements IPouvoir {
 
     /**
      * Si le personnage existe on récupère toute son or.
+     *
      * @param joueur Le joueur en question.
      */
     @Override
@@ -47,6 +48,7 @@ public class PouvoirVoleur implements IPouvoir {
 
     /**
      * Sélectionne un personnage de manière aléatoire mais pas lui même, ni l'assassin, ni le personnage mort.
+     *
      * @param joueur Le joueur en question.
      * @return Retourne une carte personnage.
      */
@@ -58,6 +60,7 @@ public class PouvoirVoleur implements IPouvoir {
 
     /**
      * On vérifie si le personnage est mort.
+     *
      * @param cp Le personnage en question.
      * @return Retourne un booléen.
      */

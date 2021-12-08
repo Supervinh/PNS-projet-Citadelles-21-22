@@ -11,6 +11,7 @@ public class PouvoirRoi implements IPouvoir {
 
     /**
      * On devient roi et on retire la couronne à la personne qui l'avait. Puis on récupère les taxes pour les quartiers noble.
+     *
      * @param joueur Le joueur en question.
      */
     @Override

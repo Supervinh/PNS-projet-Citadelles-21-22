@@ -10,6 +10,7 @@ public class PouvoirEveque implements IPouvoir {
 
     /**
      * On récupère les taxes pour les quartiers religieux de construit.
+     *
      * @param joueur Le joueur en question.
      */
     @Override

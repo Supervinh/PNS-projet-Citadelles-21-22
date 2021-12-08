@@ -11,6 +11,7 @@ public interface IPouvoir {
 
     /**
      * Méthode abstraite pour utiliser les pouvoirs des personnages.
+     *
      * @param joueur Le joueur en question.
      */
     void utiliserPouvoir(Joueur joueur);
@@ -18,6 +19,7 @@ public interface IPouvoir {
     /**
      * Permet de récupérer les taxes par rapport à des cartes et des pouvoirs spécifiques.
      * Par exemple, le roi recupère une pièce d'or pour chaque quartier noble qu'il possède.
+     *
      * @param joueur Le joueur en question.
      */
     default void recupererTaxes(Joueur joueur) {

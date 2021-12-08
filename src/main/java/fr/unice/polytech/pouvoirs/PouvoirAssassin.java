@@ -16,6 +16,7 @@ public class PouvoirAssassin implements IPouvoir {
 
     /**
      * On sélectionne un personnage. Si le personnage exsite on tue le joueur ayant ce personnage sinon il ne se passe rien.
+     *
      * @param joueur Le joueur en question.
      */
     @Override
@@ -34,6 +35,7 @@ public class PouvoirAssassin implements IPouvoir {
 
     /**
      * Permet de sélectionner une cible existante, donc un joueur.
+     *
      * @param cibleNomPersonnage Une carte de personnage.
      * @return Retourne un joueur.
      */
@@ -46,6 +48,7 @@ public class PouvoirAssassin implements IPouvoir {
 
     /**
      * Sélectionne un personnage de manière aléatoire mais pas lui même.
+     *
      * @param joueur Le joueur en question.
      * @return Retourne une carte de personnage.
      */
@@ -57,6 +60,7 @@ public class PouvoirAssassin implements IPouvoir {
 
     /**
      * On tue le joueur.
+     *
      * @param joueur Le joueur en question.
      */
     public void tue(Joueur joueur) {

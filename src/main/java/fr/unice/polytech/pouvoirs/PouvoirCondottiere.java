@@ -17,6 +17,7 @@ public class PouvoirCondottiere implements IPouvoir {
     /**
      * On sélectionne une cible et on sélectionne un quartier de ce joueur à détruire, si on a choisi de détruire un quartier.
      * On récupère aussi la taxe si on a des quartiers militaire de contruit.
+     *
      * @param joueur Le joueur en question.
      */
     @Override
@@ -38,6 +39,7 @@ public class PouvoirCondottiere implements IPouvoir {
 
     /**
      * Sélectionne un joueur de manière aléatoire mais pas l'évêque si il est mort, pas si le nombre de quartiers construits est null, et pas si le joueur à fini le jeu en ayant contruit 8 quartiers.
+     *
      * @return Retourne un joueur.
      */
     public Joueur cibleAleatoire() {
@@ -48,8 +50,9 @@ public class PouvoirCondottiere implements IPouvoir {
 
     /**
      * Choix d'un quartier à détruire aléatoirement.
+     *
      * @param joueur Le joueur en question.
-     * @param cible La cible visée.
+     * @param cible  La cible visée.
      * @return Retourne la carte quartier.
      */
     public CarteQuartier choixQuartierAleatoire(Joueur joueur, Joueur cible) {
@@ -62,7 +65,6 @@ public class PouvoirCondottiere implements IPouvoir {
     }
 
     /**
-     *
      * @param joueur
      * @param quartier
      * @return

@@ -13,6 +13,7 @@ public class PouvoirArchitecte implements IPouvoir {
      * Si le joueur a suffisamment de quartiers et suffisamment d'or il utilise les stratégies correspondantent
      * et construit des quartiers qu'il a en main.
      * Si on ne peut pas construire de quartier on affiche qu'on ne peut plus construire.
+     *
      * @param joueur Le joueur en question.
      */
     @Override

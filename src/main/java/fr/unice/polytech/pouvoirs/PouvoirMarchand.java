@@ -10,6 +10,7 @@ public class PouvoirMarchand implements IPouvoir {
 
     /**
      * On reçoit une pièce d'or et les taxes pour ses quartiers marchand.
+     *
      * @param joueur Le joueur en question.
      */
     @Override
