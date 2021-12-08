@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PouvoirCondottiereTest {
     Joueur condottiere;
@@ -67,7 +68,7 @@ class PouvoirCondottiereTest {
     }
 
     @Test
-    void pouvoirTest() {
+    void destructionQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
@@ -81,4 +82,10 @@ class PouvoirCondottiereTest {
         assertEquals(0, marchand.getQuartiersConstruits().size());
     }
 
+    @Test
+    void pasDestruction(){
+        PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
+        assertNull(pouvoir.choixQuartierAleatoire(condottiere, marchand));
+    }
 }
