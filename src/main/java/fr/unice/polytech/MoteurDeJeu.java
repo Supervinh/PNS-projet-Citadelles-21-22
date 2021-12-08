@@ -66,7 +66,7 @@ public class MoteurDeJeu {
     public void jouerDansLOrdreDesPersonnages(ArrayList<Joueur> joueurs) {
         for (int i = 1; i <= this.nombre2Personnages; i++) {
             for (Joueur joueur : joueurs) {
-                if (joueur.getPersonnage().getId() == i) this.tour2Jeu(joueur);
+                if (joueur.getPersonnage().getId() == i) this.tourDeJeu(joueur);
             }
         }
         this.avaitRoi = joueurs.stream().anyMatch(joueur -> joueur.getPersonnage().getNom().equals("Roi") && !joueur.isMort());
@@ -76,7 +76,7 @@ public class MoteurDeJeu {
         deck.ajoutePersonnage(this.carteCachee);
     }
 
-    public void tour2Jeu(Joueur joueur) {
+    public void tourDeJeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNomColoured() + CouleurConsole.seperateur1());
         joueur.jouer();
         personnagesConnus.add(joueur);
