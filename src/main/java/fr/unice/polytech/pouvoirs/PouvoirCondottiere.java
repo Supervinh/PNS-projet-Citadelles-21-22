@@ -40,8 +40,10 @@ public class PouvoirCondottiere implements IPouvoir {
         Random r = new Random();
         int i = r.nextInt(cible.getQuartiersConstruits().size());
         while(cible.getQuartiersConstruits().get(i).getNom().equals("Donjon")){
-            while(cible.getQuartiersConstruits().size()==1){
-                cible=cibleAleatoire(joueur);}
+            if(cible.getQuartiersConstruits().size()==1){
+                Joueur c2=cibleAleatoire(joueur);
+                while(cible==c2){
+                    cible=cibleAleatoire(joueur);}}
             i = r.nextInt(cible.getQuartiersConstruits().size());}
         return i;
     }
