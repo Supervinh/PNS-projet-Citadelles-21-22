@@ -33,7 +33,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, true);
+        this.initialiseJoueurs(joueurs, false);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -101,32 +101,26 @@ public class MoteurDeJeu {
     public void initialisePileCartes() {
         this.cartesVisibles.clear();
         if (nombre2Joueur == 4) {
-            this.cartesVisibles.add(deck.piocherPersonnage());
-            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
-                deck.ajoutePersonnage(this.cartesVisibles.get(0));
-                this.cartesVisibles.remove(0);
-                this.cartesVisibles.add(deck.piocherPersonnage());
-            }
-
-            this.cartesVisibles.add(deck.piocherPersonnage());
-            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
-                deck.ajoutePersonnage(this.cartesVisibles.get(1));
-                this.cartesVisibles.remove(1);
-                this.cartesVisibles.add(deck.piocherPersonnage());
-            }
+            this.choixCartesVisibles();
+            this.choixCartesVisibles();
         }
         if (nombre2Joueur == 5) {
-            this.cartesVisibles.add(deck.piocherPersonnage());
-            while (this.cartesVisibles.get(0).getNom().equals("Roi")) {
-                deck.ajoutePersonnage(this.cartesVisibles.get(0));
-                this.cartesVisibles.clear();
-                this.cartesVisibles.add(deck.piocherPersonnage());
-            }
+            this.choixCartesVisibles();
         }
         System.out.print("Carte Visible: ");
         this.cartesVisibles.forEach(cp -> System.out.print(cp.getNomColoured() + " "));
         this.carteCachee = deck.piocherPersonnage();
         System.out.println();
+    }
+
+    private void choixCartesVisibles() {
+        CartePersonnage cp = deck.piocherPersonnage();
+        if (cp.getNom().equals("Roi")) {
+            this.cartesVisibles.add(deck.piocherPersonnage());
+            deck.ajoutePersonnage(cp);
+        } else {
+            this.cartesVisibles.add(cp);
+        }
     }
 
     public void trouverQuiEstRoi(ArrayList<Joueur> joueurs) {

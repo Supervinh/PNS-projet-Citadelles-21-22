@@ -37,7 +37,7 @@ class PouvoirCondottiereTest {
         eveque.setPersonnage(new CartePersonnage(5, "Evêque", "Religion", "L'Évêque ne peut pas être attaqué par le Condottière. Chaque quartier religieux qu'il possède lui rapporte une pièce d'or."));
 
         joueurAyantFini = joueurs.get(3);
-        joueurAyantFini.setPersonnage(new CartePersonnage(7, "Architecte", null, "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
+        joueurAyantFini.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
 
         quartierc1 = new CarteQuartier(14.2, "Tour de guet", "Soldatesque", 1);
         quartiersc1.add(quartierc1);
