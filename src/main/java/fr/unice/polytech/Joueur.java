@@ -226,7 +226,7 @@ public class Joueur implements Comparable<Joueur> {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
             }
         }
-        System.out.println(this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+        System.out.println("\n" + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
         return cq;
     }
 
