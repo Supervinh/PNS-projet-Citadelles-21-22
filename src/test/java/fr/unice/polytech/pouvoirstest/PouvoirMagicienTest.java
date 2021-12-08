@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class PouvoirMagicienTest {
@@ -48,9 +47,8 @@ class PouvoirMagicienTest {
     @Test
     void aEchangeSesCartesAvecLaPioche() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
-        ArrayList<CarteQuartier> q = magicien.getQuartiers();
-        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien,3);
-        pouvoir.echangerCartesAvecPioche(magicien,3);
+        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
+        pouvoir.echangerCartesAvecPioche(magicien, 3);
         assertEquals(4, magicien.getQuartiers().size());
     }
 

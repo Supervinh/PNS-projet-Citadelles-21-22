@@ -43,7 +43,7 @@ public class PouvoirEvequeTest {
     }
 
     @Test
-    void pasTaxe(){
+    void pasTaxe() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(eveque);
         taxe.recupererTaxes(eveque);
