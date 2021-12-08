@@ -16,7 +16,7 @@ public class PouvoirMagicien implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         System.out.println(CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 1: échanger ses cartes avec un joueur \n" + CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 2: échanger n cartes avec la pioche\n" + CouleurConsole.printRed("|"));
-        choixAction(joueur);
+        choixAction(joueur,choisit());
     }
 
     public void echangerCartesAvecJoueur(Joueur joueur) {
@@ -26,15 +26,10 @@ public class PouvoirMagicien implements IPouvoir {
                 .findFirst()
                 .orElse(null);
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
-        if (cible != null) {
-            ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
-            joueur.setQuartiers(cible.getQuartiers());
-            cible.setQuartiers(temporaire);
-
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
-        } else {
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a essayé d'échanger ses cartes avec " + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
-        }
+        ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
+        joueur.setQuartiers(cible.getQuartiers());
+        cible.setQuartiers(temporaire);
+        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
     }
 
     public void echangerCartesAvecPioche(Joueur joueur, int nb) {
@@ -53,16 +48,18 @@ public class PouvoirMagicien implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé " + CouleurConsole.printPurple("" + nb) + " cartes avec la pioche.");
     }
 
-    public void choixAction(Joueur joueur) {
-        Random r = new Random();
-        int i = r.nextInt(2);
-        int nb = 0;
-        if (joueur.getQuartiers().size() > 0) {
-            nb = r.nextInt(joueur.getQuartiers().size());
-        }
-        if (i == 0) {
-            echangerCartesAvecPioche(joueur, nb);
-        } else {
+    public int choisit(){
+        Random r=new Random();
+        int i=r.nextInt(2);
+        return i;
+    }
+
+    public void choixAction(Joueur joueur, int i){
+        Random r=new Random();
+        int nb=0;
+        if(joueur.getQuartiers().size()>0){nb=r.nextInt(joueur.getQuartiers().size());}
+        if(i==0){echangerCartesAvecPioche(joueur,nb);}
+        else{
             echangerCartesAvecJoueur(joueur);
         }
     }
