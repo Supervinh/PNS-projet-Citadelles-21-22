@@ -1,7 +1,10 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.*;
-import fr.unice.polytech.pouvoirs.PouvoirEveque;
+import fr.unice.polytech.CartePersonnage;
+import fr.unice.polytech.CarteQuartier;
+import fr.unice.polytech.Joueur;
+import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.pouvoirs.PouvoirRoi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,23 +33,24 @@ public class PouvoirRoiTest {
 
     @Test
     void taxesAjoutTest() {
-        PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
+        PouvoirRoi taxe = Mockito.mock(PouvoirRoi.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(roi);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(roi);
         roi.setQuartiers(quartiers);
         roi.ajouteOr(1);
         roi.construireQuartier();
+        assertFalse(roi.isRoi());
         taxe.utiliserPouvoir(roi);
+        assertTrue(roi.isRoi());
         assertEquals(1, roi.getOr());
     }
 
     @Test
     void pasDeTaxe() {
-        PouvoirEveque pasTaxe = Mockito.mock(PouvoirEveque.class);
+        PouvoirRoi pasTaxe = Mockito.mock(PouvoirRoi.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(roi);
         Mockito.doCallRealMethod().when(pasTaxe).recupererTaxes(roi);
         pasTaxe.utiliserPouvoir(roi);
         assertEquals(2, roi.getOr());
     }
-
 }
