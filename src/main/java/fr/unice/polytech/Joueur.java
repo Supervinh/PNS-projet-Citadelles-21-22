@@ -171,7 +171,8 @@ public class Joueur implements Comparable<Joueur> {
 
         if (this.contientQuartier("Laboratoire")) {
             this.setOr(getOr() + 1);
-            this.quartiers.remove(new Random().nextInt(quartiers.size()));
+            int taille =quartiers.size();
+            if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
         }
 
         if (this.contientQuartier("Observatoire")) {
