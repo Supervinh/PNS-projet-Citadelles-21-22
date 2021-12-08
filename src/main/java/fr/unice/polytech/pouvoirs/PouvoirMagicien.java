@@ -49,6 +49,7 @@ public class PouvoirMagicien implements IPouvoir {
         if(nb>joueur.getQuartiers().size()){nb=joueur.getQuartiers().size();}
         if(nb<0){nb=0;}
         for(int i=0; i<nb;i++){
+            System.out.print(CouleurConsole.printRed("| "));
             MoteurDeJeu.deck.ajouterQuartierDeck(joueur.getQuartiers().get(i));
             joueur.getQuartiers().set(i, joueur.piocherQuartier());
         }
@@ -67,8 +68,8 @@ public class PouvoirMagicien implements IPouvoir {
     }
 
     public CartePersonnage cibleAleatoire(Joueur joueur) {
-        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
-        cibles.remove(joueur.getPersonnage());
-        return cibles.get(new Random().nextInt(cibles.size()));
+        ArrayList<Joueur> cibles = (ArrayList<Joueur>) MoteurDeJeu.joueurs.clone();
+        cibles.remove(joueur);
+        return cibles.get(new Random().nextInt(cibles.size())).getPersonnage();
     }
 }
