@@ -107,12 +107,12 @@ public class MoteurDeJeu {
         if (nombre2Joueur == 5) {
             this.choixCartesVisibles();
         }
-        System.out.print("Carte Visible: ");
-        this.cartesVisibles.forEach(cp -> System.out.print(cp.getNomColoured() + " "));
+        System.out.print("Carte Visible:");
+        this.cartesVisibles.forEach(cp -> System.out.print(" " + cp.getNomColoured()));
         System.out.println();
 
         this.carteCachee = deck.piocherPersonnage();
-        System.out.print("Carte Cachée: "+ carteCachee.getNomColoured());
+        System.out.print("Carte Cachée: " + carteCachee.getNomColoured());
         System.out.println();
     }
 
