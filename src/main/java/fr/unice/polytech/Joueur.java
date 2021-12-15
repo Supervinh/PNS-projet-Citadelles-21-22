@@ -129,6 +129,20 @@ public class Joueur implements Comparable<Joueur> {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
+    public ArrayList<String> getGemmesQuartiersConstruit() {
+        this.calculerGemmesQuartiers();
+        return this.gemmesQuartiers;
+    }
+
+    public ArrayList<String> getGemmesQuartiersColoured() {
+        this.calculerGemmesQuartiers();
+        return new ArrayList<>(this.gemmesQuartiers.stream().map(CouleurConsole::printPurple).toList());
+    }
+
+    private void calculerGemmesQuartiers() {
+        this.gemmesQuartiers = new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
+    }
+
     public void pouvoirCourDesMiracles(){
         if(this.contientQuartier("Cour des miracles")) {
             List<String> gemmesPossibles = Arrays.asList("Noblesse", "Commerce et Artisanat", "Soldatesque", "Prestige", "Religion");
@@ -138,20 +152,6 @@ public class Joueur implements Comparable<Joueur> {
                 gemmesQuartiers.add(gemmeManquante);
             }
         }
-    }
-
-    private void calculerGemmesQuartiers() {
-        this.gemmesQuartiers = new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
-    }
-
-    public ArrayList<String> getGemmesQuartiersColoured() {
-        this.calculerGemmesQuartiers();
-        return new ArrayList<>(this.gemmesQuartiers.stream().map(CouleurConsole::printPurple).toList());
-    }
-
-    public ArrayList<String> getGemmesQuartiers() {
-        this.calculerGemmesQuartiers();
-        return this.gemmesQuartiers;
     }
 
     public void jouer() {
@@ -167,15 +167,15 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void ajouteOr(int n) {
-        this.or += n;
+        this.or += MoteurDeJeu.banque.transaction(n);
     }
 
     public void calculePoints() {
         this.pouvoirCourDesMiracles();
-        this.getGemmesQuartiers();
+        this.getGemmesQuartiersConstruit();
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
         this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getNom().equals("Université") || quartier.getNom().equals("Dracoport")).count();
-        if (this.quartiersConstruits.size() >= MoteurDeJeu.nombre2QuartiersAConstruire) {
+        if (this.quartiersConstruits.size() >= MoteurDeJeu.quartiersAConstruire) {
             this.points += 2;
             if (this.first) {
                 this.points += 2;
@@ -199,12 +199,12 @@ public class Joueur implements Comparable<Joueur> {
         int nbCartes = MoteurDeJeu.carteAPiocher;
 
         if (this.contientQuartier("Manufacture") && this.getOr() >= 3) {
-            this.setOr(getOr() - 3);
+            this.ajouteOr(-3);
             nbCartes = 3;
         }
 
         if (this.contientQuartier("Laboratoire")) {
-            this.setOr(getOr() + 1);
+            this.ajouteOr(1);
             int taille = quartiers.size();
             if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
         }

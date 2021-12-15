@@ -12,12 +12,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MoteurDeJeu {
 
     public static Deck deck;
-    public static int nombre2Joueur = 7;
+    public static Banque banque;
+    public static int nbJoueurs = 5;
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
     public static int carte2Depart = 4;
     public static int carteAPiocher = 2;
-    public static int nombre2QuartiersAConstruire = 8;
+    public static int quartiersAConstruire = 8;
+    public static int piecesEnJeu = 30;
     public static ArrayList<Joueur> joueurs;
     public static ArrayList<Joueur> personnagesConnus;
     private final int nombre2Personnages;
@@ -29,6 +31,7 @@ public class MoteurDeJeu {
 
     public MoteurDeJeu() {
         deck = new Deck();
+        banque = new Banque();
         joueurs = new ArrayList<>();
         personnagesConnus = new ArrayList<>();
         this.nombre2Personnages = deck.getPersonnages().size();
@@ -45,7 +48,7 @@ public class MoteurDeJeu {
 
     public void setJoueurs(ArrayList<Joueur> joueursAjoutes) {
         joueurs = joueursAjoutes;
-        nombre2Joueur = joueurs.size();
+        nbJoueurs = joueurs.size();
     }
 
     public void hello() {
@@ -87,11 +90,16 @@ public class MoteurDeJeu {
             System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNomColoured() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
         //joueur.calculePoints();
+
+        if (!banque.sommeArgentCirculationCorrecte()) {
+            System.out.println("Argent Total en Circulation: " + (banque.getFonds() + MoteurDeJeu.joueurs.stream().mapToInt(Joueur::getOr).sum()));
+            System.exit(0);
+        }
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs, boolean nameless) {
         ExcelReader ER = new ExcelReader();
-        for (int i = 1; i <= MoteurDeJeu.nombre2Joueur; i++) {
+        for (int i = 1; i <= MoteurDeJeu.nbJoueurs; i++) {
             if (nameless) {
                 joueurs.add(new Joueur());
             } else {
@@ -103,11 +111,11 @@ public class MoteurDeJeu {
 
     public void initialisePileCartes() {
         this.cartesVisibles.clear();
-        if (nombre2Joueur == 4) {
+        if (nbJoueurs == 4) {
             this.choixCartesVisibles();
             this.choixCartesVisibles();
         }
-        if (nombre2Joueur == 5) {
+        if (nbJoueurs == 5) {
             this.choixCartesVisibles();
         }
         System.out.print("Carte Visible:");
@@ -134,7 +142,7 @@ public class MoteurDeJeu {
         this.roiIndex = joueurs.stream().peek(v -> k.getAndIncrement()).anyMatch(Joueur::isRoi) ? k.get() - 1 : this.roiIndex;
         if (!this.avaitRoi) {
             joueurs.get(this.roiIndex).setRoi(false);
-            this.roiIndex = (this.roiIndex + 1) % nombre2Joueur;
+            this.roiIndex = (this.roiIndex + 1) % nbJoueurs;
             joueurs.get(this.roiIndex).setRoi(true);
         }
     }
@@ -143,7 +151,8 @@ public class MoteurDeJeu {
         initialisePileCartes();
         System.out.println(CouleurConsole.printGreen("\n| Piocher les Personnages"));
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
-            joueurPiochePersonnage(joueurs, i);
+            System.out.print(CouleurConsole.printGreen("| "));
+            joueurs.get(i).piocherPersonnage();
         }
         for (int i = 0; i < this.roiIndex; i++) {
             joueurPiochePersonnage(joueurs, i);
@@ -167,7 +176,7 @@ public class MoteurDeJeu {
     }
 
     public boolean verifieFini(Joueur joueur) {
-        if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.nombre2QuartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
+        if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
             return true;
         }
@@ -175,7 +184,7 @@ public class MoteurDeJeu {
     }
 
     public int obtenirScoreMax(ArrayList<Joueur> joueurs) {
-        joueurs.forEach(joueur -> joueur.calculePoints());
+        joueurs.forEach(Joueur::calculePoints);
         return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
