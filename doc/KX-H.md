@@ -21,6 +21,8 @@ Ces choix ont été faits parce que c'est ce qui nous a paru le plus logique et 
 
 * Où trouver les infos dans la doc ?
 
+Nous avons utilisé les règles du jeu trouvées sur ce site : http://jeuxstrategie.free.fr/Citadelles_complet.php
+
 * Qui est responsable de quoi / qui a fait quoi ?
 
 Matis a fait le visuel du projet, les différentes stratégies, la banque et le deck de carte.
@@ -32,6 +34,13 @@ Les pouvoirs des cartes ont été faits par Clervie et Aurélia.
 
 * Quel est le process de l'équipe (comment git est utilisé, ...)
 
+A chaque début de cours, nous avons fait un point sur ce qu'on avait fait, ce qu'on allait faire et nos difficultés pour ce qui nous restait à faire.
+Nous avons utilisé git comme demandé, en créant différentes issues, différentes milestones et en suivant l'avancée sur le Kanban.
+Au départ, les commits liées au refactor n'étaient pas liées à une issue.
+
 * Avancement sur les fonctionnalités (quelles slices sont faites ? lesquelles restent à faire ?)
+
+
+
 
 * Etat de la base de code : quelles parties sont bien faites ? Quelles parties sont à refactor et pourquoi ?
