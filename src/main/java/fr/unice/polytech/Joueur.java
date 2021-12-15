@@ -131,7 +131,7 @@ public class Joueur implements Comparable<Joueur> {
 
     public void pouvoirCourDesMiracles(){
         if(this.contientQuartier("Cour des miracles")) {
-            List<String> gemmesPossibles = Arrays.asList("Noblesse", "Commerce et Artisanat", "Soldatesque", "Prestige");
+            List<String> gemmesPossibles = Arrays.asList("Noblesse", "Commerce et Artisanat", "Soldatesque", "Prestige", "Religion");
             String gemmeManquante;
             if (gemmesQuartiers.size() == 4 && this.quartiersConstruits.stream().filter(quartier -> quartier.getGemme().equals("Prestige")).count() == 2) {
                 gemmeManquante = gemmesPossibles.stream().filter(gemme -> !gemmesQuartiers.contains(gemme)).toString();
