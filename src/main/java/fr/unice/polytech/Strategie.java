@@ -10,20 +10,50 @@ import fr.unice.polytech.strategie.RusherQuartiers;
  * Classe qui initialise les pouvoirs des personnages et les stratégies
  */
 public class Strategie {
+    /**
+     * Le joueur.
+     */
     private final Joueur joueur;
+
+    /**
+     * La pioche de quartier.
+     */
     private IPiocher iPiocher = new SuffisammentQuartier();
+
+    /**
+     * Le pouvoir du joueur.
+     */
     private IPouvoir iPouvoir;
+
+    /**
+     * La stratégie utilisée.
+     */
     private IStrategie iStrategie;
 
+    /**
+     * Le constructeur de la stratégie initialisée avec un joueur.
+     *
+     * @param joueur Le joueur.
+     */
     public Strategie(Joueur joueur) {
         this.joueur = joueur;
     }
 
+    /**
+     * Permet de récupérer une pioche.
+     *
+     * @return Une pioche.
+     */
     public IPiocher getiPiocher() {
         this.choisirType2Piochage();
         return iPiocher;
     }
 
+    /**
+     * Détermine la stratégie qu'utilise le joueur.
+     *
+     * @param strategie La stratégie qu'utilise le joueur.
+     */
     public void setStrategie(String strategie) {
         switch (strategie) {
             case "Rusher" -> iStrategie = new RusherQuartiers();
@@ -32,6 +62,9 @@ public class Strategie {
         }
     }
 
+    /**
+     * Détermine l'action du pouvoir du joueur par rapport à son personnage.
+     */
     public void actionPersonnage() {
         switch (this.joueur.getPersonnage().getNom()) {
             case "Assassin" -> iPouvoir = new PouvoirAssassin();
@@ -46,6 +79,9 @@ public class Strategie {
         }
     }
 
+    /**
+     * Permet de choisir une stratégie en fonction de ce qui se trouve dans notre main, en fonction des cartes quartiers et de l'or.
+     */
     public void choisirType2Piochage() {
         boolean parDefaut = true;
         if (this.joueur.getQuartiers().size() < 2) { // Check le nombre de bonnes cartes dans la main
@@ -69,6 +105,9 @@ public class Strategie {
         }
     }
 
+    /**
+     * Permet de passer au prochain tour. Si on est marchand ou évêque on utilise notre pouvoir en début de tour sinon on continue normalement.
+     */
     public void prochainTour() {
         this.choisirType2Piochage();
         String nomPersonnage = joueur.getPersonnage().getNom();
@@ -87,6 +126,11 @@ public class Strategie {
         }
     }
 
+    /**
+     * Affichage de la statégie utilisée par le joueur.
+     *
+     * @return Les informations sur la stratégie.
+     */
     @Override
     public String toString() {
         return "Strategie{" +
