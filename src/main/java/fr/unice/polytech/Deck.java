@@ -147,6 +147,10 @@ public class Deck {
         }
     }
 
+    public boolean resteQuartier() {
+        return this.quartiers.size() > 0;
+    }
+
     /**
      * Affichage des deux pioches des quartiers et des personnages.
      *

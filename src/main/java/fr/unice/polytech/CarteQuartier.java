@@ -15,29 +15,26 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * Le nom du quartier.
      */
     private final String nom;
-
+    /**
+     * Le prix du quartier.
+     */
+    private final int prix;
+    /**
+     * La description du pouvoir du quartier.
+     */
+    private final String description;
     /**
      * La couleur de la gemme de la carte quartier.
      */
     private String gemme;
 
     /**
-     * Le prix du quartier.
-     */
-    private final int prix;
-
-    /**
-     * La description du pouvoir du quartier.
-     */
-    private final String description;
-
-    /**
      * Le constructeur du quartier avec son identifiant, son nom, sa gemme et son prix.
      *
-     * @param id L'identifiant du quartier.
-     * @param nom Le nom du quartier.
+     * @param id    L'identifiant du quartier.
+     * @param nom   Le nom du quartier.
      * @param gemme La couleur de la gemme du quartier.
-     * @param prix Le prix du quartier.
+     * @param prix  Le prix du quartier.
      */
     public CarteQuartier(double id, String nom, String gemme, double prix) {
         this.id = id;
@@ -50,10 +47,10 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     /**
      * Le constructeur du quartier avec son identifiant, son nom, sa gemme, son prix et sa description.
      *
-     * @param id L'identifiant du quartier.
-     * @param nom Le nom du quartier.
-     * @param gemme La couleur de la gemme du quartier.
-     * @param prix Le prix du quartier.
+     * @param id          L'identifiant du quartier.
+     * @param nom         Le nom du quartier.
+     * @param gemme       La couleur de la gemme du quartier.
+     * @param prix        Le prix du quartier.
      * @param description La description du pouvoir du quartier.
      */
     public CarteQuartier(double id, String nom, String gemme, double prix, String description) {
@@ -110,21 +107,21 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer la couleur de la gemme du quartier, mais avec des couleurs pour l'affichage.
-     *
-     * @return La couleur de la gemme du quartier en violet.
-     */
-    public String getGemmeColoured() {
-        return CouleurConsole.printPurple(this.gemme);
-    }
-
-    /**
      * Changer la gemme du quartier.
      *
      * @param gemme La couleur de la gemme du quartier.
      */
     public void setGemme(String gemme) {
         this.gemme = gemme;
+    }
+
+    /**
+     * Permet de récupérer la couleur de la gemme du quartier, mais avec des couleurs pour l'affichage.
+     *
+     * @return La couleur de la gemme du quartier en violet.
+     */
+    public String getGemmeColoured() {
+        return CouleurConsole.printPurple(this.gemme);
     }
 
     /**
