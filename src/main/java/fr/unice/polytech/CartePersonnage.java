@@ -2,6 +2,9 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
+/* Classe permettant d'initialiser les différents personnages du jeu
+ */
+
 public class CartePersonnage {
     private final double id;
     private final String nom;
