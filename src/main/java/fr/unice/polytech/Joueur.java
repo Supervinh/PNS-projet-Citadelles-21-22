@@ -5,7 +5,6 @@ import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /* Classe permettant d'initialiser les joueurs
  */
@@ -18,7 +17,7 @@ public class Joueur implements Comparable<Joueur> {
     private int or = 0;
     private int points = 0;
     private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
-    private ArrayList<String> couleurquartier = new ArrayList<>();
+    private ArrayList<String> couleurQuartier = new ArrayList<>();
     private CartePersonnage personnage;
     private boolean roi = false;
     private boolean mort = false;
@@ -131,12 +130,12 @@ public class Joueur implements Comparable<Joueur> {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
-    public ArrayList<String> getCouleurquartier() {
-        return couleurquartier;
+    public ArrayList<String> getCouleurQuartier() {
+        return couleurQuartier;
     }
 
     public void ajouteCouleurQuartier(String couleur){
-        if(!this.couleurquartier.contains(couleur)) couleurquartier.add(couleur);
+        if(!this.couleurQuartier.contains(couleur)) couleurQuartier.add(couleur);
     }
 
     public void jouer() {
@@ -164,7 +163,7 @@ public class Joueur implements Comparable<Joueur> {
                 this.points += 2;
             }
         }
-        if (this.couleurquartier.size() == 5) {
+        if (this.couleurQuartier.size() == 5) {
             this.points += 3;
         }
     }
