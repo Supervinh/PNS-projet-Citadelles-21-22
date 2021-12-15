@@ -5,13 +5,13 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PouvoirAssassinTest {
@@ -59,6 +59,14 @@ class PouvoirAssassinTest {
         }
 
         assertNull(pouvoir.cibleExistante(voleur));
+    }
+
+    @Test
+    void testRandom() {
+        PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
+        Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(assassin);
+        CartePersonnage cible = pouvoir.cibleAleatoire(assassin);
+        assertNotEquals(assassin.getPersonnage(), cible);
     }
 
 }
