@@ -76,10 +76,10 @@ class PouvoirCondottiereTest {
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         Mockito.when(pouvoir.cibleAleatoire()).thenReturn(marchand);
-        marchand.setOr(50);
+        marchand.ajouteOr(50);
         marchand.setQuartiers(quartiersc1);
         marchand.construireQuartier();
-        condottiere.setOr(50);
+        condottiere.ajouteOr(50);
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiersConstruits().size());
     }

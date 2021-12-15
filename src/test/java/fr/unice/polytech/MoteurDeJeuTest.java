@@ -46,7 +46,7 @@ class MoteurDeJeuTest {
     @Test
     void jeuFini() {
         goodSetup();
-        joueurs.get(0).setOr(10000);
+        joueurs.get(0).ajouteOr(10000);
         for (int i = 0; i < 20; i++) joueurs.get(0).ajouterQuartierEnMain();
         for (int i = 0; i < 8; i++) joueurs.get(0).construireQuartier();
         assertEquals(8, joueurs.get(0).getQuartiersConstruits().size());
