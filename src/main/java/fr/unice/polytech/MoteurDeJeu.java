@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/* Classe qui gère le déroulement du jeu
+ */
+
 public class MoteurDeJeu {
 
     public static Deck deck;

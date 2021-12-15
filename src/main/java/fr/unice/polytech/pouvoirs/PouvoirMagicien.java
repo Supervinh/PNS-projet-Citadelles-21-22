@@ -86,16 +86,26 @@ public class PouvoirMagicien implements IPouvoir {
      * @param i      Un chiffre entre 0 et 1 qui permet de faire le choix.
      */
     public void choixAction(Joueur joueur, int i) {
-        Random r = new Random();
-        int nb = 0;
-        if (joueur.getQuartiers().size() > 0) {
-            nb = r.nextInt(joueur.getQuartiers().size());
-        }
+        int nb = choixNbreQuartiers(joueur);
         if (i == 0) {
             echangerCartesAvecPioche(joueur, nb);
         } else {
             echangerCartesAvecJoueur(joueur);
         }
+    }
+
+    /**
+     * On retourne le nombre de cartes que nous allons prendre ou échanger.
+     *
+     * @param joueur Le joueur en question.
+     * @return Le nombre de quartiers.
+     */
+    private int choixNbreQuartiers(Joueur joueur) {
+        Random r = new Random();
+        if (joueur.getQuartiers().size() > 0) {
+            return r.nextInt(joueur.getQuartiers().size());
+        }
+        return 0;
     }
 
     /**

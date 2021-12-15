@@ -55,4 +55,13 @@ class PouvoirMagicienTest {
         assertNotEquals(q,magicien.getQuartiers());
     }
 
+    @Test
+    void echangePasAvecPioche() {
+        PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
+        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien,3);
+        ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
+        pouvoir.echangerCartesAvecPioche(magicien,0);
+        assertEquals(q,magicien.getQuartiers());
+    }
+
 }

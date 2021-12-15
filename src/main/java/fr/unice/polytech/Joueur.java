@@ -7,6 +7,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/* Classe permettant d'initialiser les joueurs
+ */
+
 public class Joueur implements Comparable<Joueur> {
     private static int numJoueur = 0;
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
