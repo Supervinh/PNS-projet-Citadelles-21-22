@@ -86,7 +86,7 @@ public class MoteurDeJeu {
         if (verifieFini(joueur)) {
             System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNomColoured() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
-        joueur.calculePoints();
+        //joueur.calculePoints();
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs, boolean nameless) {
@@ -175,6 +175,7 @@ public class MoteurDeJeu {
     }
 
     public int obtenirScoreMax(ArrayList<Joueur> joueurs) {
+        joueurs.forEach(joueur -> joueur.calculePoints());
         return joueurs.stream().mapToInt(Joueur::getPoints).max().orElse(0);
     }
 
