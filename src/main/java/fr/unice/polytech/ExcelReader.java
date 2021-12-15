@@ -10,16 +10,35 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Classe permettant d'extraire les données d'un fichier excel
+ * Classe permettant d'extraire les données d'un fichier excel.
  */
 public class ExcelReader {
+    /**
+     * Fichier excel contenant les informations sur les cartes quartiers.
+     */
     private final File excelCardFile = new File("data/Cards.xlsx");
+
+    /**
+     * Fichier excel contenant les informations sur les cartes personnages.
+     */
     private final File excelCharacterFile = new File("data/Characters.xlsx");
+
+    /**
+     * Fichier excel contenant une liste de nom pour les joueurs.
+     */
     private final File excelRandomNames = new File("data/Names.xlsx");
 
+    /**
+     * Le constructeur vide du lecteur de fichiers excel.
+     */
     public ExcelReader() {
     }
 
+    /**
+     *
+     * @param file Le fichier excel.
+     * @return 
+     */
     public XSSFSheet fileToSheet(File file) {
         try {
             FileInputStream fis = new FileInputStream(file);
@@ -30,6 +49,11 @@ public class ExcelReader {
         }
     }
 
+    /**
+     * Récupère les informations des cartes quartiers et les initialisent en tant qu'objet CarteQuartier et les insèrent dans une liste.
+     *
+     * @return La liste avec toutes les cartes quartiers.
+     */
     public ArrayList<CarteQuartier> recupererQuartiers() {
         ArrayList<CarteQuartier> quartiersTemp = new ArrayList<>();
         XSSFSheet sheet = fileToSheet(this.excelCardFile);
@@ -49,6 +73,11 @@ public class ExcelReader {
         return quartiersTemp;
     }
 
+    /**
+     * Récupère les informations des cartes personnages et les initialisent en tant qu'objet CartePersonnage et les insèrent dans une liste.
+     *
+     * @return La liste avec toutes les cartes personnages.
+     */
     public ArrayList<CartePersonnage> recupererPersonnage() {
         ArrayList<CartePersonnage> personnagesTemp = new ArrayList<>();
         XSSFSheet sheet = fileToSheet(this.excelCharacterFile);
@@ -66,6 +95,11 @@ public class ExcelReader {
         return personnagesTemp;
     }
 
+    /**
+     * Récupère un nom au hasard dans le fichier de noms.
+     *
+     * @return Le nom du joueur.
+     */
     public String getRandomName() {
         XSSFSheet sheet = fileToSheet(this.excelRandomNames);
         String name = sheet.getRow(new Random().nextInt(sheet.getLastRowNum())).getCell(0).getStringCellValue().replace("\u008F", "");
