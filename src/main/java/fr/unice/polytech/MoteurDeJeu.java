@@ -189,7 +189,8 @@ public class MoteurDeJeu {
     }
 
     public Joueur obtenirGagnant(ArrayList<Joueur> joueurs) {
-        ArrayList<Joueur> gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == obtenirScoreMax(joueurs)).toList());
+        int score = obtenirScoreMax(joueurs);
+        ArrayList<Joueur> gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPoints() == score).toList());
         if (gagnants.size() > 1) {
             int premierJoueur = gagnants.stream().mapToInt(joueur -> (int) joueur.getPersonnage().getId()).min().orElse(0);
             gagnants = new ArrayList<>(joueurs.stream().filter(joueur -> joueur.getPersonnage().getId() == premierJoueur).toList());
