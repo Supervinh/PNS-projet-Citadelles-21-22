@@ -19,7 +19,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     /**
      * La couleur de la gemme de la carte quartier.
      */
-    private final String gemme;
+    private String gemme;
 
     /**
      * Le prix du quartier.
@@ -110,12 +110,21 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer la couleur de la gemme du quartier mais avec des couleurs pour l'affichage.
+     * Permet de récupérer la couleur de la gemme du quartier, mais avec des couleurs pour l'affichage.
      *
      * @return La couleur de la gemme du quartier en violet.
      */
     public String getGemmeColoured() {
         return CouleurConsole.printPurple(this.gemme);
+    }
+
+    /**
+     * Changer la gemme du quartier.
+     *
+     * @param gemme La couleur de la gemme du quartier.
+     */
+    public void setGemme(String gemme) {
+        this.gemme = gemme;
     }
 
     /**
