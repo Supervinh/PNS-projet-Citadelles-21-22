@@ -2,10 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -184,62 +181,136 @@ public class Joueur implements Comparable<Joueur> {
         return this.quartiersConstruits;
     }
 
+    /**
+     * Permet de savoir si le joueur est roi ou non.
+     *
+     * @return Vrai si le joueur est roi, faux sinon.
+     */
     public boolean isRoi() {
         return this.roi;
     }
 
+    /**
+     * Permet d'affecter le rôle du roi au joueur.
+     *
+     * @param b Vrai si il est roi, faux sinon.
+     */
     public void setRoi(boolean b) {
         this.roi = b;
     }
 
+    /**
+     * Permet de savoir si le joueur est roi mais avec des couleurs pour l'affichage.
+     *
+     * @return Vrai si le joueur est roi, faux sinon écrit en bleu.
+     */
     public String isRoiColoured() {
         return CouleurConsole.printBlue("" + this.roi);
     }
 
+    /**
+     * Permet de savoir si le joueur est mort ou non.
+     *
+     * @return Vrai si le joueur est mort, faux sinon.
+     */
     public boolean isMort() {
         return this.mort;
     }
 
+    /**
+     * Permet de modifier l'état d'un joueur, mort ou non.
+     *
+     * @param t Vrai ou Faux.
+     */
     public void setMort(boolean t) {
         this.mort = t;
     }
 
+    /**
+     * Permet de savoir si le joueur a fini en premier ou non.
+     *
+     * @return Vrai si le joueur a fini en premier, faux sinon.
+     */
     public boolean isFirst() {
         return this.first;
     }
 
+    /**
+     * Permet de mettre vrai au premier joueur qui gagne.
+     *
+     * @param b Vrai ou faux.
+     */
     public void setFirst(boolean b) {
         this.first = b;
     }
 
+    /**
+     * Permet de récupérer le nombre de points qu'a le joueur.
+     *
+     * @return Le nombre de points qu'a le joueur.
+     */
     public int getPoints() {
         return this.points;
     }
 
+    /**
+     * Permet de récupérer la stratégie qu'utilise le joueur.
+     *
+     * @return La stratégie qu'utilise le joueur.
+     */
     public Strategie getStrategie() {
         return this.strategie;
     }
 
+    /**
+     * Permet de récupérer le nom de la stratégie qu'utilise le joueur.
+     *
+     * @return Le nom de la stratégie qu'utilise le joueur.
+     */
     public String getNomStrategie() {
         return this.strategie.getiPiocher().nomStrategie();
     }
 
+    /**
+     * Permet de récupérer le nom de la stratégie qu'utilise le joueur mais avec des couleurs pour l'affichage.
+     *
+     * @return Le nom de la stratégie en violet.
+     */
     public String getNomStrategieColoured() {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
+    /**
+     * Permet de récupérer la liste des gemmes des quartiers que le joueur a construit.
+     *
+     * @return La liste des gemmes des quartiers que le joueur a construit.
+     */
     public ArrayList<String> getGemmesQuartiersConstruit() {
         return this.calculerGemmesQuartiers();
     }
 
+    /**
+     * Permet de récupérer la liste des gemmes des quarties que le joueur a construit mais avec des couleurs pour l'affichage.
+     *
+     * @return La liste des gemmes des quartiers que le joueur a construit en violet.
+     */
     public ArrayList<String> getGemmesQuartiersColoured() {
         return new ArrayList<>(this.getGemmesQuartiersConstruit().stream().map(CouleurConsole::printPurple).toList());
     }
 
+    /**
+     * Trouve les gemmes correspondant aux quartiers contruits.
+     *
+     * @return La liste des gemmes dans les quartiers construits.
+     */
     private ArrayList<String> calculerGemmesQuartiers() {
         return new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
     }
 
+    /**
+     * Correspond au pouvoir de la carte cour des miracles.
+     * Une fois la partie finie, et si on a construit la cour des miracles on peut choisir la couleur de sa gemme.
+     */
     public void pouvoirCourDesMiracles() {
         ArrayList<String> gemmesPossibles = new ArrayList<>(MoteurDeJeu.deck.getQuartiersPossibles().stream().map(CarteQuartier::getGemme).distinct().toList());
         ArrayList<String> gemmesQuartiers = new ArrayList<>(this.getGemmesQuartiersConstruit());
@@ -254,22 +325,37 @@ public class Joueur implements Comparable<Joueur> {
         }
     }
 
+    /**
+     * Affiche les détails du joueur qui joue, s'il n'est pas mort on joue sinon on passe au prochain tour.
+     */
     public void jouer() {
         this.printDetails();
         if (!this.mort) this.strategie.prochainTour();
         else System.out.println(this.getNomColoured() + " est " + CouleurConsole.printRed("Mort"));
     }
 
+    /**
+     * Permet de piocher de l'or.
+     */
     public void piocherOr() {
         this.ajouteOr(MoteurDeJeu.orAPiocher);
         System.out.println(CouleurConsole.printGold("| Piocher Or"));
         System.out.println(CouleurConsole.printGold("| ") + this.getNomColoured() + " a pioché " + CouleurConsole.printGold("" + MoteurDeJeu.orAPiocher) + " pièce" + (MoteurDeJeu.orAPiocher > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or"));
     }
 
+    /**
+     * Permet d'ajouter de l'or dans la main du joueur.
+     *
+     * @param n L'or a ajouté dans la main du joueur.
+     */
     public void ajouteOr(int n) {
         this.or += MoteurDeJeu.banque.transaction(n);
     }
 
+    /**
+     * Calcule les points du joueur.
+     * Il y a des cas spécifiques pour le calcul des points en fonction de quand il termine et avec quoi.
+     */
     public void calculePoints() {
         if (this.contientQuartier("Cour des miracles")) {
             this.pouvoirCourDesMiracles();
@@ -287,6 +373,10 @@ public class Joueur implements Comparable<Joueur> {
         }
     }
 
+    /**
+     * Le joueur pioche une carte personnage.
+     * Si le joueur était mort au tour dernier, il ne l'est plus à ce tour ci.
+     */
     public void piocherPersonnage() {
         this.mort = false;
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
@@ -294,6 +384,10 @@ public class Joueur implements Comparable<Joueur> {
         this.personnage = cp;
     }
 
+    /**
+     * On pioche une carte quartier et on l'ajoute dans la main.
+     * Certaines cartes ont des effets sur la pioche de cartes quand lorsqu'elles sont construites.
+     */
     public void ajouterQuartierEnMain() {
         System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
         ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
@@ -319,7 +413,6 @@ public class Joueur implements Comparable<Joueur> {
             quartiersPioches.add(piocherQuartier());
         }
 
-
         if (this.contientQuartier("Bibliothèque")) {
             for (int i = 0; i < 2; i++) {
                 quartiers.add(quartiersPioches.get(i));
@@ -332,12 +425,23 @@ public class Joueur implements Comparable<Joueur> {
         }
     }
 
+    /**
+     * Pioche une carte quartier dans la pioche en jeu.
+     *
+     * @return Une pioche quartier.
+     */
     public CarteQuartier piocherQuartier() {
         CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
         if (cq != null) System.out.println(this.getNomColoured() + " a pioché: " + cq.getNomColoured());
         return cq;
     }
 
+    /**
+     * Choisit une carte quartier que le joueur met dans sa main.
+     *
+     * @param quartiersPioches La liste des quartiers piochés.
+     * @return Une carte quartier.
+     */
     public CarteQuartier choixQuartier(ArrayList<CarteQuartier> quartiersPioches) {
         int k = new Random().nextInt(quartiersPioches.size());
         CarteQuartier cq = quartiersPioches.get(k);
@@ -359,6 +463,9 @@ public class Joueur implements Comparable<Joueur> {
         return cq;
     }
 
+    /**
+     * Méthode pour construire un quartier. On vérifie si on a assez d'argent, si on a de quoi construire.
+     */
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
@@ -376,18 +483,37 @@ public class Joueur implements Comparable<Joueur> {
         }
     }
 
+    /**
+     * Permet de récupérer les quartiers constructibles dans notre main.
+     *
+     * @return La liste des cartes quartiers constructibles.
+     */
     public ArrayList<CarteQuartier> quartiersConstructible() {
         return new ArrayList<>(this.quartiers.stream().filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
     }
 
+    /**
+     * Permet de savoir si le quartier est construit.
+     *
+     * @param nom Le nom du quartier.
+     * @return Vrai si on a le quartier, faux sinon.
+     */
     public boolean contientQuartier(String nom) {
         return this.quartiersConstruits.stream().anyMatch(quartier -> quartier.getNom().equals(nom));
     }
 
+    /**
+     * Permet de savoir le nombre de quartiers constructibles dans notre main.
+     *
+     * @return Le nombre de quartiers constructibles.
+     */
     public int nombre2QuartiersConstructible() {
         return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
     }
 
+    /**
+     * Revoie les informations au tour du joueur.
+     */
     private void printDetails() {
         System.out.println();
         System.out.println(CouleurConsole.printBlue("| Details Joueur"));
@@ -399,6 +525,11 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println();
     }
 
+    /**
+     * Affichage de toutes les informations du joueur, son nom, son or, si il est roi, son personnage, les quartiers en main, les quartiers construits et la statégie utilisée.
+     *
+     * @return Les informations du quartier.
+     */
     @Override
     public String toString() {
         return "Joueur{" +
@@ -412,11 +543,23 @@ public class Joueur implements Comparable<Joueur> {
                 '}';
     }
 
+    /**
+     * Compare les points de deux joueurs.
+     *
+     * @param j Le joueur avec qui on veut comparer.
+     * @return La différence entre les points des deux joueurs.
+     */
     @Override
     public int compareTo(Joueur j) {
         return j.getPoints() - this.getPoints();
     }
 
+    /**
+     * Permet de savoir si un objet est égal.
+     *
+     * @param obj Un objet a comparé.
+     * @return Vrai ou faux.
+     */
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);
