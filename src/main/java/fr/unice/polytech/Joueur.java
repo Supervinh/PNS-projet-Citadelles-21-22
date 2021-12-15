@@ -301,18 +301,18 @@ public class Joueur implements Comparable<Joueur> {
             ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
             int nbCartes = MoteurDeJeu.carteAPiocher;
 
-            if (this.contientQuartier("Manufacture") && this.getOr() >= 3) {
+            if (this.contientQuartier("Manufacture") && this.getOr() >= 3 && new Random().nextBoolean()) {
                 this.ajouteOr(-3);
                 nbCartes = 3;
             }
 
-            if (this.contientQuartier("Laboratoire")) {
+            if (this.contientQuartier("Laboratoire") && new Random().nextBoolean()) {
                 this.ajouteOr(1);
                 int taille = quartiers.size();
                 if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
             }
 
-            if (this.contientQuartier("Observatoire")) {
+            if (this.contientQuartier("Observatoire") && new Random().nextBoolean()) {
                 nbCartes = 3;
             }
 
@@ -324,7 +324,7 @@ public class Joueur implements Comparable<Joueur> {
 
             if (this.contientQuartier("Bibliothèque")) {
                 for (int i = 0; i < 2; i++) {
-                    quartiers.add(quartiersPioches.get(i));
+                    this.quartiers.add(quartiersPioches.get(i));
                     System.out.print(CouleurConsole.printPurple("| "));
                     System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
                 }
