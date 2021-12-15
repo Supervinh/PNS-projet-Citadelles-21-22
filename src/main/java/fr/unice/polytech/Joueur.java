@@ -112,7 +112,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Permet de récupérer le nom du joueur mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nom du joueur, mais avec des couleurs pour l'affichage.
      *
      * @return Le nom du joueur en cyan.
      */
@@ -130,7 +130,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Permet de récupérer le nombre d'or que possède le joueur mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nombre d'or que possède le joueur, mais avec des couleurs pour l'affichage.
      *
      * @return Le nombre d'or que possède le joueur en or.
      */
@@ -229,10 +229,6 @@ public class Joueur implements Comparable<Joueur> {
 
     public ArrayList<String> getGemmesQuartiersConstruit() {
         return this.calculerGemmesQuartiers();
-    }
-
-    public ArrayList<String> getGemmesQuartiersColoured() {
-        return new ArrayList<>(this.getGemmesQuartiersConstruit().stream().map(CouleurConsole::printPurple).toList());
     }
 
     private ArrayList<String> calculerGemmesQuartiers() {
