@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MoteurDeJeu {
 
     public static Deck deck;
-    public static int nombre2Joueur = 5;
+    public static int nombre2Joueur = 7;
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
     public static int carte2Depart = 4;
@@ -143,12 +143,26 @@ public class MoteurDeJeu {
         initialisePileCartes();
         System.out.println(CouleurConsole.printGreen("\n| Piocher les Personnages"));
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
-            System.out.print(CouleurConsole.printGreen("| "));
-            joueurs.get(i).piocherPersonnage();
+            joueurPiochePersonnage(joueurs, i);
         }
         for (int i = 0; i < this.roiIndex; i++) {
-            System.out.print(CouleurConsole.printGreen("| "));
-            joueurs.get(i).piocherPersonnage();
+            joueurPiochePersonnage(joueurs, i);
+        }
+    }
+
+    public void joueurPiochePersonnage(ArrayList<Joueur> joueurs, int i) {
+        System.out.print(CouleurConsole.printGreen("| "));
+        if (joueurs.size() < 7) joueurs.get(i).piocherPersonnage();
+        else {
+            if (deck.getPersonnages().size() == 1) {
+                deck.ajoutePersonnage(carteCachee);
+                System.out.println("On remet la carte cachée" + this.carteCachee + "dans le deck");
+                System.out.print(CouleurConsole.printGreen("| "));
+                joueurs.get(i).piocherPersonnage();
+                this.carteCachee = deck.piocherPersonnage();
+                System.out.print(CouleurConsole.printGreen("| "));
+                System.out.println("Nouvelle Carte Cachée : " + this.carteCachee);
+            } else joueurs.get(i).piocherPersonnage();
         }
     }
 
