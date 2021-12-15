@@ -156,12 +156,12 @@ public class MoteurDeJeu {
         else {
             if (deck.getPersonnages().size() == 1) {
                 deck.ajoutePersonnage(carteCachee);
-                System.out.println("On remet la carte cachée" + this.carteCachee + "dans le deck");
+                System.out.println("On remet la carte cachée: " + this.carteCachee + "dans le deck");
                 System.out.print(CouleurConsole.printGreen("| "));
                 joueurs.get(i).piocherPersonnage();
                 this.carteCachee = deck.piocherPersonnage();
                 System.out.print(CouleurConsole.printGreen("| "));
-                System.out.println("Nouvelle Carte Cachée : " + this.carteCachee);
+                System.out.println("Nouvelle carte cachée : " + this.carteCachee);
             } else joueurs.get(i).piocherPersonnage();
         }
     }
