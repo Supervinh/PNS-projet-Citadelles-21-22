@@ -37,11 +37,11 @@ public class PouvoirCondottiere implements IPouvoir {
                 if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr()>=1 && choixAction()){
                     cible.ajouteOr(-1);
                     cible.getQuartiers().add(quartierDetruit);
-                    System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured());
+                    System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured() + "contre une pièce d'or.");
                 }
                 else {
                     MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-                    System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier ");
+                    System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier.");
                 }
             }
         } else {
