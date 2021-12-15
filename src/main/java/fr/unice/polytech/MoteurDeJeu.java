@@ -89,7 +89,7 @@ public class MoteurDeJeu {
         if (verifieFini(joueur)) {
             System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNomColoured() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
-        //joueur.calculePoints();
+        joueur.calculePoints();
 
         if (!banque.sommeArgentCirculationCorrecte()) {
             System.out.println("Argent Total en Circulation: " + (banque.getFonds() + MoteurDeJeu.joueurs.stream().mapToInt(Joueur::getOr).sum()));
