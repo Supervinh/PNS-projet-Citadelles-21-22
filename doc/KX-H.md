@@ -22,7 +22,7 @@ Ces choix ont été faits parce que c'est ce qui nous a paru le plus logique et 
 
 ### Où trouver les infos dans la doc ?
 
-Nous avons utilisé les règles du jeu trouvées sur ce site : http://jeuxstrategie.free.fr/Citadelles_complet.php
+Nous avons utilisé les règles du jeu trouvées sur ce site : http://jeuxstrategie.free.fr/Citadelles_complet.php <br/>
 La javaDoc est implémentée dans toutes les classes, facilitant la compréhension de nos méthodes.
 
 <br/>
