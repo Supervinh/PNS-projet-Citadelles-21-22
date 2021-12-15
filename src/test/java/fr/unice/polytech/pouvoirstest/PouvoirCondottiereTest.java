@@ -47,6 +47,15 @@ class PouvoirCondottiereTest {
         moteurDeJeu.setJoueurs(joueurs);
     }
 
+    void specialSetup(){
+        quartierc1 = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
+        quartiersc1.add(quartierc1);
+        marchand.ajouteOr(30);
+        marchand.setQuartiers(quartiersc1);
+        marchand.construireQuartier();
+        marchand.construireQuartier();
+    }
+
     @Test
     void taxesAjoutTest() {
         PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
@@ -99,14 +108,24 @@ class PouvoirCondottiereTest {
         Mockito.doReturn(true).when(pouvoir).choixAction();
         Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
         Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere,marchand);
-        quartierc1 = new CarteQuartier(23, "Cimetière", "Prestige", 5);
-        quartiersc1.add(quartierc1);
-        marchand.ajouteOr(30);
-        marchand.setQuartiers(quartiersc1);
-        marchand.construireQuartier();
-        marchand.construireQuartier();
-        marchand.ajouteOr(-1* marchand.getOr());
-        condottiere.ajouteOr(30);
+        specialSetup();
+        marchand.ajouteOr(-1* marchand.getOr()+1);
+        condottiere.ajouteOr(10);
         pouvoir.utiliserPouvoir(condottiere);
+        assertEquals(1, marchand.getQuartiers().size());
+    }
+
+    @Test
+    void pasRecuperationQuartier(){
+        PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
+        Mockito.doReturn(true).when(pouvoir).choixAction();
+        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
+        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere,marchand);
+        specialSetup();
+        marchand.ajouteOr(-1* marchand.getOr());
+        condottiere.ajouteOr(10);
+        pouvoir.utiliserPouvoir(condottiere);
+        assertEquals(0, marchand.getQuartiers().size());
     }
 }

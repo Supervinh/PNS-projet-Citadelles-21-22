@@ -28,10 +28,10 @@ public class PouvoirCondottiere implements IPouvoir {
         if (quartierDetruit != null) {
             cible.getQuartiersConstruits().remove(quartierDetruit);
             joueur.ajouteOr(1 - quartierDetruit.getPrix());
+            CarteQuartier cimetiere = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
-            if (!cible.getQuartiersConstruits().contains(MoteurDeJeu.deck.getQuartiers)){
+            if (!cible.getQuartiersConstruits().contains(cimetiere)){
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-                System.out.println("HAHAHAHAHHAHA");
             }
             else {
                 if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr()>=1 && choixAction()){
