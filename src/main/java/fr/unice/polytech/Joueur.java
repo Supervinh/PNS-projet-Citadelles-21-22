@@ -226,7 +226,7 @@ public class Joueur implements Comparable<Joueur> {
 
     public CarteQuartier piocherQuartier() {
         CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
-        System.out.println(this.getNomColoured() + " a pioché: " + cq.getNomColoured());
+        if (cq != null) System.out.println(this.getNomColoured() + " a pioché: " + cq.getNomColoured());
         return cq;
     }
 
@@ -246,7 +246,7 @@ public class Joueur implements Comparable<Joueur> {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
             }
         }
-        System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+        if (cq != null) System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
         return cq;
     }
 
