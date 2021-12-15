@@ -23,6 +23,7 @@ Ces choix ont été faits parce que c'est ce qui nous a paru le plus logique et 
 ### Où trouver les infos dans la doc ?
 
 Nous avons utilisé les règles du jeu trouvées sur ce site : http://jeuxstrategie.free.fr/Citadelles_complet.php
+La javaDoc est implémentée dans toutes les classes, facilitant la compréhension de nos méthodes.
 
 <br/>
 
@@ -92,4 +93,6 @@ Nous avons implémenté toutes les slices, sauf la cinquième où nous avons seu
 
 ### Etat de la base de code : quelles parties sont bien faites ? Quelles parties sont à refactor et pourquoi ?
 
+* Parties bien faites : les pouvoirs des personnages et des cartes, les stratégies de jeux, la lecture des fichiers Excel, le Deck de cartes et la Banque
 
+* Parties à refactor : redistribuer certaines responsabilités de la classe Joueur et de la classe MoteurDeJeu
