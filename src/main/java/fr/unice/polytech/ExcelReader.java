@@ -35,9 +35,10 @@ public class ExcelReader {
     }
 
     /**
+     * Met le fichier excel dans un format que l'on peut manipuler.
      *
      * @param file Le fichier excel.
-     * @return 
+     * @return Un Sheet excel manipulable.
      */
     public XSSFSheet fileToSheet(File file) {
         try {
