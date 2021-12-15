@@ -2,7 +2,9 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -66,7 +68,8 @@ public class Joueur implements Comparable<Joueur> {
 
     /**
      * Le constructeur du joueur.
-     * On lui donne un nom, on initialise son nombre d'or et de cartes quartiers en début de partie et on lui associe une stratégie.
+     * On lui donne un nom, on initialise son nombre d'or et de cartes quartiers en début de partie et on lui associe
+     * une stratégie.
      */
     public Joueur() {
         this.nom = "CPU" + ++numJoueur;
@@ -110,7 +113,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Permet de récupérer le nom du joueur mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nom du joueur, mais avec des couleurs pour l'affichage.
      *
      * @return Le nom du joueur en cyan.
      */
@@ -128,7 +131,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Permet de récupérer le nombre d'or que possède le joueur mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nombre d'or que possède le joueur, mais avec des couleurs pour l'affichage.
      *
      * @return Le nombre d'or que possède le joueur en or.
      */
@@ -349,7 +352,13 @@ public class Joueur implements Comparable<Joueur> {
      * @param n L'or a ajouté dans la main du joueur.
      */
     public void ajouteOr(int n) {
-        this.or += MoteurDeJeu.banque.transaction(n);
+        if (MoteurDeJeu.banque.resteArgent()) {
+            this.or += MoteurDeJeu.banque.transaction(n);
+        } else {
+            if (MoteurDeJeu.deck.resteQuartier()) {
+                this.ajouterQuartierEnMain();
+            }
+        }
     }
 
     /**
@@ -389,39 +398,45 @@ public class Joueur implements Comparable<Joueur> {
      * Certaines cartes ont des effets sur la pioche de cartes quand lorsqu'elles sont construites.
      */
     public void ajouterQuartierEnMain() {
-        System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
-        ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
-        int nbCartes = MoteurDeJeu.carteAPiocher;
+        if (MoteurDeJeu.deck.resteQuartier()) {
+            System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
+            ArrayList<CarteQuartier> quartiersPioches = new ArrayList<>();
+            int nbCartes = MoteurDeJeu.carteAPiocher;
 
-        if (this.contientQuartier("Manufacture") && this.getOr() >= 3) {
-            this.ajouteOr(-3);
-            nbCartes = 3;
-        }
+            if (this.contientQuartier("Manufacture") && this.getOr() >= 3 && new Random().nextBoolean()) {
+                this.ajouteOr(-3);
+                nbCartes = 3;
+            }
 
-        if (this.contientQuartier("Laboratoire")) {
-            this.ajouteOr(1);
-            int taille = quartiers.size();
-            if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
-        }
+            if (this.contientQuartier("Laboratoire") && new Random().nextBoolean()) {
+                this.ajouteOr(1);
+                int taille = quartiers.size();
+                if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
+            }
 
-        if (this.contientQuartier("Observatoire")) {
-            nbCartes = 3;
-        }
+            if (this.contientQuartier("Observatoire") && new Random().nextBoolean()) {
+                nbCartes = 3;
+            }
 
-        for (int i = 0; i < nbCartes; i++) {
-            System.out.print(CouleurConsole.printPurple("| "));
-            quartiersPioches.add(piocherQuartier());
-        }
-
-        if (this.contientQuartier("Bibliothèque")) {
-            for (int i = 0; i < 2; i++) {
-                quartiers.add(quartiersPioches.get(i));
+            for (int i = 0; i < nbCartes; i++) {
                 System.out.print(CouleurConsole.printPurple("| "));
-                System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
+                quartiersPioches.add(piocherQuartier());
+            }
+
+            if (this.contientQuartier("Bibliothèque")) {
+                for (int i = 0; i < 2; i++) {
+                    this.quartiers.add(quartiersPioches.get(i));
+                    System.out.print(CouleurConsole.printPurple("| "));
+                    System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
+                }
+            } else {
+                System.out.print(CouleurConsole.printPurple("| "));
+                this.quartiers.add(this.choixQuartier(quartiersPioches));
             }
         } else {
-            System.out.print(CouleurConsole.printPurple("| "));
-            this.quartiers.add(this.choixQuartier(quartiersPioches));
+            if (MoteurDeJeu.banque.resteArgent()) {
+                this.piocherOr();
+            }
         }
     }
 
@@ -532,15 +547,7 @@ public class Joueur implements Comparable<Joueur> {
      */
     @Override
     public String toString() {
-        return "Joueur{" +
-                "nom=" + this.getNomColoured() +
-                ", or=" + this.getOrColoured() +
-                ", estRoi=" + this.isRoiColoured() +
-                ", personnage=" + this.personnage.getNomColoured() +
-                ", quartiers=" + this.quartiers.stream().map(CarteQuartier::getNomColoured).toList() +
-                ", quartiersConstruits=" + this.quartiersConstruits.stream().map(CarteQuartier::getNomColoured).toList() +
-                ", strategie=" + this.getNomStrategieColoured() +
-                '}';
+        return "Joueur{" + "nom=" + this.getNomColoured() + ", or=" + this.getOrColoured() + ", estRoi=" + this.isRoiColoured() + ", personnage=" + this.personnage.getNomColoured() + ", quartiers=" + this.quartiers.stream().map(CarteQuartier::getNomColoured).toList() + ", quartiersConstruits=" + this.quartiersConstruits.stream().map(CarteQuartier::getNomColoured).toList() + ", strategie=" + this.getNomStrategieColoured() + '}';
     }
 
     /**
