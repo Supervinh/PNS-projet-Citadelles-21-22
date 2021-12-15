@@ -2,10 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /* Classe permettant d'initialiser les joueurs
@@ -278,7 +275,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public ArrayList<CarteQuartier> quartiersConstructible() {
-        return new ArrayList<>(this.quartiers.stream().filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
+        return new ArrayList<>(this.quartiers.stream().filter(Objects::nonNull).filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
     }
 
     public boolean contientQuartier(String nom) {
@@ -286,7 +283,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public int nombre2QuartiersConstructible() {
-        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
+        return new ArrayList<>(this.quartiers.stream().filter(Objects::nonNull).filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
     }
 
     private void printDetails() {
