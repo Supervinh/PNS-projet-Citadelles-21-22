@@ -1,6 +1,6 @@
 # Citadelle - Group H
 
-* Rétrospective du déroulé du projet: <br/>
+## Rétrospective du déroulé du projet: <br/>
 
 https://github.com/pns-si3-projects/projet2-ps5-21-22-ps5-21-22-projet2-h/blob/master/doc/Screen%20Shot%202021-12-15%20at%205.02.13%20PM.png
 
