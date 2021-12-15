@@ -21,9 +21,6 @@ class MoteurDeJeuTest {
     @Test
     void ordi1Gagne() {
         goodSetup();
-        /*for (int i = 0; i < 5; i++) {
-            joueurs.get(i).setPoints(30 - i);
-        }*/
         joueurs.get(0).ajouteOr(30);
         joueurs.get(0).construireQuartier();
         assertEquals(joueurs.get(0), m.obtenirGagnant(joueurs));
