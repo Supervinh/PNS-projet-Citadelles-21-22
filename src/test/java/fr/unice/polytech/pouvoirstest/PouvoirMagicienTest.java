@@ -70,12 +70,10 @@ class PouvoirMagicienTest {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).choixNbreQuartiers(magicien);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(magicien);
-        boolean b = new Random().nextBoolean();
         int m = pouvoir.choixNbreQuartiers(magicien);
         CartePersonnage cible = pouvoir.cibleAleatoire(magicien);
-        assertTrue(b);
         assertTrue(m<5 && m>-1);
-        assertNotEquals(magicien, cible);
+        assertNotEquals(magicien.getPersonnage(), cible);
     }
 
 }
