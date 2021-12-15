@@ -21,9 +21,11 @@ class MoteurDeJeuTest {
     @Test
     void ordi1Gagne() {
         goodSetup();
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             joueurs.get(i).setPoints(30 - i);
-        }
+        }*/
+        joueurs.get(0).ajouteOr(30);
+        joueurs.get(0).construireQuartier();
         assertEquals(joueurs.get(0), m.obtenirGagnant(joueurs));
     }
 
@@ -46,9 +48,12 @@ class MoteurDeJeuTest {
     @Test
     void jeuFini() {
         goodSetup();
-        joueurs.get(0).ajouteOr(10000);
+        joueurs.get(0).ajouteOr(30);
         for (int i = 0; i < 20; i++) joueurs.get(0).ajouterQuartierEnMain();
-        for (int i = 0; i < 8; i++) joueurs.get(0).construireQuartier();
+        for (int i = 0; i < 8; i++) {
+            joueurs.get(0).construireQuartier();
+            joueurs.get(0).ajouteOr(8);
+        }
         assertEquals(8, joueurs.get(0).getQuartiersConstruits().size());
         assertTrue(m.verifieFini(joueurs.get(0)));
     }
