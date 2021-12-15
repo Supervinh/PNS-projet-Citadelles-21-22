@@ -20,7 +20,12 @@ public class Deck {
     private final ArrayList<CartePersonnage> personnages;
 
     /**
-     * La liste des personnages piochés.
+     * La liste des quartiers possible.
+     */
+    private final ArrayList<CarteQuartier> quartiersPossibles;
+
+    /**
+     * La liste des personnages possible.
      */
     private final ArrayList<CartePersonnage> personnagesPossibles;
 
@@ -34,6 +39,7 @@ public class Deck {
         ExcelReader ER = new ExcelReader();
         this.quartiers = ER.recupererQuartiers();
         this.personnages = ER.recupererPersonnage();
+        this.quartiersPossibles = new ArrayList<>(List.copyOf(this.quartiers));
         this.personnagesPossibles = new ArrayList<>(List.copyOf(this.personnages));
         this.melagerArrayList(this.quartiers);
         this.melagerArrayList(this.personnages);
@@ -55,6 +61,15 @@ public class Deck {
      */
     public ArrayList<CartePersonnage> getPersonnages() {
         return personnages;
+    }
+
+    /**
+     * Permet de récupérer la liste des cartes quartiers possibles.
+     *
+     * @return La liste des cartes quartiers possibles.
+     */
+    public ArrayList<CarteQuartier> getQuartiersPossibles() {
+        return quartiersPossibles;
     }
 
     /**

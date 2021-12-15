@@ -7,12 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * Classe permettant d'initialiser les joueurs.
  */
-
 public class Joueur implements Comparable<Joueur> {
     /**
      * Le numéro du joueur.
@@ -20,14 +18,24 @@ public class Joueur implements Comparable<Joueur> {
     private static int numJoueur = 0;
 
     /**
+     * La stratégie utilisée par le joueur.
+     */
+    private final Strategie strategie;
+
+    /**
      * La liste de ses quartiers construits.
      */
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
 
     /**
-     * La stratégie utilisée par le joueur.
+     * La liste des quartiers en main.
      */
-    private final Strategie strategie;
+    private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
+
+    /**
+     * La carte personnage du joueur.
+     */
+    private CartePersonnage personnage;
 
     /**
      * Le nom du joueur.
@@ -43,21 +51,6 @@ public class Joueur implements Comparable<Joueur> {
      * Les points du joueur.
      */
     private int points = 0;
-
-    /**
-     * La liste des quartiers en main.
-     */
-    private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
-
-    /**
-     * La liste des couleurs des gemmes des quartiers.
-     */
-    private ArrayList<String> gemmesQuartiers = new ArrayList<>();
-
-    /**
-     * La carte personnage du joueur.
-     */
-    private CartePersonnage personnage;
 
     /**
      * Vrai si le joueur devient roi et donc commence la partie, faux sinon.
@@ -102,7 +95,7 @@ public class Joueur implements Comparable<Joueur> {
      * Le constructeur du joueur et on lui associe le nom et le nom de la stratégie passé en paramètre.
      * On lui initialise son nombre d'or et de cartes quartiers en début de partie.
      *
-     * @param nom Le nom du joueur.
+     * @param nom          Le nom du joueur.
      * @param NomStrategie Le nom de la stratégie utilisée.
      */
     public Joueur(String nom, String NomStrategie) {
@@ -135,10 +128,6 @@ public class Joueur implements Comparable<Joueur> {
      */
     public int getOr() {
         return this.or;
-    }
-
-    public void setOr(int or) {
-        this.or = or;
     }
 
     /**
@@ -244,26 +233,27 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public ArrayList<String> getGemmesQuartiersConstruit() {
-        this.calculerGemmesQuartiers();
-        return this.gemmesQuartiers;
+        return this.calculerGemmesQuartiers();
     }
 
     public ArrayList<String> getGemmesQuartiersColoured() {
-        this.calculerGemmesQuartiers();
-        return new ArrayList<>(this.gemmesQuartiers.stream().map(CouleurConsole::printPurple).toList());
+        return new ArrayList<>(this.getGemmesQuartiersConstruit().stream().map(CouleurConsole::printPurple).toList());
     }
 
-    private void calculerGemmesQuartiers() {
-        this.gemmesQuartiers = new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
+    private ArrayList<String> calculerGemmesQuartiers() {
+        return new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
     }
 
-    public void pouvoirCourDesMiracles(){
-        if(this.contientQuartier("Cour des miracles")) {
-            List<String> gemmesPossibles = Arrays.asList("Noblesse", "Commerce et Artisanat", "Soldatesque", "Prestige", "Religion");
-            String gemmeManquante;
-            if (gemmesQuartiers.size() == 4 && this.quartiersConstruits.stream().filter(quartier -> quartier.getGemme().equals("Prestige")).count() == 2) {
-                gemmeManquante = gemmesPossibles.stream().filter(gemme -> !gemmesQuartiers.contains(gemme)).toString();
-                gemmesQuartiers.add(gemmeManquante);
+    public void pouvoirCourDesMiracles() {
+        ArrayList<String> gemmesPossibles = new ArrayList<>(MoteurDeJeu.deck.getQuartiersPossibles().stream().map(CarteQuartier::getGemme).distinct().toList());
+        ArrayList<String> gemmesQuartiers = new ArrayList<>(this.getGemmesQuartiersConstruit());
+        if (gemmesQuartiers.size() == 4 && this.quartiersConstruits.stream().filter(quartier -> quartier.getGemme().equals("Prestige")).count() >= 2) {
+            String gemmeManquante = gemmesPossibles.stream().filter(gemme -> !gemmesQuartiers.contains(gemme)).findFirst().orElse("");
+            gemmesQuartiers.add(gemmeManquante);
+            for (CarteQuartier cq : this.quartiersConstruits) {
+                if (cq.getNom().equals("Cour des miracles")) {
+                    cq.setGemme(gemmeManquante);
+                }
             }
         }
     }
@@ -285,8 +275,9 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void calculePoints() {
-        this.pouvoirCourDesMiracles();
-        this.getGemmesQuartiersConstruit();
+        if (this.contientQuartier("Cour des miracles")) {
+            this.pouvoirCourDesMiracles();
+        }
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
         this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getNom().equals("Université") || quartier.getNom().equals("Dracoport")).count();
         if (this.quartiersConstruits.size() >= MoteurDeJeu.quartiersAConstruire) {
@@ -295,7 +286,7 @@ public class Joueur implements Comparable<Joueur> {
                 this.points += 2;
             }
         }
-        if (this.gemmesQuartiers.size() == 5) {
+        if (this.getGemmesQuartiersConstruit().size() == 5) {
             this.points += 3;
         }
     }
@@ -367,7 +358,8 @@ public class Joueur implements Comparable<Joueur> {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
             }
         }
-        if (cq != null) System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+        if (cq != null)
+            System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
         return cq;
     }
 
