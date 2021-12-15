@@ -9,9 +9,9 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-/* Classe permettant d'extraire les données d'un fichier excel
+/**
+ * Classe permettant d'extraire les données d'un fichier excel
  */
-
 public class ExcelReader {
     private final File excelCardFile = new File("data/Cards.xlsx");
     private final File excelCharacterFile = new File("data/Characters.xlsx");

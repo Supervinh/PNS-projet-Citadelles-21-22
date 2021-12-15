@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Le pouvoir du voleur permet au personnage de voler l'or d'un autre personnage. Il ne peux pas voler l'assassin et le personnage assassiné.
+ * Le pouvoir du voleur permet au personnage de voler l'or d'un autre personnage. Il ne peux pas voler l'assassin et
+ * le personnage assassiné.
  */
 public class PouvoirVoleur implements IPouvoir {
 

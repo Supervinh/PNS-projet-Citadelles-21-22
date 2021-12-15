@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* Classe qui gère le déroulement du jeu
+/**
+ * Classe qui gère le déroulement du jeu
  */
-
 public class MoteurDeJeu {
 
     public static Deck deck;
@@ -36,7 +36,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, false);
+        this.initialiseJoueurs(joueurs, true);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);

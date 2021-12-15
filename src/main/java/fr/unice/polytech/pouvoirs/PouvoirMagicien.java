@@ -24,7 +24,7 @@ public class PouvoirMagicien implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
         System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
         System.out.println(CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 1: échanger ses cartes avec un joueur \n" + CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 2: échanger n cartes avec la pioche\n" + CouleurConsole.printRed("|"));
-        choixAction(joueur, choisit());
+        choixAction(joueur, new Random().nextBoolean());
     }
 
     /**
@@ -40,9 +40,11 @@ public class PouvoirMagicien implements IPouvoir {
                 .orElse(null);
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
         ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
-        joueur.setQuartiers(cible.getQuartiers());
-        cible.setQuartiers(temporaire);
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
+        if (cible != null) {
+            joueur.setQuartiers(cible.getQuartiers());
+            cible.setQuartiers(temporaire);
+            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
+        }
     }
 
     /**
@@ -69,25 +71,14 @@ public class PouvoirMagicien implements IPouvoir {
     }
 
     /**
-     * Un chiffre aléatoire entre 0 et 1.
-     *
-     * @return Retourne 0 ou 1.
-     */
-    public int choisit() {
-        Random r = new Random();
-        int i = r.nextInt(2);
-        return i;
-    }
-
-    /**
      * On choisit aléatoirement si on échange ses cartes avec un joueur ou avec la pioche.
      *
      * @param joueur Le joueur en question.
-     * @param i      Un chiffre entre 0 et 1 qui permet de faire le choix.
+     * @param b      Un boolean qui permet de faire le choix.
      */
-    public void choixAction(Joueur joueur, int i) {
+    public void choixAction(Joueur joueur, boolean b) {
         int nb = choixNbreQuartiers(joueur);
-        if (i == 0) {
+        if (b) {
             echangerCartesAvecPioche(joueur, nb);
         } else {
             echangerCartesAvecJoueur(joueur);

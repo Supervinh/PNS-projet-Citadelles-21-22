@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/* Classe permettant d'initialiser les joueurs
+/**
+ * Classe permettant d'initialiser les joueurs
  */
-
 public class Joueur implements Comparable<Joueur> {
     private static int numJoueur = 0;
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Joueur implements Comparable<Joueur> {
     private int or = 0;
     private int points = 0;
     private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
-    private ArrayList<String> couleurQuartier = new ArrayList<>();
+    private ArrayList<String> gemmesConstruit = new ArrayList<>();
     private CartePersonnage personnage;
     private boolean roi = false;
     private boolean mort = false;
@@ -130,12 +130,18 @@ public class Joueur implements Comparable<Joueur> {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
-    public ArrayList<String> getCouleurQuartier() {
-        return couleurQuartier;
+    public ArrayList<String> getGemmesConstruit() {
+        this.calculerGemmesConstruit();
+        return this.gemmesConstruit;
     }
 
-    public void ajouteCouleurQuartier(String couleur){
-        if(!this.couleurQuartier.contains(couleur)) couleurQuartier.add(couleur);
+    public ArrayList<String> getGemmesConstruitColoured() {
+        this.calculerGemmesConstruit();
+        return new ArrayList<>(this.gemmesConstruit.stream().map(CouleurConsole::printPurple).toList());
+    }
+
+    private void calculerGemmesConstruit() {
+        this.gemmesConstruit = new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
     }
 
     public void jouer() {
@@ -163,7 +169,7 @@ public class Joueur implements Comparable<Joueur> {
                 this.points += 2;
             }
         }
-        if (this.couleurQuartier.size() == 5) {
+        if (this.gemmesConstruit.size() == 5) {
             this.points += 3;
         }
     }
@@ -250,7 +256,6 @@ public class Joueur implements Comparable<Joueur> {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " a construit: " + choix.getNomColoured());
             this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);
-            this.ajouteCouleurQuartier(choix.getGemme());
             this.quartiers.remove(choix);
         } else {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " n'a pas assez de pièces d'" + CouleurConsole.printGold("Or") + " pour construire.");

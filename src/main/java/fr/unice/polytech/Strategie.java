@@ -6,9 +6,9 @@ import fr.unice.polytech.strategie.IStrategie;
 import fr.unice.polytech.strategie.QuartierMerveilles;
 import fr.unice.polytech.strategie.RusherQuartiers;
 
-/* Classe qui initialise les pouvoirs des personnages et les stratégies
+/**
+ * Classe qui initialise les pouvoirs des personnages et les stratégies
  */
-
 public class Strategie {
     private final Joueur joueur;
     private IPiocher iPiocher = new SuffisammentQuartier();

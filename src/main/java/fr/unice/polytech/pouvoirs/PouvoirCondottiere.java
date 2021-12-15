@@ -16,7 +16,7 @@ public class PouvoirCondottiere implements IPouvoir {
 
     /**
      * On sélectionne une cible et on sélectionne un quartier de ce joueur à détruire, si on a choisi de détruire un quartier.
-     * On récupère aussi la taxe si on a des quartiers militaire de contruit.
+     * On récupère aussi la taxe si on a des quartiers militaires de contruit.
      *
      * @param joueur Le joueur en question.
      */
@@ -38,7 +38,7 @@ public class PouvoirCondottiere implements IPouvoir {
     }
 
     /**
-     * Sélectionne un joueur de manière aléatoire mais pas l'évêque si il est mort, pas si le nombre de quartiers construits est null, et pas si le joueur à fini le jeu en ayant contruit 8 quartiers.
+     * Sélectionne un joueur de manière aléatoire, mais pas l'évêque s'il est mort, pas si le nombre de quartiers construits est null, et pas si le joueur a fini le jeu en ayant contruit 8 quartiers.
      *
      * @return Retourne un joueur.
      */
@@ -65,9 +65,11 @@ public class PouvoirCondottiere implements IPouvoir {
     }
 
     /**
-     * @param joueur
-     * @param quartier
-     * @return
+     * Savoir si oui ou non un joueur peux ou pas construire un quartier.
+     *
+     * @param joueur   Le joueur en question.
+     * @param quartier La cible visée.
+     * @return Si oui ou non le joueur peux construire.
      */
     public boolean hasEnoughMoney(Joueur joueur, CarteQuartier quartier) {
         return (joueur.getOr() >= quartier.getPrix() - 1);

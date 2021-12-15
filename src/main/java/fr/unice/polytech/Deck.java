@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/* Classe permettant d'initialiser le deck contenant les cartes personnages et les cartes quartiers du jeu
+/**
+ * Classe permettant d'initialiser le deck contenant les cartes personnages et les cartes quartiers du jeu
  */
-
 public class Deck {
     private final ArrayList<CarteQuartier> quartiers;
     private final ArrayList<CartePersonnage> personnages;

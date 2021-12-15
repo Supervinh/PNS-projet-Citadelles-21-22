@@ -101,36 +101,47 @@ public class CouleurConsole {
     public static String printBlack(String text) {
         return BLACK + text + RESET;
     }
+
     public static String printRed(String text) {
         return RED + text + RESET;
     }
+
     public static String printGreen(String text) {
         return GREEN + text + RESET;
     }
+
     public static String printYellow(String text) {
         return YELLOW + text + RESET;
     }
+
     public static String printBlue(String text) {
         return BLUE + text + RESET;
     }
+
     public static String printPurple(String text) {
         return PURPLE + text + RESET;
     }
+
     public static String printCyan(String text) {
         return CYAN + text + RESET;
     }
+
     public static String printWhite(String text) {
         return WHITE + text + RESET;
     }
+
     public static String printGold(String text) {
         return YELLOW_BRIGHT + text + RESET;
     }
+
     public static String printTurquoise(String text) {
         return CYAN_BRIGHT + text + RESET;
     }
+
     public static String printGrey(String text) {
         return BLACK_BRIGHT + text + RESET;
     }
+
     public static String printPink(String text) {
         return PURPLE_BRIGHT + text + RESET;
     }
