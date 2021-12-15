@@ -3,12 +3,15 @@ package fr.unice.polytech;
 import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-/**
- * Classe permettant d'initialiser les joueurs
+/* Classe permettant d'initialiser les joueurs
  */
+
 public class Joueur implements Comparable<Joueur> {
     private static int numJoueur = 0;
     private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
@@ -17,7 +20,7 @@ public class Joueur implements Comparable<Joueur> {
     private int or = 0;
     private int points = 0;
     private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
-    private ArrayList<String> gemmesConstruit = new ArrayList<>();
+    private ArrayList<String> couleurQuartier = new ArrayList<>();
     private CartePersonnage personnage;
     private boolean roi = false;
     private boolean mort = false;
@@ -130,18 +133,19 @@ public class Joueur implements Comparable<Joueur> {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
-    public ArrayList<String> getGemmesConstruit() {
-        this.calculerGemmesConstruit();
-        return this.gemmesConstruit;
+    public void pouvoirCourDesMiracles(){
+        if(this.contientQuartier("Cour des miracles")) {
+            List<String> gemmesPossibles = Arrays.asList("Noblesse", "Commerce et Artisanat", "Soldatesque", "Prestige");
+            String couleurManquante;
+            if (couleurQuartier.size() == 4 && this.quartiersConstruits.stream().filter(quartier -> quartier.getGemme().equals("Prestige")).count() == 2) {
+                couleurManquante = gemmesPossibles.stream().filter(gemme -> !couleurQuartier.contains(gemme)).toString();
+                ajouteCouleurQuartier(couleurManquante);
+            }
+        }
     }
 
-    public ArrayList<String> getGemmesConstruitColoured() {
-        this.calculerGemmesConstruit();
-        return new ArrayList<>(this.gemmesConstruit.stream().map(CouleurConsole::printPurple).toList());
-    }
-
-    private void calculerGemmesConstruit() {
-        this.gemmesConstruit = new ArrayList<>(this.quartiersConstruits.stream().map(CarteQuartier::getGemme).distinct().toList());
+    public void ajouteCouleurQuartier(String couleur){
+        if(!this.couleurQuartier.contains(couleur)) couleurQuartier.add(couleur);
     }
 
     public void jouer() {
@@ -161,6 +165,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public void calculePoints() {
+        pouvoirCourDesMiracles();
         this.points = this.quartiersConstruits.stream().mapToInt(CarteQuartier::getPrix).sum();
         this.points += 2 * this.quartiersConstruits.stream().filter(quartier -> quartier.getNom().equals("Université") || quartier.getNom().equals("Dracoport")).count();
         if (this.quartiersConstruits.size() >= MoteurDeJeu.nombre2QuartiersAConstruire) {
@@ -169,7 +174,7 @@ public class Joueur implements Comparable<Joueur> {
                 this.points += 2;
             }
         }
-        if (this.gemmesConstruit.size() == 5) {
+        if (this.couleurQuartier.size() == 5) {
             this.points += 3;
         }
     }
@@ -256,6 +261,7 @@ public class Joueur implements Comparable<Joueur> {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " a construit: " + choix.getNomColoured());
             this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);
+            this.ajouteCouleurQuartier(choix.getGemme());
             this.quartiers.remove(choix);
         } else {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " n'a pas assez de pièces d'" + CouleurConsole.printGold("Or") + " pour construire.");
