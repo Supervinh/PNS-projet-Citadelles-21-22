@@ -5,7 +5,6 @@ import fr.unice.polytech.couleur.CouleurConsole;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /* Classe permettant d'initialiser les joueurs
  */
@@ -18,6 +17,7 @@ public class Joueur implements Comparable<Joueur> {
     private int or = 0;
     private int points = 0;
     private ArrayList<CarteQuartier> quartiers = new ArrayList<>();
+    private ArrayList<String> couleurQuartier = new ArrayList<>();
     private CartePersonnage personnage;
     private boolean roi = false;
     private boolean mort = false;
@@ -130,6 +130,14 @@ public class Joueur implements Comparable<Joueur> {
         return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
     }
 
+    public ArrayList<String> getCouleurQuartier() {
+        return couleurQuartier;
+    }
+
+    public void ajouteCouleurQuartier(String couleur){
+        if(!this.couleurQuartier.contains(couleur)) couleurQuartier.add(couleur);
+    }
+
     public void jouer() {
         this.printDetails();
         if (!this.mort) this.strategie.prochainTour();
@@ -155,7 +163,7 @@ public class Joueur implements Comparable<Joueur> {
                 this.points += 2;
             }
         }
-        if (this.quartiersConstruits.stream().collect(Collectors.groupingBy(CarteQuartier::getGemme, Collectors.counting())).size() >= 5) {
+        if (this.couleurQuartier.size() == 5) {
             this.points += 3;
         }
     }
@@ -166,8 +174,6 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println(this.getNomColoured() + " a pioché: " + cp.getNomColoured());
         this.personnage = cp;
     }
-
-    // Quelque Chose à faire Pour les methods Quartiers
 
     public void ajouterQuartierEnMain() {
         System.out.println(CouleurConsole.printPurple("| Piocher Quartier"));
@@ -244,6 +250,7 @@ public class Joueur implements Comparable<Joueur> {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " a construit: " + choix.getNomColoured());
             this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);
+            this.ajouteCouleurQuartier(choix.getGemme());
             this.quartiers.remove(choix);
         } else {
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " n'a pas assez de pièces d'" + CouleurConsole.printGold("Or") + " pour construire.");
