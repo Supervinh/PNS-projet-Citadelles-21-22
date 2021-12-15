@@ -27,9 +27,23 @@ public class PouvoirCondottiere implements IPouvoir {
         System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
         if (quartierDetruit != null) {
             cible.getQuartiersConstruits().remove(quartierDetruit);
-            MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
             joueur.ajouteOr(1 - quartierDetruit.getPrix());
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
+            if (!cible.getQuartiersConstruits().contains(MoteurDeJeu.deck.getQuartiers)){
+                MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
+                System.out.println("HAHAHAHAHHAHA");
+            }
+            else {
+                if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr()>=1 && choixAction()){
+                    cible.ajouteOr(-1);
+                    cible.getQuartiers().add(quartierDetruit);
+                    System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured());
+                }
+                else {
+                    MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
+                    System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier ");
+                }
+            }
         } else {
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
         }
@@ -73,5 +87,10 @@ public class PouvoirCondottiere implements IPouvoir {
      */
     public boolean hasEnoughMoney(Joueur joueur, CarteQuartier quartier) {
         return (joueur.getOr() >= quartier.getPrix() - 1);
+    }
+
+    public boolean choixAction(){
+        Random r = new Random();
+        return r.nextBoolean();
     }
 }

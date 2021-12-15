@@ -7,6 +7,7 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -89,5 +90,23 @@ class PouvoirCondottiereTest {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         assertNull(pouvoir.choixQuartierAleatoire(condottiere, marchand));
+    }
+
+    @Test
+    void recuperationQuartier(){
+        PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
+        Mockito.doReturn(true).when(pouvoir).choixAction();
+        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
+        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere,marchand);
+        quartierc1 = new CarteQuartier(23, "Cimetière", "Prestige", 5);
+        quartiersc1.add(quartierc1);
+        marchand.ajouteOr(30);
+        marchand.setQuartiers(quartiersc1);
+        marchand.construireQuartier();
+        marchand.construireQuartier();
+        marchand.ajouteOr(-1* marchand.getOr());
+        condottiere.ajouteOr(30);
+        pouvoir.utiliserPouvoir(condottiere);
     }
 }
