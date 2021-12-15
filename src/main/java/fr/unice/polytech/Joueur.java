@@ -389,7 +389,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public ArrayList<CarteQuartier> quartiersConstructible() {
-        return new ArrayList<>(this.quartiers.stream().filter(Objects::nonNull).filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
+        return new ArrayList<>(this.quartiers.stream().filter(quartier -> (quartier.getPrix() <= this.or) && (!this.contientQuartier(quartier.getNom()))).toList());
     }
 
     public boolean contientQuartier(String nom) {
@@ -397,7 +397,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     public int nombre2QuartiersConstructible() {
-        return new ArrayList<>(this.quartiers.stream().filter(Objects::nonNull).filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
+        return new ArrayList<>(this.quartiers.stream().filter(quartier -> quartier.getPrix() <= this.or).toList()).size();
     }
 
     private void printDetails() {
@@ -406,7 +406,7 @@ public class Joueur implements Comparable<Joueur> {
         System.out.println(CouleurConsole.printBlue("| ") + "Personnage: " + this.personnage.getNomColoured());
         System.out.println(CouleurConsole.printBlue("| ") + "Pièces d'Or: " + this.getOrColoured());
         System.out.println(CouleurConsole.printBlue("| ") + "Stratégie: " + this.getNomStrategieColoured());
-        System.out.println(CouleurConsole.printBlue("| ") + "Quartiers dans la main: " + this.getQuartiers().stream().filter(Objects::nonNull).map(CarteQuartier::getNomColoured).toList());
+        System.out.println(CouleurConsole.printBlue("| ") + "Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNomColoured).toList());
         System.out.println(CouleurConsole.printBlue("| ") + "Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNomColoured).toList());
         System.out.println();
     }
