@@ -33,7 +33,7 @@ public class PouvoirVoleur implements IPouvoir {
             int montant = cible.getOr();
             boolean plurielle = montant > 1;
             joueur.ajouteOr(montant);
-            cible.setOr(0);
+            cible.ajouteOr(-1 * cible.getOr());
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.printGold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.printGold("Or") + " à " + cible.getNomColoured());
         } else {
             String article;
@@ -48,7 +48,7 @@ public class PouvoirVoleur implements IPouvoir {
     }
 
     /**
-     * Sélectionne un personnage de manière aléatoire mais pas lui même, ni l'assassin, ni le personnage mort.
+     * Sélectionne un personnage de manière aléatoire, mais pas lui-même, ni l'assassin, ni le personnage mort.
      *
      * @param joueur Le joueur en question.
      * @return Retourne une carte personnage.
