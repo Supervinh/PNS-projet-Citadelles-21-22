@@ -216,10 +216,6 @@ public class Joueur implements Comparable<Joueur> {
         return this.points;
     }
 
-    public void setPoints(int p) {
-        this.points = p;
-    }
-
     public Strategie getStrategie() {
         return this.strategie;
     }
