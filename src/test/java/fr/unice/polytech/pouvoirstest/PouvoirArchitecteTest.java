@@ -32,7 +32,7 @@ public class PouvoirArchitecteTest {
     void piocheQuartierTest() {
         System.out.println("Pioche \n");
         joueur.setQuartiers(new ArrayList<>());
-        joueur.setOr(-5);
+        joueur.ajouteOr(-5-(joueur.getOr()));
         strategie.prochainTour();
         assertEquals(joueur.getQuartiers().size(), 2);
     }
@@ -40,7 +40,7 @@ public class PouvoirArchitecteTest {
     @Test
     void construire3Quartiers() {
         System.out.println("Construction \n");
-        joueur.setOr(100);
+        joueur.ajouteOr(100);
         strategie.prochainTour();
         assertEquals(joueur.getQuartiersConstruits().size(), 3);
     }

@@ -156,7 +156,7 @@ public class MoteurDeJeu {
         else {
             if (deck.getPersonnages().size() == 1) {
                 deck.ajoutePersonnage(carteCachee);
-                System.out.println("On remet la carte cachée: " + this.carteCachee + "dans le deck");
+                System.out.println("On remet la carte cachée : " + this.carteCachee + "dans le deck");
                 System.out.print(CouleurConsole.printGreen("| "));
                 joueurs.get(i).piocherPersonnage();
                 this.carteCachee = deck.piocherPersonnage();
