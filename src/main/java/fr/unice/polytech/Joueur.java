@@ -73,8 +73,12 @@ public class Joueur implements Comparable<Joueur> {
     public Joueur() {
         this.nom = "CPU" + ++numJoueur;
         this.ajouteOr(MoteurDeJeu.or2Depart);
+        CarteQuartier cq;
         for (int i = 0; i < MoteurDeJeu.carte2Depart; i++) {
-            this.quartiers.add(MoteurDeJeu.deck.piocherQuartier());
+            cq = MoteurDeJeu.deck.piocherQuartier();
+            if (cq != null) {
+                this.quartiers.add(cq);
+            }
         }
         this.strategie = new Strategie(this);
     }
@@ -379,8 +383,10 @@ public class Joueur implements Comparable<Joueur> {
     public void piocherPersonnage() {
         this.mort = false;
         CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        System.out.println(this.getNomColoured() + " a pioché: " + cp.getNomColoured());
-        this.personnage = cp;
+        if (cp != null) {
+            System.out.println(this.getNomColoured() + " a pioché: " + cp.getNomColoured());
+            this.personnage = cp;
+        }
     }
 
     /**
@@ -408,20 +414,26 @@ public class Joueur implements Comparable<Joueur> {
                 nbCartes = 3;
             }
 
+            CarteQuartier cq;
             for (int i = 0; i < nbCartes; i++) {
                 System.out.print(CouleurConsole.printPurple("| "));
-                quartiersPioches.add(piocherQuartier());
+                cq = this.piocherQuartier();
+                if (cq != null) {
+                    quartiersPioches.add(cq);
+                }
             }
 
             if (this.contientQuartier("Bibliothèque")) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < Math.min(2, quartiersPioches.size()); i++) {
                     this.quartiers.add(quartiersPioches.get(i));
                     System.out.print(CouleurConsole.printPurple("| "));
                     System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
                 }
             } else {
-                System.out.print(CouleurConsole.printPurple("| "));
-                this.quartiers.add(this.choixQuartier(quartiersPioches));
+                if (quartiersPioches.size() > 0) {
+                    System.out.print(CouleurConsole.printPurple("| "));
+                    this.quartiers.add(this.choixQuartier(quartiersPioches));
+                }
             }
         } else {
             if (MoteurDeJeu.banque.resteArgent()) {
@@ -437,7 +449,9 @@ public class Joueur implements Comparable<Joueur> {
      */
     public CarteQuartier piocherQuartier() {
         CarteQuartier cq = MoteurDeJeu.deck.piocherQuartier();
-        if (cq != null) System.out.println(this.getNomColoured() + " a pioché: " + cq.getNomColoured());
+        if (cq != null) {
+            System.out.println(this.getNomColoured() + " a pioché: " + cq.getNomColoured());
+        }
         return cq;
     }
 

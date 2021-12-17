@@ -11,8 +11,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MoteurDeJeu {
 
-    public static Deck deck;
-    public static Banque banque;
     public static int nbJoueurs = 5;
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
@@ -20,6 +18,8 @@ public class MoteurDeJeu {
     public static int carteAPiocher = 2;
     public static int quartiersAConstruire = 8;
     public static int piecesEnJeu = 30;
+    public static Deck deck;
+    public static Banque banque;
     public static ArrayList<Joueur> joueurs;
     public static ArrayList<Joueur> personnagesConnus;
     private final int nombre2Personnages;
@@ -35,6 +35,10 @@ public class MoteurDeJeu {
         joueurs = new ArrayList<>();
         personnagesConnus = new ArrayList<>();
         this.nombre2Personnages = deck.getPersonnages().size();
+        if (deck.getQuartiersPossibles().size() != 65 || nbJoueurs < 4 || nbJoueurs > 7) {
+            System.out.println("Jeu pas initié correctement.");
+            System.exit(0);
+        }
     }
 
     public void jouer() {

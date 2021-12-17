@@ -23,29 +23,31 @@ public class PouvoirCondottiere implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         Joueur cible = cibleAleatoire();
-        CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
-        System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
-        if (quartierDetruit != null) {
-            cible.getQuartiersConstruits().remove(quartierDetruit);
-            joueur.ajouteOr(1 - quartierDetruit.getPrix());
-            CarteQuartier cimetiere = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
-            if (!cible.getQuartiersConstruits().contains(cimetiere)) {
-                MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-            } else {
-                if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr() >= 1 && choixAction()) {
-                    cible.ajouteOr(-1);
-                    cible.getQuartiers().add(quartierDetruit);
-                    System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured() + "contre une pièce d'or.");
-                } else {
+        if (cible != null) {
+            CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
+            System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
+            if (quartierDetruit != null) {
+                cible.getQuartiersConstruits().remove(quartierDetruit);
+                joueur.ajouteOr(1 - quartierDetruit.getPrix());
+                CarteQuartier cimetiere = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
+                System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
+                if (!cible.getQuartiersConstruits().contains(cimetiere)) {
                     MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-                    System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier.");
+                } else {
+                    if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr() >= 1 && choixAction()) {
+                        cible.ajouteOr(-1);
+                        cible.getQuartiers().add(quartierDetruit);
+                        System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured() + "contre une pièce d'or.");
+                    } else {
+                        MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
+                        System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier.");
+                    }
                 }
+            } else {
+                System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
             }
-        } else {
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
+            System.out.println(CouleurConsole.printRed("|"));
         }
-        System.out.println(CouleurConsole.printRed("|"));
         this.recupererTaxes(joueur);
     }
 
@@ -57,7 +59,12 @@ public class PouvoirCondottiere implements IPouvoir {
     public Joueur cibleAleatoire() {
         ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.personnagesConnus));
         cibles.removeIf(j -> (j.getPersonnage().getNom().equals("Évêque") && !j.isMort()) || j.getQuartiersConstruits().size() <= 0 || j.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire);
-        return cibles.get(new Random().nextInt(cibles.size()));
+        System.out.println(cibles.size());
+        if (cibles.size() > 0) {
+            return cibles.get(new Random().nextInt(cibles.size()));
+        } else {
+            return null;
+        }
     }
 
     /**

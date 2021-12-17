@@ -1,5 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
+import fr.unice.polytech.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.couleur.CouleurConsole;
 
@@ -24,7 +25,10 @@ public class PouvoirArchitecte implements IPouvoir {
 
         for (int i = 0; i < n; i++) {
             System.out.print(CouleurConsole.printRed("| "));
-            joueur.getQuartiers().add(joueur.piocherQuartier());
+            CarteQuartier cq = joueur.piocherQuartier();
+            if (cq != null) {
+                joueur.getQuartiers().add(cq);
+            }
         }
 
         for (int i = 0; i < n; i++) {
@@ -39,6 +43,4 @@ public class PouvoirArchitecte implements IPouvoir {
             System.out.println(CouleurConsole.printRed("| ") + "Aucun quartier supplémentaire construit");
         }
     }
-
-
 }
