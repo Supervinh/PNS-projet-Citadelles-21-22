@@ -59,7 +59,6 @@ public class PouvoirCondottiere implements IPouvoir {
     public Joueur cibleAleatoire() {
         ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.personnagesConnus));
         cibles.removeIf(j -> (j.getPersonnage().getNom().equals("Évêque") && !j.isMort()) || j.getQuartiersConstruits().size() <= 0 || j.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire);
-        System.out.println(cibles.size());
         if (cibles.size() > 0) {
             return cibles.get(new Random().nextInt(cibles.size()));
         } else {
