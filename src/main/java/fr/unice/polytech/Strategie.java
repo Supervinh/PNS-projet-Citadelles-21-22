@@ -44,7 +44,7 @@ public class Strategie {
      *
      * @return Une pioche.
      */
-    public IPiocher getiPiocher() {
+    public IPiocher getIPiocher() {
         this.choisirType2Piochage();
         return iPiocher;
     }
@@ -83,24 +83,24 @@ public class Strategie {
      * Permet de choisir une stratégie en fonction de ce qui se trouve dans notre main, en fonction des cartes quartiers et de l'or.
      */
     public void choisirType2Piochage() {
-        boolean parDefaut = true;
+        boolean parDefault = true;
         if (this.joueur.getQuartiers().size() < 2) { // Check le nombre de bonnes cartes dans la main
             this.iPiocher = new RechercheMeilleurQuartier();
-            parDefaut = false;
+            parDefault = false;
         }
         if (this.joueur.getQuartiers().size() > 6) {
             this.iPiocher = new SuffisammentQuartier();
-            parDefaut = false;
+            parDefault = false;
         }
         if (this.joueur.getOr() < 2) {
             this.iPiocher = new EconomiserArgent();
-            parDefaut = false;
+            parDefault = false;
         }
         if (this.joueur.getOr() > 6) {
             this.iPiocher = new SuffisammentOr();
-            parDefaut = false;
+            parDefault = false;
         }
-        if (parDefaut) {
+        if (parDefault) {
             this.iPiocher = new SuffisammentQuartier();
         }
     }
@@ -127,7 +127,7 @@ public class Strategie {
     }
 
     /**
-     * Affichage de la statégie utilisée par le joueur.
+     * Affichage de la stratégie utilisée par le joueur.
      *
      * @return Les informations sur la stratégie.
      */

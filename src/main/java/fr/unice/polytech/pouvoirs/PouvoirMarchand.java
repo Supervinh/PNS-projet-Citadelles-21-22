@@ -4,7 +4,7 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.couleur.CouleurConsole;
 
 /**
- * Le pouvoir du marchand permet au personnage de recevoir une pièce d'or supplémentaire et il reçoit les taxes pour les quartiers marchand.
+ * Le pouvoir du marchand permet au personnage de recevoir une pièce d'or supplémentaire et il reçoit les taxes pour les quartiers marchands.
  */
 public class PouvoirMarchand implements IPouvoir {
 

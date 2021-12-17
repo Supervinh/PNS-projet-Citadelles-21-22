@@ -5,12 +5,12 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.couleur.CouleurConsole;
 
 /**
- * Le pouvoir du roi permet au personnage de récupérer la couronne et reçoit les taxes pour ses quartiers noble.
+ * Le pouvoir du roi permet au personnage de récupérer la couronne et reçoit les taxes pour les quartiers nobles.
  */
 public class PouvoirRoi implements IPouvoir {
 
     /**
-     * On devient roi et on retire la couronne à la personne qui l'avait. Puis on récupère les taxes pour les quartiers noble.
+     * On devient roi et on retire la couronne à la personne qui l'avait. Puis on récupère les taxes pour les quartiers nobles.
      *
      * @param joueur Le joueur en question.
      */

@@ -2,7 +2,6 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -196,14 +195,14 @@ public class Joueur implements Comparable<Joueur> {
     /**
      * Permet d'affecter le rôle du roi au joueur.
      *
-     * @param b Vrai si il est roi, faux sinon.
+     * @param b Vrai s'il est roi, faux sinon.
      */
     public void setRoi(boolean b) {
         this.roi = b;
     }
 
     /**
-     * Permet de savoir si le joueur est roi mais avec des couleurs pour l'affichage.
+     * Permet de savoir si le joueur est roi, mais avec des couleurs pour l'affichage.
      *
      * @return Vrai si le joueur est roi, faux sinon écrit en bleu.
      */
@@ -271,38 +270,29 @@ public class Joueur implements Comparable<Joueur> {
      * @return Le nom de la stratégie qu'utilise le joueur.
      */
     public String getNomStrategie() {
-        return this.strategie.getiPiocher().nomStrategie();
+        return this.strategie.getIPiocher().nomStrategie();
     }
 
     /**
-     * Permet de récupérer le nom de la stratégie qu'utilise le joueur mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nom de la stratégie qu'utilise le joueur, mais avec des couleurs pour l'affichage.
      *
      * @return Le nom de la stratégie en violet.
      */
     public String getNomStrategieColoured() {
-        return CouleurConsole.printPurple(this.strategie.getiPiocher().nomStrategie());
+        return CouleurConsole.printPurple(this.strategie.getIPiocher().nomStrategie());
     }
 
     /**
-     * Permet de récupérer la liste des gemmes des quartiers que le joueur a construit.
+     * Permet de récupérer la liste des gemmes des quartiers que le joueur a construits.
      *
-     * @return La liste des gemmes des quartiers que le joueur a construit.
+     * @return La liste des gemmes des quartiers que le joueur a construits.
      */
     public ArrayList<String> getGemmesQuartiersConstruit() {
         return this.calculerGemmesQuartiers();
     }
 
     /**
-     * Permet de récupérer la liste des gemmes des quarties que le joueur a construit mais avec des couleurs pour l'affichage.
-     *
-     * @return La liste des gemmes des quartiers que le joueur a construit en violet.
-     */
-    public ArrayList<String> getGemmesQuartiersColoured() {
-        return new ArrayList<>(this.getGemmesQuartiersConstruit().stream().map(CouleurConsole::printPurple).toList());
-    }
-
-    /**
-     * Trouve les gemmes correspondant aux quartiers contruits.
+     * Trouve les gemmes correspondant aux quartiers construits.
      *
      * @return La liste des gemmes dans les quartiers construits.
      */
@@ -541,7 +531,7 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Affichage de toutes les informations du joueur, son nom, son or, si il est roi, son personnage, les quartiers en main, les quartiers construits et la statégie utilisée.
+     * Affichage de toutes les informations du joueur, son nom, son or, s'il est roi, son personnage, les quartiers en main, les quartiers construits et la stratégie utilisée.
      *
      * @return Les informations du quartier.
      */

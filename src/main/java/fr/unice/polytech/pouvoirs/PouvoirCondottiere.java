@@ -16,7 +16,7 @@ public class PouvoirCondottiere implements IPouvoir {
 
     /**
      * On sélectionne une cible et on sélectionne un quartier de ce joueur à détruire, si on a choisi de détruire un quartier.
-     * On récupère aussi la taxe si on a des quartiers militaires de contruit.
+     * On récupère aussi la taxe si on a des quartiers militaires de construit.
      *
      * @param joueur Le joueur en question.
      */
@@ -30,16 +30,14 @@ public class PouvoirCondottiere implements IPouvoir {
             joueur.ajouteOr(1 - quartierDetruit.getPrix());
             CarteQuartier cimetiere = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
             System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
-            if (!cible.getQuartiersConstruits().contains(cimetiere)){
+            if (!cible.getQuartiersConstruits().contains(cimetiere)) {
                 MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-            }
-            else {
-                if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr()>=1 && choixAction()){
+            } else {
+                if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr() >= 1 && choixAction()) {
                     cible.ajouteOr(-1);
                     cible.getQuartiers().add(quartierDetruit);
                     System.out.println(CouleurConsole.printRed("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured() + "contre une pièce d'or.");
-                }
-                else {
+                } else {
                     MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
                     System.out.println(CouleurConsole.printRed("| ") + "pas de récupération de quartier.");
                 }
@@ -52,7 +50,7 @@ public class PouvoirCondottiere implements IPouvoir {
     }
 
     /**
-     * Sélectionne un joueur de manière aléatoire, mais pas l'évêque s'il est mort, pas si le nombre de quartiers construits est null, et pas si le joueur a fini le jeu en ayant contruit 8 quartiers.
+     * Sélectionne un joueur de manière aléatoire, mais pas l'évêque s'il est mort, pas si le nombre de quartiers construits est null, et pas si le joueur a fini le jeu en ayant construit 8 quartiers.
      *
      * @return Retourne un joueur.
      */
@@ -70,9 +68,9 @@ public class PouvoirCondottiere implements IPouvoir {
      * @return Retourne la carte quartier.
      */
     public CarteQuartier choixQuartierAleatoire(Joueur joueur, Joueur cible) {
-        ArrayList<CarteQuartier> cibesPossible = new ArrayList<>(cible.getQuartiersConstruits().stream().filter(cq -> !cq.getNom().equals("Donjon") && hasEnoughMoney(joueur, cq)).toList());
-        if (cibesPossible.size() > 0) {
-            return cibesPossible.get(new Random().nextInt(cibesPossible.size()));
+        ArrayList<CarteQuartier> ciblesPossible = new ArrayList<>(cible.getQuartiersConstruits().stream().filter(cq -> !cq.getNom().equals("Donjon") && hasEnoughMoney(joueur, cq)).toList());
+        if (ciblesPossible.size() > 0) {
+            return ciblesPossible.get(new Random().nextInt(ciblesPossible.size()));
         } else {
             return null;
         }
@@ -89,7 +87,7 @@ public class PouvoirCondottiere implements IPouvoir {
         return (joueur.getOr() >= quartier.getPrix() - 1);
     }
 
-    public boolean choixAction(){
+    public boolean choixAction() {
         Random r = new Random();
         return r.nextBoolean();
     }

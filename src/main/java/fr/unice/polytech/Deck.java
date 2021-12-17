@@ -135,9 +135,9 @@ public class Deck {
     }
 
     /**
-     * Ajoute une carte personnge dans la pioche des personnage si elle n'y est pas déjà.
+     * Ajoute une carte personnage dans la pioche des personnages si elle n'y est pas déjà.
      *
-     * @param personnage La carte personnage a ajouter.
+     * @param personnage La carte personnage à ajouter.
      */
     public void ajoutePersonnage(CartePersonnage personnage) {
         if (!this.personnages.contains(personnage)) {

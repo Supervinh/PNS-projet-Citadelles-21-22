@@ -34,8 +34,8 @@ public class CartePersonnage {
     /**
      * Le constructeur du personnage avec son identifiant, son nom et sa gemme.
      *
-     * @param id L'identifiant du personnage.
-     * @param nom Le nom du personnage.
+     * @param id    L'identifiant du personnage.
+     * @param nom   Le nom du personnage.
      * @param gemme La gemme de la carte du personnage.
      */
     public CartePersonnage(double id, String nom, String gemme) {
@@ -49,9 +49,9 @@ public class CartePersonnage {
     /**
      * Le constructeur du personnage avec son identifiant, son nom, sa gemme et sa description.
      *
-     * @param id L'identifiant du personnage.
-     * @param nom Le nom du personnage.
-     * @param gemme La gemme de la carte du personnage.
+     * @param id          L'identifiant du personnage.
+     * @param nom         Le nom du personnage.
+     * @param gemme       La gemme de la carte du personnage.
      * @param description La description du pouvoir du personnage.
      */
     public CartePersonnage(double id, String nom, String gemme, String description) {
@@ -64,11 +64,12 @@ public class CartePersonnage {
 
     /**
      * Le constructeur du personnage avec son identifiant, son nom, sa gemme, sa description et son article.
-     * @param id L'identifiant du personnage.
-     * @param nom Le nom du personnage.
-     * @param gemme La gemme de la carte du personnage.
+     *
+     * @param id          L'identifiant du personnage.
+     * @param nom         Le nom du personnage.
+     * @param gemme       La gemme de la carte du personnage.
      * @param description La description du pouvoir du personnage.
-     * @param article L'article du personnage.
+     * @param article     L'article du personnage.
      */
     public CartePersonnage(double id, String nom, String gemme, String description, String article) {
         this.id = id;
@@ -88,7 +89,7 @@ public class CartePersonnage {
     }
 
     /**
-     * Permet de récupérer l'identifiant du personnage mais avec des couleurs pour l'affichage.
+     * Permet de récupérer l'identifiant du personnage, mais avec des couleurs pour l'affichage.
      *
      * @return L'identifiant du personnage en turquoise.
      */
@@ -106,7 +107,7 @@ public class CartePersonnage {
     }
 
     /**
-     * Permet de récupérer le nom du personnage mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nom du personnage, mais avec des couleurs pour l'affichage.
      *
      * @return Le nom du personnage en rouge.
      */
@@ -124,7 +125,7 @@ public class CartePersonnage {
     }
 
     /**
-     * Permet de récupérer la couleur de la gemme de la carte du personnage mais avec des couleurs pour l'affichage.
+     * Permet de récupérer la couleur de la gemme de la carte du personnage, mais avec des couleurs pour l'affichage.
      *
      * @return La gemme de la carte personnage en violet.
      */
@@ -142,7 +143,7 @@ public class CartePersonnage {
     }
 
     /**
-     * Peremet de récupérer la description du pouvoir du personnage mais avec des couleurs pour l'affichage.
+     * Permet de récupérer la description du pouvoir du personnage, mais avec des couleurs pour l'affichage.
      *
      * @return La description du pouvoir du personnage en gris.
      */

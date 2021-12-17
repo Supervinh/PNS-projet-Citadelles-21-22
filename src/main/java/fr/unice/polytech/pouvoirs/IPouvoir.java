@@ -18,7 +18,7 @@ public interface IPouvoir {
 
     /**
      * Permet de récupérer les taxes par rapport à des cartes et des pouvoirs spécifiques.
-     * Par exemple, le roi recupère une pièce d'or pour chaque quartier noble qu'il possède.
+     * Par exemple, le roi récupère une pièce d'or pour chaque quartier noble qu'il possède.
      *
      * @param joueur Le joueur en question.
      */

@@ -39,7 +39,7 @@ class MoteurDeJeuTest {
     @Test
     void jeuPasFini() {
         goodSetup();
-        assertFalse(m.verifieFini(joueurs.get(0)));
+        assertFalse(m.aFini(joueurs.get(0)));
     }
 
     @Test
@@ -52,7 +52,7 @@ class MoteurDeJeuTest {
             joueurs.get(0).ajouteOr(8);
         }
         assertEquals(8, joueurs.get(0).getQuartiersConstruits().size());
-        assertTrue(m.verifieFini(joueurs.get(0)));
+        assertTrue(m.aFini(joueurs.get(0)));
     }
 
     @Test

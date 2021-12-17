@@ -27,7 +27,7 @@ public class MoteurDeJeu {
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
-    private CartePersonnage carteCachee;
+    private CartePersonnage carteCache;
 
     public MoteurDeJeu() {
         deck = new Deck();
@@ -79,14 +79,14 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
 
         this.cartesVisibles.forEach(cp -> deck.ajoutePersonnage(cp));
-        deck.ajoutePersonnage(this.carteCachee);
+        deck.ajoutePersonnage(this.carteCache);
     }
 
     public void tourDeJeu(Joueur joueur) {
         System.out.println("\n\n" + CouleurConsole.seperateur1() + "Tour de " + joueur.getNomColoured() + CouleurConsole.seperateur1());
         joueur.jouer();
         personnagesConnus.add(joueur);
-        if (verifieFini(joueur)) {
+        if (aFini(joueur)) {
             System.out.println("\n" + CouleurConsole.printGold("##### ") + joueur.getNomColoured() + " a fini en " + CouleurConsole.printBlue("Premier") + CouleurConsole.printGold(" #####"));
         }
         joueur.calculePoints();
@@ -122,8 +122,8 @@ public class MoteurDeJeu {
         this.cartesVisibles.forEach(cp -> System.out.print(" " + cp.getNomColoured()));
         System.out.println();
 
-        this.carteCachee = deck.piocherPersonnage();
-        System.out.print("Carte Cachée: " + carteCachee.getNomColoured());
+        this.carteCache = deck.piocherPersonnage();
+        System.out.print("Carte Cachée: " + carteCache.getNomColoured());
         System.out.println();
     }
 
@@ -164,18 +164,18 @@ public class MoteurDeJeu {
         if (joueurs.size() < 7) joueurs.get(i).piocherPersonnage();
         else {
             if (deck.getPersonnages().size() == 1) {
-                deck.ajoutePersonnage(carteCachee);
-                System.out.println("On remet la carte cachée : " + this.carteCachee + "dans le deck");
+                deck.ajoutePersonnage(carteCache);
+                System.out.println("On remet la carte cachée : " + this.carteCache + "dans le deck");
                 System.out.print(CouleurConsole.printGreen("| "));
                 joueurs.get(i).piocherPersonnage();
-                this.carteCachee = deck.piocherPersonnage();
+                this.carteCache = deck.piocherPersonnage();
                 System.out.print(CouleurConsole.printGreen("| "));
-                System.out.println("Nouvelle carte cachée : " + this.carteCachee);
+                System.out.println("Nouvelle carte cachée : " + this.carteCache);
             } else joueurs.get(i).piocherPersonnage();
         }
     }
 
-    public boolean verifieFini(Joueur joueur) {
+    public boolean aFini(Joueur joueur) {
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
             joueur.setFirst(true);
             return true;

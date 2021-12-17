@@ -71,7 +71,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer l'identifiant du quartier mais avec des couleurs pour l'affichage.
+     * Permet de récupérer l'identifiant du quartier, mais avec des couleurs pour l'affichage.
      *
      * @return L'identifiant du quartier en turquoise.
      */
@@ -89,7 +89,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer le nom du quartier mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le nom du quartier, mais avec des couleurs pour l'affichage.
      *
      * @return Le nom du quartier en vert.
      */
@@ -134,7 +134,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer le prix du quartier mais avec des couleurs pour l'affichage.
+     * Permet de récupérer le prix du quartier, mais avec des couleurs pour l'affichage.
      *
      * @return Le prix du quartier en or.
      */
@@ -152,7 +152,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     }
 
     /**
-     * Permet de récupérer la description du pouvoir du quartier mais avec des couleurs pour l'affichage.
+     * Permet de récupérer la description du pouvoir du quartier, mais avec des couleurs pour l'affichage.
      *
      * @return La description du pouvoir du quartier en gris.
      */
@@ -179,7 +179,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
     /**
      * Compare le prix du quartier avec celui passer en paramètre.
      *
-     * @param cq La carte quartier avec laquelle on compare le prix.
+     * @param cq La carte quartier avec lequel on compare le prix.
      * @return La différence de prix entre les deux quartiers.
      */
     @Override

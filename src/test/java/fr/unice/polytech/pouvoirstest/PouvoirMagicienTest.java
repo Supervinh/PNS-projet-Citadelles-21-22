@@ -6,12 +6,10 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirMagicien;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,9 +66,9 @@ class PouvoirMagicienTest {
     @Test
     void testRandom(){
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
-        Mockito.doCallRealMethod().when(pouvoir).choixNbreQuartiers(magicien);
+        Mockito.doCallRealMethod().when(pouvoir).choixNombreQuartiers(magicien);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(magicien);
-        int m = pouvoir.choixNbreQuartiers(magicien);
+        int m = pouvoir.choixNombreQuartiers(magicien);
         CartePersonnage cible = pouvoir.cibleAleatoire(magicien);
         assertTrue(m<5 && m>-1);
         assertNotEquals(magicien.getPersonnage(), cible);

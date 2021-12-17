@@ -49,7 +49,7 @@ public class PouvoirMagicien implements IPouvoir {
 
     /**
      * On échange des cartes avec la pioche. Si on entre une valeur négative ça reviens à mettre 0, si on entre une valeur trop grande on met le
-     * maximum des cartes dans la main. Puis on échange le nombre définit de cartes avec la pioche et les cartes échangées donc remis dans la pile.
+     * maximum des cartes dans la main. Puis on échange le nombre définit de cartes avec la pioche et les cartes échangées donc remise dans la pile.
      *
      * @param joueur Le joueur en question.
      * @param nb     Le nombre de cartes à échanger.
@@ -77,7 +77,7 @@ public class PouvoirMagicien implements IPouvoir {
      * @param b      Un boolean qui permet de faire le choix.
      */
     public void choixAction(Joueur joueur, boolean b) {
-        int nb = choixNbreQuartiers(joueur);
+        int nb = choixNombreQuartiers(joueur);
         if (b) {
             echangerCartesAvecPioche(joueur, nb);
         } else {
@@ -91,7 +91,7 @@ public class PouvoirMagicien implements IPouvoir {
      * @param joueur Le joueur en question.
      * @return Le nombre de quartiers.
      */
-    public int choixNbreQuartiers(Joueur joueur) {
+    public int choixNombreQuartiers(Joueur joueur) {
         Random r = new Random();
         if (joueur.getQuartiers().size() > 0) {
             return r.nextInt(joueur.getQuartiers().size());
@@ -100,7 +100,7 @@ public class PouvoirMagicien implements IPouvoir {
     }
 
     /**
-     * Sélectionne un personnage de manière aléatoire mais pas lui même.
+     * Sélectionne un personnage de manière aléatoire, mais pas lui-même.
      *
      * @param joueur Le joueur en question.
      * @return Retourne une carte de personnage.
