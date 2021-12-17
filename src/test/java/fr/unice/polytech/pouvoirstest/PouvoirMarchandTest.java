@@ -49,7 +49,7 @@ public class PouvoirMarchandTest {
         PouvoirMarchand pasTaxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(marchand);
         Mockito.doCallRealMethod().when(pasTaxe).recupererTaxes(marchand);
-        marchand.ajouteOr(-1*marchand.getOr());
+        marchand.ajouteOr(-1 * marchand.getOr());
         pasTaxe.utiliserPouvoir(marchand);
         assertEquals(1, marchand.getOr());
     }

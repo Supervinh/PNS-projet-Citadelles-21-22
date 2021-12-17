@@ -7,7 +7,6 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ class PouvoirCondottiereTest {
         moteurDeJeu.setJoueurs(joueurs);
     }
 
-    void specialSetup(){
+    void specialSetup() {
         quartierc1 = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
         quartiersc1.add(quartierc1);
         marchand.ajouteOr(30);
@@ -102,28 +101,28 @@ class PouvoirCondottiereTest {
     }
 
     @Test
-    void recuperationQuartier(){
+    void recuperationQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doReturn(true).when(pouvoir).choixAction();
         Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
-        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere,marchand);
+        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         specialSetup();
-        marchand.ajouteOr(-1* marchand.getOr()+1);
+        marchand.ajouteOr(-1 * marchand.getOr() + 1);
         condottiere.ajouteOr(10);
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(1, marchand.getQuartiers().size());
     }
 
     @Test
-    void pasRecuperationQuartier(){
+    void pasRecuperationQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doReturn(true).when(pouvoir).choixAction();
         Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
-        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere,marchand);
+        Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         specialSetup();
-        marchand.ajouteOr(-1* marchand.getOr());
+        marchand.ajouteOr(-1 * marchand.getOr());
         condottiere.ajouteOr(10);
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiers().size());

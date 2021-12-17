@@ -48,29 +48,29 @@ class PouvoirMagicienTest {
     void aEchangeSesCartesAvecLaPioche() {
         ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
-        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien,3);
-        pouvoir.echangerCartesAvecPioche(magicien,3);
+        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
+        pouvoir.echangerCartesAvecPioche(magicien, 3);
         assertEquals(4, magicien.getQuartiers().size());
-        assertNotEquals(q,magicien.getQuartiers());
+        assertNotEquals(q, magicien.getQuartiers());
     }
 
     @Test
     void echangePasAvecPioche() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
-        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien,3);
+        Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
         ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
-        pouvoir.echangerCartesAvecPioche(magicien,-5);
-        assertEquals(q,magicien.getQuartiers());
+        pouvoir.echangerCartesAvecPioche(magicien, -5);
+        assertEquals(q, magicien.getQuartiers());
     }
 
     @Test
-    void testRandom(){
+    void testRandom() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).choixNombreQuartiers(magicien);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(magicien);
         int m = pouvoir.choixNombreQuartiers(magicien);
         CartePersonnage cible = pouvoir.cibleAleatoire(magicien);
-        assertTrue(m<5 && m>-1);
+        assertTrue(m < 5 && m > -1);
         assertNotEquals(magicien.getPersonnage(), cible);
     }
 

@@ -32,7 +32,7 @@ public class PouvoirArchitecteTest {
     void piocheQuartierTest() {
         System.out.println("Pioche \n");
         joueur.setQuartiers(new ArrayList<>());
-        joueur.ajouteOr(-5-(joueur.getOr()));
+        joueur.ajouteOr(-5 - (joueur.getOr()));
         strategie.prochainTour();
         assertEquals(joueur.getQuartiers().size(), 2);
     }
