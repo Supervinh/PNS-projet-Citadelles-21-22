@@ -7,7 +7,6 @@ import fr.unice.polytech.MoteurDeJeu;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -23,12 +22,19 @@ public interface IStrategie {
             if (joueur.getQuartiers().size() < 2 && MoteurDeJeu.joueurs.stream().mapToInt(j -> j.getQuartiers().size()).max().orElse(0) > 3) {
                 choixPersonnage = "Magicien";
             }
+            if (joueur.getQuartiers().size() < 2 || (joueur.nombre2QuartiersConstructible() > 1 && joueur.getOr() > 4)) {
+                choixPersonnage = "Architecte";
+            }
+
             // Choisir Personnage en Fonction des Gemmes
             Map<String, Long> gemmes = joueur.getQuartiersConstruits().stream().collect(Collectors.groupingBy(CarteQuartier::getGemme, Collectors.counting()));
             if (gemmes.values().stream().anyMatch(count -> count > 2)) {
                 int gemmeCountMax = gemmes.values().stream().mapToInt(Long::intValue).max().orElse(0);
                 String gemmeMax = gemmes.entrySet().stream().filter(entry -> entry.getValue() == gemmeCountMax).map(Map.Entry::getKey).findFirst().orElse("");
-                choixPersonnage = Objects.requireNonNull(MoteurDeJeu.deck.getPersonnagesPossibles().stream().filter(cp -> cp.getGemme().equals(gemmeMax)).findFirst().orElse(null)).getNom();
+                CartePersonnage choix = MoteurDeJeu.deck.getPersonnagesPossibles().stream().filter(cp -> cp.getGemme().equals(gemmeMax)).findFirst().orElse(null);
+                if (choix != null) {
+                    choixPersonnage = choix.getNom();
+                }
             }
             // Manque Assasin & Architecte A Faire.
             String finalChoixPersonnage = choixPersonnage;

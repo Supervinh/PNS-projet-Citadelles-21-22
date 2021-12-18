@@ -43,7 +43,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, true);
+        this.initialiseJoueurs(joueurs, false);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);

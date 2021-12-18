@@ -2,7 +2,10 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.piocher.*;
 import fr.unice.polytech.pouvoirs.*;
-import fr.unice.polytech.strategie.*;
+import fr.unice.polytech.strategie.ComportementDefault;
+import fr.unice.polytech.strategie.IStrategie;
+import fr.unice.polytech.strategie.QuartierMerveilles;
+import fr.unice.polytech.strategie.RusherQuartiers;
 
 /**
  * Classe qui initialise les pouvoirs des personnages et les stratégies
