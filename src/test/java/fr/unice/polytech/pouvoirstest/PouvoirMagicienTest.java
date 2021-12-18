@@ -31,6 +31,15 @@ class PouvoirMagicienTest {
         marchand = joueurs.get(1);
         magicien.setPersonnage(new CartePersonnage(3, "Magicien", "None", "Au choix: Le ¨Magicien peut échanger la totalité de ses cartes avec le joueur de son choix. Ou: le Magicien peut échanger des cartes de sa main contre le même nombre de cartes de la pioche."));
         marchand.setPersonnage(personnage);
+        joueurs.remove(magicien);
+        joueurs.remove(marchand);
+        for (Joueur joueur : joueurs) {
+            joueur.piocherPersonnage();
+            if (joueur.getPersonnage().getNom().equals("Magicien") || joueur.getPersonnage().getNom().equals("Marchand"))
+                joueur.piocherPersonnage();
+        }
+        joueurs.add(marchand);
+        joueurs.add(magicien);
         moteurDeJeu.setJoueurs(joueurs);
     }
 
