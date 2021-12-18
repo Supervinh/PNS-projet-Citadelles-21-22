@@ -23,7 +23,7 @@ public class Joueur implements Comparable<Joueur> {
     /**
      * La liste de ses quartiers construits.
      */
-    private final ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
+    private ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
 
     /**
      * La liste des quartiers en main.
@@ -176,6 +176,15 @@ public class Joueur implements Comparable<Joueur> {
      */
     public void setQuartiers(ArrayList<CarteQuartier> quartiers) {
         this.quartiers = quartiers;
+    }
+
+    /**
+     * Permet d'affecter une nouvelle liste de quartiers dans les quartiers construits du joueur.
+     *
+     * @param quartiers La liste des quartiers à ajouter.
+     */
+    public void setQuartiersConstruits(ArrayList<CarteQuartier> quartiers) {
+        this.quartiersConstruits = quartiers;
     }
 
     /**
