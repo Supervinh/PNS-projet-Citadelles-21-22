@@ -43,7 +43,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, true);
+        this.initialiseJoueurs(joueurs, false);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -95,8 +95,8 @@ public class MoteurDeJeu {
         }
         joueur.calculePoints();
 
-        if (!banque.sommeArgentCirculationCorrecte()) {
-            System.out.println("Argent Total en Circulation: " + (banque.getFonds() + MoteurDeJeu.joueurs.stream().mapToInt(Joueur::getOr).sum()));
+        if (!banque.sommeArgentCirculationCorrecte() || deck.getQuartiersPossibles().size() != 65 || deck.getPersonnagesPossibles().size() != 8) {
+            System.out.println("Erreur, Perte d'objet");
             System.exit(0);
         }
     }

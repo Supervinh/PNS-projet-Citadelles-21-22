@@ -116,9 +116,9 @@ public class Deck {
             return this.personnages.remove(new Random().nextInt(this.personnages.size()));
         } else {
             System.out.println("Plus de Personnages...");
+            System.exit(0);
             return null;
         }
-
     }
 
     /**

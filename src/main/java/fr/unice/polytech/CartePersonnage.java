@@ -5,7 +5,7 @@ import fr.unice.polytech.couleur.CouleurConsole;
 /**
  * Classe permettant d'initialiser les différents personnages du jeu.
  */
-public class CartePersonnage {
+public class CartePersonnage implements Comparable<CartePersonnage> {
     /**
      * L'identifiant du personnage.
      */
@@ -173,5 +173,10 @@ public class CartePersonnage {
                 ", gemme=" + this.getGemmeColoured() +
                 ", description=" + this.getDescriptionColoured() +
                 '}';
+    }
+
+    @Override
+    public int compareTo(CartePersonnage cp) {
+        return (int) (this.id - cp.id);
     }
 }

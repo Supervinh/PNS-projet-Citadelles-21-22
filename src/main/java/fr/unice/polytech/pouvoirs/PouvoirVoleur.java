@@ -56,7 +56,7 @@ public class PouvoirVoleur implements IPouvoir {
     public CartePersonnage cibleAleatoire(Joueur joueur) {
         ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
         cibles.removeIf(c -> c.getNom().equals(joueur.getPersonnage().getNom()) || c.getNom().equals("Assassin") || this.estPersonnageMort(c));
-        return cibles.get(new Random().nextInt(cibles.size()));
+        return joueur.getStrategie().getIStrategie().choixDeCibleCartePersonnage(joueur, cibles);
     }
 
     /**

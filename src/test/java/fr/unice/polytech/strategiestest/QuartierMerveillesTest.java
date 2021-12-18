@@ -26,8 +26,8 @@ public class QuartierMerveillesTest {
     @Test
     void cartePrestige() {
         QuartierMerveilles pouvoir = Mockito.mock(QuartierMerveilles.class);
-        Mockito.doCallRealMethod().when(pouvoir).quartierAConstruire(quartiers);
-        CarteQuartier quartierPrestige = pouvoir.quartierAConstruire(quartiers);
+        Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);
+        CarteQuartier quartierPrestige = pouvoir.choixDeQuartier(null, quartiers);
         assertEquals(quartier, quartierPrestige);
     }
 }

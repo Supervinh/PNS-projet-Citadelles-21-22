@@ -2,9 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.piocher.*;
 import fr.unice.polytech.pouvoirs.*;
-import fr.unice.polytech.strategie.IStrategie;
-import fr.unice.polytech.strategie.QuartierMerveilles;
-import fr.unice.polytech.strategie.RusherQuartiers;
+import fr.unice.polytech.strategie.*;
 
 /**
  * Classe qui initialise les pouvoirs des personnages et les stratégies
@@ -16,19 +14,19 @@ public class Strategie {
     private final Joueur joueur;
 
     /**
-     * La pioche de quartier.
+     * Le choix de pioche du joueur.
      */
     private IPiocher iPiocher = new SuffisammentQuartier();
 
     /**
      * Le pouvoir du joueur.
      */
-    private IPouvoir iPouvoir;
+    private IPouvoir iPouvoir = null;
 
     /**
      * La stratégie utilisée.
      */
-    private IStrategie iStrategie;
+    private IStrategie iStrategie = new ComportementDefault();
 
     /**
      * Le constructeur de la stratégie initialisée avec un joueur.
@@ -50,6 +48,15 @@ public class Strategie {
     }
 
     /**
+     * Permet de récupérer une stratégie.
+     *
+     * @return Une stratégie.
+     */
+    public IStrategie getIStrategie() {
+        return iStrategie;
+    }
+
+    /**
      * Détermine la stratégie qu'utilise le joueur.
      *
      * @param strategie La stratégie qu'utilise le joueur.
@@ -58,7 +65,7 @@ public class Strategie {
         switch (strategie) {
             case "Rusher" -> iStrategie = new RusherQuartiers();
             case "Merveille" -> iStrategie = new QuartierMerveilles();
-            default -> iStrategie = null;
+            default -> iStrategie = new ComportementDefault();
         }
     }
 

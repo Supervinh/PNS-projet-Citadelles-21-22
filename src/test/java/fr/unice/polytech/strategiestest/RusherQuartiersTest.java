@@ -26,8 +26,8 @@ public class RusherQuartiersTest {
     @Test
     void carteRush() {
         RusherQuartiers pouvoir = Mockito.mock(RusherQuartiers.class);
-        Mockito.doCallRealMethod().when(pouvoir).quartierAConstruire(quartiers);
-        CarteQuartier carteRusher = pouvoir.quartierAConstruire(quartiers);
+        Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);
+        CarteQuartier carteRusher = pouvoir.choixDeQuartier(null, quartiers);
         System.out.println(carteRusher);
         assertEquals(quartiers.get(0), carteRusher);
     }

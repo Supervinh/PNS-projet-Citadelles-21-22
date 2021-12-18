@@ -179,21 +179,21 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Permet d'affecter une nouvelle liste de quartiers dans les quartiers construits du joueur.
-     *
-     * @param quartiers La liste des quartiers à ajouter.
-     */
-    public void setQuartiersConstruits(ArrayList<CarteQuartier> quartiers) {
-        this.quartiersConstruits = quartiers;
-    }
-
-    /**
      * Permet de récupérer la liste des quartiers construits par le joueur.
      *
      * @return La liste des quartiers construits par le joueur.
      */
     public ArrayList<CarteQuartier> getQuartiersConstruits() {
         return this.quartiersConstruits;
+    }
+
+    /**
+     * Permet d'affecter une nouvelle liste de quartiers dans les quartiers construits du joueur.
+     *
+     * @param quartiers La liste des quartiers à ajouter.
+     */
+    public void setQuartiersConstruits(ArrayList<CarteQuartier> quartiers) {
+        this.quartiersConstruits = quartiers;
     }
 
     /**
@@ -365,6 +365,22 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
+     * Le joueur pioche une carte personnage.
+     * Si le joueur était mort au tour dernier, il ne l'est plus à ce tour ci.
+     */
+    public void piocherPersonnage() {
+        this.mort = false;
+        CartePersonnage cp = this.strategie.getIStrategie().choixDePersonnage(this, MoteurDeJeu.deck.getPersonnages());
+        MoteurDeJeu.deck.getPersonnages().remove(cp);
+        if (cp != null) {
+            System.out.println(this.getNomColoured() + " a pioché: " + cp.getNomColoured());
+            this.personnage = cp;
+        } else {
+            System.exit(0);
+        }
+    }
+
+    /**
      * Calcule les points du joueur.
      * Il y a des cas spécifiques pour le calcul des points en fonction de quand il termine et avec quoi.
      */
@@ -386,19 +402,6 @@ public class Joueur implements Comparable<Joueur> {
     }
 
     /**
-     * Le joueur pioche une carte personnage.
-     * Si le joueur était mort au tour dernier, il ne l'est plus à ce tour ci.
-     */
-    public void piocherPersonnage() {
-        this.mort = false;
-        CartePersonnage cp = MoteurDeJeu.deck.piocherPersonnage();
-        if (cp != null) {
-            System.out.println(this.getNomColoured() + " a pioché: " + cp.getNomColoured());
-            this.personnage = cp;
-        }
-    }
-
-    /**
      * On pioche une carte quartier et on l'ajoute dans la main.
      * Certaines cartes ont des effets sur la pioche de cartes quand lorsqu'elles sont construites.
      */
@@ -416,7 +419,9 @@ public class Joueur implements Comparable<Joueur> {
             if (this.contientQuartier("Laboratoire") && new Random().nextBoolean()) {
                 this.ajouteOr(1);
                 int taille = quartiers.size();
-                if (!(taille == 0)) this.quartiers.remove(new Random().nextInt(taille));
+                if (!(taille == 0)) {
+                    this.quartiers.remove(new Random().nextInt(taille));
+                }
             }
 
             if (this.contientQuartier("Observatoire") && new Random().nextBoolean()) {
@@ -471,23 +476,16 @@ public class Joueur implements Comparable<Joueur> {
      * @return Une carte quartier.
      */
     public CarteQuartier choixQuartier(ArrayList<CarteQuartier> quartiersPioches) {
-        int k = new Random().nextInt(quartiersPioches.size());
-        CarteQuartier cq = quartiersPioches.get(k);
-
-        for (int i = 0; i < quartiersPioches.size(); i++) {
-            if (!this.getQuartiers().contains(quartiersPioches.get(i)) && !this.getQuartiersConstruits().contains(quartiersPioches.get(i))) {
-                cq = quartiersPioches.get(i);
-                k = i;
-                break;
+        CarteQuartier cq = this.strategie.getIStrategie().choixDeQuartier(this, quartiersPioches);
+        if (cq != null) {
+            if (this.getQuartiers().contains(cq) || this.getQuartiersConstruits().contains(cq)) {
+                quartiersPioches.remove(cq);
+                return this.choixQuartier(quartiersPioches);
             }
-        }
-        for (int i = 0; i < quartiersPioches.size(); i++) {
-            if (i != k) {
-                MoteurDeJeu.deck.ajouterQuartierDeck(quartiersPioches.get(i));
-            }
-        }
-        if (cq != null)
+            quartiersPioches.remove(cq);
+            quartiersPioches.forEach(qp -> MoteurDeJeu.deck.ajouterQuartierDeck(qp));
             System.out.println("\n" + CouleurConsole.printPurple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+        }
         return cq;
     }
 
@@ -501,7 +499,8 @@ public class Joueur implements Comparable<Joueur> {
             System.out.println("\n" + CouleurConsole.printPink("| Construire Quartier") + " - " + this.getNomColoured() + " à " + this.getOrColoured() + " pièce" + (this.or > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or"));
             System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
             quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.printPink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
-            CarteQuartier choix = quartiersAchetable.get(Math.min(new Random().nextInt(0, quartiersAchetable.size()), quartiersAchetable.size() - 1));
+
+            CarteQuartier choix = this.strategie.getIStrategie().choixDeQuartier(this, quartiersAchetable);
             System.out.println(CouleurConsole.printPink("| ") + this.getNomColoured() + " a construit: " + choix.getNomColoured());
             this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);

@@ -83,7 +83,7 @@ class PouvoirCondottiereTest {
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
-        Mockito.when(pouvoir.cibleAleatoire()).thenReturn(marchand);
+        Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
         marchand.ajouteOr(50);
         marchand.setQuartiers(quartiersc1);
         marchand.construireQuartier();
@@ -104,7 +104,7 @@ class PouvoirCondottiereTest {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doReturn(true).when(pouvoir).choixAction();
-        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
+        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire(condottiere);
         Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         specialSetup();
         marchand.ajouteOr(-1 * marchand.getOr() + 1);
@@ -118,7 +118,7 @@ class PouvoirCondottiereTest {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doReturn(true).when(pouvoir).choixAction();
-        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire();
+        Mockito.doReturn(marchand).when(pouvoir).cibleAleatoire(condottiere);
         Mockito.doReturn(quartierc1).when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         specialSetup();
         marchand.ajouteOr(-1 * marchand.getOr());

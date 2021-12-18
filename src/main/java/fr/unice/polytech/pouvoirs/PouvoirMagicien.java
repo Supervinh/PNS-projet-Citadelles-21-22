@@ -33,11 +33,7 @@ public class PouvoirMagicien implements IPouvoir {
      * @param joueur Le joueur en question.
      */
     public void echangerCartesAvecJoueur(Joueur joueur) {
-        CartePersonnage cibleNomPersonnage = this.cibleAleatoire(joueur);
-        Joueur cible = MoteurDeJeu.joueurs.stream()
-                .filter(j -> j.getPersonnage().getNom().equals(cibleNomPersonnage.getNom()))
-                .findFirst()
-                .orElse(null);
+        Joueur cible = this.cibleAleatoire(joueur);
         System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
         ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
         if (cible != null) {
@@ -105,9 +101,7 @@ public class PouvoirMagicien implements IPouvoir {
      * @param joueur Le joueur en question.
      * @return Retourne une carte de personnage.
      */
-    public CartePersonnage cibleAleatoire(Joueur joueur) {
-        ArrayList<Joueur> cibles = new ArrayList<>(MoteurDeJeu.joueurs);
-        cibles.remove(joueur);
-        return cibles.get(new Random().nextInt(cibles.size())).getPersonnage();
+    public Joueur cibleAleatoire(Joueur joueur) {
+        return joueur.getStrategie().getIStrategie().choixDeCibleJoueur(joueur, MoteurDeJeu.joueurs);
     }
 }

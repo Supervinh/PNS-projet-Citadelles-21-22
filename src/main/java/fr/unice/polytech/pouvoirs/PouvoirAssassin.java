@@ -53,9 +53,7 @@ public class PouvoirAssassin implements IPouvoir {
      * @return Retourne une carte de personnage.
      */
     public CartePersonnage cibleAleatoire(Joueur joueur) {
-        ArrayList<CartePersonnage> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.deck.getPersonnagesPossibles()));
-        cibles.remove(joueur.getPersonnage());
-        return cibles.get(new Random().nextInt(cibles.size()));
+        return joueur.getStrategie().getIStrategie().choixDeCibleCartePersonnage(joueur, MoteurDeJeu.deck.getPersonnagesPossibles());
     }
 
     /**

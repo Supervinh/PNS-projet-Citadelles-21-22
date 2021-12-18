@@ -22,7 +22,7 @@ public class PouvoirCondottiere implements IPouvoir {
      */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-        Joueur cible = cibleAleatoire();
+        Joueur cible = cibleAleatoire(joueur);
         if (cible != null) {
             CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
             System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
@@ -56,11 +56,11 @@ public class PouvoirCondottiere implements IPouvoir {
      *
      * @return Retourne un joueur.
      */
-    public Joueur cibleAleatoire() {
+    public Joueur cibleAleatoire(Joueur joueur) {
         ArrayList<Joueur> cibles = new ArrayList<>(List.copyOf(MoteurDeJeu.personnagesConnus));
         cibles.removeIf(j -> (j.getPersonnage().getNom().equals("Évêque") && !j.isMort()) || j.getQuartiersConstruits().size() <= 0 || j.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire);
         if (cibles.size() > 0) {
-            return cibles.get(new Random().nextInt(cibles.size()));
+            return joueur.getStrategie().getIStrategie().choixDeCibleJoueur(joueur, cibles);
         } else {
             return null;
         }
