@@ -43,7 +43,7 @@ public class MoteurDeJeu {
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, false);
+        this.initialiseJoueurs(joueurs, true);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -110,6 +110,8 @@ public class MoteurDeJeu {
                 joueurs.add(new Joueur(ER.getRandomName()));
             }
         }
+        joueurs.get(0).getStrategie().setStrategie("Rusher");
+        joueurs.get(1).getStrategie().setStrategie("Merveille");
         joueurs.get(0).setRoi(true);
     }
 
