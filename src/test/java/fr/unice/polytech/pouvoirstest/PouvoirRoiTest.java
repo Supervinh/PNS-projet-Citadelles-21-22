@@ -36,9 +36,8 @@ public class PouvoirRoiTest {
         PouvoirRoi taxe = Mockito.mock(PouvoirRoi.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(roi);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(roi);
-        roi.setQuartiers(quartiers);
-        roi.ajouteOr(1);
-        roi.construireQuartier();
+        roi.ajouteOr(-1*roi.getOr());
+        roi.setQuartiersConstruits(quartiers);
         assertFalse(roi.isRoi());
         taxe.utiliserPouvoir(roi);
         assertTrue(roi.isRoi());

@@ -37,9 +37,8 @@ public class PouvoirMarchandTest {
         PouvoirMarchand taxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(marchand);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(marchand);
-        marchand.setQuartiers(quartiers);
-        marchand.ajouteOr(1);
-        marchand.construireQuartier();
+        marchand.ajouteOr(-1*marchand.getOr());
+        marchand.setQuartiersConstruits(quartiers);
         taxe.utiliserPouvoir(marchand);
         assertEquals(2, marchand.getOr());
     }

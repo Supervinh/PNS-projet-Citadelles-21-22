@@ -36,9 +36,8 @@ public class PouvoirEvequeTest {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(eveque);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(eveque);
-        eveque.setQuartiers(quartiers);
-        eveque.ajouteOr(1);
-        eveque.construireQuartier();
+        eveque.ajouteOr(-1* eveque.getOr());
+        eveque.setQuartiersConstruits(quartiers);
         taxe.utiliserPouvoir(eveque);
         assertEquals(1, eveque.getOr());
     }

@@ -113,7 +113,7 @@ class PouvoirCondottiereTest {
         assertEquals(1, marchand.getQuartiers().size());
     }
 
-    @RepeatedTest(500)
+    @Test
     void pasRecuperationQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
