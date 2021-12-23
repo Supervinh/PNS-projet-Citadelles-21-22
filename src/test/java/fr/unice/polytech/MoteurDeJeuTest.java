@@ -75,5 +75,55 @@ class MoteurDeJeuTest {
         assertEquals(6, MoteurDeJeu.deck.getPersonnages().size());
     }
 
+    @Test
+    void joueurPioche4Joueurs() {
+        MoteurDeJeu m = new MoteurDeJeu();
+        joueurs = new ArrayList<>();
+        Joueur joueur = new Joueur();
+        for (int i = 0; i < 4; i++) {
+            joueurs.add(joueur);
+            joueur = new Joueur();
+        }
+        m.setJoueurs(joueurs);
+        m.joueurPiochePersonnage(joueurs, 0);
+        assertNotNull(joueurs.get(0).getPersonnage());
+    }
+
+    @Test
+    void joueurPioche5Joueurs() {
+        MoteurDeJeu m = new MoteurDeJeu();
+        joueurs = new ArrayList<>();
+        Joueur joueur = new Joueur();
+        for (int i = 0; i < 5; i++) {
+            joueurs.add(joueur);
+            joueur = new Joueur();
+        }
+        m.setJoueurs(joueurs);
+        m.joueurPiochePersonnage(joueurs, 1);
+        assertNotNull(joueurs.get(1).getPersonnage());
+    }
+
+    @Test
+    void joueurPioche6Joueurs() {
+        MoteurDeJeu m = new MoteurDeJeu();
+        joueurs = new ArrayList<>();
+        Joueur joueur = new Joueur();
+        for (int i = 0; i < 6; i++) {
+            joueurs.add(joueur);
+            joueur = new Joueur();
+        }
+        m.setJoueurs(joueurs);
+        m.joueurPiochePersonnage(joueurs, 2);
+        assertNotNull(joueurs.get(2).getPersonnage());
+    }
+
+    @Test
+    void remettreCarteCachee(){
+        MoteurDeJeu m = new MoteurDeJeu();
+        m.initialisePileCartes();
+        assertNotNull(m.getCarteCachee());
+        m.remettreCarteCachee();
+        assertNull(m.getCarteCachee());
+    }
 
 }

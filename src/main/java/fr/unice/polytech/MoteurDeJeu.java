@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class MoteurDeJeu {
 
-    public static int nbJoueurs = 5;
+    public static int nbJoueurs = 7;
     public static int or2Depart = 2;
     public static int orAPiocher = 2;
     public static int carte2Depart = 4;
@@ -27,7 +27,7 @@ public class MoteurDeJeu {
     private int nb2Tours = 0;
     private int roiIndex = 0;
     private boolean avaitRoi = true;
-    private CartePersonnage carteCache;
+    private CartePersonnage carteCachee;
 
     public MoteurDeJeu() {
         deck = new Deck();
@@ -40,6 +40,8 @@ public class MoteurDeJeu {
             System.exit(0);
         }
     }
+
+    public CartePersonnage getCarteCachee() {return this.carteCachee;}
 
     public void jouer() {
         this.hello();
@@ -83,7 +85,7 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> deck.ajoutePersonnage(joueur.getPersonnage()));
 
         this.cartesVisibles.forEach(cp -> deck.ajoutePersonnage(cp));
-        deck.ajoutePersonnage(this.carteCache);
+        deck.ajoutePersonnage(this.carteCachee);
     }
 
     public void tourDeJeu(Joueur joueur) {
@@ -128,8 +130,8 @@ public class MoteurDeJeu {
         this.cartesVisibles.forEach(cp -> System.out.print(" " + cp.getNomColoured()));
         System.out.println();
 
-        this.carteCache = deck.piocherPersonnage();
-        System.out.print("Carte Cachée: " + carteCache.getNomColoured());
+        this.carteCachee = deck.piocherPersonnage();
+        System.out.print("Carte Cachée: " + carteCachee.getNomColoured());
         System.out.println();
     }
 
@@ -170,15 +172,20 @@ public class MoteurDeJeu {
         if (joueurs.size() < 7) joueurs.get(i).piocherPersonnage();
         else {
             if (deck.getPersonnages().size() == 1) {
-                deck.ajoutePersonnage(carteCache);
-                System.out.println("On remet la carte cachée : " + this.carteCache + "dans le deck");
-                System.out.print(CouleurConsole.printGreen("| "));
+                remettreCarteCachee();
                 joueurs.get(i).piocherPersonnage();
-                this.carteCache = deck.piocherPersonnage();
+                this.carteCachee = deck.piocherPersonnage();
                 System.out.print(CouleurConsole.printGreen("| "));
-                System.out.println("Nouvelle carte cachée : " + this.carteCache);
+                System.out.println("Nouvelle carte cachée : " + this.carteCachee.getNomColoured());
             } else joueurs.get(i).piocherPersonnage();
         }
+    }
+
+    public void remettreCarteCachee() {
+        deck.ajoutePersonnage(carteCachee);
+        System.out.println("On remet la carte cachée : " + this.carteCachee.getNomColoured() + " dans le deck");
+        carteCachee = null;
+        System.out.print(CouleurConsole.printGreen("| "));
     }
 
     public boolean aFini(Joueur joueur) {
