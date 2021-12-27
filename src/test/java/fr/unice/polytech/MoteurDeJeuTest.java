@@ -1,9 +1,9 @@
 package fr.unice.polytech;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -86,8 +86,10 @@ class MoteurDeJeuTest {
             joueur = new Joueur();
         }
         m.setJoueurs(joueurs);
-        m.joueurPiochePersonnage(joueurs, 0);
-        assertNotNull(joueurs.get(0).getPersonnage());
+        Random indice = new Random();
+        int indicePersonnage = indice.nextInt(4);
+        m.joueurPiochePersonnage(joueurs, indicePersonnage);
+        assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
     @Test
@@ -100,8 +102,10 @@ class MoteurDeJeuTest {
             joueur = new Joueur();
         }
         m.setJoueurs(joueurs);
-        m.joueurPiochePersonnage(joueurs, 1);
-        assertNotNull(joueurs.get(1).getPersonnage());
+        Random indice = new Random();
+        int indicePersonnage = indice.nextInt(5);
+        m.joueurPiochePersonnage(joueurs, indicePersonnage);
+        assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
     @Test
@@ -114,8 +118,26 @@ class MoteurDeJeuTest {
             joueur = new Joueur();
         }
         m.setJoueurs(joueurs);
-        m.joueurPiochePersonnage(joueurs, 2);
-        assertNotNull(joueurs.get(2).getPersonnage());
+        Random indice = new Random();
+        int indicePersonnage = indice.nextInt(6);
+        m.joueurPiochePersonnage(joueurs, indicePersonnage);
+        assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
+    }
+
+    @Test
+    void joueurPioche7Joueurs() {
+        MoteurDeJeu m = new MoteurDeJeu();
+        joueurs = new ArrayList<>();
+        Joueur joueur = new Joueur();
+        for (int i = 0; i < 7; i++) {
+            joueurs.add(joueur);
+            joueur = new Joueur();
+        }
+        m.setJoueurs(joueurs);
+        Random indice = new Random();
+        int indicePersonnage = indice.nextInt(7);
+        m.joueurPiochePersonnage(joueurs, indicePersonnage);
+        assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
     @Test
@@ -130,10 +152,10 @@ class MoteurDeJeuTest {
     @Test
     void tour2JeuException() {
         goodSetup();
-        try{
+        try {
             m.tourDeJeu(joueurs.get(0));
-        } catch(IllegalArgumentException e){
-            System.out.println(e.toString());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
         }
 
     }

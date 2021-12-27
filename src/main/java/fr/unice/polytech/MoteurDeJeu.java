@@ -101,9 +101,6 @@ public class MoteurDeJeu {
             throw new IllegalArgumentException(
                     "Erreur, Perte d'objet.");
         }
-            /*System.out.println("Erreur, Perte d'objet");
-            System.exit(0);
-        }*/
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs, boolean nameless) {
