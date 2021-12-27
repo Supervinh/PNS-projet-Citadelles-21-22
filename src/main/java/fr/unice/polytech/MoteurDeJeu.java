@@ -98,9 +98,12 @@ public class MoteurDeJeu {
         joueur.calculePoints();
 
         if (!banque.sommeArgentCirculationCorrecte() || deck.getQuartiersPossibles().size() != 65 || deck.getPersonnagesPossibles().size() != 8) {
-            System.out.println("Erreur, Perte d'objet");
-            System.exit(0);
+            throw new IllegalArgumentException(
+                    "Erreur, Perte d'objet.");
         }
+            /*System.out.println("Erreur, Perte d'objet");
+            System.exit(0);
+        }*/
     }
 
     public void initialiseJoueurs(ArrayList<Joueur> joueurs, boolean nameless) {

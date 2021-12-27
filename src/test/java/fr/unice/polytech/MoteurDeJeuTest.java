@@ -1,6 +1,7 @@
 package fr.unice.polytech;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
@@ -118,12 +119,23 @@ class MoteurDeJeuTest {
     }
 
     @Test
-    void remettreCarteCachee(){
+    void remettreCarteCachee() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.initialisePileCartes();
         assertNotNull(m.getCarteCachee());
         m.remettreCarteCachee();
         assertNull(m.getCarteCachee());
+    }
+
+    @Test
+    void tour2JeuException() {
+        goodSetup();
+        try{
+            m.tourDeJeu(joueurs.get(0));
+        } catch(IllegalArgumentException e){
+            System.out.println(e.toString());
+        }
+
     }
 
 }
