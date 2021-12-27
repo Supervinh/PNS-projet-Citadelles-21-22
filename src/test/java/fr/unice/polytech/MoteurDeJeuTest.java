@@ -59,9 +59,9 @@ class MoteurDeJeuTest {
     @Test
     void initialiserCartes4J() {
         MoteurDeJeu m = new MoteurDeJeu();
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        for (int i = 0; i < 4; i++) joueurs.add(new Joueur("CPU" + i));
-        m.setJoueurs(joueurs);
+        m.setNbJoueurs(4);
+        joueurs = new ArrayList<>();
+        m.initialiseJoueurs(joueurs, true);
         m.initialisePileCartes();
         assertEquals(5, MoteurDeJeu.deck.getPersonnages().size());
     }
@@ -69,9 +69,9 @@ class MoteurDeJeuTest {
     @Test
     void initialiserCartes5J() {
         MoteurDeJeu m = new MoteurDeJeu();
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        for (int i = 0; i < 5; i++) joueurs.add(new Joueur("CPU" + i));
-        m.setJoueurs(joueurs);
+        m.setNbJoueurs(5);
+        joueurs = new ArrayList<>();
+        m.initialiseJoueurs(joueurs, true);
         m.initialisePileCartes();
         assertEquals(6, MoteurDeJeu.deck.getPersonnages().size());
     }
@@ -79,13 +79,9 @@ class MoteurDeJeuTest {
     @Test
     void joueurPioche4Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
+        m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
-        Joueur joueur = new Joueur();
-        for (int i = 0; i < 4; i++) {
-            joueurs.add(joueur);
-            joueur = new Joueur();
-        }
-        m.setJoueurs(joueurs);
+        m.initialiseJoueurs(joueurs, true);
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(4);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
@@ -95,13 +91,9 @@ class MoteurDeJeuTest {
     @Test
     void joueurPioche5Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
+        m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
-        Joueur joueur = new Joueur();
-        for (int i = 0; i < 5; i++) {
-            joueurs.add(joueur);
-            joueur = new Joueur();
-        }
-        m.setJoueurs(joueurs);
+        m.initialiseJoueurs(joueurs, true);
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(5);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
@@ -111,13 +103,9 @@ class MoteurDeJeuTest {
     @Test
     void joueurPioche6Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
+        m.setNbJoueurs(6);
         joueurs = new ArrayList<>();
-        Joueur joueur = new Joueur();
-        for (int i = 0; i < 6; i++) {
-            joueurs.add(joueur);
-            joueur = new Joueur();
-        }
-        m.setJoueurs(joueurs);
+        m.initialiseJoueurs(joueurs, true);
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(6);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
@@ -127,13 +115,9 @@ class MoteurDeJeuTest {
     @Test
     void joueurPioche7Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
+        m.setNbJoueurs(7);
         joueurs = new ArrayList<>();
-        Joueur joueur = new Joueur();
-        for (int i = 0; i < 7; i++) {
-            joueurs.add(joueur);
-            joueur = new Joueur();
-        }
-        m.setJoueurs(joueurs);
+        m.initialiseJoueurs(joueurs, true);
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(7);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
