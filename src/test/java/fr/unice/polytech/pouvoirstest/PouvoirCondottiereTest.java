@@ -5,6 +5,7 @@ import fr.unice.polytech.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PouvoirCondottiereTest {
     Joueur condottiere;
@@ -32,15 +32,19 @@ class PouvoirCondottiereTest {
 
         condottiere = joueurs.get(0);
         condottiere.setPersonnage(new CartePersonnage(8, "Condottiere", "Soldatesque", "Le Condottiere peut détruire un quartier de son choix en payant à la banque le coût de construction du quartier moins un. Chaque quartier militaire qu'il possède lui rapporte une pièce d'or."));
+        MoteurDeJeu.personnagesConnus.add(condottiere);
 
         marchand = joueurs.get(1);
         marchand.setPersonnage(new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or."));
+        MoteurDeJeu.personnagesConnus.add(marchand);
 
         eveque = joueurs.get(2);
         eveque.setPersonnage(new CartePersonnage(5, "Evêque", "Religion", "L'Évêque ne peut pas être attaqué par le Condottière. Chaque quartier religieux qu'il possède lui rapporte une pièce d'or."));
+        MoteurDeJeu.personnagesConnus.add(eveque);
 
         joueurAyantFini = joueurs.get(3);
         joueurAyantFini.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
+        MoteurDeJeu.personnagesConnus.add(joueurAyantFini);
 
         quartierc1 = new CarteQuartier(14.2, "Tour de guet", "Soldatesque", 1);
         quartiersc1.add(quartierc1);
@@ -126,4 +130,16 @@ class PouvoirCondottiereTest {
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiers().size());
     }
+
+    @Test
+    void choixPossible(){
+        PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
+        Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(condottiere);
+        joueurAyantFini.setQuartiersConstruits(quartiersc1);
+        Joueur cible = pouvoir.cibleAleatoire(condottiere);
+        assertNotEquals(marchand, cible);
+        assertNotEquals(eveque, cible);
+        assertEquals(joueurAyantFini, cible);
+    }
+
 }
