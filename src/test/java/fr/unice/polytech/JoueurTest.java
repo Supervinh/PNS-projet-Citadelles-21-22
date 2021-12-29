@@ -66,4 +66,20 @@ class JoueurTest {
         Joueur j1 = new Joueur("1");
         assertFalse(j1.isRoi());
     }
+
+    @Test
+    void construire(){
+        Joueur j1 = new Joueur("1");
+        j1.ajouteOr(10);
+        j1.construireQuartier();
+        assertEquals(1, j1.getQuartiersConstruits().size());
+    }
+
+    @Test
+    void pasAssezArgent(){
+        Joueur j1 = new Joueur("1");
+        j1.ajouteOr(-1*j1.getOr());
+        j1.construireQuartier();
+        assertEquals(0, j1.getQuartiersConstruits().size());
+    }
 }
