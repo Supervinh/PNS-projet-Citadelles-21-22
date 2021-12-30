@@ -118,11 +118,15 @@ class MoteurDeJeuTest {
         m.setNbJoueurs(7);
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
+        m.initialisePileCartes();
+        for (int i = 0; i<6; i++) MoteurDeJeu.deck.piocherPersonnage();
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(7);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
+
+
 
     @Test
     void remettreCarteCachee() {
