@@ -2,10 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.piocher.*;
 import fr.unice.polytech.pouvoirs.*;
-import fr.unice.polytech.strategie.ComportementDefault;
-import fr.unice.polytech.strategie.IStrategie;
-import fr.unice.polytech.strategie.QuartierMerveilles;
-import fr.unice.polytech.strategie.RusherQuartiers;
+import fr.unice.polytech.strategie.*;
 
 /**
  * Classe qui initialise les pouvoirs des personnages et les stratégies
@@ -68,6 +65,8 @@ public class Strategie {
         switch (strategie) {
             case "Rusher" -> iStrategie = new RusherQuartiers();
             case "Merveille" -> iStrategie = new QuartierMerveilles();
+            case "Agressif" -> iStrategie = new Agressif();
+            case "VStrat" -> iStrategie = new VStrat();
             default -> iStrategie = new ComportementDefault();
         }
     }

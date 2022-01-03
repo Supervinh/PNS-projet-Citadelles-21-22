@@ -8,12 +8,26 @@ import fr.unice.polytech.MoteurDeJeu;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Agressif implements IStrategie {
+public class VStrat implements IStrategie {
 
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
-        CartePersonnage choix = personnages.stream().filter(cp -> cp.getNom().equals("Assassin") || cp.getNom().equals("Voleur")).findAny().orElseGet(
-                () -> IStrategie.super.choixDePersonnage(joueur, personnages));
+        CartePersonnage choix;
+        int quartierReligieux = 0;
+        for (int i = 0; i < joueur.getQuartiersConstruits().size(); i++) {
+            if (joueur.getQuartiersConstruits().get(i).getGemme().equals("Religion")) quartierReligieux++;
+        }
+        int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
+        if (joueur.getQuartiers().size() == 0)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Magicien")).findAny().orElse(null);
+        else if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Architecte")).findAny().orElse(null);
+        else if (orMax > 4)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
+        else if (quartierReligieux > 1)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
+        else
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElseGet(() -> IStrategie.super.choixDePersonnage(joueur, personnages));
         return choix;
     }
 
@@ -33,9 +47,10 @@ public class Agressif implements IStrategie {
 
     @Override
     public Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
-        int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
-        if (nbreQuartierMain > 4)
+        if (joueur.getPersonnage().getNom().equals("Magicien")) {
+            int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
             return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
+        }
         MoteurDeJeu.joueurs.forEach(Joueur::calculePoints);
         int scoreMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getPoints).max().orElse(0);
         return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == scoreMax).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
@@ -50,6 +65,6 @@ public class Agressif implements IStrategie {
 
     @Override
     public String nomStrategie() {
-        return "Stratégie agressive afin de gêner au plus les adversaires";
+        return "Stratégie spéciale Vinh";
     }
 }
