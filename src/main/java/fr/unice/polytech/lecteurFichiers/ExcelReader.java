@@ -1,5 +1,7 @@
-package fr.unice.polytech;
+package fr.unice.polytech.lecteurFichiers;
 
+import fr.unice.polytech.CartePersonnage;
+import fr.unice.polytech.CarteQuartier;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
