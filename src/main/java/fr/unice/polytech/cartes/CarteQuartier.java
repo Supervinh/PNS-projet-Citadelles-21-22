@@ -1,4 +1,4 @@
-package fr.unice.polytech;
+package fr.unice.polytech.cartes;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 

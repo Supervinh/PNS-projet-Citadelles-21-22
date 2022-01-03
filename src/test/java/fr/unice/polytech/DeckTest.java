@@ -1,5 +1,6 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.cartes.CartePersonnage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,8 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,9 +1,8 @@
 package fr.unice.polytech.strategie;
 
-import fr.unice.polytech.CartePersonnage;
-import fr.unice.polytech.CarteQuartier;
-import fr.unice.polytech.Joueur;
-import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.*;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,9 +21,8 @@ public class Agressif implements IStrategie {
      */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
-        CartePersonnage choix = personnages.stream().filter(cp -> cp.getNom().equals("Assassin") || cp.getNom().equals("Voleur")).findAny().orElseGet(
+        return personnages.stream().filter(cp -> cp.getNom().equals("Assassin") || cp.getNom().equals("Voleur")).findAny().orElseGet(
                 () -> IStrategie.super.choixDePersonnage(joueur, personnages));
-        return choix;
     }
 
     /**
@@ -33,7 +31,6 @@ public class Agressif implements IStrategie {
      * Et sinon on vise aléatoirement un personnage.
      *
      * @param joueur Le joueur qui joue.
-     * @param ciblesTemp
      * @return La carte personnage ciblée.
      */
     @Override
@@ -60,8 +57,9 @@ public class Agressif implements IStrategie {
     @Override
     public Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
         int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
-        if (nbreQuartierMain > 4)
+        if (nbreQuartierMain > 4) {
             return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
+        }
         MoteurDeJeu.joueurs.forEach(Joueur::calculePoints);
         int scoreMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getPoints).max().orElse(0);
         return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == scoreMax).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
