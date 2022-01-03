@@ -8,8 +8,18 @@ import fr.unice.polytech.MoteurDeJeu;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * La stratégie qui permet d'être aggressif envers les autres joueurs.
+ */
 public class Agressif implements IStrategie {
 
+    /**
+     * Choisit en priorité l'assassin pui voleur sinon c'est aléatoire.
+     *
+     * @param joueur      Le joueur à jouer.
+     * @param personnages Les cartes de personnages que l'on peut encore piocher.
+     * @return La carte du personnage choisie.
+     */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         CartePersonnage choix = personnages.stream().filter(cp -> cp.getNom().equals("Assassin") || cp.getNom().equals("Voleur")).findAny().orElseGet(
@@ -17,6 +27,15 @@ public class Agressif implements IStrategie {
         return choix;
     }
 
+    /**
+     * Si on a pioche l'assassin, on va ciblé l'architecte ou le magicien.
+     * Si on a le voleur, on va ciblé l'architecte ou le marchand.
+     * Et sinon on vise aléatoirement un personnage.
+     *
+     * @param joueur Le joueur qui joue.
+     * @param ciblesTemp
+     * @return La carte personnage ciblée.
+     */
     @Override
     public CartePersonnage choixDeCibleCartePersonnage(Joueur joueur, ArrayList<CartePersonnage> ciblesTemp) {
         CartePersonnage personnageCible = null;
@@ -31,6 +50,13 @@ public class Agressif implements IStrategie {
         return personnageCible;
     }
 
+    /**
+     * Choisit le joueur avec le plus de quartiers en main.
+     *
+     * @param joueur Le joueur qui joue.
+     * @param cibles La liste des joueurs.
+     * @return Le joueur ciblé.
+     */
     @Override
     public Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
         int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
@@ -41,6 +67,13 @@ public class Agressif implements IStrategie {
         return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == scoreMax).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
     }
 
+    /**
+     * Choisit un quartier qui est le moins cher.
+     *
+     * @param joueur    Le joueur qui joue.
+     * @param quartiers La liste des quartiers.
+     * @return La carte quartier choisie.
+     */
     @Override
     public CarteQuartier choixDeQuartier(Joueur joueur, ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
@@ -48,6 +81,11 @@ public class Agressif implements IStrategie {
         return carteQuartiers.get(carteQuartiers.size() - 1);
     }
 
+    /**
+     * Donne le nom de la stratégie utilisée.
+     *
+     * @return Le nom de la stratégie.
+     */
     @Override
     public String nomStrategie() {
         return "Stratégie agressive afin de gêner au plus les adversaires";

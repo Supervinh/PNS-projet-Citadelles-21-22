@@ -6,14 +6,20 @@ package fr.unice.polytech;
 public class Main {
 
     public static void main(String[] args) {
+        MoteurDeJeu mj;
+        Joueur gagnant = null;
         System.out.println("Meilleur Bot Contre default Bots");
         for (int i = 0; i < 1; i++) {
-            new MoteurDeJeu().jouer();
+            mj = new MoteurDeJeu();
+            mj.jouer();
+            gagnant = mj.obtenirGagnant(MoteurDeJeu.joueurs);
         }
         System.exit(0);
         System.out.println("Meilleur Bot Contre lui-même");
         for (int i = 0; i < 1000; i++) {
-            new MoteurDeJeu().jouer();
+            mj = new MoteurDeJeu();
+            mj.jouer();
+            gagnant = mj.obtenirGagnant(MoteurDeJeu.joueurs);
         }
     }
 }

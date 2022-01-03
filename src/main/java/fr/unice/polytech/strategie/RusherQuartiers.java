@@ -65,7 +65,7 @@ public class RusherQuartiers implements IStrategie {
     }
 
     /**
-     * Choisit un quartier qui rapportera le plus de point possible.
+     * Choisit un quartier qui est le moins cher possible.
      *
      * @param joueur    Le joueur qui joue.
      * @param quartiers La liste des quartiers.
