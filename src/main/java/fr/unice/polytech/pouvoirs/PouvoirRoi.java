@@ -18,9 +18,9 @@ public class PouvoirRoi implements IPouvoir {
     public void utiliserPouvoir(Joueur joueur) {
         MoteurDeJeu.joueurs.forEach(j -> j.setRoi(false));
         joueur.setRoi(true);
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " est le Nouveau " + CouleurConsole.printGold("Roi"));
-        System.out.println(CouleurConsole.printRed("|"));
+        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " est le Nouveau " + CouleurConsole.gold("Roi"));
+        System.out.println(CouleurConsole.red("|"));
         this.recupererTaxes(joueur);
     }
 }

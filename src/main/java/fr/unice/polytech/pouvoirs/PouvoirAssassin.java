@@ -20,12 +20,12 @@ public class PouvoirAssassin implements IPouvoir {
 
         CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
         Joueur cible = cibleExistante(cibleNomPersonnage);
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
         if (cible != null) {
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a " + CouleurConsole.printRed("tué " + cible.getNomColoured()));
+            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a " + CouleurConsole.red("tué " + cible.getNomColoured()));
             this.tue(cible);
         } else {
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.printRed("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
+            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.red("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
         }
     }
 

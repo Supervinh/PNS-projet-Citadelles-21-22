@@ -94,7 +94,7 @@ public class CartePersonnage implements Comparable<CartePersonnage> {
      * @return L'identifiant du personnage en turquoise.
      */
     public String getIdColoured() {
-        return CouleurConsole.printTurquoise("" + this.id);
+        return CouleurConsole.turquoise("" + this.id);
     }
 
     /**
@@ -112,7 +112,7 @@ public class CartePersonnage implements Comparable<CartePersonnage> {
      * @return Le nom du personnage en rouge.
      */
     public String getNomColoured() {
-        return CouleurConsole.printRed(this.nom);
+        return CouleurConsole.red(this.nom);
     }
 
     /**
@@ -130,7 +130,7 @@ public class CartePersonnage implements Comparable<CartePersonnage> {
      * @return La gemme de la carte personnage en violet.
      */
     public String getGemmeColoured() {
-        return CouleurConsole.printPurple(this.gemme);
+        return CouleurConsole.purple(this.gemme);
     }
 
     /**
@@ -148,7 +148,7 @@ public class CartePersonnage implements Comparable<CartePersonnage> {
      * @return La description du pouvoir du personnage en gris.
      */
     public String getDescriptionColoured() {
-        return CouleurConsole.printGrey(this.description);
+        return CouleurConsole.grey(this.description);
     }
 
     /**

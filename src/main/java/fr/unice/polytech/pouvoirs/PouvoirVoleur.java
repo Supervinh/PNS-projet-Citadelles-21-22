@@ -27,13 +27,13 @@ public class PouvoirVoleur implements IPouvoir {
                 .findFirst()
                 .orElse(null);
 
-        System.out.println(CouleurConsole.printRed("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
+        System.out.println(CouleurConsole.red("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
         if (cible != null) {
             int montant = cible.getOr();
             boolean plurielle = montant > 1;
             joueur.ajouteOr(montant);
             cible.ajouteOr(-1 * cible.getOr());
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.printGold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.printGold("Or") + " à " + cible.getNomColoured());
+            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.gold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.gold("Or") + " à " + cible.getNomColoured());
         } else {
             String article;
             switch (" de " + cibleNomPersonnage.getArticle()) {
@@ -42,7 +42,7 @@ public class PouvoirVoleur implements IPouvoir {
                 case " de L'" -> article = " de l'";
                 default -> article = " de " + cibleNomPersonnage.getArticle();
             }
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a essayé de voler les pièces d'" + CouleurConsole.printGold("Or") + article + cibleNomPersonnage.getNomColoured());
+            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de voler les pièces d'" + CouleurConsole.gold("Or") + article + cibleNomPersonnage.getNomColoured());
         }
     }
 
