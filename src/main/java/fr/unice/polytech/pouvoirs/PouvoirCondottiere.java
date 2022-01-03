@@ -1,6 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
-import fr.unice.polytech.CarteQuartier;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.couleur.CouleurConsole;

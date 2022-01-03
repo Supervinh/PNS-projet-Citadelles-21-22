@@ -1,7 +1,7 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.CartePersonnage;
-import fr.unice.polytech.CarteQuartier;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirRoi;

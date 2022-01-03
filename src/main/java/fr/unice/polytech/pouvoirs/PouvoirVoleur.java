@@ -1,13 +1,12 @@
 package fr.unice.polytech.pouvoirs;
 
-import fr.unice.polytech.CartePersonnage;
+import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Le pouvoir du voleur permet au personnage de voler l'or d'un autre personnage. Il ne peut pas voler l'assassin et

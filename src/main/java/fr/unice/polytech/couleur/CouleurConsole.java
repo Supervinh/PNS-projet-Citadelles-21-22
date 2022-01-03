@@ -6,6 +6,7 @@ package fr.unice.polytech.couleur;
  */
 public class CouleurConsole {
     public static final String RESET = "\033[0m";  // Text Reset
+    public static final boolean darkBg = true;
 
     // Regular Colors
     public static final String BLACK = "\033[0;30m";   // BLACK
@@ -96,6 +97,13 @@ public class CouleurConsole {
 
     public static String tiret() {
         return PURPLE_BRIGHT + " - " + RESET;
+    }
+
+    public static String printDefault(String text) {
+        if (darkBg) {
+            return WHITE + text + RESET;
+        }
+        return BLACK + text + RESET;
     }
 
     public static String printBlack(String text) {

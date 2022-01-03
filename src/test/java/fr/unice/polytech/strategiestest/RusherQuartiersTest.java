@@ -1,6 +1,6 @@
 package fr.unice.polytech.strategiestest;
 
-import fr.unice.polytech.CarteQuartier;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.RusherQuartiers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
