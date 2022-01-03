@@ -20,11 +20,11 @@ public class VStrat implements IStrategie {
         int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
         if (joueur.getQuartiers().size() == 0)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Magicien")).findAny().orElse(null);
-        else if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5)
+        if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Architecte")).findAny().orElse(null);
-        else if (orMax > 4)
+        if (orMax > 4 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
-        else if (quartierReligieux > 1)
+        if (quartierReligieux > 1 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
         if (choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElseGet(() -> IStrategie.super.choixDePersonnage(joueur, personnages));
         return choix;
