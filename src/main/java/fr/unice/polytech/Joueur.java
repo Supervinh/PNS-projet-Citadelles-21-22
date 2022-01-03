@@ -13,7 +13,7 @@ public class Joueur implements Comparable<Joueur> {
     /**
      * Le numéro du joueur.
      */
-    private static int numJoueur = 0;
+    public static int numJoueur = 0;
 
     /**
      * La stratégie utilisée par le joueur.

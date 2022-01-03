@@ -2,26 +2,47 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.couleur.CouleurConsole;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
  * Classe qui gère le déroulement du jeu.
  */
 public class MoteurDeJeu {
 
+    public static final boolean nomAleatoire = false;
+    public static final int or2Depart = 2;
+    public static final int orAPiocher = 2;
+    public static final int carte2Depart = 4;
+    public static final int carteAPiocher = 2;
+    public static final int quartiersAConstruire = 8;
+    public static final int piecesEnJeu = 30;
+    public static Logger LOGGER;
     public static int nbJoueurs = 7;
-    public static int or2Depart = 2;
-    public static int orAPiocher = 2;
-    public static int carte2Depart = 4;
-    public static int carteAPiocher = 2;
-    public static int quartiersAConstruire = 8;
-    public static int piecesEnJeu = 30;
     public static Deck deck;
     public static Banque banque;
     public static ArrayList<Joueur> joueurs;
     public static ArrayList<Joueur> personnagesConnus;
+
+    static {
+        InputStream stream = MoteurDeJeu.class.getClassLoader().
+                getResourceAsStream("logging.properties");
+        try {
+            LogManager.getLogManager().readConfiguration(stream);
+            LOGGER = Logger.getLogger(MoteurDeJeu.class.getName());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        LOGGER.setLevel(Level.ALL);
+    }
+
     private final int nombre2Personnages;
     private final ArrayList<CartePersonnage> cartesVisibles = new ArrayList<>();
     private int nb2Tours = 0;
@@ -34,6 +55,7 @@ public class MoteurDeJeu {
         banque = new Banque();
         joueurs = new ArrayList<>();
         personnagesConnus = new ArrayList<>();
+        Joueur.numJoueur = 0;
         this.nombre2Personnages = deck.getPersonnages().size();
         if (deck.getQuartiersPossibles().size() != 65 || nbJoueurs < 4 || nbJoueurs > 7) {
             System.out.println("Jeu pas initié correctement.");
@@ -41,11 +63,13 @@ public class MoteurDeJeu {
         }
     }
 
-    public CartePersonnage getCarteCachee() {return this.carteCachee;}
+    public CartePersonnage getCarteCachee() {
+        return this.carteCachee;
+    }
 
     public void jouer() {
         this.hello();
-        this.initialiseJoueurs(joueurs, false);
+        this.initialiseJoueurs(joueurs, !nomAleatoire);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -58,11 +82,10 @@ public class MoteurDeJeu {
     }
 
     public void hello() {
-        System.out.println(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___"));
-        System.out.println(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Groupe.H"));
-        System.out.println(CouleurConsole.printGold("|     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.printWhite("Polytech Edition™"));
-        System.out.println(CouleurConsole.printGold("\\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.printRed("Jeu de Bots & IA"));
-        System.out.println();
+        LOGGER.info(CouleurConsole.printGold(" __  ___ ___  _  ___   ___          ___\n"));
+        LOGGER.info(CouleurConsole.printGold("/     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.printBlue("Groupe.H\n"));
+        LOGGER.info(CouleurConsole.printGold("|     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.printWhite("Polytech Edition™\n"));
+        LOGGER.info(CouleurConsole.printGold("\\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.printRed("Jeu de Bots & IA\n"));
     }
 
     public void lancerTourDeJeu(ArrayList<Joueur> joueurs) {
@@ -235,7 +258,7 @@ public class MoteurDeJeu {
         joueurs.forEach(joueur -> System.out.println(CouleurConsole.tiret() + joueur.getNomColoured() + " a " + CouleurConsole.printGold("" + joueur.getPoints()) + " points"));
     }
 
-    public void setNbJoueurs(int nombre){
+    public void setNbJoueurs(int nombre) {
         nbJoueurs = nombre;
     }
 }
