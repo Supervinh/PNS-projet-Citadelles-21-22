@@ -10,8 +10,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+/**
+ * Interface pour les différentes stratégies de jeu.
+ */
 public interface IStrategie {
 
+    /**
+     * Permet le choix du personnage en fonction de ce que l'on a en main au niveau des quartiers et de l'or.
+     *
+     * @param joueur      Le joueur à jouer.
+     * @param personnages Les cartes de personnages que l'on peut encore piocher.
+     * @return La carte de personnage choisie.
+     */
     default CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         ArrayList<CartePersonnage> personnageTemp = new ArrayList<>(personnages);
         if (personnageTemp.size() > 0) {
@@ -45,6 +55,13 @@ public interface IStrategie {
         }
     }
 
+    /**
+     * Permet de cibler un personnage autre que soi-même.
+     *
+     * @param joueur Le joueur qui joue.
+     * @param cibles La liste des personnages.
+     * @return La cible visée.
+     */
     default CartePersonnage choixDeCibleCartePersonnage(Joueur joueur, ArrayList<CartePersonnage> cibles) {
         ArrayList<CartePersonnage> ciblesTemp = new ArrayList<>(cibles);
         ciblesTemp.remove(joueur.getPersonnage());
@@ -55,6 +72,13 @@ public interface IStrategie {
         }
     }
 
+    /**
+     * Permet de cibler un joueur autre que soi-même.
+     *
+     * @param joueur Le joueur qui joue.
+     * @param cibles La liste des joueurs.
+     * @return La cible visée.
+     */
     default Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
         ArrayList<Joueur> ciblesTemp = new ArrayList<>(cibles);
         ciblesTemp.remove(joueur);
@@ -65,6 +89,13 @@ public interface IStrategie {
         }
     }
 
+    /**
+     * Permet de cibler une carte quartier.
+     *
+     * @param joueur    Le joueur qui joue.
+     * @param quartiers La liste des quartiers.
+     * @return Le quartier visé.
+     */
     default CarteQuartier choixDeQuartier(Joueur joueur, ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> quartiersTemp = new ArrayList<>(quartiers);
         joueur.getQuartiersConstruits().forEach(quartiersTemp::remove);
@@ -75,6 +106,11 @@ public interface IStrategie {
         }
     }
 
+    /**
+     * Donne le nom de la stratégie utilisée.
+     *
+     * @return Le nom de la stratégie.
+     */
     default String nomStrategie() {
         return "Par Default (Random)";
     }
