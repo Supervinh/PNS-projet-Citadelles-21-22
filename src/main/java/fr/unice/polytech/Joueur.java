@@ -575,7 +575,8 @@ public class Joueur implements Comparable<Joueur> {
      */
     @Override
     public int compareTo(Joueur j) {
-        return j.getPoints() - this.getPoints();
+        int score = j.getPoints() - this.getPoints();
+        return score != 0 ? score : this.getPersonnage().compareTo(j.getPersonnage());
     }
 
     /**
