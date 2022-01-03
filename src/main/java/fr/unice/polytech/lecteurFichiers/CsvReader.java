@@ -12,34 +12,21 @@ import java.util.Arrays;
 public class CsvReader {
 
     /**
-     * Le nom du joueur.
+     * Liste contenant les valeurs du fichier csv.
      */
-    private String nom;
+    private String[][] data  = new String[MoteurDeJeu.nbJoueurs][5];
 
     /**
-     * Le nombre de victoires du joueur.
+     * Permet de récupérer le tableau de valeurs du fichier csv.
+     *
+     * @return Le tableau de valeurs.
      */
-    private int victoires;
+    public String[][] getData() {
+        return data;
+    }
 
     /**
-     * Le nombre de defaites du joueur.
-     */
-    private int defaites;
-
-    /**
-     * Le nombre de parties total que le joueur a joué.
-     */
-    private int parties;
-
-    /**
-     * Le ratio de victoire du joueur.
-     */
-    private double ratio;
-
-    private String[][] listeStatistiques;
-
-    /**
-     * Permet de lire le fichier csv.
+     * Permet de lire le fichier csv et d'initialiser le tableau avec les valeurs du fichier csv.
      *
      * @throws Exception
      */
@@ -54,47 +41,12 @@ public class CsvReader {
 
         //Read CSV line by line and use the string array as you want
         String[] nextLine;
+        int linenum = 0;
         while ((nextLine = reader.readNext()) != null) {
             if (nextLine != null) {
                 //Verifying the read data here
-                System.out.println(Arrays.toString(nextLine));
-                nom = nextLine[0];
-                victoires = Integer.parseInt(nextLine[1]);
-                defaites = Integer.parseInt(nextLine[2]);
-                parties = Integer.parseInt(nextLine[3]);
-                ratio = Double.parseDouble(nextLine[4]);
+                data[linenum++] = nextLine;
             }
         }
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public int getVictoires() {
-        return victoires;
-    }
-
-    public int getDefaites() {
-        return defaites;
-    }
-
-    public int getParties() {
-        return parties;
-    }
-
-    public double getRatio() {
-        return ratio;
-    }
-
-    public String[][] getListeStatistiques() {
-        return listeStatistiques;
-    }
-
-    
-
-    public static void main(String[] args) throws Exception {
-        CsvReader lire = new CsvReader();
-        lire.lireStatistiques();
     }
 }
