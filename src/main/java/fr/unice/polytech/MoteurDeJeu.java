@@ -119,7 +119,7 @@ public class MoteurDeJeu {
         joueurs.get(1).getStrategie().setStrategie("Merveille");
         joueurs.get(2).getStrategie().setStrategie("Agressif");
         joueurs.get(3).getStrategie().setStrategie("VStrat");
-        joueurs.get(4).getStrategie().setStrategie("Commerce");
+        if (joueurs.size()>4) joueurs.get(4).getStrategie().setStrategie("Commerce");
         joueurs.get(0).setRoi(true);
     }
 
