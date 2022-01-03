@@ -33,7 +33,7 @@ public class Banque {
      * @return Les fonds restant dans la banque mais en or.
      */
     public String getPieceEnJeuColoured() {
-        return CouleurConsole.printGold("" + this.fonds);
+        return CouleurConsole.gold("" + this.fonds);
     }
 
     /**
