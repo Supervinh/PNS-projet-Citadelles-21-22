@@ -157,6 +157,7 @@ public class MoteurDeJeu {
     }
 
     public void piocherPersonnage(ArrayList<Joueur> joueurs) {
+        Affichage.personnageTitre();
         initialisePileCartes();
         for (int i = this.roiIndex; i < joueurs.size(); i++) {
             joueurs.get(i).piocherPersonnage();

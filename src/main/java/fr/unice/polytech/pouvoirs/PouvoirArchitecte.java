@@ -20,11 +20,11 @@ public class PouvoirArchitecte implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         int n = 2;
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
         boolean construire = false;
 
         for (int i = 0; i < n; i++) {
-            System.out.print(CouleurConsole.printRed("| "));
+            System.out.print(CouleurConsole.red("| "));
             CarteQuartier cq = joueur.piocherQuartier();
             if (cq != null) {
                 joueur.getQuartiers().add(cq);
@@ -40,7 +40,7 @@ public class PouvoirArchitecte implements IPouvoir {
         }
 
         if (!construire) {
-            System.out.println(CouleurConsole.printRed("| ") + "Aucun quartier supplémentaire construit");
+            System.out.println(CouleurConsole.red("| ") + "Aucun quartier supplémentaire construit");
         }
     }
 }

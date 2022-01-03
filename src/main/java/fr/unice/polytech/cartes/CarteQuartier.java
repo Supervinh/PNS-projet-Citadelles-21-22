@@ -76,7 +76,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return L'identifiant du quartier en turquoise.
      */
     public String getIdColoured() {
-        return CouleurConsole.printTurquoise("" + this.id);
+        return CouleurConsole.turquoise("" + this.id);
     }
 
     /**
@@ -94,7 +94,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return Le nom du quartier en vert.
      */
     public String getNomColoured() {
-        return CouleurConsole.printGreen(this.nom);
+        return CouleurConsole.green(this.nom);
     }
 
     /**
@@ -121,7 +121,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return La couleur de la gemme du quartier en violet.
      */
     public String getGemmeColoured() {
-        return CouleurConsole.printPurple(this.gemme);
+        return CouleurConsole.purple(this.gemme);
     }
 
     /**
@@ -139,7 +139,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return Le prix du quartier en or.
      */
     public String getPrixColoured() {
-        return CouleurConsole.printGold("" + this.prix) + " pièce" + (this.prix > 1 ? "s" : "") + " d'" + CouleurConsole.printGold("Or");
+        return CouleurConsole.gold("" + this.prix) + " pièce" + (this.prix > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or");
     }
 
     /**
@@ -157,7 +157,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return La description du pouvoir du quartier en gris.
      */
     public String getDescriptionColoured() {
-        return CouleurConsole.printGrey(this.description);
+        return CouleurConsole.grey(this.description);
     }
 
     /**

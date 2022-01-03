@@ -21,8 +21,8 @@ public class PouvoirMagicien implements IPouvoir {
      */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNom()));
-        System.out.println(CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 1: échanger ses cartes avec un joueur \n" + CouleurConsole.printRed("| ") + CouleurConsole.tiret() + "Choix 2: échanger n cartes avec la pioche\n" + CouleurConsole.printRed("|"));
+        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNom()));
+        System.out.println(CouleurConsole.red("| ") + CouleurConsole.tiret() + "Choix 1: échanger ses cartes avec un joueur \n" + CouleurConsole.red("| ") + CouleurConsole.tiret() + "Choix 2: échanger n cartes avec la pioche\n" + CouleurConsole.red("|"));
         choixAction(joueur, new Random().nextBoolean());
     }
 
@@ -33,12 +33,12 @@ public class PouvoirMagicien implements IPouvoir {
      */
     public void echangerCartesAvecJoueur(Joueur joueur) {
         Joueur cible = this.cibleAleatoire(joueur);
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
+        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
         ArrayList<CarteQuartier> temporaire = new ArrayList<>(List.copyOf(joueur.getQuartiers()));
         if (cible != null) {
             joueur.setQuartiers(cible.getQuartiers());
             cible.setQuartiers(temporaire);
-            System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
+            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
         }
     }
 
@@ -50,7 +50,7 @@ public class PouvoirMagicien implements IPouvoir {
      * @param nb     Le nombre de cartes à échanger.
      */
     public void echangerCartesAvecPioche(Joueur joueur, int nb) {
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a choisi d'échanger des cartes avec la pioche");
+        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a choisi d'échanger des cartes avec la pioche");
         if (nb > joueur.getQuartiers().size()) {
             nb = joueur.getQuartiers().size();
         }
@@ -58,11 +58,11 @@ public class PouvoirMagicien implements IPouvoir {
             nb = 0;
         }
         for (int i = 0; i < nb; i++) {
-            System.out.print(CouleurConsole.printRed("| "));
+            System.out.print(CouleurConsole.red("| "));
             MoteurDeJeu.deck.ajouterQuartierDeck(joueur.getQuartiers().get(i));
             joueur.getQuartiers().set(i, joueur.piocherQuartier());
         }
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a échangé " + CouleurConsole.printPurple("" + nb) + " cartes avec la pioche.");
+        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a échangé " + CouleurConsole.purple("" + nb) + " cartes avec la pioche.");
     }
 
     /**

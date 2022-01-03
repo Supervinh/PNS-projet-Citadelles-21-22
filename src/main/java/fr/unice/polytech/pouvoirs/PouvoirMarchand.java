@@ -16,10 +16,10 @@ public class PouvoirMarchand implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         int montant = 1;
-        System.out.println(CouleurConsole.printRed("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
-        System.out.println(CouleurConsole.printRed("| ") + joueur.getNomColoured() + " a pioché " + CouleurConsole.printGold("" + montant) + " pièce d'" + CouleurConsole.printGold("Or") + " supplémentaire");
+        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a pioché " + CouleurConsole.gold("" + montant) + " pièce d'" + CouleurConsole.gold("Or") + " supplémentaire");
         joueur.ajouteOr(montant);
-        System.out.println(CouleurConsole.printRed("|"));
+        System.out.println(CouleurConsole.red("|"));
         this.recupererTaxes(joueur);
     }
 }
