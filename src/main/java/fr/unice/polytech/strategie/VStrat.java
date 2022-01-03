@@ -12,7 +12,7 @@ public class VStrat implements IStrategie {
 
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
-        CartePersonnage choix;
+        CartePersonnage choix = null;
         int quartierReligieux = 0;
         for (int i = 0; i < joueur.getQuartiersConstruits().size(); i++) {
             if (joueur.getQuartiersConstruits().get(i).getGemme().equals("Religion")) quartierReligieux++;
@@ -26,8 +26,7 @@ public class VStrat implements IStrategie {
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         else if (quartierReligieux > 1)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
-        else
-            choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElseGet(() -> IStrategie.super.choixDePersonnage(joueur, personnages));
+        if (choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElseGet(() -> IStrategie.super.choixDePersonnage(joueur, personnages));
         return choix;
     }
 
