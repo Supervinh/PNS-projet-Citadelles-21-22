@@ -1,5 +1,7 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.lecteurFichiers.CsvReader;
+
 /**
  * Classe main permettant de lancer le jeu
  */

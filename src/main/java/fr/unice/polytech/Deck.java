@@ -1,5 +1,7 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.lecteurFichiers.ExcelReader;
+
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
 

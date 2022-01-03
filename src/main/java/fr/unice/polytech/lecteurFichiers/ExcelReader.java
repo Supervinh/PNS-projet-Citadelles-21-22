@@ -1,4 +1,4 @@
-package fr.unice.polytech;
+package fr.unice.polytech.lecteurFichiers;
 
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
