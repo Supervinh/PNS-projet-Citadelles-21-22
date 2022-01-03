@@ -1,20 +1,34 @@
 package fr.unice.polytech.lecteurFichiers;
 
 import au.com.bytecode.opencsv.CSVReader;
-import fr.unice.polytech.MoteurDeJeu;
 
 import java.io.FileReader;
-import java.util.Arrays;
 
 /**
  * Permet de lire un fichier csv.
  */
 public class CsvReader {
 
+    //Build reader instance
+    //Read data.csv
+    //Default separator is comma
+    //Default quote character is double quote
+    //Start reading from line number 2 (line numbers start from zero)
+    private CSVReader reader;
+    private int nombreLigne = 0;
     /**
      * Liste contenant les valeurs du fichier csv.
      */
-    private String[][] data  = new String[MoteurDeJeu.nbJoueurs][5];
+    private String[][] data;
+
+    public CsvReader() {
+        try {
+            this.calculeLigne();
+            this.data = new String[this.nombreLigne][5];
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * Permet de récupérer le tableau de valeurs du fichier csv.
@@ -27,26 +41,33 @@ public class CsvReader {
 
     /**
      * Permet de lire le fichier csv et d'initialiser le tableau avec les valeurs du fichier csv.
-     *
-     * @throws Exception
      */
     @SuppressWarnings("resource")
-    public void lireStatistiques() throws Exception {
-        //Build reader instance
-        //Read data.csv
-        //Default seperator is comma
-        //Default quote character is double quote
-        //Start reading from line number 2 (line numbers start from zero)
-        CSVReader reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ',', ' ', 1);
-
+    public void lireStatistiques() {
         //Read CSV line by line and use the string array as you want
         String[] nextLine;
-        int linenum = 0;
-        while ((nextLine = reader.readNext()) != null) {
-            if (nextLine != null) {
+        int lineNum = 0;
+        try {
+            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ',', ' ', 1);
+            while ((nextLine = this.reader.readNext()) != null) {
                 //Verifying the read data here
-                data[linenum++] = nextLine;
+                data[lineNum++] = nextLine;
             }
+            this.reader.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void calculeLigne() {
+        try {
+            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ',', ' ', 1);
+            while ((this.reader.readNext()) != null) {
+                this.nombreLigne++;
+            }
+            this.reader.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
