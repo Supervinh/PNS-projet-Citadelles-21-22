@@ -75,6 +75,10 @@ public class Batisseur implements IStrategie {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
         Collections.sort(carteQuartiers);
         for (CarteQuartier q : carteQuartiers) {
+            if(q.getGemme().equals("Noblesse")){
+                carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Noblesse"));
+                return carteQuartiers.get(carteQuartiers.size() - 1);
+            }
             if (q.getGemme().equals("Commerce et Artisanat")) {
                 carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Commerce et Artisanat"));
                 return carteQuartiers.get(carteQuartiers.size() - 1);
