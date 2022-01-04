@@ -68,6 +68,7 @@ public class Strategie {
             case "Agressif" -> iStrategie = new Agressif();
             case "VStrat" -> iStrategie = new VStrat();
             case "Commerce" -> iStrategie = new Commerce();
+            case "Batisseur" -> iStrategie= new Batisseur();
             default -> iStrategie = new ComportementDefault();
         }
     }
