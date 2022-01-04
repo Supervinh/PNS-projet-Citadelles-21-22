@@ -4,7 +4,7 @@
 
     <groupId>projet2-ps5-21-22-ps5-21-22-projet2-h</groupId>
     <artifactId>Citadelles-Groupe-H</artifactId>
-    <version>0.5</version>
+    <version>0.6</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

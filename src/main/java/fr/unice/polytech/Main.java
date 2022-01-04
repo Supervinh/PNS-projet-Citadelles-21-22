@@ -6,25 +6,30 @@ import java.util.logging.Level;
  * Classe main permettant de lancer le jeu
  */
 public class Main {
+    public static int nombrePartie = 1000;
+
     public static void main(String[] args) {
-        Statistique statistique = new Statistique();
-        MoteurDeJeu.setMessageLvl(Level.OFF);
         System.out.println("Meilleur Bot Contre default Bots");
         MoteurDeJeu mj;
-        for (int i = 0; i < 100; i++) {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
+        Statistique statistique = new Statistique();
+
+        for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
             statistique.ajoutGagnant(mj.obtenirGagnant(MoteurDeJeu.joueurs));
+            statistique.ajoutScore((MoteurDeJeu.joueurs));
         }
-
-        statistique.ajoutAuxCSVReader();
+        statistique.ajoutAuxCSV();
 
         System.exit(0);
+
         System.out.println("Meilleur Bot Contre lui-même");
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
             statistique.ajoutGagnant(mj.obtenirGagnant(MoteurDeJeu.joueurs));
         }
+        statistique.ajoutAuxCSV();
     }
 }
