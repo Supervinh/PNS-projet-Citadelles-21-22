@@ -132,7 +132,7 @@ public class MoteurDeJeu {
      *
      * @param messageLvl Le niveau du message.
      */
-    public void setMessageLvl(Level messageLvl) {
+    public static void setMessageLvl(Level messageLvl) {
         MoteurDeJeu.messageLvl = messageLvl;
         Affichage.levelUpdate();
     }
