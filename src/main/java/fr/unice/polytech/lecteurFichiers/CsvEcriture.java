@@ -19,29 +19,36 @@ public class CsvEcriture {
      * @param Ratio     Le ratio de victoire du joueur.
      * @param Score     Le score moyen du joueur.
      */
-    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) throws Exception {
-        String csv = "src/main/resources/save/results.csv";
+    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) {
+        try{
+            String csv = "src/main/resources/save/results.csv";
 
-        CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
+            CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
 
-        String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
+            String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
 
-        writer.writeNext(record);
+            writer.writeNext(record);
 
-        writer.close();
+            writer.close();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
 
     /**
      * Permet d'effacer les données d'avant pour avoir un csv clair.
-     *
-     * @throws Exception
      */
-    public void clearCsv() throws Exception {
-        FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
+    public void clearCsv() {
+        try {
+            FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
 
-        fw.write("Nom;Victoires;Defaites;Parties;Ratio;ScoreMoyen\n");
+            fw.write("Nom;Victoires;Defaites;Parties;Ratio;ScoreMoyen\n");
 
-        fw.close();
+            fw.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
