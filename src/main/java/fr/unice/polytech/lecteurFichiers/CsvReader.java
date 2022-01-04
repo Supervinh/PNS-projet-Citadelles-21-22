@@ -42,6 +42,7 @@ public class CsvReader {
      * @return Le tableau de valeurs.
      */
     public String[][] getData() {
+        lireStatistiques();
         return data;
     }
 

@@ -36,23 +36,13 @@ public class Statistique {
         CsvReader csvReader = new CsvReader();
         CsvEcriture ecritureCsv = new CsvEcriture();
 
-        try {
-            csvReader.lireStatistiques();
-        } catch (Exception e) {
-            System.out.println(e.getMessage() + ", " + e);
-            throw new RuntimeException();
-        }
+        csvReader.lireStatistiques();
 
         String[][] data = csvReader.getData();
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
 
-        try {
-            ecritureCsv.clearCsv();
-        } catch (Exception e) {
-            System.out.println(e.getMessage() + ", " + e);
-            throw new RuntimeException();
-        }
+        ecritureCsv.clearCsv();
 
         for (Joueur joueur : MoteurDeJeu.joueurs) {
             if (!this.statistiqueVictoireData.containsKey(joueur.getNom())) {
@@ -70,12 +60,7 @@ public class Statistique {
             double moyenCSV = Double.parseDouble(data[trouverLigne(data, nom)][5]);
             String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
-            try {
-                ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
-            } catch (Exception e) {
-                System.out.println(e.getMessage() + ", " + e);
-                throw new RuntimeException();
-            }
+            ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
         }
     }
 
