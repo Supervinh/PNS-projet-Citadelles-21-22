@@ -9,18 +9,24 @@ import java.io.FileReader;
  */
 public class CsvReader {
 
-    //Build reader instance
-    //Read data.csv
-    //Default separator is comma
-    //Default quote character is double quote
-    //Start reading from line number 2 (line numbers start from zero)
+    /**
+     * Permet de lire le csv.
+     */
     private CSVReader reader;
+
+    /**
+     * On commence à lire à la ligne 0.
+     */
     private int nombreLigne = 0;
+
     /**
      * Liste contenant les valeurs du fichier csv.
      */
     private String[][] data;
 
+    /**
+     * On instantie le tableau avec le nombre de ligne du fichier.
+     */
     public CsvReader() {
         try {
             this.calculeLigne();
@@ -36,6 +42,7 @@ public class CsvReader {
      * @return Le tableau de valeurs.
      */
     public String[][] getData() {
+        lireStatistiques();
         return data;
     }
 
@@ -44,13 +51,11 @@ public class CsvReader {
      */
     @SuppressWarnings("resource")
     public void lireStatistiques() {
-        //Read CSV line by line and use the string array as you want
         String[] nextLine;
         int lineNum = 0;
         try {
-            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ',', ' ', 1);
+            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ';', ' ', 1);
             while ((nextLine = this.reader.readNext()) != null) {
-                //Verifying the read data here
                 data[lineNum++] = nextLine;
             }
             this.reader.close();
@@ -59,9 +64,12 @@ public class CsvReader {
         }
     }
 
+    /**
+     * Calcule le nombre de lignes dans le fichier.
+     */
     public void calculeLigne() {
         try {
-            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ',', ' ', 1);
+            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ';', ' ', 1);
             while ((this.reader.readNext()) != null) {
                 this.nombreLigne++;
             }

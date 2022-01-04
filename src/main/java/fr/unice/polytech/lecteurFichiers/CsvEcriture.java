@@ -9,13 +9,6 @@ import java.io.FileWriter;
  */
 public class CsvEcriture {
 
-    public static void main(String[] args) throws Exception {
-        CsvEcriture ecrire = new CsvEcriture();
-        CsvReader lire = new CsvReader();
-
-        ecrire.ecrireStatistiques("Bob", 2, 2, 4, "0.5");
-    }
-
     /**
      * Permet d'écrire dans le fichier csv.
      *
@@ -24,16 +17,38 @@ public class CsvEcriture {
      * @param Defaites  Le nombre de défaites du joueur.
      * @param Parties   Le nombre de partie total joué.
      * @param Ratio     Le ratio de victoire du joueur.
+     * @param Score     Le score moyen du joueur.
      */
-    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio) throws Exception {
-        String csv = "src/main/resources/save/results.csv";
+    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) {
+        try{
+            String csv = "src/main/resources/save/results.csv";
 
-        CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
+            CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
 
-        String[] record = (Nom + " ; " + Victoires + " ; " + Defaites + " ; " + Parties + " ; " + Ratio).split(";");
+            String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
 
-        writer.writeNext(record);
+            writer.writeNext(record);
 
-        writer.close();
+            writer.close();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * Permet d'effacer les données d'avant pour avoir un csv clair.
+     */
+    public void clearCsv() {
+        try {
+            FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
+
+            fw.write("Nom;Victoires;Defaites;Parties;Ratio;ScoreMoyen\n");
+
+            fw.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
