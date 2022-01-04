@@ -43,7 +43,7 @@ public class CsvEcriture {
         try {
             FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
 
-            fw.write("Nom;Victoires;Defaites;Parties;Ratio;ScoreMoyen\n");
+            fw.write("Nom;Victoires;Défaites;Parties;Ratio;ScoreMoyen\n");
 
             fw.close();
         } catch (Exception e) {

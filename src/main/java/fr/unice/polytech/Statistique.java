@@ -11,8 +11,16 @@ import java.util.Map;
 public class Statistique {
     private final HashMap<String, Integer> statistiqueVictoireData = new HashMap<>();
     private final HashMap<String, Double> statistiqueScoreData = new HashMap<>();
+    private final String[] titre = new String[]{"Nom", "Victoires", "Défaites", "Parties", "Ratio", "ScoreMoyen"};
+    private String[][] data;
+    private final int marge = 5;
 
-    public void ajoutGagnant(Joueur joueur) {
+    public void ajoutStats(MoteurDeJeu moteurDeJeu) {
+        this.ajoutGagnant(moteurDeJeu.obtenirGagnant(MoteurDeJeu.joueurs));
+        this.ajoutScore(MoteurDeJeu.joueurs);
+    }
+
+    private void ajoutGagnant(Joueur joueur) {
         if (this.statistiqueVictoireData.containsKey(joueur.getNom())) {
             int nombreVictoire = this.statistiqueVictoireData.get(joueur.getNom());
             this.statistiqueVictoireData.replace(joueur.getNom(), ++nombreVictoire);
@@ -21,7 +29,7 @@ public class Statistique {
         }
     }
 
-    public void ajoutScore(ArrayList<Joueur> joueurs) {
+    private void ajoutScore(ArrayList<Joueur> joueurs) {
         for (Joueur joueur : joueurs) {
             if (this.statistiqueScoreData.containsKey(joueur.getNom())) {
                 double scoreMoy = this.statistiqueScoreData.get(joueur.getNom());
@@ -37,12 +45,10 @@ public class Statistique {
         CsvEcriture ecritureCsv = new CsvEcriture();
 
         csvReader.lireStatistiques();
-
-        String[][] data = csvReader.getData();
+        this.data = csvReader.getData();
+        ecritureCsv.clearCsv();
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-
-        ecritureCsv.clearCsv();
 
         this.rajouteNonGagnant();
 
@@ -75,6 +81,29 @@ public class Statistique {
             }
         }
         return tableau.length;
+    }
+
+    public void printStatTableau() {
+        CsvReader csvReader = new CsvReader();
+        this.data = csvReader.getData();
+        Object[] titre = this.titre;
+        System.out.format("\n%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%n", titre);
+        for (int i = 0; i < this.titre.length; i++) {
+            System.out.print("─".repeat(i == 0 ? this.largeurColonne(i) - this.marge : this.largeurColonne(i)));
+        }
+        System.out.println();
+        for (final Object[] row : this.data) {
+            System.out.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%n", row);
+        }
+    }
+
+    private int largeurColonne(int numColonne) {
+        int largeur = 0;
+        for (String[] ligne : this.data) {
+            largeur = Math.max(largeur, ligne[numColonne].length());
+        }
+        largeur = Math.max(largeur, this.titre[numColonne].length());
+        return largeur + this.marge;
     }
 
     @Override

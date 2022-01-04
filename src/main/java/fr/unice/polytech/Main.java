@@ -17,10 +17,10 @@ public class Main {
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
-            statistique.ajoutGagnant(mj.obtenirGagnant(MoteurDeJeu.joueurs));
-            statistique.ajoutScore((MoteurDeJeu.joueurs));
+            statistique.ajoutStats(mj);
         }
         statistique.ajoutAuxCSV();
+        statistique.printStatTableau();
 
         System.exit(0);
 
@@ -28,8 +28,9 @@ public class Main {
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
-            statistique.ajoutGagnant(mj.obtenirGagnant(MoteurDeJeu.joueurs));
+            statistique.ajoutStats(mj);
         }
         statistique.ajoutAuxCSV();
+        statistique.printStatTableau();
     }
 }
