@@ -11,9 +11,9 @@ import java.util.Map;
 public class Statistique {
     private final HashMap<String, Integer> statistiqueVictoireData = new HashMap<>();
     private final HashMap<String, Double> statistiqueScoreData = new HashMap<>();
-    private final String[] titre = new String[]{"Nom", "Victoires", "Défaites", "Parties", "Ratio", "ScoreMoyen"};
+    private final String[] titre = new String[]{"Nom", "Victoires", "Défaites", "Parties", "Ratio", "Score Moyen"};
     private String[][] data;
-    private final int marge = 5;
+    private final int marge = 4;
 
     public void ajoutStats(MoteurDeJeu moteurDeJeu) {
         this.ajoutGagnant(moteurDeJeu.obtenirGagnant(MoteurDeJeu.joueurs));
