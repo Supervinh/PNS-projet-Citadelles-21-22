@@ -1,5 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
+import fr.unice.polytech.Affichage;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
@@ -20,12 +21,12 @@ public class PouvoirAssassin implements IPouvoir {
 
         CartePersonnage cibleNomPersonnage = cibleAleatoire(joueur);
         Joueur cible = cibleExistante(cibleNomPersonnage);
-        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        Affichage.pouvoir(joueur);
         if (cible != null) {
-            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a " + CouleurConsole.red("tué " + cible.getNomColoured()));
+            Affichage.aTue(joueur,cible);
             this.tue(cible);
         } else {
-            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.red("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
+            Affichage.essayerDeTuer(joueur, cibleNomPersonnage);
         }
     }
 

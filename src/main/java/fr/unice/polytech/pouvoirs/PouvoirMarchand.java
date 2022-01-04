@@ -1,5 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
+import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.couleur.CouleurConsole;
 
@@ -16,10 +17,10 @@ public class PouvoirMarchand implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         int montant = 1;
-        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
-        System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a pioché " + CouleurConsole.gold("" + montant) + " pièce d'" + CouleurConsole.gold("Or") + " supplémentaire");
+        Affichage.pouvoir(joueur);
+        Affichage.piocherOrSupp(joueur, false, montant);
         joueur.ajouteOr(montant);
-        System.out.println(CouleurConsole.red("|"));
+        Affichage.barreRouge();
         this.recupererTaxes(joueur);
     }
 }

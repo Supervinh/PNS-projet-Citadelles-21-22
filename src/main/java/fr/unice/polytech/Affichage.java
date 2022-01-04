@@ -6,6 +6,7 @@ import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -131,6 +132,7 @@ public class Affichage {
         log.info(CouleurConsole.purple("| ") + joueur.getNomColoured() + CouleurConsole.printDefault(" a pioché: ") + cq.getNomColoured());
     }
 
+
     public static void titreFormatted(String titre) {
         log.warning("");
         log.warning("");
@@ -139,5 +141,159 @@ public class Affichage {
 
     public static void ligneFormatted(String ligne) {
         log.warning(CouleurConsole.printDefault(ligne));
+    }
+
+    public static void choisirCarteQuartier(Joueur joueur, CarteQuartier cq){
+        log.info(CouleurConsole.purple("| ")+ (joueur.getNomColoured() + " a choisi: " + cq.getNomColoured()));
+    }
+
+    public static void barreViolette(){
+        log.info(CouleurConsole.purple("| "));
+    }
+
+    public static void sauterLigne(){
+        log.info("");
+    }
+
+    public static void choixQuartierConstruit(Joueur joueur, int or, ArrayList<CarteQuartier> quartiersAchetable){
+        AtomicInteger i = new AtomicInteger(1);
+        log.info(CouleurConsole.pink("| Construire Quartier") + " - " + joueur.getNomColoured() + " à " + joueur.getOrColoured() + " pièce" + (or > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or"));
+        log.info(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
+        quartiersAchetable.forEach(quartier -> log.info(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
+    }
+
+    public static void construitQuartier(Joueur joueur, CarteQuartier cq){
+        log.info(CouleurConsole.pink("| ") + joueur.getNomColoured() + " a construit: " + cq.getNomColoured());
+    }
+
+    public static void pasAssezDor(Joueur joueur){
+        log.info(CouleurConsole.pink("| ") + joueur.getNomColoured() + " n'a pas assez de pièces d'" + CouleurConsole.gold("Or") + " pour construire.");
+
+    }
+
+    public static void infoJoueur(Joueur joueur, CartePersonnage personnage){
+        log.info("");
+        log.info(CouleurConsole.blue("| Details Joueur"));
+        log.info(CouleurConsole.blue("| ") + CouleurConsole.printDefault("Personnage: ") + personnage.getNomColoured());
+        log.info(CouleurConsole.blue("| ") + "Pièces d'Or: " + joueur.getOrColoured());
+        log.info(CouleurConsole.blue("| ") + "Stratégie: " + joueur.getNomStrategieColoured());
+        log.info(CouleurConsole.blue("| ") + "Quartiers dans la main: " + joueur.getQuartiers().stream().map(CarteQuartier::getNomColoured).toList());
+        log.info(CouleurConsole.blue("| ") + "Quartiers construit: " + joueur.getQuartiersConstruits().stream().map(CarteQuartier::getNomColoured).toList());
+        log.info("");
+    }
+
+    // Deck.java
+
+    public static void plusDeQuartiers(){
+        log.info("Plus de Quartiers...");
+    }
+
+    public static void plusDePersonnages(){
+        log.info("Plus de Personnages...");
+    }
+
+    public static void dejaCarteQuartier(CarteQuartier cq){
+        log.info("Le Deck contient déjà: " + cq.getNomColoured());
+    }
+
+    public static void dejaCartePersonnage(CartePersonnage personnage){
+        log.info("Le Deck Contiens deja: " + personnage.getNomColoured());
+    }
+
+
+    //Les pouvoirs
+    //IPouvoir.java
+
+    public static void recuperationGemmes(Joueur joueur){
+        log.info(CouleurConsole.red("| ") + "Recuperation des " + CouleurConsole.gold("Taxes") + " des Gemmes " + joueur.getPersonnage().getGemmeColoured());
+    }
+
+    public static void piocherOrSupp(Joueur joueur, boolean plurielle, int count){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a pioché " + CouleurConsole.gold("" + count) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.gold("Or") + " supplémentaire" + (plurielle ? "s" : "") + ".");
+    }
+
+    //PouvoirArchitecte.java
+
+    public static void pouvoir(Joueur joueur){
+        log.info(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+    }
+
+    public static void barreRouge(){
+        log.info(CouleurConsole.red("| "));
+    }
+
+    public static void plusQuartierSupp(){
+        log.info(CouleurConsole.red("| ") + "Aucun quartier supplémentaire construit");
+    }
+
+    //PouvoirAssassin.java
+
+    public static void aTue(Joueur joueur, Joueur cible){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a " + CouleurConsole.red("tué " + cible.getNomColoured()));
+    }
+
+    public static void essayerDeTuer(Joueur joueur, CartePersonnage cibleNomPersonnage){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.red("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
+    }
+
+
+    //PouvoirCondottiere.java
+
+    public static void detructionQuatier(Joueur joueur, CarteQuartier cq, Joueur cible){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a détruit le quartier " + cq.getNomColoured() + " de " + cible.getNomColoured());
+    }
+
+    public static void recupererQuartier(Joueur cible, CarteQuartier cq){
+        log.info(CouleurConsole.red("| ") + cible.getNomColoured() + " a récupéré le quartier " + cq.getNomColoured() + "contre une pièce d'or.");
+    }
+
+    public static void pasRecupererQuartier(){
+        log.info(CouleurConsole.red("| ") + "pas de récupération de quartier.");
+    }
+
+    public static void pasDetruitQuartier(Joueur joueur){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
+    }
+
+    //PouvoirMagicien.java
+
+    public static void echangeCartePiocheOuJoueur(){
+        log.info(CouleurConsole.red("| ") + CouleurConsole.tiret() + "Choix 1: échanger ses cartes avec un joueur ");
+        log.info(CouleurConsole.red("| ") + CouleurConsole.tiret() + "Choix 2: échanger n cartes avec la pioche");
+        log.info(CouleurConsole.red("|"));
+    }
+
+    public static void choixEchangeJoueur(Joueur joueur){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a choisi d'échanger ses cartes avec un joueur");
+    }
+
+    public static void echangeAvecJoueur(Joueur joueur, Joueur cible){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a échangé ses cartes avec " + cible.getNomColoured());
+    }
+
+    public static void choixEchangePioche(Joueur joueur){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a choisi d'échanger des cartes avec la pioche");
+    }
+
+    public static void echangeAvecPioche(Joueur joueur, int nb){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a échangé " + CouleurConsole.purple("" + nb) + " cartes avec la pioche.");
+    }
+
+
+    //PouvoirRoi.java
+
+    public static void etreRoi(Joueur joueur){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " est le Nouveau " + CouleurConsole.gold("Roi"));
+    }
+
+
+    //PouvoirVoleur.java
+
+    public static void volerOr(Joueur joueur, Joueur cible, int montant, boolean plurielle){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.gold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.gold("Or") + " à " + cible.getNomColoured());
+    }
+
+    public static void essayerVolerOr(Joueur joueur, String article, CartePersonnage personnage){
+        log.info(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de voler les pièces d'" + CouleurConsole.gold("Or") + article + personnage.getNomColoured());
     }
 }

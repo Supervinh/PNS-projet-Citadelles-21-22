@@ -15,7 +15,7 @@ public class Main {
 
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
-            mj.setMessageLvl(Level.WARNING);
+            mj.setMessageLvl(Level.INFO);
             mj.jouer();
             statistique.ajoutStats(mj);
         }

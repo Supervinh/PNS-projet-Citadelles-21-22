@@ -1,5 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
+import fr.unice.polytech.Affichage;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
@@ -27,13 +28,13 @@ public class PouvoirVoleur implements IPouvoir {
                 .findFirst()
                 .orElse(null);
 
-        System.out.println(CouleurConsole.red("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
+        Affichage.pouvoir(joueur);
         if (cible != null) {
             int montant = cible.getOr();
             boolean plurielle = montant > 1;
             joueur.ajouteOr(montant);
             cible.ajouteOr(-1 * cible.getOr());
-            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a volé " + CouleurConsole.gold("" + montant) + " pièce" + (plurielle ? "s" : "") + " d'" + CouleurConsole.gold("Or") + " à " + cible.getNomColoured());
+            Affichage.volerOr(joueur, cible, montant, plurielle);
         } else {
             String article;
             switch (" de " + cibleNomPersonnage.getArticle()) {
@@ -42,7 +43,7 @@ public class PouvoirVoleur implements IPouvoir {
                 case " de L'" -> article = " de l'";
                 default -> article = " de " + cibleNomPersonnage.getArticle();
             }
-            System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de voler les pièces d'" + CouleurConsole.gold("Or") + article + cibleNomPersonnage.getNomColoured());
+            Affichage.essayerVolerOr(joueur, article, cibleNomPersonnage);
         }
     }
 
