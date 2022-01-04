@@ -12,12 +12,13 @@ public class Main {
         long startTime = System.nanoTime();
         System.out.println("Meilleur Bot Contre default Bots");
         MoteurDeJeu mj;
-        MoteurDeJeu.setMessageLvl(Level.INFO);
+        MoteurDeJeu.setMessageLvl(Level.FINEST);
         Statistique statistique = new Statistique();
 
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
+            System.exit(0);
             statistique.ajoutStats(mj);
         }
         statistique.ajoutAuxCSV();

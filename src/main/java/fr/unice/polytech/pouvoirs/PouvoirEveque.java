@@ -16,7 +16,6 @@ public class PouvoirEveque implements IPouvoir {
      */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-        Affichage.barreRouge();
         this.recupererTaxes(joueur);
     }
 }

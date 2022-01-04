@@ -449,7 +449,6 @@ public class Joueur implements Comparable<Joueur> {
                 }
             } else {
                 if (quartiersPioches.size() > 0) {
-                    Affichage.barreViolette();
                     this.quartiers.add(this.choixQuartier(quartiersPioches));
                 }
             }

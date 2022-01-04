@@ -139,7 +139,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return Le prix du quartier en or.
      */
     public String getPrixColoured() {
-        return CouleurConsole.gold("" + this.prix) + " pièce" + (this.prix > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or");
+        return CouleurConsole.gold("" + this.prix) + CouleurConsole.printDefault(" pièce" + (this.prix > 1 ? "s" : "") + " d'") + CouleurConsole.gold("Or");
     }
 
     /**
