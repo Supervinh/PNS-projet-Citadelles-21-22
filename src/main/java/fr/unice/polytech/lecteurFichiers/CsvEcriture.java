@@ -20,7 +20,7 @@ public class CsvEcriture {
      * @param Score     Le score moyen du joueur.
      */
     public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) {
-        try{
+        try {
             String csv = "src/main/resources/save/results.csv";
 
             CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
@@ -30,7 +30,7 @@ public class CsvEcriture {
             writer.writeNext(record);
 
             writer.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

@@ -12,8 +12,8 @@ public class Statistique {
     private final HashMap<String, Integer> statistiqueVictoireData = new HashMap<>();
     private final HashMap<String, Double> statistiqueScoreData = new HashMap<>();
     private final String[] titre = new String[]{"Nom", "Victoires", "Défaites", "Parties", "Ratio", "Score Moyen"};
-    private String[][] data;
     private final int marge = 4;
+    private String[][] data;
 
     public void ajoutStats(MoteurDeJeu moteurDeJeu) {
         this.ajoutGagnant(moteurDeJeu.obtenirGagnant(MoteurDeJeu.joueurs));
@@ -54,12 +54,12 @@ public class Statistique {
 
         for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
             String nom = entry.getKey();
-            int victoireTotal = entry.getValue() + Integer.parseInt(data[trouverLigne(data, nom)][1]);
-            int partieTotal = Main.nombrePartie + Integer.parseInt(data[trouverLigne(data, nom)][3]);
+            int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 1));
+            int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 3));
             int defaiteTotal = partieTotal - victoireTotal;
             String ratio = df.format(victoireTotal / (double) (partieTotal));
 
-            double moyenCSV = Double.parseDouble(data[trouverLigne(data, nom)][5]);
+            double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5));
             String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
             ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
@@ -71,6 +71,14 @@ public class Statistique {
             if (!this.statistiqueVictoireData.containsKey(joueur.getNom())) {
                 this.statistiqueVictoireData.put(joueur.getNom(), 0);
             }
+        }
+    }
+
+    private String getValeurTableau(int x, int y) {
+        try {
+            return this.data[x][y];
+        } catch (Exception e) {
+            return "0";
         }
     }
 
@@ -87,13 +95,17 @@ public class Statistique {
         CsvReader csvReader = new CsvReader();
         this.data = csvReader.getData();
         Object[] titre = this.titre;
-        System.out.format("\n%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%n", titre);
+
+        Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", titre));
+
+        StringBuilder separateur = new StringBuilder();
         for (int i = 0; i < this.titre.length; i++) {
-            System.out.print("─".repeat(i == 0 ? this.largeurColonne(i) - this.marge : this.largeurColonne(i)));
+            separateur.append("─".repeat(i == 0 ? this.largeurColonne(i) - this.marge : this.largeurColonne(i)));
         }
-        System.out.println();
+        Affichage.ligneFormatted(separateur.toString());
+
         for (final Object[] row : this.data) {
-            System.out.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%n", row);
+            Affichage.ligneFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", row));
         }
     }
 

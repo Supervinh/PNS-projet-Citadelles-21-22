@@ -11,11 +11,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Meilleur Bot Contre default Bots");
         MoteurDeJeu mj;
-        MoteurDeJeu.setMessageLvl(Level.OFF);
         Statistique statistique = new Statistique();
 
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
+            mj.setMessageLvl(Level.WARNING);
             mj.jouer();
             statistique.ajoutStats(mj);
         }

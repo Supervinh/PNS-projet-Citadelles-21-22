@@ -132,8 +132,9 @@ public class MoteurDeJeu {
      *
      * @param messageLvl Le niveau du message.
      */
-    public static void setMessageLvl(Level messageLvl) {
+    public void setMessageLvl(Level messageLvl) {
         MoteurDeJeu.messageLvl = messageLvl;
+        Affichage.levelUpdate();
     }
 
     /**
@@ -297,7 +298,7 @@ public class MoteurDeJeu {
     /**
      * Une fois la pioche initialisée on pioche une carte en commençant par le roi.
      *
-     * @param joueurs
+     * @param joueurs Les joueurs qui jouent.
      */
     public void piocherPersonnage(ArrayList<Joueur> joueurs) {
         Affichage.personnageTitre();
@@ -368,7 +369,7 @@ public class MoteurDeJeu {
     /**
      * On récupère le joueur avec le score maximal, si il y a des égalités c'est le joueur avec la carte personnage qui a commencé
      * en premier qui est le vainqueur.
-     * 
+     *
      * @param joueurs Les joueurs qui jouent.
      * @return Le joueur gagnant.
      */

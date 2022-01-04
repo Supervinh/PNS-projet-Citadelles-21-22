@@ -26,6 +26,10 @@ public class Affichage {
         log.setLevel(MoteurDeJeu.messageLvl);
     }
 
+    public static void levelUpdate() {
+        log.setLevel(MoteurDeJeu.messageLvl);
+    }
+
     // MoteurDeJeu.java
 
     public static void citadelle() {
@@ -127,4 +131,13 @@ public class Affichage {
         log.info(CouleurConsole.purple("| ") + joueur.getNomColoured() + CouleurConsole.printDefault(" a pioché: ") + cq.getNomColoured());
     }
 
+    public static void titreFormatted(String titre) {
+        log.warning("");
+        log.warning("");
+        log.warning(CouleurConsole.printDefault(titre));
+    }
+
+    public static void ligneFormatted(String ligne) {
+        log.warning(CouleurConsole.printDefault(ligne));
+    }
 }
