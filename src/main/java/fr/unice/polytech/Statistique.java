@@ -44,11 +44,7 @@ public class Statistique {
 
         ecritureCsv.clearCsv();
 
-        for (Joueur joueur : MoteurDeJeu.joueurs) {
-            if (!this.statistiqueVictoireData.containsKey(joueur.getNom())) {
-                this.statistiqueVictoireData.put(joueur.getNom(), 0);
-            }
-        }
+        this.rajouteNonGagnant();
 
         for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
             String nom = entry.getKey();
@@ -61,6 +57,14 @@ public class Statistique {
             String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
             ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
+        }
+    }
+
+    private void rajouteNonGagnant() {
+        for (Joueur joueur : MoteurDeJeu.joueurs) {
+            if (!this.statistiqueVictoireData.containsKey(joueur.getNom())) {
+                this.statistiqueVictoireData.put(joueur.getNom(), 0);
+            }
         }
     }
 
