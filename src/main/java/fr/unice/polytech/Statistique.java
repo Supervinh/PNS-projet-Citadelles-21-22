@@ -43,6 +43,12 @@ public class Statistique {
             }
         }
 
+        try {
+            ecritureCsv.clearCsv();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
         for (Map.Entry<String, Integer> entry : this.stats.entrySet()) {
             String key = entry.getKey();
             int victoireTotal = entry.getValue() + Integer.parseInt(data[numLigne(data, key)][1]);

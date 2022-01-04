@@ -9,13 +9,6 @@ import java.io.FileWriter;
  */
 public class CsvEcriture {
 
-    public static void main(String[] args) throws Exception {
-        CsvEcriture ecrire = new CsvEcriture();
-        CsvReader lire = new CsvReader();
-
-        ecrire.ecrireStatistiques("Bob", 2, 2, 4, "0.5");
-    }
-
     /**
      * Permet d'écrire dans le fichier csv.
      *
@@ -30,10 +23,24 @@ public class CsvEcriture {
 
         CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
 
-        String[] record = (Nom + " ; " + Victoires + " ; " + Defaites + " ; " + Parties + " ; " + Ratio).split(";");
+        String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio).split(";");
 
         writer.writeNext(record);
 
         writer.close();
+    }
+
+
+    /**
+     * Permet d'effacer les données d'avant pour avoir un csv clair.
+     *
+     * @throws Exception
+     */
+    public void clearCsv() throws Exception {
+        FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
+
+        fw.write("Nom;Victoires;Defaites;Parties;Ratio\n");
+
+        fw.close();
     }
 }
