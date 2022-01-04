@@ -59,7 +59,7 @@ public class Statistique {
             int defaiteTotal = partieTotal - victoireTotal;
             String ratio = df.format(victoireTotal / (double) (partieTotal));
 
-            double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5));
+            double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
             String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
             ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
