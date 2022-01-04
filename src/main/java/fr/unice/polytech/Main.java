@@ -10,11 +10,11 @@ public class Main {
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
-        System.out.println("Meilleur Bot Contre default Bots");
         MoteurDeJeu mj;
-        MoteurDeJeu.setMessageLvl(Level.ALL);
+        MoteurDeJeu.setMessageLvl(Level.INFO);
         Statistique statistique = new Statistique();
 
+        System.out.println("Meilleur Bot Contre default Bots");
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.jouer();
@@ -23,9 +23,7 @@ public class Main {
         statistique.ajoutAuxCSV();
         statistique.printStatTableau();
 
-        long duration = (long) ((System.nanoTime() - startTime) / (double) 1000000000);
-        System.out.println("Temps execution: " + duration + "s.");
-        System.out.println("Temps par partie: " + duration / (double) Main.nombrePartie + "s/game");
+        Affichage.chrono(startTime);
         System.exit(0);
 
         System.out.println("Meilleur Bot Contre lui-même");
