@@ -17,13 +17,14 @@ public class CsvEcriture {
      * @param Defaites  Le nombre de défaites du joueur.
      * @param Parties   Le nombre de partie total joué.
      * @param Ratio     Le ratio de victoire du joueur.
+     * @param Score     Le score moyen du joueur.
      */
-    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio) throws Exception {
+    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) throws Exception {
         String csv = "src/main/resources/save/results.csv";
 
         CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
 
-        String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio).split(";");
+        String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
 
         writer.writeNext(record);
 
@@ -39,7 +40,7 @@ public class CsvEcriture {
     public void clearCsv() throws Exception {
         FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
 
-        fw.write("Nom;Victoires;Defaites;Parties;Ratio\n");
+        fw.write("Nom;Victoires;Defaites;Parties;Ratio;ScoreMoyen\n");
 
         fw.close();
     }
