@@ -21,8 +21,15 @@ public class Agressif implements IStrategie {
      */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
-        return personnages.stream().filter(cp -> cp.getNom().equals("Assassin") || cp.getNom().equals("Voleur")).findAny().orElseGet(
-                () -> IStrategie.super.choixDePersonnage(joueur, personnages));
+        CartePersonnage choix;
+        int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
+        int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
+        choix = personnages.stream().filter(cp -> cp.getNom().equals("Assassin")).findAny().orElse(null);
+        if (nbreQuartierMain>5 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottiere")).findAny().orElse(null);
+        if (joueur.getQuartiers().size()==0 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Magicien")).findAny().orElse(null);
+        if (orMax>7 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
+        if (choix == null) choix = IStrategie.super.choixDePersonnage(joueur, personnages);
+        return choix;
     }
 
     /**
@@ -36,8 +43,14 @@ public class Agressif implements IStrategie {
     @Override
     public CartePersonnage choixDeCibleCartePersonnage(Joueur joueur, ArrayList<CartePersonnage> ciblesTemp) {
         CartePersonnage personnageCible = null;
+        int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
+        int nbreQuartierConstruit = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiersConstruits).mapToInt(ArrayList::size).max().orElse(0);
+        int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
         if (joueur.getPersonnage().getNom().equals("Assassin")) {
-            personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte") || p.getNom().equals("Magicien")).findFirst().orElse(null);
+            if ((nbreQuartierMain>4 && nbreQuartierMain==joueur.getQuartiersConstruits().size()) || nbreQuartierMain>6) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Condottiere")).findFirst().orElse(null);
+            else if (nbreQuartierMain>5) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Roi")).findFirst().orElse(null);
+            else if (orMax>6)personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Voleur")).findFirst().orElse(null);
+            if (orMax>3 || nbreQuartierConstruit>4) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte")).findFirst().orElse(null);
         } else if (joueur.getPersonnage().getNom().equals("Voleur")) {
             personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte") || p.getNom().equals("Marchand")).findFirst().orElse(null);
         }
