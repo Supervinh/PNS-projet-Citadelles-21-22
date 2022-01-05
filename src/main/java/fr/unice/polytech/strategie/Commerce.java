@@ -15,11 +15,17 @@ public class Commerce implements IStrategie {
 
     /**
      * Permet de faire le bon choix du personnage en fonction de ce que le joueur a dans sa main.
-     * 
+     * On calcule combien de quartiers commerce et artisanat le joueur a construit.
+     * Si un joueur a plus de 4 pièces d'or alors le joueur choisit le voleur.
+     * Si le joueur n'a pas de quartiers en main alors il choisit le magicien.
+     * Si le joueur a plus de 2 quartiers en main, plus de 5 pièces d'or, plus de 4 quartiers construits et n'est pas le roi alors il choisit le roi.
+     * Si le joueur a plus de 2 quartiers en main et plus de 5 pièces d'or alors il prend architecte.
+     * Si le joueur a plus de 1 quartier commerce alors il choisit le marchand.
+     * Sinon il choisira aléatoirement.
      *
      * @param joueur      Le joueur à jouer.
      * @param personnages Les cartes de personnages que l'on peut encore piocher.
-     * @return
+     * @return La carte du personnage choisie.
      */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {

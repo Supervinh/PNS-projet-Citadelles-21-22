@@ -13,6 +13,18 @@ import java.util.Collections;
  */
 public class Opportuniste implements IStrategie {
 
+    /**
+     * Permet de faire le bon choix du personnage en fonction de ce que le joueur a dans sa main.
+     * Le joueur prend en priorité le voleur.
+     * Sinon s'il a au moins un quartier religieux alors il prend l'évêque.
+     * S'il a plus de 1 pièce d'or alors il choisit le condottière.
+     * Si un autre joueur a au moins 4 pièces d'or alors il prend le voleur.
+     * Sinon il choisit aléatoirement.
+     *
+     * @param joueur      Le joueur à jouer.
+     * @param personnages Les cartes de personnages que l'on peut encore piocher.
+     * @return La carte du personnage choisie.
+     */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         int quartierReligieux = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Religion")).count();
@@ -29,7 +41,9 @@ public class Opportuniste implements IStrategie {
     }
 
     /**
-     * On cible le personnage avec le plus de points sinon c'est aléatoire.
+     * Permet de choisir la cible d'une carte personnage.
+     * Si le joueur a choisi le voleur alors il cible l'architecte ou le marchand.
+     * Sinon il va cibler aléatoirement.
      *
      * @param joueur     Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.

@@ -23,7 +23,7 @@ public class Batisseur implements IStrategie {
      *
      * @param joueur      Le joueur à jouer.
      * @param personnages Les cartes de personnages que l'on peut encore piocher.
-     * @return
+     * @return La carte du personnage choisie.
      */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
