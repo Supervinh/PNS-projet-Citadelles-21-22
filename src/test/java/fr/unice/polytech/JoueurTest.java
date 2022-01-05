@@ -47,11 +47,18 @@ class JoueurTest {
     }
 
     @Test
+    void mainsDepartDifferentes() {
+        Joueur j1 = new Joueur("1");
+        Joueur j2 = new Joueur("2");
+        assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
+    }
+
+    @Test
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
-        j1.piocherQuartier();
-        j2.piocherQuartier();
+        j1.ajouterQuartierEnMain();
+        j2.ajouterQuartierEnMain();
         assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
     }
 
