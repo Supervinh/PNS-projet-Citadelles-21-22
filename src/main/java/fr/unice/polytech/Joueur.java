@@ -6,7 +6,6 @@ import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Classe permettant d'initialiser les joueurs.
@@ -445,12 +444,10 @@ public class Joueur implements Comparable<Joueur> {
             if (this.contientQuartier("Bibliothèque")) {
                 for (int i = 0; i < Math.min(2, quartiersPioches.size()); i++) {
                     this.quartiers.add(quartiersPioches.get(i));
-                    System.out.print(CouleurConsole.purple("| "));
-                    System.out.println(this.getNomColoured() + " a choisi: " + quartiersPioches.get(i).getNomColoured());
+                    Affichage.choisirCarteQuartier(this, quartiersPioches.get(i));
                 }
             } else {
                 if (quartiersPioches.size() > 0) {
-                    System.out.print(CouleurConsole.purple("| "));
                     this.quartiers.add(this.choixQuartier(quartiersPioches));
                 }
             }
@@ -489,7 +486,8 @@ public class Joueur implements Comparable<Joueur> {
             }
             quartiersPioches.remove(cq);
             quartiersPioches.forEach(qp -> MoteurDeJeu.deck.ajouterQuartierDeck(qp));
-            System.out.println("\n" + CouleurConsole.purple("| ") + this.getNomColoured() + " a choisi: " + cq.getNomColoured());
+            Affichage.sauterLigne();
+            Affichage.choisirCarteQuartier(this, cq);
         }
         return cq;
     }
@@ -500,18 +498,16 @@ public class Joueur implements Comparable<Joueur> {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
-            AtomicInteger i = new AtomicInteger(1);
-            System.out.println("\n" + CouleurConsole.pink("| Construire Quartier") + " - " + this.getNomColoured() + " à " + this.getOrColoured() + " pièce" + (this.or > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or"));
-            System.out.println(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
-            quartiersAchetable.forEach(quartier -> System.out.println(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
+
+            Affichage.choixQuartierConstruit(this, this.or, quartiersAchetable);
 
             CarteQuartier choix = this.strategie.getIStrategie().choixDeQuartier(this, quartiersAchetable);
-            System.out.println(CouleurConsole.pink("| ") + this.getNomColoured() + " a construit: " + choix.getNomColoured());
+            Affichage.construitQuartier(this, choix);
             this.ajouteOr(-1 * choix.getPrix());
             this.quartiersConstruits.add(choix);
             this.quartiers.remove(choix);
         } else {
-            System.out.println(CouleurConsole.pink("| ") + this.getNomColoured() + " n'a pas assez de pièces d'" + CouleurConsole.gold("Or") + " pour construire.");
+            Affichage.pasAssezDor(this);
         }
     }
 
@@ -547,14 +543,7 @@ public class Joueur implements Comparable<Joueur> {
      * Revoie les informations au tour du joueur.
      */
     private void printDetails() {
-        System.out.println();
-        System.out.println(CouleurConsole.blue("| Details Joueur"));
-        System.out.println(CouleurConsole.blue("| ") + "Personnage: " + this.personnage.getNomColoured());
-        System.out.println(CouleurConsole.blue("| ") + "Pièces d'Or: " + this.getOrColoured());
-        System.out.println(CouleurConsole.blue("| ") + "Stratégie: " + this.getNomStrategieColoured());
-        System.out.println(CouleurConsole.blue("| ") + "Quartiers dans la main: " + this.getQuartiers().stream().map(CarteQuartier::getNomColoured).toList());
-        System.out.println(CouleurConsole.blue("| ") + "Quartiers construit: " + this.getQuartiersConstruits().stream().map(CarteQuartier::getNomColoured).toList());
-        System.out.println();
+        Affichage.infoJoueur(this, this.personnage);
     }
 
     /**

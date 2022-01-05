@@ -25,7 +25,7 @@ public class CsvReader {
     private String[][] data;
 
     /**
-     * On instantie le tableau avec le nombre de ligne du fichier.
+     * On instancie le tableau avec le nombre de lignes du fichier.
      */
     public CsvReader() {
         try {

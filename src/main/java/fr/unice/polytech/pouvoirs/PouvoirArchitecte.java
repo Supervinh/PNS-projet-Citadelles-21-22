@@ -1,8 +1,8 @@
 package fr.unice.polytech.pouvoirs;
 
-import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 /**
  * Le pouvoir de l'architecte permet au personnage de piocher plus de quartiers.
@@ -20,11 +20,11 @@ public class PouvoirArchitecte implements IPouvoir {
     @Override
     public void utiliserPouvoir(Joueur joueur) {
         int n = 2;
-        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
+        Affichage.pouvoir(joueur);
         boolean construire = false;
 
         for (int i = 0; i < n; i++) {
-            System.out.print(CouleurConsole.red("| "));
+            Affichage.barreRouge();
             CarteQuartier cq = joueur.piocherQuartier();
             if (cq != null) {
                 joueur.getQuartiers().add(cq);
@@ -40,7 +40,7 @@ public class PouvoirArchitecte implements IPouvoir {
         }
 
         if (!construire) {
-            System.out.println(CouleurConsole.red("| ") + "Aucun quartier supplémentaire construit");
+            Affichage.plusQuartierSupp();
         }
     }
 }

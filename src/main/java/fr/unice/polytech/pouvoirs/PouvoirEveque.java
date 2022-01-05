@@ -1,7 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Joueur;
-import fr.unice.polytech.couleur.CouleurConsole;
 
 /**
  * Le pouvoir de l'évêque permet au personnage de récupérer de l'or pour tous ses quartiers religieux de construit.
@@ -15,7 +14,6 @@ public class PouvoirEveque implements IPouvoir {
      */
     @Override
     public void utiliserPouvoir(Joueur joueur) {
-        System.out.println(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNom()));
         this.recupererTaxes(joueur);
     }
 }

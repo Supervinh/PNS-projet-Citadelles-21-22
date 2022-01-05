@@ -8,7 +8,7 @@ import fr.unice.polytech.Joueur;
 public class EconomiserArgent implements IPiocher {
 
     /**
-     * Permet d'utiliser la startégie et pioche donc de l'or.
+     * Permet d'utiliser la stratégie et pioche donc de l'or.
      *
      * @param joueur Le joueur qui utilise cette stratégie.
      */

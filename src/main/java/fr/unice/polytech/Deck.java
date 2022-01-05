@@ -1,9 +1,8 @@
 package fr.unice.polytech;
 
-import fr.unice.polytech.lecteurFichiers.ExcelReader;
-
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.lecteurFichiers.ExcelReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -106,7 +105,7 @@ public class Deck {
         if (!this.quartiers.isEmpty()) {
             return this.quartiers.remove(0);
         } else {
-            System.out.println("Plus de Quartiers...");
+            Affichage.plusDeQuartiers();
             return null;
         }
     }
@@ -120,7 +119,7 @@ public class Deck {
         if (!this.personnages.isEmpty()) {
             return this.personnages.remove(new Random().nextInt(this.personnages.size()));
         } else {
-            System.out.println("Plus de Personnages...");
+            Affichage.plusDePersonnages();
             System.exit(0);
             return null;
         }
@@ -135,7 +134,7 @@ public class Deck {
         if (!this.quartiers.contains(cq)) {
             this.quartiers.add(cq);
         } else {
-            if (cq != null) System.out.println("Le Deck contient déjà: " + cq.getNomColoured());
+            if (cq != null) Affichage.dejaCarteQuartier(cq);
         }
     }
 
@@ -148,7 +147,7 @@ public class Deck {
         if (!this.personnages.contains(personnage)) {
             this.personnages.add(personnage);
         } else {
-            System.out.println("Le Deck Contiens deja: " + personnage.getNomColoured());
+            Affichage.dejaCartePersonnage(personnage);
         }
     }
 

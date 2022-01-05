@@ -69,7 +69,7 @@ public class MoteurDeJeu {
     public static ArrayList<Joueur> joueurs;
 
     /**
-     * La liste des personnages connus durant le tours.
+     * La liste des personnages connus durant le tour.
      */
     public static ArrayList<Joueur> personnagesConnus;
 
@@ -84,12 +84,12 @@ public class MoteurDeJeu {
     private final int nombre2Personnages;
 
     /**
-     * Liste des cartes visibles de personnages durant le tours.
+     * Liste des cartes visibles de personnages durant le tour.
      */
     private final ArrayList<CartePersonnage> cartesVisibles = new ArrayList<>();
 
     /**
-     * À quel tours on est rendu.
+     * À quel tour on est rendu.
      */
     private int nb2Tours = 0;
 
@@ -111,7 +111,7 @@ public class MoteurDeJeu {
 
     /**
      * Le constructeur du moteur de jeu où on initialise le deck, la banque, les joueurs, les personnages connus, le numéro du joueur,
-     * le nombre de personnages dans la pioche, et arrête le jeu si on a pas le bon nombre de quartiers, il y a moins de 4 joueurs
+     * le nombre de personnages dans la pioche, et arrête le jeu si on n'a pas le bon nombre de quartiers, il y a moins de 4 joueurs
      * ou plus de 7 joueurs.
      */
     public MoteurDeJeu() {
@@ -134,6 +134,7 @@ public class MoteurDeJeu {
      */
     public static void setMessageLvl(Level messageLvl) {
         MoteurDeJeu.messageLvl = messageLvl;
+        Affichage.levelUpdate();
     }
 
     /**
@@ -168,7 +169,7 @@ public class MoteurDeJeu {
     }
 
     /**
-     * Permet de lancer un tours de jeu, tout le monde jouera donc une fois.
+     * Permet de lancer un tour de jeu, tout le monde jouera donc une fois.
      *
      * @param joueurs La liste des joueurs à jouer.
      */
@@ -201,9 +202,9 @@ public class MoteurDeJeu {
     }
 
     /**
-     * À la fin du tours du joueur, on connait son personnage et si il a fini on termine le tour.
-     * On calcule aussi les points du joueurs.
-     * Si il n'y a plus toutes les pièces en jeu, qu'il manque des cartes quartiers, ou que il n'y a plus toutes les cartes
+     * À la fin du tour du joueur, on connait son personnage et s'il a fini on termine le tour.
+     * On calcule aussi les points des joueurs.
+     * S'il n'y a plus toutes les pièces en jeu, qu'il manque des cartes quartiers, ou qu'il n'y a plus toutes les cartes
      * personnage on arrête le jeu.
      *
      * @param joueur Le joueur qui joue pendant son tour.
@@ -225,7 +226,7 @@ public class MoteurDeJeu {
 
     /**
      * Permet d'initialiser le nom des joueurs avec ou sans vrais noms.
-     * On force aussi une stratégie à chaque joueurs.
+     * On force aussi une stratégie à chaque joueur.
      *
      * @param joueurs  La liste des joueurs qui jouent.
      * @param nameless Vrai si on veut des vrais noms, faux sinon.
@@ -251,7 +252,7 @@ public class MoteurDeJeu {
      * Initialise les personnages.
      * Si on est 4 joueurs on a 2 cartes faces visibles.
      * Si on a 5 joueurs on a 1 carte face visible.
-     * Si on est plus nombreux on a pas de cartes face visible mais on a dans tout les cas une carte cachée.
+     * Si on est plus nombreux on n'a pas de cartes face visible, mais on a dans tous les cas une carte cachée.
      */
     public void initialisePileCartes() {
         this.cartesVisibles.clear();
@@ -267,7 +268,7 @@ public class MoteurDeJeu {
     }
 
     /**
-     * Quand on pioche une carte visible, si c'est le roi on le remet dans la pile et on repioche une carte.
+     * Quand on pioche une carte visible, si c'est le roi on le remet dans la pile et on re-pioche une carte.
      */
     private void choixCartesVisibles() {
         CartePersonnage cp = deck.piocherPersonnage();
@@ -297,7 +298,7 @@ public class MoteurDeJeu {
     /**
      * Une fois la pioche initialisée on pioche une carte en commençant par le roi.
      *
-     * @param joueurs
+     * @param joueurs Les joueurs qui jouent.
      */
     public void piocherPersonnage(ArrayList<Joueur> joueurs) {
         Affichage.personnageTitre();
@@ -343,8 +344,8 @@ public class MoteurDeJeu {
     /**
      * Quand le joueur a le nombre de quartiers maximum et que personne d'autre n'a fini avant lui alors il est le premier à gagner.
      *
-     * @param joueur Le joueur qui joue pendant le tours.
-     * @return Vrai si il est le premier a avoir terminé, faux sinon.
+     * @param joueur Le joueur qui joue pendant le tour.
+     * @return Vrai s'il est le premier à avoir terminé, faux sinon.
      */
     public boolean aFini(Joueur joueur) {
         if (joueur.getQuartiersConstruits().size() >= MoteurDeJeu.quartiersAConstruire && joueurs.stream().noneMatch(Joueur::isFirst)) {
@@ -366,9 +367,9 @@ public class MoteurDeJeu {
     }
 
     /**
-     * On récupère le joueur avec le score maximal, si il y a des égalités c'est le joueur avec la carte personnage qui a commencé
+     * On récupère le joueur avec le score maximal, s'il y a des égalités, c'est le joueur avec la carte personnage qui a commencé
      * en premier qui est le vainqueur.
-     * 
+     *
      * @param joueurs Les joueurs qui jouent.
      * @return Le joueur gagnant.
      */

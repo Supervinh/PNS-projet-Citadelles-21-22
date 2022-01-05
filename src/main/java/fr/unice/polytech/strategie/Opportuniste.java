@@ -1,30 +1,30 @@
 package fr.unice.polytech.strategie;
 
-import fr.unice.polytech.Joueur;
-import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.Joueur;
+import fr.unice.polytech.MoteurDeJeu;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * La stratégie qui récolte le plus d'or pour pouvoir construire.
+ * La stratégie qui consiste à prendre les rôles les moins aggressifs et les moins visés.
  */
-public class Batisseur implements IStrategie {
+public class Opportuniste implements IStrategie {
 
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         CartePersonnage choix = null;
-        int quartierCommerce = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Commerce et Artisanat")).count();
-        int quartierNoblesse = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Noblesse")).count();
-
-        if (quartierNoblesse > 0 && !joueur.isRoi())
-            choix = personnages.stream().filter(cp -> cp.getNom().equals("Roi")).findAny().orElse(null);
-        if (quartierCommerce > 1 && choix == null)
-            choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElse(null);
-        if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && choix == null)
-            choix = personnages.stream().filter(cp -> cp.getNom().equals("Architecte")).findAny().orElse(null);
+        int quartierReligieux = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Religion")).count();
+        choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
+        int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
+        if (quartierReligieux>0)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
+        if (joueur.getOr() > 1 && choix == null)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottière")).findAny().orElse(null);
+        if (orMax > 4)
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         if (choix == null) choix = IStrategie.super.choixDePersonnage(joueur, personnages);
         return choix;
     }
@@ -32,7 +32,7 @@ public class Batisseur implements IStrategie {
     /**
      * On cible le personnage avec le plus de points sinon c'est aléatoire.
      *
-     * @param joueur     Le joueur qui joue.
+     * @param joueur Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.
      * @return La carte personnage ciblée.
      */
@@ -74,13 +74,9 @@ public class Batisseur implements IStrategie {
     public CarteQuartier choixDeQuartier(Joueur joueur, ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
         Collections.sort(carteQuartiers);
-        for (CarteQuartier q : carteQuartiers) {
-            if(q.getGemme().equals("Noblesse")){
-                carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Noblesse"));
-                return carteQuartiers.get(carteQuartiers.size() - 1);
-            }
-            if (q.getGemme().equals("Commerce et Artisanat")) {
-                carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Commerce et Artisanat"));
+        for (CarteQuartier q:carteQuartiers){
+            if (q.getGemme().equals("Religion")){
+                carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Religion"));
                 return carteQuartiers.get(carteQuartiers.size() - 1);
             }
         }
@@ -94,6 +90,6 @@ public class Batisseur implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Stratégie se concentrant sur l'obtention d'or pour bâtir un maximum de quartiers";
+        return "Stratégie se concentrant sur les rôles non aggressifs.";
     }
 }

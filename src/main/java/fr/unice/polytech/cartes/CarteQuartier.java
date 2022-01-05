@@ -15,14 +15,17 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * Le nom du quartier.
      */
     private final String nom;
+
     /**
      * Le prix du quartier.
      */
     private final int prix;
+
     /**
      * La description du pouvoir du quartier.
      */
     private final String description;
+
     /**
      * La couleur de la gemme de la carte quartier.
      */
@@ -139,7 +142,7 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * @return Le prix du quartier en or.
      */
     public String getPrixColoured() {
-        return CouleurConsole.gold("" + this.prix) + " pièce" + (this.prix > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or");
+        return CouleurConsole.gold("" + this.prix) + CouleurConsole.printDefault(" pièce" + (this.prix > 1 ? "s" : "") + " d'") + CouleurConsole.gold("Or");
     }
 
     /**

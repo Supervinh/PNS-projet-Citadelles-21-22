@@ -1,9 +1,9 @@
 package fr.unice.polytech.pouvoirs;
 
-import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +25,28 @@ public class PouvoirCondottiere implements IPouvoir {
         Joueur cible = cibleAleatoire(joueur);
         if (cible != null) {
             CarteQuartier quartierDetruit = choixQuartierAleatoire(joueur, cible);
-            System.out.println(CouleurConsole.red("| Pouvoir ") + joueur.getPersonnage().getNomColoured());
+            Affichage.pouvoir(joueur);
             if (quartierDetruit != null) {
                 cible.getQuartiersConstruits().remove(quartierDetruit);
                 joueur.ajouteOr(1 - quartierDetruit.getPrix());
                 CarteQuartier cimetiere = MoteurDeJeu.deck.getQuartiersPossibles().stream().filter(quartier -> quartier.getNom().equals("Cimetière")).findFirst().orElse(null);
-                System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " a détruit le quartier " + quartierDetruit.getNomColoured() + " de " + cible.getNomColoured());
+                Affichage.detructionQuatier(joueur, quartierDetruit, cible);
                 if (!cible.getQuartiersConstruits().contains(cimetiere)) {
                     MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
                 } else {
                     if ((!cible.getPersonnage().getNom().equals("Condottiere")) && cible.getOr() >= 1 && choixAction()) {
                         cible.ajouteOr(-1);
                         cible.getQuartiers().add(quartierDetruit);
-                        System.out.println(CouleurConsole.red("| ") + cible.getNomColoured() + " a récupéré le quartier " + quartierDetruit.getNomColoured() + "contre une pièce d'or.");
+                        Affichage.recupererQuartier(cible, quartierDetruit);
                     } else {
                         MoteurDeJeu.deck.ajouterQuartierDeck(quartierDetruit);
-                        System.out.println(CouleurConsole.red("| ") + "pas de récupération de quartier.");
+                        Affichage.pasRecupererQuartier();
                     }
                 }
             } else {
-                System.out.println(CouleurConsole.red("| ") + joueur.getNomColoured() + " n'a pas détruit de quartier.");
+                Affichage.pasDetruitQuartier(joueur);
             }
-            System.out.println(CouleurConsole.red("|"));
+            Affichage.barreRouge();
         }
         this.recupererTaxes(joueur);
     }

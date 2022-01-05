@@ -68,7 +68,8 @@ public class Strategie {
             case "Agressif" -> iStrategie = new Agressif();
             case "VStrat" -> iStrategie = new VStrat();
             case "Commerce" -> iStrategie = new Commerce();
-            case "Batisseur" -> iStrategie= new Batisseur();
+            case "Batisseur" -> iStrategie = new Batisseur();
+            case "Opportuniste" -> iStrategie = new Opportuniste();
             default -> iStrategie = new ComportementDefault();
         }
     }
@@ -125,13 +126,13 @@ public class Strategie {
         if (nomPersonnage.equals("Marchand") || nomPersonnage.equals("Évêque")) {
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
-            System.out.println();
+            Affichage.sauterLigne();
             this.choisirType2Piochage();
             if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
         } else {
             if (this.iPiocher != null) this.iPiocher.utiliserStrategie(this.joueur);
             this.choisirType2Piochage();
-            System.out.println();
+            Affichage.sauterLigne();
             this.actionPersonnage();
             this.iPouvoir.utiliserPouvoir(this.joueur);
         }
