@@ -179,6 +179,8 @@ public class AgressifTest {
         Joueur autre = joueurs.get(1);
         autre.ajouteOr(4);
         autre.construireQuartier();
+        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif,joueurs);
+        assertEquals(sixQuartiersConstruits, cible);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

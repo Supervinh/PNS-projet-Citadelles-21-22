@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,6 +76,43 @@ public class VStratTest {
         vinh.piocherPersonnage();
         assertEquals("Marchand", vinh.getPersonnage().getNom());
     }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void cibleBeaucoupCartesMain() {
+        Joueur tropDeCartes = joueurs.get(0);
+        ArrayList<CarteQuartier> mainVide = new ArrayList<>();
+        vinh.setQuartiers(mainVide);
+        vinh.piocherPersonnage();
+        assertEquals("Magicien", vinh.getPersonnage().getNom());
+        tropDeCartes.ajouterQuartierEnMain();
+        tropDeCartes.piocherPersonnage();
+        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh,joueurs);
+        assertEquals(tropDeCartes, cible);
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void ciblePlusDePoints() {
+        Joueur sixQuartiersConstruits = joueurs.get(0);
+        sixQuartiersConstruits.ajouterQuartierEnMain();
+        sixQuartiersConstruits.ajouterQuartierEnMain();
+        sixQuartiersConstruits.setQuartiersConstruits(sixQuartiersConstruits.getQuartiers());
+        assertEquals(6, sixQuartiersConstruits.getQuartiersConstruits().size());
+        vinh.piocherPersonnage();
+        Joueur autre = joueurs.get(1);
+        autre.ajouteOr(4);
+        autre.construireQuartier();
+        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh,joueurs);
+        assertEquals(sixQuartiersConstruits, cible);
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixQuartierMoinsCher() {
+        vinh.piocherPersonnage();
+        CarteQuartier moinsCher = vinh.getStrategie().getIStrategie().choixDeQuartier(vinh, vinh.getQuartiers());
+        Collections.sort(vinh.getQuartiers());
+        assertEquals(vinh.getQuartiers().get(vinh.getQuartiers().size()-1), moinsCher);
+    }
+
 
 
 
