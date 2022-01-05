@@ -16,14 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class PouvoirMagicienTest {
-    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur magicien;
     Joueur marchand;
     CartePersonnage personnage;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
-
 
     @BeforeEach
     void setUp() {
@@ -46,7 +44,7 @@ class PouvoirMagicienTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void aEchangeSesCartesAvecJoueur() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecJoueur(magicien);
@@ -56,7 +54,7 @@ class PouvoirMagicienTest {
         assertEquals(4, magicien.getQuartiers().size());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void aEchangeSesCartesAvecLaPioche() {
         ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
@@ -66,7 +64,7 @@ class PouvoirMagicienTest {
         assertNotEquals(q, magicien.getQuartiers());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void echangePasAvecPioche() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
@@ -75,7 +73,7 @@ class PouvoirMagicienTest {
         assertEquals(q, magicien.getQuartiers());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void testRandom() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).choixNombreQuartiers(magicien);
@@ -85,5 +83,4 @@ class PouvoirMagicienTest {
         assertTrue(m < 5 && m > -1);
         assertNotEquals(magicien, cible);
     }
-
 }

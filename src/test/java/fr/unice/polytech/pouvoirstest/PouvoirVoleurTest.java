@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class PouvoirVoleurTest {
-    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur voleur;
@@ -50,7 +49,7 @@ class PouvoirVoleurTest {
 
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void aVole() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -59,7 +58,7 @@ class PouvoirVoleurTest {
         assertEquals(4, voleur.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void neVolePas() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -69,7 +68,7 @@ class PouvoirVoleurTest {
         assertEquals(2, voleur.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);

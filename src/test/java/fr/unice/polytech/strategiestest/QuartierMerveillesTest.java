@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuartierMerveillesTest {
-    final int ITERATIONS = 100;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
 
@@ -26,8 +25,7 @@ public class QuartierMerveillesTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void cartePrestige() {
         QuartierMerveilles pouvoir = Mockito.mock(QuartierMerveilles.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

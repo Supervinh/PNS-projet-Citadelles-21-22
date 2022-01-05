@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MoteurDeJeuTest {
-    final int ITERATIONS = 100;
     ArrayList<Joueur> joueurs;
     MoteurDeJeu m;
 
@@ -22,12 +21,12 @@ class MoteurDeJeuTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void moteurDeJeuIdentiqueAuDemarrage() {
         assertEquals(new MoteurDeJeu(), new MoteurDeJeu());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void ordi1Gagne() {
         goodSetup();
         joueurs.get(0).ajouteOr(30);
@@ -35,7 +34,7 @@ class MoteurDeJeuTest {
         assertEquals(joueurs.get(0), m.obtenirGagnant(joueurs));
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void trouverRoi() {
         goodSetup();
         m.trouverQuiEstRoi(joueurs);
@@ -45,13 +44,13 @@ class MoteurDeJeuTest {
         }
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void jeuPasFini() {
         goodSetup();
         assertFalse(m.aFini(joueurs.get(0)));
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void jeuFini() {
         goodSetup();
         joueurs.get(0).ajouteOr(30);
@@ -64,7 +63,7 @@ class MoteurDeJeuTest {
         assertTrue(m.aFini(joueurs.get(0)));
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void initialiserCartes4J() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(4);
@@ -74,7 +73,7 @@ class MoteurDeJeuTest {
         assertEquals(5, MoteurDeJeu.deck.getPersonnages().size());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void initialiserCartes5J() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -84,7 +83,7 @@ class MoteurDeJeuTest {
         assertEquals(6, MoteurDeJeu.deck.getPersonnages().size());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void joueurPioche4Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -96,7 +95,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void joueurPioche5Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -108,7 +107,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void joueurPioche6Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(6);
@@ -120,7 +119,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void joueurPioche7Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(7);
@@ -134,7 +133,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void remettreCarteCachee() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.initialisePileCartes();
@@ -143,7 +142,7 @@ class MoteurDeJeuTest {
         assertNull(m.getCarteCachee());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void tour2JeuException() {
         goodSetup();
         try {

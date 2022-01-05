@@ -9,8 +9,6 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurTest {
-
-    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu;
 
     @BeforeEach
@@ -19,14 +17,14 @@ class JoueurTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void notEmpty() {
         Joueur j1 = new Joueur("1");
         assertEquals(MoteurDeJeu.or2Depart, j1.getOr());
         assertNotEquals(null, j1.getQuartiers());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void aPiocheOr() {
         Joueur j2 = new Joueur("2");
         j2.piocherOr();
@@ -34,7 +32,7 @@ class JoueurTest {
         assertEquals(MoteurDeJeu.orAPiocher + MoteurDeJeu.or2Depart, j2.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void nomCorrect() {
         Joueur j3 = new Joueur("3");
         assertEquals("3", j3.getNom());
@@ -42,7 +40,7 @@ class JoueurTest {
         assertNull(j4.getNom());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void piocherPersoDifferents() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -51,14 +49,14 @@ class JoueurTest {
         assertNotEquals(j1.getPersonnage(), j2.getPersonnage());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void mainsDepartDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
         assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -67,19 +65,19 @@ class JoueurTest {
         assertNotEquals(cq1, cq2);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pointsCorrect() {
         Joueur j1 = new Joueur("1");
         assertEquals(0, j1.getPoints());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void estRoi() {
         Joueur j1 = new Joueur("1");
         assertFalse(j1.isRoi());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void construire() {
         Joueur j1 = new Joueur("1");
         j1.ajouteOr(10);
@@ -87,7 +85,7 @@ class JoueurTest {
         assertEquals(1, j1.getQuartiersConstruits().size());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pasAssezArgent() {
         Joueur j1 = new Joueur("1");
         j1.ajouteOr(-1 * j1.getOr());

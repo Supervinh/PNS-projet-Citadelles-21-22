@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class PouvoirRoiTest {
-    final int ITERATIONS = 100;
     Joueur roi;
     MoteurDeJeu moteurDeJeu;
     ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -34,7 +33,7 @@ public class PouvoirRoiTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void taxesAjoutTest() {
         PouvoirRoi taxe = Mockito.mock(PouvoirRoi.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(roi);
@@ -47,7 +46,7 @@ public class PouvoirRoiTest {
         assertEquals(1, roi.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pasDeTaxe() {
         PouvoirRoi pasTaxe = Mockito.mock(PouvoirRoi.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(roi);

@@ -6,16 +6,13 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CartePersonnageTest {
-
-    final int ITERATIONS = 100;
-
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void isNull() {
         CartePersonnage cp = new CartePersonnage(1, "Assassin", null);
         assertEquals("", cp.getDescription());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void isNotEmpty() {
         CartePersonnage cp = new CartePersonnage(1, "Assassin", null, "description");
         assertEquals("Assassin", cp.getNom());

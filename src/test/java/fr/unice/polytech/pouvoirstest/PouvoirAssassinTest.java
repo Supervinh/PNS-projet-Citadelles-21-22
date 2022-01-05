@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class PouvoirAssassinTest {
-    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur assassin;
@@ -35,7 +34,7 @@ class PouvoirAssassinTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void estTue() {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(assassin);
@@ -46,7 +45,7 @@ class PouvoirAssassinTest {
         assertTrue(marchand.isMort());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pas2Cible() {
         CartePersonnage voleur = new CartePersonnage(2, "Voleur", "None");
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
@@ -59,16 +58,14 @@ class PouvoirAssassinTest {
             }
             while (joueur.getPersonnage().getNom().equals("Voleur"));
         }
-
         assertNull(pouvoir.cibleExistante(voleur));
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void testRandom() {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(assassin);
         CartePersonnage cible = pouvoir.cibleAleatoire(assassin);
         assertNotEquals(assassin.getPersonnage(), cible);
     }
-
 }

@@ -48,62 +48,54 @@ public class MoteurDeJeu {
      * Nombre de pieces total dans le jeu.
      */
     public static final int piecesEnJeu = 30;
-
+    /**
+     * Nombre d'itérations pour chaque Test
+     */
+    public final static int iterationTest = 100;
     /**
      * Nombre de joueurs.
      */
     public static int nbJoueurs = 5;
-
     /**
      * Les pioches de cartes.
      */
     public static Deck deck;
-
     /**
      * La banque pour pouvoir gérer l'argent dans le jeu.
      */
     public static Banque banque;
-
     /**
      * La liste des joueurs de la partie.
      */
     public static ArrayList<Joueur> joueurs;
-
     /**
      * La liste des personnages connus durant le tour.
      */
     public static ArrayList<Joueur> personnagesConnus;
-
     /**
      * Niveau des messages à afficher.
      */
     public static Level messageLvl = Level.ALL;
-
     /**
      * Nombre de personnages dans la pioche.
      */
     private final int nombre2Personnages;
-
     /**
      * Liste des cartes visibles de personnages durant le tour.
      */
     private final ArrayList<CartePersonnage> cartesVisibles = new ArrayList<>();
-
     /**
      * À quel tour on est rendu.
      */
     private int nb2Tours = 0;
-
     /**
      * Permet de savoir qui est roi.
      */
     private int roiIndex = 0;
-
     /**
      * Permet de savoir si on est roi.
      */
     private boolean avaitRoi = true;
-
     /**
      * La carte cachée des personnages.
      */

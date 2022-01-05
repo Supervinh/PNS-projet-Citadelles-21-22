@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PouvoirEvequeTest {
-    final int ITERATIONS = 100;
     Joueur eveque;
     MoteurDeJeu moteurDeJeu;
     ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -34,7 +33,7 @@ public class PouvoirEvequeTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void taxesAjoutTest() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(eveque);
@@ -45,7 +44,7 @@ public class PouvoirEvequeTest {
         assertEquals(1, eveque.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pasTaxe() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(eveque);

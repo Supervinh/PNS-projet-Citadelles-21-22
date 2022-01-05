@@ -1,13 +1,12 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.pouvoirs.PouvoirMarchand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -17,13 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PouvoirMarchandTest {
-    final int ITERATIONS = 100;
     Joueur marchand;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
     MoteurDeJeu moteurDeJeu;
     ArrayList<Joueur> joueurs = new ArrayList<>();
-
 
     @BeforeEach
     void setUp() {
@@ -36,18 +33,18 @@ public class PouvoirMarchandTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void taxesAjoutTest() {
         PouvoirMarchand taxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(marchand);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(marchand);
-        marchand.ajouteOr(-1*marchand.getOr());
+        marchand.ajouteOr(-1 * marchand.getOr());
         marchand.setQuartiersConstruits(quartiers);
         taxe.utiliserPouvoir(marchand);
         assertEquals(2, marchand.getOr());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void pasDeTaxe() {
         PouvoirMarchand pasTaxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(marchand);

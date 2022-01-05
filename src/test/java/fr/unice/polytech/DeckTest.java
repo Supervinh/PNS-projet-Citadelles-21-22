@@ -7,7 +7,6 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeckTest {
-    final int ITERATIONS = 100;
     Deck d;
 
     @BeforeEach
@@ -15,19 +14,19 @@ class DeckTest {
         d = new Deck();
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void piocheQuartier() {
         assertNotNull(d.piocherQuartier());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void piochePersoDifferents() {
         CartePersonnage cp1 = d.piocherPersonnage();
         CartePersonnage cp2 = d.piocherPersonnage();
         assertNotEquals(cp1, cp2);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void bienajoute() {
         int i = d.getPersonnages().size();
         d.ajoutePersonnage(d.piocherPersonnage());

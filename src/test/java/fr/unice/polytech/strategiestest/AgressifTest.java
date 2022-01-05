@@ -11,8 +11,6 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AgressifTest {
-
-    final int ITERATIONS = 100;
     MoteurDeJeu m;
     ArrayList<Joueur> joueurs;
     Joueur agressif;
@@ -28,13 +26,13 @@ public class AgressifTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void choixAssassin() {
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void choixCondottiere() {
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();
@@ -44,6 +42,4 @@ public class AgressifTest {
         agressif.piocherPersonnage();
         assertEquals("Condottiere", agressif.getPersonnage().getNom());
     }
-
-
 }

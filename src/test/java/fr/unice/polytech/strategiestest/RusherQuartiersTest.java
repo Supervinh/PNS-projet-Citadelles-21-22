@@ -1,5 +1,6 @@
 package fr.unice.polytech.strategiestest;
 
+import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.RusherQuartiers;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RusherQuartiersTest {
-    final int ITERATIONS = 100;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
 
@@ -24,7 +24,7 @@ public class RusherQuartiersTest {
     }
 
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void carteRush() {
         RusherQuartiers pouvoir = Mockito.mock(RusherQuartiers.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

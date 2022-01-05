@@ -16,12 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PouvoirArchitecteTest {
-    final int ITERATIONS = 100;
     Joueur architecte;
     MoteurDeJeu moteurDeJeu;
     Strategie strategie;
     ArrayList<Joueur> joueurs = new ArrayList<>();
-
 
     @BeforeEach
     void setUp() {
@@ -35,7 +33,7 @@ public class PouvoirArchitecteTest {
         MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void piocheQuartierTest() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
@@ -46,7 +44,7 @@ public class PouvoirArchitecteTest {
         assertEquals(2, architecte.getQuartiers().size());
     }
 
-    @RepeatedTest(ITERATIONS)
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void construire3Quartiers() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
@@ -55,5 +53,4 @@ public class PouvoirArchitecteTest {
         construire.utiliserPouvoir(architecte);
         assertEquals(2, architecte.getQuartiersConstruits().size());
     }
-
 }
