@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -178,7 +179,14 @@ public class AgressifTest {
         Joueur autre = joueurs.get(1);
         autre.ajouteOr(4);
         autre.construireQuartier();
+    }
 
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixQuartierMoinsCher() {
+        agressif.piocherPersonnage();
+        CarteQuartier moinsCher = agressif.getStrategie().getIStrategie().choixDeQuartier(agressif, agressif.getQuartiers());
+        Collections.sort(agressif.getQuartiers());
+        assertEquals(agressif.getQuartiers().get(agressif.getQuartiers().size()-1), moinsCher);
     }
 
 }
