@@ -1,5 +1,6 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.cartes.CarteQuartier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,10 +60,9 @@ class JoueurTest {
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
-        j2.setQuartiers(new ArrayList<>(j1.getQuartiers()));
-        j1.ajouterQuartierEnMain();
-        j2.ajouterQuartierEnMain();
-        assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
+        CarteQuartier cq1 = j1.piocherQuartier();
+        CarteQuartier cq2 = j2.piocherQuartier();
+        assertNotEquals(cq1, cq2);
     }
 
     @Test

@@ -2,6 +2,7 @@ package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
+import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CarteQuartier;
 
 /**
@@ -25,7 +26,10 @@ public class PouvoirArchitecte implements IPouvoir {
 
         for (int i = 0; i < n; i++) {
             Affichage.barreRouge();
-            joueur.ajouterQuartierEnMain();
+            CarteQuartier cq = joueur.piocherQuartier();
+            if (cq != null) {
+                joueur.getQuartiers().add(cq);
+            }
         }
 
         for (int i = 0; i < n; i++) {

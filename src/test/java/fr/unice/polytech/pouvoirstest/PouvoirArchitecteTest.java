@@ -6,6 +6,7 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.Strategie;
 import fr.unice.polytech.pouvoirs.PouvoirArchitecte;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,6 +24,7 @@ public class PouvoirArchitecteTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
+        moteurDeJeu.setNbJoueurs(5);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         architecte = joueurs.get(1);
         architecte.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
@@ -32,11 +34,13 @@ public class PouvoirArchitecteTest {
 
     @Test
     void piocheQuartierTest() {
+        PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
+        Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
         System.out.println("Pioche \n");
         architecte.setQuartiers(new ArrayList<>());
-        architecte.ajouteOr(-5 - (architecte.getOr()));
-        strategie.prochainTour();
-        assertEquals(architecte.getQuartiers().size(), 2);
+        architecte.ajouteOr(-1*(architecte.getOr()));
+        construire.utiliserPouvoir(architecte);
+        assertEquals(2, architecte.getQuartiers().size());
     }
 
     @Test
@@ -44,7 +48,7 @@ public class PouvoirArchitecteTest {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
         System.out.println("Construction \n");
-        architecte.ajouteOr(28);
+        architecte.ajouteOr(20);
         construire.utiliserPouvoir(architecte);
         assertEquals(2, architecte.getQuartiersConstruits().size());
     }
