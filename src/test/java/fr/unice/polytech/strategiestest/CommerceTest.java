@@ -4,18 +4,16 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.strategie.Batisseur;
 import fr.unice.polytech.strategie.Commerce;
-import fr.unice.polytech.strategie.RusherQuartiers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CommerceTest {
 
@@ -34,9 +32,15 @@ public class CommerceTest {
         m.setJoueurs(joueurs);
         commerce = joueurs.get(1);
         commerce.getStrategie().setStrategie("Commerce et Artisanat");
-
     }
 
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixVoleur(){
+        Joueur tropRiche = joueurs.get(0);
+        tropRiche.ajouteOr(5);
+        commerce.piocherPersonnage();
+        assertEquals("Voleur", commerce.getPersonnage().getNom());
+    }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
     void choixArchitecte(){
@@ -54,11 +58,23 @@ public class CommerceTest {
 
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixCibleVoleur(){
+        commerce.setPersonnage(new CartePersonnage(2,"Voleur",null));
+        Commerce pouvoir = Mockito.mock(Commerce.class);
+        MoteurDeJeu.deck.getPersonnages().removeIf(cartePersonnage -> cartePersonnage.getNom().equals("Marchand"));
+        Mockito.doCallRealMethod().when(pouvoir).choixDeCibleCartePersonnage(commerce, MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage personnageCible = pouvoir.choixDeCibleCartePersonnage(commerce, MoteurDeJeu.deck.getPersonnages());
+        assertEquals("Architecte",personnageCible.getNom());
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
     void choixCibleNotVoleur(){
-        CartePersonnage personnage = new CartePersonnage(1, "Assassin",null);
-        commerce.setPersonnage(personnage);
-        CartePersonnage cible = commerce.getStrategie().getIStrategie().choixDeCibleCartePersonnage(commerce,MoteurDeJeu.deck.getPersonnages());
-        assertNotEquals("Architecte", cible.getNom());
+        commerce.setPersonnage(new CartePersonnage(1,"Voleur",null));
+        Commerce pouvoir = Mockito.mock(Commerce.class);
+        MoteurDeJeu.deck.getPersonnages().removeIf(cartePersonnage -> cartePersonnage.getNom().equals("Marchand"));
+        Mockito.doCallRealMethod().when(pouvoir).choixDeCibleCartePersonnage(commerce, MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage personnageCible = pouvoir.choixDeCibleCartePersonnage(commerce, MoteurDeJeu.deck.getPersonnages());
+        assertEquals("Architecte",personnageCible.getNom());
     }
 
 
@@ -82,5 +98,15 @@ public class CommerceTest {
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);
         CarteQuartier commerceQuartier = pouvoir.choixDeQuartier(null, quartiers);
         assertEquals(quartiers.get(0), commerceQuartier);
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixMaxPoint(){
+        joueurs.get(0).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 3));
+        joueurs.get(2).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 1));
+        Batisseur pouvoir = Mockito.mock(Batisseur.class);
+        Mockito.doCallRealMethod().when(pouvoir).choixDeCibleJoueur(commerce, joueurs);
+        Joueur joueurCible = pouvoir.choixDeCibleJoueur(commerce, joueurs);
+        assertEquals(joueurs.get(0),joueurCible);
     }
 }
