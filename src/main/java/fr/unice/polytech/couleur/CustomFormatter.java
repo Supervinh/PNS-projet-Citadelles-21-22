@@ -7,8 +7,7 @@ import java.util.logging.LogRecord;
 
 public class CustomFormatter extends Formatter {
 
-    private static final String couleurDate = CouleurConsole.RED;
-    private static final String format = "%1$s[%2$tF %2$tT]\033[0m %3$s%4$6s:\033[0m   %5$s%n\033[0m";
+    private static final String format = CouleurConsole.RED + "[%1$tF %1$tT]" + CouleurConsole.RESET + "%2$s%3$8s" + CouleurConsole.RESET + "   %4$s%n";
     private final Date date = new Date();
 
     public static void main(String[] args) {
@@ -40,6 +39,6 @@ public class CustomFormatter extends Formatter {
             case "ALL" -> CouleurConsole.PURPLE_BRIGHT;
             default -> CouleurConsole.BLACK_BRIGHT;
         };
-        return String.format(format, couleurDate, date, couleurLevel, record.getLevel().getLocalizedName(), message);
+        return String.format(format, date, couleurLevel, "[" + record.getLevel().getLocalizedName() + "]", message);
     }
 }
