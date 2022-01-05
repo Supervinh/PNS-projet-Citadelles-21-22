@@ -25,7 +25,7 @@ public class Statistique {
     /**
      * Nom des colonnes de notre tableau de statistiques.
      */
-    private final String[] titre = new String[]{"Nom", "Victoires", "Défaites", "Parties", "Ratio", "Score Moyen"};
+    private final String[] titre = new String[]{"Nom des Bots/IA", "Victoires", "Défaites", "Parties", "Ratio", "Points Moy"};
 
     /**
      * Largeur de la marge.
@@ -35,7 +35,7 @@ public class Statistique {
     /**
      * Le tableau des informations que l'on récupère du csv.
      */
-    private String[][] data;
+    private String[][] data = new CsvReader().getData();
 
     /**
      * Ajoute les statistiques que nous avons calculées.
@@ -53,11 +53,12 @@ public class Statistique {
      * @param joueur Le joueur.
      */
     private void ajoutGagnant(Joueur joueur) {
-        if (this.statistiqueVictoireData.containsKey(joueur.getNom())) {
-            int nombreVictoire = this.statistiqueVictoireData.get(joueur.getNom());
-            this.statistiqueVictoireData.replace(joueur.getNom(), ++nombreVictoire);
+        String nom = this.nomAvecStrategie(joueur.getNom());
+        if (this.statistiqueVictoireData.containsKey(nom)) {
+            int nombreVictoire = this.statistiqueVictoireData.get(nom);
+            this.statistiqueVictoireData.replace(nom, ++nombreVictoire);
         } else {
-            this.statistiqueVictoireData.put(joueur.getNom(), 1);
+            this.statistiqueVictoireData.put(nom, 1);
         }
     }
 
@@ -67,12 +68,14 @@ public class Statistique {
      * @param joueurs Les joueurs de la partie.
      */
     private void ajoutScore(ArrayList<Joueur> joueurs) {
+        String nom;
         for (Joueur joueur : joueurs) {
-            if (this.statistiqueScoreData.containsKey(joueur.getNom())) {
-                double scoreMoy = this.statistiqueScoreData.get(joueur.getNom());
-                this.statistiqueScoreData.replace(joueur.getNom(), scoreMoy + (joueur.getPoints() / (double) Main.nombrePartie));
+            nom = this.nomAvecStrategie(joueur.getNom());
+            if (this.statistiqueScoreData.containsKey(nom)) {
+                double scoreMoy = this.statistiqueScoreData.get(nom);
+                this.statistiqueScoreData.replace(nom, scoreMoy + (joueur.getPoints() / (double) Main.nombrePartie));
             } else {
-                this.statistiqueScoreData.put(joueur.getNom(), joueur.getPoints() / (double) Main.nombrePartie);
+                this.statistiqueScoreData.put(nom, joueur.getPoints() / (double) Main.nombrePartie);
             }
         }
     }
@@ -92,17 +95,21 @@ public class Statistique {
 
         this.rajouteNonGagnant();
 
-        for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
-            String nom = entry.getKey();
-            int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 1));
-            int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 3));
-            int defaiteTotal = partieTotal - victoireTotal;
-            String ratio = df.format(victoireTotal / (double) (partieTotal));
+        for (int i = 0; i < this.statistiqueVictoireData.size(); i++) {
+            for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
+                if (entry.getKey().contains("CPU" + (i + 1)) || !entry.getKey().contains("CPU")) {
+                    String nom = entry.getKey();
+                    int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 1));
+                    int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 3));
+                    int defaiteTotal = partieTotal - victoireTotal;
+                    String ratio = df.format(victoireTotal / (double) (partieTotal));
 
-            double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
-            String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
+                    double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
+                    String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
-            ecritureCsv.ecrireStatistiques(this.nomAvecStrategie(nom), victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
+                    ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
+                }
+            }
         }
     }
 
@@ -110,9 +117,11 @@ public class Statistique {
      * Rajoute le nombre de défaites.
      */
     private void rajouteNonGagnant() {
+        String nom;
         for (Joueur joueur : MoteurDeJeu.joueurs) {
-            if (!this.statistiqueVictoireData.containsKey(joueur.getNom())) {
-                this.statistiqueVictoireData.put(joueur.getNom(), 0);
+            nom = this.nomAvecStrategie(joueur.getNom());
+            if (!this.statistiqueVictoireData.containsKey(nom)) {
+                this.statistiqueVictoireData.put(nom, 0);
             }
         }
     }
@@ -141,7 +150,7 @@ public class Statistique {
      */
     private int trouverLigne(String[][] tableau, String nom) {
         for (int i = 0; i < tableau.length; i++) {
-            if (tableau[i][0].equals(nom)) {
+            if (tableau[i][0].contains(nom)) {
                 return i;
             }
         }
@@ -160,7 +169,7 @@ public class Statistique {
 
         StringBuilder separateur = new StringBuilder();
         for (int i = 0; i < this.titre.length; i++) {
-            separateur.append("─".repeat(i == 0 ? this.largeurColonne(i) - this.marge : this.largeurColonne(i)));
+            separateur.append("-".repeat(i == 0 ? this.largeurColonne(i) - this.marge : this.largeurColonne(i)));
         }
         Affichage.ligneFormatted(separateur.toString());
 
