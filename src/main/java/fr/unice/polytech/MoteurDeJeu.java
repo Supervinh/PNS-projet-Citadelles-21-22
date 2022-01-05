@@ -52,7 +52,7 @@ public class MoteurDeJeu {
     /**
      * Nombre de joueurs.
      */
-    public static int nbJoueurs = 7;
+    public static int nbJoueurs = 5;
 
     /**
      * Les pioches de cartes.

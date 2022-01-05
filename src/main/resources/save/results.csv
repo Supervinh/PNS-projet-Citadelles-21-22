@@ -1,8 +1,6 @@
 Nom;Victoires;Défaites;Parties;Ratio;ScoreMoyen
-RusherQuartier - CPU1;2965;10035;13000;0.23;17.35
-QuartierMerveilles - CPU2;1463;11537;13000;0.11;16.25
-Griefer - CPU3;198;12802;13000;0.02;11.14
-SpecialVinh - CPU4;2299;10701;13000;0.18;16.74
-Commerçant et Artisan - CPU5;1871;11129;13000;0.14;16.03
-Par Default (Random) - CPU6;1985;11015;13000;0.15;17.11
-Par Default (Random) - CPU7;2219;10781;13000;0.17;17.09
+RusherQuartier - CPU1;4517;14483;19000;0.24;18.88
+QuartierMerveilles - CPU2;2328;16672;19000;0.12;18.14
+Griefer - CPU3;347;18653;19000;0.02;13.09
+SpecialVinh - CPU4;3725;15275;19000;0.2;18.96
+Commerçant et Artisan - CPU5;3241;15759;19000;0.17;18.92

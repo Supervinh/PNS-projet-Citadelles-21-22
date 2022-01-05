@@ -1,13 +1,12 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -131,7 +130,7 @@ class PouvoirCondottiereTest {
     }
 
     @RepeatedTest(100)
-    void choixPossible(){
+    void choixPossible() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(condottiere);
         joueurAyantFini.setQuartiersConstruits(quartiersc1);
