@@ -13,12 +13,12 @@ class MoteurDeJeuTest {
     MoteurDeJeu m;
 
     void goodSetup() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         m = new MoteurDeJeu();
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
         m.printJoueursInitialises(joueurs);
         m.piocherPersonnage(joueurs);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
@@ -145,10 +145,6 @@ class MoteurDeJeuTest {
     @RepeatedTest(MoteurDeJeu.iterationTest)
     void tour2JeuException() {
         goodSetup();
-        try {
-            m.tourDeJeu(joueurs.get(0));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        assertThrows(java.lang.IllegalArgumentException.class, () -> m.tourDeJeu(joueurs.get(0)));
     }
 }

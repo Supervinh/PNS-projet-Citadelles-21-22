@@ -25,6 +25,7 @@ class PouvoirMagicienTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         magicien = joueurs.get(0);
@@ -41,7 +42,6 @@ class PouvoirMagicienTest {
         joueurs.add(marchand);
         joueurs.add(magicien);
         moteurDeJeu.setJoueurs(joueurs);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

@@ -24,13 +24,13 @@ public class PouvoirMarchandTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         marchand = joueurs.get(0);
         marchand.setPersonnage(new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or."));
         quartier = new CarteQuartier(11.2, "Comptoir", "Commerce et Artisanat", 3);
         quartiers.add(quartier);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
