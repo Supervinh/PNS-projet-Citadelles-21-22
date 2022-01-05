@@ -85,6 +85,6 @@ public class RusherQuartiers implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "QuartiersLesMoinsChers";
+        return "RusherQuartier";
     }
 }
