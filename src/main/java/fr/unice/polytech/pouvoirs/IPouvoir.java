@@ -2,7 +2,6 @@ package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
-import fr.unice.polytech.couleur.CouleurConsole;
 
 
 /**

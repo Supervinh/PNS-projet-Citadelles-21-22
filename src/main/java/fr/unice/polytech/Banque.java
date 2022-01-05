@@ -30,14 +30,14 @@ public class Banque {
     /**
      * Permet de récupérer les fonds restant dans la banque, mais en couleur pour l'affichage.
      *
-     * @return Les fonds restant dans la banque mais en or.
+     * @return Les fonds restant dans la banque, mais en or.
      */
     public String getPieceEnJeuColoured() {
         return CouleurConsole.gold("" + this.fonds);
     }
 
     /**
-     * Permet de savoir si il y a encore de l'or dans la banque.
+     * Permet de savoir s'il y a encore de l'or dans la banque.
      *
      * @return Vrai si il y a encore de l'or, faux sinon.
      */
@@ -71,7 +71,7 @@ public class Banque {
     }
 
     /**
-     * Vérifie que le nombre de pièce d'or en circulation est correcte, qu'aucun joueur n'a volé ou que l'on a perdu des pièces.
+     * Vérifie que le nombre de pièces d'or en circulation est correcte, qu'aucun joueur n'a volé ou que l'on a perdu des pièces.
      *
      * @return Vrai si le nombre d'or est égal à 30, faux sinon.
      */

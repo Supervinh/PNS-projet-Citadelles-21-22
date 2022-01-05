@@ -1,10 +1,9 @@
 package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Affichage;
-import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.cartes.CartePersonnage;
 
 /**
  * Le pouvoir de l'assassin permet au personnage de tuer un autre personnage.
@@ -23,7 +22,7 @@ public class PouvoirAssassin implements IPouvoir {
         Joueur cible = cibleExistante(cibleNomPersonnage);
         Affichage.pouvoir(joueur);
         if (cible != null) {
-            Affichage.aTue(joueur,cible);
+            Affichage.aTue(joueur, cible);
             this.tue(cible);
         } else {
             Affichage.essayerDeTuer(joueur, cibleNomPersonnage);

@@ -280,7 +280,7 @@ public class Affichage {
 
     // PouvoirRoi.java
 
-    public static void etreRoi(Joueur joueur) {
+    public static void estRoi(Joueur joueur) {
         log.finer(CouleurConsole.red("| ") + joueur.getNomColoured() + CouleurConsole.printDefault(" est le Nouveau ") + CouleurConsole.gold("Roi"));
     }
 

@@ -6,7 +6,6 @@ import fr.unice.polytech.couleur.CouleurConsole;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Classe permettant d'initialiser les joueurs.

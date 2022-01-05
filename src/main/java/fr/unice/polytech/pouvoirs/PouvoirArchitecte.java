@@ -1,9 +1,8 @@
 package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Affichage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 /**
  * Le pouvoir de l'architecte permet au personnage de piocher plus de quartiers.

@@ -1,9 +1,9 @@
 package fr.unice.polytech.strategie;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,7 +46,7 @@ public interface IStrategie {
                     choixPersonnage = choix.getNom();
                 }
             }
-            // Manque Assasin & Architecte A Faire.
+
             String finalChoixPersonnage = choixPersonnage;
             return personnages.stream().filter(cp -> cp.getNom().equals(finalChoixPersonnage)).findAny().orElseGet(
                     () -> personnageTemp.get(new Random().nextInt(personnageTemp.size())));

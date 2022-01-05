@@ -179,7 +179,7 @@ public class CartePersonnage implements Comparable<CartePersonnage> {
      * Compare les identifiants de deux cartes personnages.
      *
      * @param cp L'autre carte avec laquelle on compare.
-     * @return Si c'est égal à 0 c'est que les deux cartes sont les mêmes sinon c'est deux cartes différentes.
+     * @return Si c'est égal à 0, c'est que les deux cartes sont les mêmes sinon c'est deux cartes différentes.
      */
     @Override
     public int compareTo(CartePersonnage cp) {

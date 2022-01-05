@@ -3,7 +3,7 @@ package fr.unice.polytech.piocher;
 import fr.unice.polytech.Joueur;
 
 /**
- * Interface pour les différentes stratégies relatifs à la pioche.
+ * Interface pour les différentes stratégies relative à la pioche.
  */
 public interface IPiocher {
 

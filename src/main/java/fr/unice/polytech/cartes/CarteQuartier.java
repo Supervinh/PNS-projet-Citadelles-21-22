@@ -15,14 +15,17 @@ public class CarteQuartier implements Comparable<CarteQuartier> {
      * Le nom du quartier.
      */
     private final String nom;
+
     /**
      * Le prix du quartier.
      */
     private final int prix;
+
     /**
      * La description du pouvoir du quartier.
      */
     private final String description;
+
     /**
      * La couleur de la gemme de la carte quartier.
      */

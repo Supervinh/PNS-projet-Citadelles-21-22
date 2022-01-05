@@ -1,8 +1,6 @@
 package fr.unice.polytech.pouvoirs;
 
-import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
-import fr.unice.polytech.couleur.CouleurConsole;
 
 /**
  * Le pouvoir de l'évêque permet au personnage de récupérer de l'or pour tous ses quartiers religieux de construit.

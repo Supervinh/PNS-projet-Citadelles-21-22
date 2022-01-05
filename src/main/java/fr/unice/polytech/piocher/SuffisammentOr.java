@@ -8,7 +8,7 @@ import fr.unice.polytech.Joueur;
 public class SuffisammentOr implements IPiocher {
 
     /**
-     * Permet d'utiliser la startégie, ajoute le quartier en main et construit un quartier puisqu'il a suffisamment d'or.
+     * Permet d'utiliser la stratégie, ajoute le quartier en main et construit un quartier puisqu'il a suffisamment d'or.
      *
      * @param joueur Le joueur qui utilise cette stratégie.
      */

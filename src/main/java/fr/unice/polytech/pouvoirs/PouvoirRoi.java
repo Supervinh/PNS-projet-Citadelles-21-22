@@ -3,7 +3,6 @@ package fr.unice.polytech.pouvoirs;
 import fr.unice.polytech.Affichage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.couleur.CouleurConsole;
 
 /**
  * Le pouvoir du roi permet au personnage de récupérer la couronne et reçoit les taxes pour les quartiers nobles.
@@ -20,7 +19,7 @@ public class PouvoirRoi implements IPouvoir {
         MoteurDeJeu.joueurs.forEach(j -> j.setRoi(false));
         joueur.setRoi(true);
         Affichage.pouvoir(joueur);
-        Affichage.etreRoi(joueur);
+        Affichage.estRoi(joueur);
         Affichage.barreRouge();
         this.recupererTaxes(joueur);
     }

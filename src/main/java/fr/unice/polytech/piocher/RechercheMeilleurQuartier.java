@@ -8,7 +8,7 @@ import fr.unice.polytech.Joueur;
 public class RechercheMeilleurQuartier implements IPiocher {
 
     /**
-     * Permet d'utiliser la startégie et ajoute le quartier en main.
+     * Permet d'utiliser la stratégie et ajoute le quartier en main.
      *
      * @param joueur Le joueur qui utilise cette stratégie.
      */

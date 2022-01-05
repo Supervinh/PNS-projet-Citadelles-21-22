@@ -1,10 +1,9 @@
 package fr.unice.polytech.pouvoirs;
 
 import fr.unice.polytech.Affichage;
-import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
-import fr.unice.polytech.couleur.CouleurConsole;
+import fr.unice.polytech.cartes.CartePersonnage;
 
 import java.util.ArrayList;
 import java.util.List;
