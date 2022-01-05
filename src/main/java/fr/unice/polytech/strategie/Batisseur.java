@@ -33,7 +33,7 @@ public class Batisseur implements IStrategie {
 
         if (quartierNoblesse > 0 && !joueur.isRoi())
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Roi")).findAny().orElse(null);
-        if (quartierCommerce > 1 && choix == null)
+        if (quartierCommerce > 0 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Marchand")).findAny().orElse(null);
         if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Architecte")).findAny().orElse(null);
@@ -78,7 +78,8 @@ public class Batisseur implements IStrategie {
     }
 
     /**
-     * Choisit un quartier qui est le moins cher possible.
+     * Choisit un quartier Noblesse ou Commerce et Artisanat
+     * Sinon il choisit celui qui est le moins cher possible.
      *
      * @param joueur    Le joueur qui joue.
      * @param quartiers La liste des quartiers.
