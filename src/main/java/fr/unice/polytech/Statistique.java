@@ -93,8 +93,9 @@ public class Statistique {
 
     public void printStatTableau() {
         CsvReader csvReader = new CsvReader();
-        this.data = csvReader.getData();
         Object[] titre = this.titre;
+        this.data = csvReader.getData();
+        this.nomAvecStrategie();
 
         Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", titre));
 
@@ -116,6 +117,17 @@ public class Statistique {
         }
         largeur = Math.max(largeur, this.titre[numColonne].length());
         return largeur + this.marge;
+    }
+
+    private void nomAvecStrategie() {
+        Joueur joueur;
+        for (int i = 0; i < this.data.length; i++) {
+            int finalI = i;
+            joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(this.data[finalI][0])).findFirst().orElse(null);
+            if (joueur != null) {
+                this.data[finalI][0] += " - " + joueur.getNomStrategie();
+            }
+        }
     }
 
     @Override
