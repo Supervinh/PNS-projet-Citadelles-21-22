@@ -23,9 +23,9 @@ public class Agressif implements IStrategie {
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         CartePersonnage choix;
         int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
-        int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
+        int nbreQuartiersConstruits = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiersConstruits).mapToInt(ArrayList::size).max().orElse(0);
         choix = personnages.stream().filter(cp -> cp.getNom().equals("Assassin")).findAny().orElse(null);
-        if (nbreQuartierMain>5 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottiere")).findAny().orElse(null);
+        if (nbreQuartiersConstruits>5 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottiere")).findAny().orElse(null);
         if (joueur.getQuartiers().size()==0 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Magicien")).findAny().orElse(null);
         if (orMax>7 || choix == null) choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         if (choix == null) choix = IStrategie.super.choixDePersonnage(joueur, personnages);
@@ -33,8 +33,8 @@ public class Agressif implements IStrategie {
     }
 
     /**
-     * Si on a pioche l'assassin, on va ciblé l'architecte ou le magicien.
-     * Si on a le voleur, on va ciblé l'architecte ou le marchand.
+     * Si on a pioche l'assassin, on va cibler l'architecte ou le magicien.
+     * Si on a le voleur, on va cibler l'architecte ou le marchand.
      * Et sinon on vise aléatoirement un personnage.
      *
      * @param joueur Le joueur qui joue.
