@@ -1,7 +1,6 @@
 package fr.unice.polytech;
 
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,6 +17,11 @@ class MoteurDeJeuTest {
         m.initialiseJoueurs(joueurs, true);
         m.printJoueursInitialises(joueurs);
         m.piocherPersonnage(joueurs);
+    }
+
+    @RepeatedTest(100)
+    void moteurDeJeuIdentiqueAuDemarrage() {
+        assertEquals(new MoteurDeJeu(), new MoteurDeJeu());
     }
 
     @RepeatedTest(100)
@@ -120,14 +124,12 @@ class MoteurDeJeuTest {
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
         m.initialisePileCartes();
-        for (int i = 0; i<6; i++) MoteurDeJeu.deck.piocherPersonnage();
+        for (int i = 0; i < 6; i++) MoteurDeJeu.deck.piocherPersonnage();
         Random indice = new Random();
         int indicePersonnage = indice.nextInt(7);
         m.joueurPiochePersonnage(joueurs, indicePersonnage);
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
-
-
 
     @RepeatedTest(100)
     void remettreCarteCachee() {
@@ -146,7 +148,5 @@ class MoteurDeJeuTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
-
 }

@@ -5,6 +5,7 @@ import fr.unice.polytech.lecteurFichiers.ExcelReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 
@@ -418,5 +419,21 @@ public class MoteurDeJeu {
      */
     public void setNbJoueurs(int nombre) {
         nbJoueurs = nombre;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MoteurDeJeu that = (MoteurDeJeu) o;
+
+        if (nombre2Personnages != that.nombre2Personnages) return false;
+        if (nb2Tours != that.nb2Tours) return false;
+        if (roiIndex != that.roiIndex) return false;
+        if (avaitRoi != that.avaitRoi) return false;
+        if (!cartesVisibles.equals(that.cartesVisibles))
+            return false;
+        return Objects.equals(carteCachee, that.carteCachee);
     }
 }
