@@ -109,6 +109,6 @@ public class Batisseur implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Bob the Builder";
+        return "Batisseur";
     }
 }
