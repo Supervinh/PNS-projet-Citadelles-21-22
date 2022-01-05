@@ -240,12 +240,12 @@ public class MoteurDeJeu {
                 joueurs.add(new Joueur(ER.getRandomName()));
             }
         }
+        joueurs.get(0).setRoi(true);
         joueurs.get(0).getStrategie().setStrategie("Rusher");
         joueurs.get(1).getStrategie().setStrategie("Merveille");
         joueurs.get(2).getStrategie().setStrategie("Agressif");
         joueurs.get(3).getStrategie().setStrategie("VStrat");
         if (joueurs.size() > 4) joueurs.get(4).getStrategie().setStrategie("Commerce");
-        joueurs.get(0).setRoi(true);
     }
 
     /**

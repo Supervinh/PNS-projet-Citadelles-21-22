@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Joueur implements Comparable<Joueur> {
     /**
-     * Le numéro du joueur.
+     * Le compteur du numéro des joueurs.
      */
     public static int numJoueur = 0;
 
@@ -284,7 +284,7 @@ public class Joueur implements Comparable<Joueur> {
      * @return Le nom de la stratégie qu'utilise le joueur.
      */
     public String getNomStrategie() {
-        return this.strategie.getIPiocher().nomStrategie();
+        return this.strategie.getIStrategie().nomStrategie();
     }
 
     /**
@@ -293,7 +293,25 @@ public class Joueur implements Comparable<Joueur> {
      * @return Le nom de la stratégie en violet.
      */
     public String getNomStrategieColoured() {
-        return CouleurConsole.purple(this.strategie.getIPiocher().nomStrategie());
+        return CouleurConsole.purple(this.getNomStrategie());
+    }
+
+    /**
+     * Permet de récupérer le nom du type de pioche qu'utilise le joueur.
+     *
+     * @return Le nom de la stratégie qu'utilise le joueur.
+     */
+    public String getNomPioche() {
+        return this.strategie.getIPiocher().nomStrategie();
+    }
+
+    /**
+     * Permet de récupérer le nom du type de pioche qu'utilise le joueur, mais avec des couleurs pour l'affichage.
+     *
+     * @return Le nom de la stratégie en violet.
+     */
+    public String getNomPiocheColoured() {
+        return CouleurConsole.pink(this.getNomPioche());
     }
 
     /**

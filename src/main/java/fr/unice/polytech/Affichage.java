@@ -110,14 +110,17 @@ public class Affichage {
     }
 
     public static void orTitre() {
+        log.finer("");
         log.finer(CouleurConsole.gold("| Piocher Or"));
     }
 
     public static void personnageTitre() {
+        log.finer("");
         log.finer(CouleurConsole.green("| Piocher Personnages"));
     }
 
     public static void quartierTitre() {
+        log.finer("");
         log.finer(CouleurConsole.purple("| Piocher Quartier"));
     }
 
@@ -155,6 +158,7 @@ public class Affichage {
 
     public static void choixQuartierConstruit(Joueur joueur, int or, ArrayList<CarteQuartier> quartiersAchetable) {
         AtomicInteger i = new AtomicInteger(1);
+        log.finest("");
         log.finest(CouleurConsole.pink("| Construire Quartier") + " - " + joueur.getNomColoured() + " à " + joueur.getOrColoured() + " pièce" + (or > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or"));
         log.finest(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
         quartiersAchetable.forEach(quartier -> log.finest(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
@@ -175,9 +179,9 @@ public class Affichage {
         log.finest(CouleurConsole.blue("| ") + "Personnage: " + personnage.getNomColoured());
         log.finest(CouleurConsole.blue("| ") + "Pièces d'Or: " + joueur.getOrColoured());
         log.finest(CouleurConsole.blue("| ") + "Stratégie: " + joueur.getNomStrategieColoured());
+        log.finest(CouleurConsole.blue("| ") + "Type de Pioche: " + joueur.getNomPiocheColoured());
         log.finest(CouleurConsole.blue("| ") + "Quartiers dans la main: " + joueur.getQuartiers().stream().map(CarteQuartier::getNomColoured).toList());
         log.finest(CouleurConsole.blue("| ") + "Quartiers construit: " + joueur.getQuartiersConstruits().stream().map(CarteQuartier::getNomColoured).toList());
-        log.finest("");
     }
 
     // Deck.java
