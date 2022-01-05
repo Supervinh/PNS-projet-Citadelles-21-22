@@ -8,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CarteQuartierTest {
-    @RepeatedTest(100)
+
+    final int ITERATIONS = 100;
+
+    @RepeatedTest(ITERATIONS)
     void notEmpty() {
         CarteQuartier cq = new CarteQuartier(5.4, "Manoir", "Noblesse", 4);
         assertEquals(5.4, cq.getId());

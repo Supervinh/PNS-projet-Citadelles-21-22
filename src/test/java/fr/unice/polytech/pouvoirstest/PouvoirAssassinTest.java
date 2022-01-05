@@ -1,20 +1,21 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.pouvoirs.PouvoirAssassin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class PouvoirAssassinTest {
+    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur assassin;
@@ -31,9 +32,10 @@ class PouvoirAssassinTest {
         assassin.setPersonnage(new CartePersonnage(1, "Assassin", "None", "L'Assassin peut tuer le personnage de son choix. Celui-ci ne pourra pas jouer ce tour-ci"));
         marchand.setPersonnage(personnage);
         moteurDeJeu.setJoueurs(joueurs);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void estTue() {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(assassin);
@@ -44,7 +46,7 @@ class PouvoirAssassinTest {
         assertTrue(marchand.isMort());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pas2Cible() {
         CartePersonnage voleur = new CartePersonnage(2, "Voleur", "None");
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
@@ -61,7 +63,7 @@ class PouvoirAssassinTest {
         assertNull(pouvoir.cibleExistante(voleur));
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void testRandom() {
         PouvoirAssassin pouvoir = Mockito.mock(PouvoirAssassin.class);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(assassin);

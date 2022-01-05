@@ -3,11 +3,11 @@ package fr.unice.polytech;
 import fr.unice.polytech.cartes.CartePersonnage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeckTest {
+    final int ITERATIONS = 100;
     Deck d;
 
     @BeforeEach
@@ -15,19 +15,19 @@ class DeckTest {
         d = new Deck();
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void piocheQuartier() {
         assertNotNull(d.piocherQuartier());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void piochePersoDifferents() {
         CartePersonnage cp1 = d.piocherPersonnage();
         CartePersonnage cp2 = d.piocherPersonnage();
         assertNotEquals(cp1, cp2);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void bienajoute() {
         int i = d.getPersonnages().size();
         d.ajoutePersonnage(d.piocherPersonnage());

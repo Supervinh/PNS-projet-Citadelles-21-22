@@ -1,20 +1,21 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.pouvoirs.PouvoirCondottiere;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PouvoirCondottiereTest {
+    final int ITERATIONS = 100;
     Joueur condottiere;
     Joueur marchand;
     Joueur eveque;
@@ -27,6 +28,7 @@ class PouvoirCondottiereTest {
     @BeforeEach
     void setUp() {
         moteurDeJeu = new MoteurDeJeu();
+        moteurDeJeu.setNbJoueurs(5);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
 
         condottiere = joueurs.get(0);
@@ -48,6 +50,7 @@ class PouvoirCondottiereTest {
         quartierc1 = new CarteQuartier(14.2, "Tour de guet", "Soldatesque", 1);
         quartiersc1.add(quartierc1);
         moteurDeJeu.setJoueurs(joueurs);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     void specialSetup() {
@@ -57,7 +60,7 @@ class PouvoirCondottiereTest {
         marchand.setQuartiers(new ArrayList<>());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void taxesAjoutTest() {
         PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(condottiere);
@@ -67,7 +70,7 @@ class PouvoirCondottiereTest {
         assertEquals(2, condottiere.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pasDeTaxe() {
         PouvoirCondottiere taxe = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(condottiere);
@@ -80,29 +83,29 @@ class PouvoirCondottiereTest {
         assertEquals(1, condottiere.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void destructionQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
         Mockito.doCallRealMethod().when(pouvoir).hasEnoughMoney(condottiere, quartierc1);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         Mockito.when(pouvoir.cibleAleatoire(condottiere)).thenReturn(marchand);
-        marchand.ajouteOr(50);
+        marchand.ajouteOr(5);
         marchand.setQuartiers(quartiersc1);
         marchand.construireQuartier();
-        condottiere.ajouteOr(50);
+        condottiere.ajouteOr(5);
         pouvoir.utiliserPouvoir(condottiere);
         assertEquals(0, marchand.getQuartiersConstruits().size());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pasDestruction() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).choixQuartierAleatoire(condottiere, marchand);
         assertNull(pouvoir.choixQuartierAleatoire(condottiere, marchand));
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void recuperationQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
@@ -116,7 +119,7 @@ class PouvoirCondottiereTest {
         assertEquals(1, marchand.getQuartiers().size());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pasRecuperationQuartier() {
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(condottiere);
@@ -130,7 +133,7 @@ class PouvoirCondottiereTest {
         assertEquals(0, marchand.getQuartiers().size());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void choixPossible(){
         PouvoirCondottiere pouvoir = Mockito.mock(PouvoirCondottiere.class);
         Mockito.doCallRealMethod().when(pouvoir).cibleAleatoire(condottiere);

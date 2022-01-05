@@ -10,15 +10,18 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PouvoirArchitecteTest {
+    final int ITERATIONS = 100;
     Joueur architecte;
     MoteurDeJeu moteurDeJeu;
     Strategie strategie;
     ArrayList<Joueur> joueurs = new ArrayList<>();
+
 
     @BeforeEach
     void setUp() {
@@ -29,9 +32,10 @@ public class PouvoirArchitecteTest {
         architecte.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
         strategie = new Strategie(architecte);
         strategie.actionPersonnage();
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void piocheQuartierTest() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
@@ -42,7 +46,7 @@ public class PouvoirArchitecteTest {
         assertEquals(2, architecte.getQuartiers().size());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void construire3Quartiers() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);

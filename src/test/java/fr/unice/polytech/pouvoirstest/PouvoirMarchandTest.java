@@ -11,11 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PouvoirMarchandTest {
+    final int ITERATIONS = 100;
     Joueur marchand;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
@@ -31,9 +33,10 @@ public class PouvoirMarchandTest {
         marchand.setPersonnage(new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or."));
         quartier = new CarteQuartier(11.2, "Comptoir", "Commerce et Artisanat", 3);
         quartiers.add(quartier);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void taxesAjoutTest() {
         PouvoirMarchand taxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(marchand);
@@ -44,7 +47,7 @@ public class PouvoirMarchandTest {
         assertEquals(2, marchand.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pasDeTaxe() {
         PouvoirMarchand pasTaxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(marchand);

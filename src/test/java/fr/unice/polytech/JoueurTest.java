@@ -3,29 +3,30 @@ package fr.unice.polytech;
 import fr.unice.polytech.cartes.CarteQuartier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurTest {
 
+    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu;
 
     @BeforeEach
     public void setUp() {
         moteurDeJeu = new MoteurDeJeu();
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void notEmpty() {
         Joueur j1 = new Joueur("1");
         assertEquals(MoteurDeJeu.or2Depart, j1.getOr());
         assertNotEquals(null, j1.getQuartiers());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void aPiocheOr() {
         Joueur j2 = new Joueur("2");
         j2.piocherOr();
@@ -33,7 +34,7 @@ class JoueurTest {
         assertEquals(MoteurDeJeu.orAPiocher + MoteurDeJeu.or2Depart, j2.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void nomCorrect() {
         Joueur j3 = new Joueur("3");
         assertEquals("3", j3.getNom());
@@ -41,7 +42,7 @@ class JoueurTest {
         assertNull(j4.getNom());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void piocherPersoDifferents() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -50,14 +51,14 @@ class JoueurTest {
         assertNotEquals(j1.getPersonnage(), j2.getPersonnage());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void mainsDepartDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
         assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -66,30 +67,30 @@ class JoueurTest {
         assertNotEquals(cq1, cq2);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void pointsCorrect() {
         Joueur j1 = new Joueur("1");
         assertEquals(0, j1.getPoints());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void estRoi() {
         Joueur j1 = new Joueur("1");
         assertFalse(j1.isRoi());
     }
 
-    @RepeatedTest(100)
-    void construire(){
+    @RepeatedTest(ITERATIONS)
+    void construire() {
         Joueur j1 = new Joueur("1");
         j1.ajouteOr(10);
         j1.construireQuartier();
         assertEquals(1, j1.getQuartiersConstruits().size());
     }
 
-    @RepeatedTest(100)
-    void pasAssezArgent(){
+    @RepeatedTest(ITERATIONS)
+    void pasAssezArgent() {
         Joueur j1 = new Joueur("1");
-        j1.ajouteOr(-1*j1.getOr());
+        j1.ajouteOr(-1 * j1.getOr());
         j1.construireQuartier();
         assertEquals(0, j1.getQuartiersConstruits().size());
     }

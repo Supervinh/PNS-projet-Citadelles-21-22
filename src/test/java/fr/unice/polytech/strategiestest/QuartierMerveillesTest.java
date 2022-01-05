@@ -1,17 +1,19 @@
 package fr.unice.polytech.strategiestest;
 
+import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.QuartierMerveilles;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QuartierMerveillesTest {
+    final int ITERATIONS = 100;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
 
@@ -21,10 +23,11 @@ public class QuartierMerveillesTest {
         quartiers.add(quartier);
         quartier = new CarteQuartier(18, "Cour des miracles", "Prestige", 5);
         quartiers.add(quartier);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void cartePrestige() {
         QuartierMerveilles pouvoir = Mockito.mock(QuartierMerveilles.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

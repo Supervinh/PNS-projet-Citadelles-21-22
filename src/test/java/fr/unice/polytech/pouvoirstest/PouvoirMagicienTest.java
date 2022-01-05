@@ -1,21 +1,22 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.pouvoirs.PouvoirMagicien;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class PouvoirMagicienTest {
+    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur magicien;
@@ -42,9 +43,10 @@ class PouvoirMagicienTest {
         joueurs.add(marchand);
         joueurs.add(magicien);
         moteurDeJeu.setJoueurs(joueurs);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void aEchangeSesCartesAvecJoueur() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecJoueur(magicien);
@@ -54,7 +56,7 @@ class PouvoirMagicienTest {
         assertEquals(4, magicien.getQuartiers().size());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void aEchangeSesCartesAvecLaPioche() {
         ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
@@ -64,7 +66,7 @@ class PouvoirMagicienTest {
         assertNotEquals(q, magicien.getQuartiers());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void echangePasAvecPioche() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
@@ -73,7 +75,7 @@ class PouvoirMagicienTest {
         assertEquals(q, magicien.getQuartiers());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void testRandom() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).choixNombreQuartiers(magicien);

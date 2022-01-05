@@ -1,21 +1,22 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.pouvoirs.PouvoirVoleur;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class PouvoirVoleurTest {
+    final int ITERATIONS = 100;
     MoteurDeJeu moteurDeJeu = new MoteurDeJeu();
     ArrayList<Joueur> joueurs = new ArrayList<>();
     Joueur voleur;
@@ -31,6 +32,7 @@ class PouvoirVoleurTest {
         voleur.setPersonnage(new CartePersonnage(2, "Voleur", "None", "Le Voleur peut voler le trésor du personnage de son choix. Il ne peut voler ni l'Assassin, ni un personnage assassiné. Le vol prendra effet au début du tour du personnage volé."));
         marchand.setPersonnage(personnage);
         moteurDeJeu.setJoueurs(joueurs);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     void specialSetUp() {
@@ -45,9 +47,10 @@ class PouvoirVoleurTest {
         }
         joueurs.add(voleur);
         joueurs.add(marchand);
+
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void aVole() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -56,7 +59,7 @@ class PouvoirVoleurTest {
         assertEquals(4, voleur.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void neVolePas() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -66,7 +69,7 @@ class PouvoirVoleurTest {
         assertEquals(2, voleur.getOr());
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);

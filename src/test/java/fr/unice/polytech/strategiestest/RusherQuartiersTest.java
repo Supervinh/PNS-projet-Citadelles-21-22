@@ -4,7 +4,6 @@ import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.RusherQuartiers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RusherQuartiersTest {
+    final int ITERATIONS = 100;
     ArrayList<CarteQuartier> quartiers = new ArrayList<>();
     CarteQuartier quartier;
 
@@ -24,7 +24,7 @@ public class RusherQuartiersTest {
     }
 
 
-    @RepeatedTest(100)
+    @RepeatedTest(ITERATIONS)
     void carteRush() {
         RusherQuartiers pouvoir = Mockito.mock(RusherQuartiers.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

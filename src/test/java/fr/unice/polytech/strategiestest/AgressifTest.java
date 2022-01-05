@@ -4,46 +4,46 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
-import static fr.unice.polytech.MoteurDeJeu.joueurs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AgressifTest {
 
+    final int ITERATIONS = 100;
     MoteurDeJeu m;
     ArrayList<Joueur> joueurs;
     Joueur agressif;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         m = new MoteurDeJeu();
         m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
-        m.initialiseJoueurs(joueurs,true);
+        m.initialiseJoueurs(joueurs, true);
         m.setJoueurs(joueurs);
         agressif = joueurs.get(2);
+        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
-    @RepeatedTest(100)
-    void choixAssassin(){
+    @RepeatedTest(ITERATIONS)
+    void choixAssassin() {
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(100)
-    void choixCondottiere(){
+    @RepeatedTest(ITERATIONS)
+    void choixCondottiere() {
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();
         sixQuartiersConstruits.ajouterQuartierEnMain();
         sixQuartiersConstruits.setQuartiersConstruits(sixQuartiersConstruits.getQuartiers());
-        assertEquals(6,sixQuartiersConstruits.getQuartiersConstruits().size());
+        assertEquals(6, sixQuartiersConstruits.getQuartiersConstruits().size());
         agressif.piocherPersonnage();
-        assertEquals("Condottiere",agressif.getPersonnage().getNom());
+        assertEquals("Condottiere", agressif.getPersonnage().getNom());
     }
-
 
 
 }
