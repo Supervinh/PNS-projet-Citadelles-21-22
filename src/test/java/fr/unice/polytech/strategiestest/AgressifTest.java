@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AgressifTest {
     MoteurDeJeu m;
@@ -59,6 +60,16 @@ public class AgressifTest {
         tropRiche.ajouteOr(6);
         agressif.piocherPersonnage();
         assertEquals("Voleur", agressif.getPersonnage().getNom());
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void choixAutre() {
+        MoteurDeJeu.deck.getPersonnages().removeIf(p -> p.getNom().equals("Assassin") || p.getNom().equals("Voleur") || p.getNom().equals("Condottiere") || p.getNom().equals("Magicien"));
+        agressif.piocherPersonnage();
+        assertNotEquals("Assassin", agressif.getPersonnage().getNom());
+        assertNotEquals("Voleur", agressif.getPersonnage().getNom());
+        assertNotEquals("Magicien", agressif.getPersonnage().getNom());
+        assertNotEquals("Condottiere", agressif.getPersonnage().getNom());
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
@@ -128,6 +139,16 @@ public class AgressifTest {
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         architecte.ajouteOr(4);
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        assertEquals("Architecte", cible.getNom());
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void volerArchitecteBis() {
+        Joueur tropRiche = joueurs.get(0);
+        tropRiche.ajouteOr(6);
+        agressif.piocherPersonnage();
+        assertEquals("Voleur", agressif.getPersonnage().getNom());
         CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
         assertEquals("Architecte", cible.getNom());
     }
