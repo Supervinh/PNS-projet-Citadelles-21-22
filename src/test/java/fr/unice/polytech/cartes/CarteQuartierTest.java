@@ -30,4 +30,12 @@ class CarteQuartierTest {
         CarteQuartier carteQuartierVide = new CarteQuartier(0.0, "", "", 0.0);
         assertEquals("CarteQuartier{id=" + carteQuartierVide.getIdColoured() + ", nom=" + carteQuartierVide.getNomColoured() + ", gemme=" + carteQuartierVide.getGemmeColoured() + ", prix=" + carteQuartierVide.getPrixColoured() + ", description=" + carteQuartierVide.getDescriptionColoured() + "}", carteQuartierVide.toString());
     }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void changerLaGemme() {
+        CarteQuartier carteQuartierVide = new CarteQuartier(0.0, "", "", 0.0);
+        CarteQuartier carteQuartierNouvelleGemme = new CarteQuartier(carteQuartierVide.getId(), carteQuartierVide.getNom(), carteQuartierVide.getGemme(), carteQuartierVide.getPrix());
+        carteQuartierNouvelleGemme.setGemme("Nouvelle Gemme");
+        assertNotEquals(carteQuartierVide.getGemme(), carteQuartierNouvelleGemme.getGemme());
+    }
 }

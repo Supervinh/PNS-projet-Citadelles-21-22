@@ -24,7 +24,6 @@ class CartePersonnageTest {
     @RepeatedTest(MoteurDeJeu.iterationTest)
     void toStringVide() {
         CartePersonnage cartePersonnageVide = new CartePersonnage(0.0, "", "");
-        System.out.println(cartePersonnageVide);
         assertEquals("CartePersonnage{id=" + cartePersonnageVide.getIdColoured() + ", nom=" + cartePersonnageVide.getNomColoured() + ", gemme=" + cartePersonnageVide.getGemmeColoured() + ", description=" + cartePersonnageVide.getDescriptionColoured() + "}", cartePersonnageVide.toString());
     }
 }
