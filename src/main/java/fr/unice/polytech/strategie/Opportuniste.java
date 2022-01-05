@@ -1,9 +1,9 @@
 package fr.unice.polytech.strategie;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,11 +15,10 @@ public class Opportuniste implements IStrategie {
 
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
-        CartePersonnage choix = null;
         int quartierReligieux = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Religion")).count();
-        choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
+        CartePersonnage choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
-        if (quartierReligieux>0)
+        if (quartierReligieux > 0)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
         if (joueur.getOr() > 1 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottière")).findAny().orElse(null);
@@ -32,7 +31,7 @@ public class Opportuniste implements IStrategie {
     /**
      * On cible le personnage avec le plus de points sinon c'est aléatoire.
      *
-     * @param joueur Le joueur qui joue.
+     * @param joueur     Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.
      * @return La carte personnage ciblée.
      */
@@ -74,8 +73,8 @@ public class Opportuniste implements IStrategie {
     public CarteQuartier choixDeQuartier(Joueur joueur, ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
         Collections.sort(carteQuartiers);
-        for (CarteQuartier q:carteQuartiers){
-            if (q.getGemme().equals("Religion")){
+        for (CarteQuartier q : carteQuartiers) {
+            if (q.getGemme().equals("Religion")) {
                 carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Religion"));
                 return carteQuartiers.get(carteQuartiers.size() - 1);
             }
@@ -90,6 +89,6 @@ public class Opportuniste implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Stratégie se concentrant sur les rôles non aggressifs.";
+        return "Opportuniste";
     }
 }

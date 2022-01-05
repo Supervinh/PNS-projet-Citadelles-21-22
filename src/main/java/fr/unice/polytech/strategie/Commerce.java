@@ -96,6 +96,6 @@ public class Commerce implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Stratégie se concentrant sur les quartiers 'Commerce et Artisanat'";
+        return "Commerçant et Artisan";
     }
 }
