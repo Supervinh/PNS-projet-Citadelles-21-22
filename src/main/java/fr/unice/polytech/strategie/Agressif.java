@@ -40,12 +40,12 @@ public class Agressif implements IStrategie {
     /**
      * Permet de choisir la cible d'une carte personnage.
      * Si on a pioche l'assassin, on va cibler en fonction de ce que les autres joueurs ont.
-     * Si quelqu'un a plus de 4 cartes en main, et 4 quartiers construits ou plus de 6 cartes en main, on va viser le condottière.
-     * Sinon si quelqu'un a plus de 5 carte en main, on va viser le roi.
+     * Si le joueur a plus de 5 quartiers construits, ou que quelqu'un a construit plus de 6 quartiers, on va viser le condottière.
+     * Sinon si quelqu'un a plus de 5 quartiers construits, on va viser le roi.
      * Sinon si quelqu'un a plus de 6 pièces d'or, on va viser le voleur.
      * Si quelqu'un a plus de 3 pièces d'or ou 4 quartiers construits alors on vise l'architecte.
      * Sinon si le joueur n'a pas pioché l'assassin, mais le voleur, on va viser l'architecte.
-     * Et sinon le joueur va viser quelqu'un aléatoirement.
+     * Et sinon le joueur va viser un personnage aléatoirement.
      *
      * @param joueur Le joueur qui joue.
      * @return La carte personnage ciblée.
@@ -54,15 +54,14 @@ public class Agressif implements IStrategie {
     public CartePersonnage choixDeCibleCartePersonnage(Joueur joueur, ArrayList<CartePersonnage> ciblesTemp) {
         CartePersonnage personnageCible = null;
         int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
-        int nbreQuartierConstruit = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiersConstruits).mapToInt(ArrayList::size).max().orElse(0);
-        int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
+        int nbreQuartiersConstruits = MoteurDeJeu.joueurs.stream().map(Joueur::getQuartiersConstruits).mapToInt(ArrayList::size).max().orElse(0);
         if (joueur.getPersonnage().getNom().equals("Assassin")) {
-            if ((nbreQuartierMain>4 && nbreQuartierMain==joueur.getQuartiersConstruits().size()) || nbreQuartierMain>6) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Condottiere")).findFirst().orElse(null);
-            else if (nbreQuartierMain>5) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Roi")).findFirst().orElse(null);
-            else if (orMax>6)personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Voleur")).findFirst().orElse(null);
-            if (orMax>3 || nbreQuartierConstruit>4) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte")).findFirst().orElse(null);
+            if ((nbreQuartiersConstruits>5 && nbreQuartiersConstruits==joueur.getQuartiersConstruits().size()) || nbreQuartiersConstruits>6) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Condottiere")).findFirst().orElse(null);
+            if (nbreQuartiersConstruits>5 && personnageCible == null) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Roi")).findFirst().orElse(null);
+            if (orMax>6 && personnageCible == null) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Voleur")).findFirst().orElse(null);
+            if ((orMax>3 || nbreQuartiersConstruits>4) && personnageCible==null) personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte")).findFirst().orElse(null);
         } else if (joueur.getPersonnage().getNom().equals("Voleur")) {
-            personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte") || p.getNom().equals("Marchand")).findFirst().orElse(null);
+            personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte")).findFirst().orElse(null);
         }
         if (personnageCible == null) {
             return IStrategie.super.choixDeCibleCartePersonnage(joueur, ciblesTemp);
