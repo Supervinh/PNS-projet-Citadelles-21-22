@@ -153,4 +153,32 @@ public class AgressifTest {
         assertEquals("Architecte", cible.getNom());
     }
 
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void cibleBeaucoupCartesMain() {
+        Joueur tropDeCartes = joueurs.get(0);
+        ArrayList<CarteQuartier> mainVide = new ArrayList<>();
+        agressif.setQuartiers(mainVide);
+        agressif.piocherPersonnage();
+        assertEquals("Magicien", agressif.getPersonnage().getNom());
+        tropDeCartes.ajouterQuartierEnMain();
+        tropDeCartes.piocherPersonnage();
+        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif,joueurs);
+        assertEquals(tropDeCartes, cible);
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void ciblePlusDePoints() {
+        Joueur sixQuartiersConstruits = joueurs.get(0);
+        sixQuartiersConstruits.ajouterQuartierEnMain();
+        sixQuartiersConstruits.ajouterQuartierEnMain();
+        sixQuartiersConstruits.setQuartiersConstruits(sixQuartiersConstruits.getQuartiers());
+        assertEquals(6, sixQuartiersConstruits.getQuartiersConstruits().size());
+        agressif.piocherPersonnage();
+        assertEquals("Condottiere", agressif.getPersonnage().getNom());
+        Joueur autre = joueurs.get(1);
+        autre.ajouteOr(4);
+        autre.construireQuartier();
+
+    }
+
 }

@@ -70,7 +70,8 @@ public class Agressif implements IStrategie {
     }
 
     /**
-     * Choisit le joueur avec le plus de quartiers en main.
+     * Choisit le joueur avec le plus de quartiers en main si on est magicien.
+     * Sinon choisit celui ayant le plus de points.
      *
      * @param joueur Le joueur qui joue.
      * @param cibles La liste des joueurs.
@@ -79,8 +80,8 @@ public class Agressif implements IStrategie {
     @Override
     public Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
         int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
-        if (nbreQuartierMain > 4) {
-            return MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
+        if (nbreQuartierMain > 4 && joueur.getPersonnage().getNom().equals("Magicien")) {
+            return MoteurDeJeu.joueurs.stream().filter(j -> j.getQuartiers().size() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
         }
         MoteurDeJeu.joueurs.forEach(Joueur::calculePoints);
         int scoreMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getPoints).max().orElse(0);
