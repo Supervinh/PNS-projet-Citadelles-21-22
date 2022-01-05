@@ -94,6 +94,6 @@ public class Batisseur implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Stratégie se concentrant sur l'obtention d'or pour bâtir un maximum de quartiers";
+        return "Bob the Builder";
     }
 }

@@ -66,6 +66,6 @@ public class VStrat implements IStrategie {
 
     @Override
     public String nomStrategie() {
-        return "Stratégie spéciale Vinh";
+        return "Spécial Vinh";
     }
 }

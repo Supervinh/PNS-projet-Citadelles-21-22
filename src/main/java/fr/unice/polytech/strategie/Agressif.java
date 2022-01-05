@@ -99,6 +99,6 @@ public class Agressif implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Stratégie agressive afin de gêner au plus les adversaires";
+        return "Griefer";
     }
 }

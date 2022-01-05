@@ -49,7 +49,6 @@ public class Statistique {
         ecritureCsv.clearCsv();
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-
         this.rajouteNonGagnant();
 
         for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
@@ -62,7 +61,7 @@ public class Statistique {
             double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
             String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
-            ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
+            ecritureCsv.ecrireStatistiques(this.nomAvecStrategie(nom), victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
         }
     }
 
@@ -95,7 +94,6 @@ public class Statistique {
         CsvReader csvReader = new CsvReader();
         Object[] titre = this.titre;
         this.data = csvReader.getData();
-        this.nomAvecStrategie();
 
         Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", titre));
 
@@ -119,15 +117,13 @@ public class Statistique {
         return largeur + this.marge;
     }
 
-    private void nomAvecStrategie() {
-        Joueur joueur;
-        for (int i = 0; i < this.data.length; i++) {
-            int finalI = i;
-            joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(this.data[finalI][0])).findFirst().orElse(null);
-            if (joueur != null) {
-                this.data[finalI][0] += " - " + joueur.getNomStrategie();
-            }
+    private String nomAvecStrategie(String nom) {
+        Joueur joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(nom)).findFirst().orElse(null);
+        if (joueur != null) {
+            System.out.println(nom + " - " + joueur.getNomStrategie());
+            return nom + " - " + joueur.getNomStrategie();
         }
+        return nom;
     }
 
     @Override
