@@ -3,6 +3,8 @@ package fr.unice.polytech;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class JoueurTest {
@@ -57,6 +59,7 @@ class JoueurTest {
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
+        j2.setQuartiers(new ArrayList<>(j1.getQuartiers()));
         j1.ajouterQuartierEnMain();
         j2.ajouterQuartierEnMain();
         assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
