@@ -11,6 +11,9 @@ import java.util.logging.Handler;
 import java.util.logging.Logger;
 import java.util.logging.StreamHandler;
 
+/**
+ * La classe permettant d'avoir notre affichage.
+ */
 public class Affichage {
 
     public static Logger log;

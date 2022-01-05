@@ -13,7 +13,12 @@ import java.util.Collections;
 public class Agressif implements IStrategie {
 
     /**
-     * Choisit en priorité l'assassin pui voleur sinon c'est aléatoire.
+     * Permet de faire le bon choix du personnage en fonction de ce que le joueur a dans sa main.
+     * Choisit en priorité l'assassin.
+     * Si le nombre de quartiers construits est supérieur à 5 on prend le condottière.
+     * Si on n'a pas de quartiers en main on prend le magicien.
+     * Si un autre joueur à plus de 7 pièces d'or on prend le voleur.
+     * Sinon on prend un personnage aléatoire.
      *
      * @param joueur      Le joueur à jouer.
      * @param personnages Les cartes de personnages que l'on peut encore piocher.
@@ -33,9 +38,14 @@ public class Agressif implements IStrategie {
     }
 
     /**
-     * Si on a pioche l'assassin, on va cibler l'architecte ou le magicien.
-     * Si on a le voleur, on va cibler l'architecte ou le marchand.
-     * Et sinon on vise aléatoirement un personnage.
+     * Permet de choisir la cible d'une carte personnage.
+     * Si on a pioche l'assassin, on va cibler en fonction de ce que les autres joueurs ont.
+     * Si quelqu'un a plus de 4 cartes en main, et 4 quartiers construits ou plus de 6 cartes en main, on va viser le condottière.
+     * Sinon si quelqu'un a plus de 5 carte en main, on va viser le roi.
+     * Sinon si quelqu'un a plus de 6 pièces d'or, on va viser le voleur.
+     * Si quelqu'un a plus de 3 pièces d'or ou 4 quartiers construits alors on vise l'architecte.
+     * Sinon si le joueur n'a pas pioché l'assassin, mais le voleur, on va viser l'architecte.
+     * Et sinon le joueur va viser quelqu'un aléatoirement.
      *
      * @param joueur Le joueur qui joue.
      * @return La carte personnage ciblée.

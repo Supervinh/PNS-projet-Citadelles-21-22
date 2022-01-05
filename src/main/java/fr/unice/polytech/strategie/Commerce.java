@@ -13,6 +13,14 @@ import java.util.Collections;
  */
 public class Commerce implements IStrategie {
 
+    /**
+     * Permet de faire le bon choix du personnage en fonction de ce que le joueur a dans sa main.
+     * 
+     *
+     * @param joueur      Le joueur à jouer.
+     * @param personnages Les cartes de personnages que l'on peut encore piocher.
+     * @return
+     */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         CartePersonnage choix = null;
@@ -36,7 +44,9 @@ public class Commerce implements IStrategie {
     }
 
     /**
-     * On cible le personnage avec le plus de points sinon c'est aléatoire.
+     * Permet de choisir la cible d'une carte personnage.
+     * Si le joueur a choisi le voleur, il cible l'architecte ou le marchand.
+     * Sinon il cible aléatoirement.
      *
      * @param joueur Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.

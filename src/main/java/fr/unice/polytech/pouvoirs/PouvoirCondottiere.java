@@ -93,6 +93,12 @@ public class PouvoirCondottiere implements IPouvoir {
         return (joueur.getOr() >= quartier.getPrix() - 1);
     }
 
+
+    /**
+     * On choisit aléatoirement vrai ou faux.
+     *
+     * @return Vrai ou faux.
+     */
     public boolean choixAction() {
         Random r = new Random();
         return r.nextBoolean();

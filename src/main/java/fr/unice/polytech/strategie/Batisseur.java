@@ -13,6 +13,18 @@ import java.util.Collections;
  */
 public class Batisseur implements IStrategie {
 
+    /**
+     * Permet de faire le bon choix du personnage en fonction de ce que le joueur a dans sa main.
+     * On calcule le nombre de cartes avec les gemmes "commerce et artisanat" et "noblesse".
+     * Si le joueur a au moins une carte noblesse et que le joueur n'est pas roi, le joueur choisit le roi.
+     * Si le joueur a plus de une carte commerce alors le joueur choisit le marchand.
+     * Si le joueur a plus de 2 cartes quartiers en main et qu'il a plus de 5 pièces d'or il choisit architecte.
+     * Sinon le joueur choisit aléatoirement.
+     *
+     * @param joueur      Le joueur à jouer.
+     * @param personnages Les cartes de personnages que l'on peut encore piocher.
+     * @return
+     */
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         CartePersonnage choix = null;
@@ -30,7 +42,9 @@ public class Batisseur implements IStrategie {
     }
 
     /**
-     * On cible le personnage avec le plus de points sinon c'est aléatoire.
+     * Permet de choisir la cible d'une carte personnage.
+     * Si le joueur a pioché voleur, on va viser l'architecte ou le marchand.
+     * Sinon on choisit aléatoirement.
      *
      * @param joueur     Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.
