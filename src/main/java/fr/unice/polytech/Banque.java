@@ -21,10 +21,19 @@ public class Banque {
     /**
      * Permet de récupérer les fonds restant dans la banque.
      *
-     * @return Les fonds restant dans la banque.
+     * @return Les fonds.
      */
     public int getFonds() {
         return this.fonds;
+    }
+
+    /**
+     * Permet de récupérer les fonds restant dans la banque.
+     *
+     * @return Les fonds restant dans la banque.
+     */
+    public String getPieceEnJeu() {
+        return "" + this.fonds;
     }
 
     /**
@@ -33,7 +42,7 @@ public class Banque {
      * @return Les fonds restant dans la banque, mais en or.
      */
     public String getPieceEnJeuColoured() {
-        return CouleurConsole.gold("" + this.fonds);
+        return CouleurConsole.gold(this.getPieceEnJeu());
     }
 
     /**
@@ -66,7 +75,7 @@ public class Banque {
      *
      * @return Le nombre de pieces d'or.
      */
-    public int sommeArgentEnCirculation() {
+    private int sommeArgentEnCirculation() {
         return this.fonds + MoteurDeJeu.joueurs.stream().mapToInt(Joueur::getOr).sum();
     }
 
