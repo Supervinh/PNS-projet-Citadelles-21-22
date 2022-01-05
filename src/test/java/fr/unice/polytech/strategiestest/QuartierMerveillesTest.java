@@ -18,11 +18,11 @@ public class QuartierMerveillesTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         quartier = new CarteQuartier(11.2, "Comptoir", "Commerce et Artisanat", 3);
         quartiers.add(quartier);
         quartier = new CarteQuartier(18, "Cour des miracles", "Prestige", 5);
         quartiers.add(quartier);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

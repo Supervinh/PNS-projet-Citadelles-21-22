@@ -13,8 +13,8 @@ class JoueurTest {
 
     @BeforeEach
     public void setUp() {
-        moteurDeJeu = new MoteurDeJeu();
         MoteurDeJeu.setMessageLvl(Level.OFF);
+        moteurDeJeu = new MoteurDeJeu();
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

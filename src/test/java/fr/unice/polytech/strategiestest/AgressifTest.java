@@ -19,13 +19,13 @@ public class AgressifTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         m = new MoteurDeJeu();
         m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
         m.setJoueurs(joueurs);
         agressif = joueurs.get(2);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

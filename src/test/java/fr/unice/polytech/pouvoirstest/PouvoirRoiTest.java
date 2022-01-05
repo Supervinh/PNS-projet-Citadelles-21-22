@@ -24,13 +24,13 @@ public class PouvoirRoiTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         roi = joueurs.get(1);
         roi.setPersonnage(new CartePersonnage(4, "Roi", "Noblesse", "Le roi prend la carte Couronne et choisira en premier son personnage au prochain tour. Chaque quartier noble qu'il possède lui rapporte une pièce d'or."));
         quartier = new CarteQuartier(5, "Manoir", "Noblesse", 3);
         quartiers.add(quartier);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)

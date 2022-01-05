@@ -24,6 +24,7 @@ class PouvoirVoleurTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
         personnage = new CartePersonnage(6, "Marchand", "Commerce et Artisanat", "Le Marchand reçoit une pièce d'or en plus au début de son tour. Chaque quartier marchand qu'il possède lui rapporte une pièce d'or.");
         voleur = joueurs.get(0);
@@ -31,14 +32,12 @@ class PouvoirVoleurTest {
         voleur.setPersonnage(new CartePersonnage(2, "Voleur", "None", "Le Voleur peut voler le trésor du personnage de son choix. Il ne peut voler ni l'Assassin, ni un personnage assassiné. Le vol prendra effet au début du tour du personnage volé."));
         marchand.setPersonnage(personnage);
         moteurDeJeu.setJoueurs(joueurs);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     void specialSetUp() {
         marchand.setPersonnage(new CartePersonnage(3, "Assassin", "None"));
         joueurs.remove(voleur);
         joueurs.remove(marchand);
-        System.out.println(joueurs.size());
         for (Joueur joueur : joueurs) {
             joueur.piocherPersonnage();
             while (joueur.getPersonnage().getNom().equals("Marchand") || joueur.getPersonnage().getNom().equals("Voleur"))

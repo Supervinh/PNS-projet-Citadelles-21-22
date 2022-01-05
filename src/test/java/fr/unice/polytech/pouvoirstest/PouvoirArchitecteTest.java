@@ -23,6 +23,7 @@ public class PouvoirArchitecteTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.setNbJoueurs(5);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
@@ -30,14 +31,12 @@ public class PouvoirArchitecteTest {
         architecte.setPersonnage(new CartePersonnage(7, "Architecte", "None", "L'Architecte pioche deux cartes quartier en plus. il peut bâtir jusqu'à trois quartiers."));
         strategie = new Strategie(architecte);
         strategie.actionPersonnage();
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
     void piocheQuartierTest() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
-        System.out.println("Pioche \n");
         architecte.setQuartiers(new ArrayList<>());
         architecte.ajouteOr(-1 * (architecte.getOr()));
         construire.utiliserPouvoir(architecte);
@@ -48,7 +47,6 @@ public class PouvoirArchitecteTest {
     void construire3Quartiers() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
-        System.out.println("Construction \n");
         architecte.ajouteOr(20);
         construire.utiliserPouvoir(architecte);
         assertEquals(2, architecte.getQuartiersConstruits().size());

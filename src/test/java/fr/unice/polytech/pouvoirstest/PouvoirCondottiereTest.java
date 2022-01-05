@@ -26,6 +26,7 @@ class PouvoirCondottiereTest {
 
     @BeforeEach
     void setUp() {
+        MoteurDeJeu.setMessageLvl(Level.OFF);
         moteurDeJeu = new MoteurDeJeu();
         moteurDeJeu.setNbJoueurs(5);
         moteurDeJeu.initialiseJoueurs(joueurs, true);
@@ -49,7 +50,6 @@ class PouvoirCondottiereTest {
         quartierc1 = new CarteQuartier(14.2, "Tour de guet", "Soldatesque", 1);
         quartiersc1.add(quartierc1);
         moteurDeJeu.setJoueurs(joueurs);
-        MoteurDeJeu.setMessageLvl(Level.OFF);
     }
 
     void specialSetup() {
