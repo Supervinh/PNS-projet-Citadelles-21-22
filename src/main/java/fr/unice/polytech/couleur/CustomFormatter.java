@@ -9,19 +9,6 @@ import java.util.logging.LogRecord;
 public class CustomFormatter extends Formatter {
     private final Date date = new Date();
 
-    public static void main(String[] args) {
-        CustomFormatter customFormatter = new CustomFormatter();
-        System.out.print(customFormatter.format(new LogRecord(Level.OFF, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.SEVERE, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.WARNING, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.INFO, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.CONFIG, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.FINE, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.FINER, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.FINEST, "Message...")));
-        System.out.print(customFormatter.format(new LogRecord(Level.ALL, "Message...")));
-    }
-
     @Override
     public String format(LogRecord record) {
         String couleurLevel = switch (record.getLevel().toString().toUpperCase()) {
@@ -35,7 +22,7 @@ public class CustomFormatter extends Formatter {
             case "ALL" -> CouleurConsole.PURPLE_BRIGHT;
             default -> CouleurConsole.BLACK_BRIGHT;
         };
-        
+
         date.setTime(record.getMillis());
         String dateString = "[" + new SimpleDateFormat("dd/MM/yyyy").format(date) + " " + new SimpleDateFormat("HH:mm:ss").format(date) + "]";
         return String.format(CouleurConsole.RED + "%1$s" + couleurLevel + "%2$8s" + CouleurConsole.RESET + "   %3$s%n", dateString, "[" + record.getLevel().getLocalizedName() + "]", formatMessage(record));

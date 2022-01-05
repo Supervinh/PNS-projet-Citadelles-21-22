@@ -8,7 +8,6 @@ public class CouleurConsole {
     public static final String RESET = "\033[0m";  // Text Reset
 
     // Regular Colors
-    public static final String BLACK = "\033[0;30m";   // BLACK
     public static final String RED = "\033[0;31m";     // RED
     public static final String GREEN = "\033[0;32m";   // GREEN
     public static final String YELLOW = "\033[0;33m";  // YELLOW
@@ -22,10 +21,8 @@ public class CouleurConsole {
     public static final String RED_BRIGHT = "\033[0;91m";    // RED
     public static final String GREEN_BRIGHT = "\033[0;92m";  // GREEN
     public static final String YELLOW_BRIGHT = "\033[0;93m"; // YELLOW
-    public static final String BLUE_BRIGHT = "\033[0;94m";   // BLUE
     public static final String PURPLE_BRIGHT = "\033[0;95m"; // PURPLE
     public static final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
-    public static final String WHITE_BRIGHT = "\033[0;97m";  // WHITE
 
     public static String seperateur1() {
         return RED + " #" + RESET + "#" + RED + "#" + RESET + "#" + RED + "# " + RESET;
@@ -43,20 +40,12 @@ public class CouleurConsole {
         return RESET + text + RESET;
     }
 
-    public static String black(String text) {
-        return BLACK + text + RESET;
-    }
-
     public static String red(String text) {
         return RED + text + RESET;
     }
 
     public static String green(String text) {
         return GREEN + text + RESET;
-    }
-
-    public static String yellow(String text) {
-        return YELLOW + text + RESET;
     }
 
     public static String blue(String text) {

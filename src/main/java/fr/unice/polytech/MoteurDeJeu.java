@@ -51,7 +51,7 @@ public class MoteurDeJeu {
     /**
      * Nombre d'itérations pour chaque Test
      */
-    public final static int iterationTest = 100;
+    public final static int iterationTest = 1;
     /**
      * Nombre de joueurs.
      */
