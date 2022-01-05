@@ -1,13 +1,12 @@
 package fr.unice.polytech;
 
+import fr.unice.polytech.lecteurFichiers.CsvEcriture;
 import fr.unice.polytech.lecteurFichiers.CsvReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.logging.Level;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StatistiqueTest {
     Statistique statistique;
@@ -19,15 +18,19 @@ class StatistiqueTest {
         this.statistique = new Statistique();
     }
 
+    // Lancer toute la method sans modifier le ficher CSV.
     @RepeatedTest(MoteurDeJeu.iterationTest)
-    void ajoutStats() {
+    void pasErreurEnAjoutantauCSV() {
+        MoteurDeJeu mj = new MoteurDeJeu();
+        CsvReader csvReader = Mockito.mock(CsvReader.class);
+        CsvEcriture ecritureCsv = Mockito.mock(CsvEcriture.class);
+        Statistique statistiqueMock = Mockito.mock(Statistique.class);
+        Mockito.doCallRealMethod().when(statistiqueMock).ajoutStats(mj);
+        Mockito.when(csvReader.getData()).thenReturn(new String[0][0]);
     }
 
     @RepeatedTest(MoteurDeJeu.iterationTest)
-    void ajoutAuxCSV() {
-    }
-
-    @RepeatedTest(MoteurDeJeu.iterationTest)
-    void printStatTableauDeuxIdentique() {
+    void pasErreurEnAffichant() {
+        this.statistique.printStatTableau();
     }
 }
