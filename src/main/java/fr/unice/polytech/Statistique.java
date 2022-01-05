@@ -193,7 +193,7 @@ public class Statistique {
     private String nomAvecStrategie(String nom) {
         Joueur joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(nom)).findFirst().orElse(null);
         if (joueur != null) {
-            return nom + " - " + joueur.getNomStrategie();
+            return joueur.getNomStrategie() + " - " + nom;
         }
         return nom;
     }
