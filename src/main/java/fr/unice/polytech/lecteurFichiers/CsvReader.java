@@ -43,7 +43,7 @@ public class CsvReader {
      */
     public String[][] getData() {
         lireStatistiques();
-        return data;
+        return this.data;
     }
 
     /**
@@ -56,7 +56,7 @@ public class CsvReader {
         try {
             this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ';', ' ', 1);
             while ((nextLine = this.reader.readNext()) != null) {
-                data[lineNum++] = nextLine;
+                this.data[lineNum++] = nextLine;
             }
             this.reader.close();
         } catch (Exception e) {

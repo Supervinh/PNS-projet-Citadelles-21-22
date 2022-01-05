@@ -380,6 +380,7 @@ public class Joueur implements Comparable<Joueur> {
     public void ajouteOr(int n) {
         if (MoteurDeJeu.banque.resteArgent()) {
             this.or += MoteurDeJeu.banque.transaction(n);
+            this.or = Math.max(this.or, 0);
         } else {
             if (MoteurDeJeu.deck.resteQuartier()) {
                 this.ajouterQuartierEnMain();
@@ -516,9 +517,7 @@ public class Joueur implements Comparable<Joueur> {
     public void construireQuartier() {
         ArrayList<CarteQuartier> quartiersAchetable = this.quartiersConstructible();
         if (quartiersAchetable.size() > 0) {
-
             Affichage.choixQuartierConstruit(this, this.or, quartiersAchetable);
-
             CarteQuartier choix = this.strategie.getIStrategie().choixDeQuartier(this, quartiersAchetable);
             Affichage.construitQuartier(this, choix);
             this.ajouteOr(-1 * choix.getPrix());
@@ -571,7 +570,7 @@ public class Joueur implements Comparable<Joueur> {
      */
     @Override
     public String toString() {
-        return "Joueur{" + "nom=" + this.getNomColoured() + ", or=" + this.getOrColoured() + ", estRoi=" + this.isRoiColoured() + ", personnage=" + this.personnage.getNomColoured() + ", quartiers=" + this.quartiers.stream().map(CarteQuartier::getNomColoured).toList() + ", quartiersConstruits=" + this.quartiersConstruits.stream().map(CarteQuartier::getNomColoured).toList() + ", strategie=" + this.getNomStrategieColoured() + '}';
+        return "Joueur{" + "nom=" + this.getNomColoured() + ", or=" + this.getOrColoured() + ", estRoi=" + this.isRoiColoured() + ", personnage=" + this.personnage.getNomColoured() + ", quartiers=" + this.quartiers.stream().map(CarteQuartier::getNomColoured).toList() + ", quartiersConstruits=" + this.quartiersConstruits.stream().map(CarteQuartier::getNomColoured).toList() + ", strategie=" + this.getNomStrategieColoured() + ", typePioche=" + this.getNomPiocheColoured() + '}';
     }
 
     /**

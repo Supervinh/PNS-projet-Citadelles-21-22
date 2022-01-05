@@ -3,6 +3,7 @@ package fr.unice.polytech.strategiestest;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,13 +27,13 @@ public class AgressifTest {
         agressif = joueurs.get(2);
     }
 
-    @Test
+    @RepeatedTest(100)
     void choixAssassin(){
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
     }
 
-    @Test
+    @RepeatedTest(100)
     void choixCondottiere(){
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();

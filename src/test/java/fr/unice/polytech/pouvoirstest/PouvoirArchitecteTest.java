@@ -1,13 +1,12 @@
 package fr.unice.polytech.pouvoirstest;
 
-import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.Strategie;
+import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.pouvoirs.PouvoirArchitecte;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -32,18 +31,18 @@ public class PouvoirArchitecteTest {
         strategie.actionPersonnage();
     }
 
-    @Test
+    @RepeatedTest(100)
     void piocheQuartierTest() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
         System.out.println("Pioche \n");
         architecte.setQuartiers(new ArrayList<>());
-        architecte.ajouteOr(-1*(architecte.getOr()));
+        architecte.ajouteOr(-1 * (architecte.getOr()));
         construire.utiliserPouvoir(architecte);
         assertEquals(2, architecte.getQuartiers().size());
     }
 
-    @Test
+    @RepeatedTest(100)
     void construire3Quartiers() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);

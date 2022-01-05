@@ -1,13 +1,14 @@
 package fr.unice.polytech;
 
 import fr.unice.polytech.cartes.CarteQuartier;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CarteQuartierTest {
-    @Test
+    @RepeatedTest(100)
     void notEmpty() {
         CarteQuartier cq = new CarteQuartier(5.4, "Manoir", "Noblesse", 4);
         assertEquals(5.4, cq.getId());

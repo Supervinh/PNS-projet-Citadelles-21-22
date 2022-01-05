@@ -2,6 +2,7 @@ package fr.unice.polytech;
 
 import fr.unice.polytech.cartes.CarteQuartier;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,14 +18,14 @@ class JoueurTest {
         moteurDeJeu = new MoteurDeJeu();
     }
 
-    @Test
+    @RepeatedTest(100)
     void notEmpty() {
         Joueur j1 = new Joueur("1");
         assertEquals(MoteurDeJeu.or2Depart, j1.getOr());
         assertNotEquals(null, j1.getQuartiers());
     }
 
-    @Test
+    @RepeatedTest(100)
     void aPiocheOr() {
         Joueur j2 = new Joueur("2");
         j2.piocherOr();
@@ -32,7 +33,7 @@ class JoueurTest {
         assertEquals(MoteurDeJeu.orAPiocher + MoteurDeJeu.or2Depart, j2.getOr());
     }
 
-    @Test
+    @RepeatedTest(100)
     void nomCorrect() {
         Joueur j3 = new Joueur("3");
         assertEquals("3", j3.getNom());
@@ -40,7 +41,7 @@ class JoueurTest {
         assertNull(j4.getNom());
     }
 
-    @Test
+    @RepeatedTest(100)
     void piocherPersoDifferents() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -49,14 +50,14 @@ class JoueurTest {
         assertNotEquals(j1.getPersonnage(), j2.getPersonnage());
     }
 
-    @Test
+    @RepeatedTest(100)
     void mainsDepartDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
         assertNotEquals(j1.getQuartiers(), j2.getQuartiers());
     }
 
-    @Test
+    @RepeatedTest(100)
     void piocherCartesDifferentes() {
         Joueur j1 = new Joueur("1");
         Joueur j2 = new Joueur("2");
@@ -65,19 +66,19 @@ class JoueurTest {
         assertNotEquals(cq1, cq2);
     }
 
-    @Test
+    @RepeatedTest(100)
     void pointsCorrect() {
         Joueur j1 = new Joueur("1");
         assertEquals(0, j1.getPoints());
     }
 
-    @Test
+    @RepeatedTest(100)
     void estRoi() {
         Joueur j1 = new Joueur("1");
         assertFalse(j1.isRoi());
     }
 
-    @Test
+    @RepeatedTest(100)
     void construire(){
         Joueur j1 = new Joueur("1");
         j1.ajouteOr(10);
@@ -85,7 +86,7 @@ class JoueurTest {
         assertEquals(1, j1.getQuartiersConstruits().size());
     }
 
-    @Test
+    @RepeatedTest(100)
     void pasAssezArgent(){
         Joueur j1 = new Joueur("1");
         j1.ajouteOr(-1*j1.getOr());

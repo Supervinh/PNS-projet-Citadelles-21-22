@@ -5,6 +5,7 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirVoleur;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -46,7 +47,7 @@ class PouvoirVoleurTest {
         joueurs.add(marchand);
     }
 
-    @Test
+    @RepeatedTest(100)
     void aVole() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -55,7 +56,7 @@ class PouvoirVoleurTest {
         assertEquals(4, voleur.getOr());
     }
 
-    @Test
+    @RepeatedTest(100)
     void neVolePas() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -65,7 +66,7 @@ class PouvoirVoleurTest {
         assertEquals(2, voleur.getOr());
     }
 
-    @Test
+    @RepeatedTest(100)
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);

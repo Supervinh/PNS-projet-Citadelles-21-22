@@ -3,6 +3,7 @@ package fr.unice.polytech.strategiestest;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.RusherQuartiers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,7 +24,7 @@ public class RusherQuartiersTest {
     }
 
 
-    @Test
+    @RepeatedTest(100)
     void carteRush() {
         RusherQuartiers pouvoir = Mockito.mock(RusherQuartiers.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

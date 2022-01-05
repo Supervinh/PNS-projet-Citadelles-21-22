@@ -1,18 +1,19 @@
 package fr.unice.polytech;
 
 import fr.unice.polytech.cartes.CartePersonnage;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CartePersonnageTest {
-    @Test
+    @RepeatedTest(100)
     void isNull() {
         CartePersonnage cp = new CartePersonnage(1, "Assassin", null);
         assertEquals("", cp.getDescription());
     }
 
-    @Test
+    @RepeatedTest(100)
     void isNotEmpty() {
         CartePersonnage cp = new CartePersonnage(1, "Assassin", null, "description");
         assertEquals("Assassin", cp.getNom());

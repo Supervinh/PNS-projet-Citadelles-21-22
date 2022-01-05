@@ -1,5 +1,6 @@
 package fr.unice.polytech;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ class MoteurDeJeuTest {
         m.piocherPersonnage(joueurs);
     }
 
-    @Test
+    @RepeatedTest(100)
     void ordi1Gagne() {
         goodSetup();
         joueurs.get(0).ajouteOr(30);
@@ -27,7 +28,7 @@ class MoteurDeJeuTest {
         assertEquals(joueurs.get(0), m.obtenirGagnant(joueurs));
     }
 
-    @Test
+    @RepeatedTest(100)
     void trouverRoi() {
         goodSetup();
         m.trouverQuiEstRoi(joueurs);
@@ -37,13 +38,13 @@ class MoteurDeJeuTest {
         }
     }
 
-    @Test
+    @RepeatedTest(100)
     void jeuPasFini() {
         goodSetup();
         assertFalse(m.aFini(joueurs.get(0)));
     }
 
-    @Test
+    @RepeatedTest(100)
     void jeuFini() {
         goodSetup();
         joueurs.get(0).ajouteOr(30);
@@ -56,7 +57,7 @@ class MoteurDeJeuTest {
         assertTrue(m.aFini(joueurs.get(0)));
     }
 
-    @Test
+    @RepeatedTest(100)
     void initialiserCartes4J() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(4);
@@ -66,7 +67,7 @@ class MoteurDeJeuTest {
         assertEquals(5, MoteurDeJeu.deck.getPersonnages().size());
     }
 
-    @Test
+    @RepeatedTest(100)
     void initialiserCartes5J() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -76,7 +77,7 @@ class MoteurDeJeuTest {
         assertEquals(6, MoteurDeJeu.deck.getPersonnages().size());
     }
 
-    @Test
+    @RepeatedTest(100)
     void joueurPioche4Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -88,7 +89,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @Test
+    @RepeatedTest(100)
     void joueurPioche5Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(5);
@@ -100,7 +101,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @Test
+    @RepeatedTest(100)
     void joueurPioche6Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(6);
@@ -112,7 +113,7 @@ class MoteurDeJeuTest {
         assertNotNull(joueurs.get(indicePersonnage).getPersonnage());
     }
 
-    @Test
+    @RepeatedTest(100)
     void joueurPioche7Joueurs() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.setNbJoueurs(7);
@@ -128,7 +129,7 @@ class MoteurDeJeuTest {
 
 
 
-    @Test
+    @RepeatedTest(100)
     void remettreCarteCachee() {
         MoteurDeJeu m = new MoteurDeJeu();
         m.initialisePileCartes();
@@ -137,13 +138,13 @@ class MoteurDeJeuTest {
         assertNull(m.getCarteCachee());
     }
 
-    @Test
+    @RepeatedTest(100)
     void tour2JeuException() {
         goodSetup();
         try {
             m.tourDeJeu(joueurs.get(0));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
     }

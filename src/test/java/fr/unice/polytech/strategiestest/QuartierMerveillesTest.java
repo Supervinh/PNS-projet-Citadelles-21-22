@@ -3,6 +3,7 @@ package fr.unice.polytech.strategiestest;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.QuartierMerveilles;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,7 +24,7 @@ public class QuartierMerveillesTest {
     }
 
 
-    @Test
+    @RepeatedTest(100)
     void cartePrestige() {
         QuartierMerveilles pouvoir = Mockito.mock(QuartierMerveilles.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

@@ -6,6 +6,7 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirMarchand;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -32,7 +33,7 @@ public class PouvoirMarchandTest {
         quartiers.add(quartier);
     }
 
-    @Test
+    @RepeatedTest(100)
     void taxesAjoutTest() {
         PouvoirMarchand taxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(marchand);
@@ -43,7 +44,7 @@ public class PouvoirMarchandTest {
         assertEquals(2, marchand.getOr());
     }
 
-    @Test
+    @RepeatedTest(100)
     void pasDeTaxe() {
         PouvoirMarchand pasTaxe = Mockito.mock(PouvoirMarchand.class);
         Mockito.doCallRealMethod().when(pasTaxe).utiliserPouvoir(marchand);

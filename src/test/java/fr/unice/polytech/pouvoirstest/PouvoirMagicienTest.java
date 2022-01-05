@@ -6,6 +6,7 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.pouvoirs.PouvoirMagicien;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -43,7 +44,7 @@ class PouvoirMagicienTest {
         moteurDeJeu.setJoueurs(joueurs);
     }
 
-    @Test
+    @RepeatedTest(100)
     void aEchangeSesCartesAvecJoueur() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecJoueur(magicien);
@@ -53,7 +54,7 @@ class PouvoirMagicienTest {
         assertEquals(4, magicien.getQuartiers().size());
     }
 
-    @Test
+    @RepeatedTest(100)
     void aEchangeSesCartesAvecLaPioche() {
         ArrayList<CarteQuartier> q = new ArrayList<>(magicien.getQuartiers());
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
@@ -63,7 +64,7 @@ class PouvoirMagicienTest {
         assertNotEquals(q, magicien.getQuartiers());
     }
 
-    @Test
+    @RepeatedTest(100)
     void echangePasAvecPioche() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).echangerCartesAvecPioche(magicien, 3);
@@ -72,7 +73,7 @@ class PouvoirMagicienTest {
         assertEquals(q, magicien.getQuartiers());
     }
 
-    @Test
+    @RepeatedTest(100)
     void testRandom() {
         PouvoirMagicien pouvoir = Mockito.mock(PouvoirMagicien.class);
         Mockito.doCallRealMethod().when(pouvoir).choixNombreQuartiers(magicien);

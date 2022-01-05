@@ -71,6 +71,6 @@ public class QuartierMerveilles implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Quartiers Merveilles";
+        return "QuartierMerveilles";
     }
 }

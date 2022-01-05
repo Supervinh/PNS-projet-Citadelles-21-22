@@ -35,6 +35,10 @@ public class Affichage {
         log.setLevel(MoteurDeJeu.messageLvl);
     }
 
+    public static void affiche(String string) {
+        log.info(string);
+    }
+
     // MoteurDeJeu.java
 
     public static void citadelle() {

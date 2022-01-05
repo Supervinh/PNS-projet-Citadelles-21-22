@@ -136,7 +136,7 @@ public class Statistique {
      * Trouve la ligne du tableau ou se trouve le nom donné.
      *
      * @param tableau Le tableau représentant les données du fichier CSV.
-     * @param nom Le nom que l'on cherche.
+     * @param nom     Le nom que l'on cherche.
      * @return La ligne à laquelle se trouve le nom recherché.
      */
     private int trouverLigne(String[][] tableau, String nom) {
@@ -193,7 +193,6 @@ public class Statistique {
     private String nomAvecStrategie(String nom) {
         Joueur joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(nom)).findFirst().orElse(null);
         if (joueur != null) {
-            System.out.println(nom + " - " + joueur.getNomStrategie());
             return nom + " - " + joueur.getNomStrategie();
         }
         return nom;
