@@ -49,18 +49,18 @@ public class Affichage {
     }
 
     public static void malInitialise() {
-        log.warning("Jeu pas initié correctement.");
+        log.severe("Jeu pas initié correctement.");
     }
 
     public static void tourNumX(int numTour) {
-        log.finer("");
+        log.finest("");
         log.finer("");
         log.finer("");
         log.finer(CouleurConsole.seperateur2() + "Tour " + numTour + CouleurConsole.seperateur2());
     }
 
     public static void tourAX(Joueur joueur) {
-        log.finer("");
+        log.finest("");
         log.finer("");
         log.finer(CouleurConsole.seperateur1() + "Tour de " + joueur.getNomColoured() + CouleurConsole.seperateur1());
     }
@@ -89,7 +89,7 @@ public class Affichage {
         log.finer("");
         log.finer("");
         if (gagnant == null) {
-            log.finer("Pas de "+ CouleurConsole.red("Gagnant"));
+            log.finer("Pas de " + CouleurConsole.red("Gagnant"));
         } else {
             log.finer("Le " + CouleurConsole.red("Gagnant") + " est " + gagnant.getNomColoured() + " avec " + CouleurConsole.gold("" + gagnant.getPoints()) + " points");
         }
@@ -104,6 +104,7 @@ public class Affichage {
 
     public static void initialisation(ArrayList<Joueur> joueurs) {
         log.finer("");
+        log.finer("");
         log.finer(CouleurConsole.seperateur1() + "Entrez Nom des Joueurs" + CouleurConsole.seperateur1());
         for (int i = 1; i <= joueurs.size(); i++) {
             log.finer(CouleurConsole.tiret() + "Joueur " + i + ": " + joueurs.get(i - 1).getNomColoured());
@@ -113,21 +114,21 @@ public class Affichage {
     // Joueur.java
 
     public static void mort(Joueur joueur) {
-        log.finer(joueur.getNomColoured() + " est " + CouleurConsole.red("Mort"));
+        log.finer(CouleurConsole.red("| ") + joueur.getNomColoured() + " est " + CouleurConsole.red("Mort"));
     }
 
     public static void orTitre() {
-        log.finer("");
+        log.finest("");
         log.finer(CouleurConsole.gold("| Piocher Or"));
     }
 
     public static void personnageTitre() {
-        log.finer("");
+        log.finest("");
         log.finer(CouleurConsole.green("| Piocher Personnages"));
     }
 
     public static void quartierTitre() {
-        log.finer("");
+        log.finest("");
         log.finer(CouleurConsole.purple("| Piocher Quartier"));
     }
 
@@ -136,11 +137,11 @@ public class Affichage {
     }
 
     public static void personnage(Joueur joueur, CartePersonnage cp) {
-        log.finest(CouleurConsole.green("| ") + joueur.getNomColoured() + " a pioché: " + cp.getNomColoured());
+        log.finer(CouleurConsole.green("| ") + joueur.getNomColoured() + " a pioché: " + cp.getNomColoured());
     }
 
     public static void quartier(Joueur joueur, CarteQuartier cq) {
-        log.finest(CouleurConsole.purple("| ") + joueur.getNomColoured() + " a pioché: " + cq.getNomColoured());
+        log.finer(CouleurConsole.purple("| ") + joueur.getNomColoured() + " a pioché: " + cq.getNomColoured());
     }
 
 
@@ -166,7 +167,7 @@ public class Affichage {
     public static void choixQuartierConstruit(Joueur joueur, int or, ArrayList<CarteQuartier> quartiersAchetable) {
         AtomicInteger i = new AtomicInteger(1);
         log.finest("");
-        log.finest(CouleurConsole.pink("| Construire Quartier") + " - " + joueur.getNomColoured() + " à " + joueur.getOrColoured() + " pièce" + (or > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or"));
+        log.finer(CouleurConsole.pink("| Construire Quartier") + " - " + joueur.getNomColoured() + " à " + joueur.getOrColoured() + " pièce" + (or > 1 ? "s" : "") + " d'" + CouleurConsole.gold("Or"));
         log.finest(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix 0: Ne pas construire");
         quartiersAchetable.forEach(quartier -> log.finest(CouleurConsole.pink("| ") + CouleurConsole.tiret() + "Choix " + (i.getAndIncrement()) + ": " + quartier.getNomColoured() + ", " + quartier.getPrixColoured() + ", " + quartier.getGemmeColoured() + (quartier.getDescription().equals("None") ? "" : ", " + quartier.getDescriptionColoured())));
     }
@@ -182,9 +183,9 @@ public class Affichage {
 
     public static void infoJoueur(Joueur joueur, CartePersonnage personnage) {
         log.finest("");
-        log.finest(CouleurConsole.blue("| Details Joueur"));
-        log.finest(CouleurConsole.blue("| ") + "Personnage: " + personnage.getNomColoured());
-        log.finest(CouleurConsole.blue("| ") + "Pièces d'Or: " + joueur.getOrColoured());
+        log.finer(CouleurConsole.blue("| Details Joueur"));
+        log.finer(CouleurConsole.blue("| ") + "Personnage: " + personnage.getNomColoured());
+        log.finer(CouleurConsole.blue("| ") + "Pièces d'Or: " + joueur.getOrColoured());
         log.finest(CouleurConsole.blue("| ") + "Stratégie: " + joueur.getNomStrategieColoured());
         log.finest(CouleurConsole.blue("| ") + "Type de Pioche: " + joueur.getNomPiocheColoured());
         log.finest(CouleurConsole.blue("| ") + "Quartiers dans la main: " + joueur.getQuartiers().stream().map(CarteQuartier::getNomColoured).toList());
@@ -194,11 +195,11 @@ public class Affichage {
     // Deck.java
 
     public static void plusDeQuartiers() {
-        log.finer("Plus de Quartiers...");
+        log.finer(CouleurConsole.purple("| ") + "Plus de Quartiers...");
     }
 
     public static void plusDePersonnages() {
-        log.finer("Plus de Personnages...");
+        log.finer(CouleurConsole.red("| ") + "Plus de Personnages...");
     }
 
     public static void dejaCarteQuartier(CarteQuartier cq) {
@@ -224,11 +225,12 @@ public class Affichage {
     // PouvoirArchitecte.java
 
     public static void pouvoir(Joueur joueur) {
+        log.finest("");
         log.finer(CouleurConsole.red("| Pouvoir " + joueur.getPersonnage().getNomColoured()));
     }
 
     public static void barreRouge() {
-        log.finer(CouleurConsole.red("| "));
+        log.finest(CouleurConsole.red("| "));
     }
 
     public static void plusQuartierSupp() {
@@ -242,7 +244,7 @@ public class Affichage {
     }
 
     public static void essayerDeTuer(Joueur joueur, CartePersonnage cibleNomPersonnage) {
-        log.finest(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.red("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
+        log.finer(CouleurConsole.red("| ") + joueur.getNomColoured() + " a essayé de " + CouleurConsole.red("tuer ") + cibleNomPersonnage.getArticle().toLowerCase() + cibleNomPersonnage.getNomColoured());
     }
 
 

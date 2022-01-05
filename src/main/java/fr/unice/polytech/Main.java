@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.nanoTime();
         MoteurDeJeu mj;
-        MoteurDeJeu.setMessageLvl(Level.INFO);
+        MoteurDeJeu.setMessageLvl(Level.FINER);
         Statistique statistique = new Statistique();
 
         System.out.println("Meilleur Bot Contre default Bots");

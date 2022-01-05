@@ -505,7 +505,6 @@ public class Joueur implements Comparable<Joueur> {
             }
             quartiersPioches.remove(cq);
             quartiersPioches.forEach(qp -> MoteurDeJeu.deck.ajouterQuartierDeck(qp));
-            Affichage.sauterLigne();
             Affichage.choisirCarteQuartier(this, cq);
         }
         return cq;
