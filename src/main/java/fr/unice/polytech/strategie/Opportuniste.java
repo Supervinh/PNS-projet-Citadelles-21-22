@@ -28,12 +28,12 @@ public class Opportuniste implements IStrategie {
     @Override
     public CartePersonnage choixDePersonnage(Joueur joueur, ArrayList<CartePersonnage> personnages) {
         int quartierReligieux = (int) joueur.getQuartiersConstruits().stream().filter(quartier -> quartier.getGemme().equals("Religion")).count();
-        CartePersonnage choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
+        CartePersonnage choix = null;
         int orMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getOr).max().orElse(0);
         if (quartierReligieux > 0)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Évêque")).findAny().orElse(null);
         if (joueur.getOr() > 1 && choix == null)
-            choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottière")).findAny().orElse(null);
+            choix = personnages.stream().filter(cp -> cp.getNom().equals("Condottiere")).findAny().orElse(null);
         if (orMax > 4)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         if (choix == null) choix = IStrategie.super.choixDePersonnage(joueur, personnages);
@@ -77,7 +77,7 @@ public class Opportuniste implements IStrategie {
     }
 
     /**
-     * Choisit un quartier qui est le moins cher possible.
+     * Choisit un quartier religieux sinon un quartier qui est le moins cher possible.
      *
      * @param joueur    Le joueur qui joue.
      * @param quartiers La liste des quartiers.
