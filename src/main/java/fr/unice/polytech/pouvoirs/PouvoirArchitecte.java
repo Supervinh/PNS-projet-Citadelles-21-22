@@ -25,10 +25,7 @@ public class PouvoirArchitecte implements IPouvoir {
 
         for (int i = 0; i < n; i++) {
             Affichage.barreRouge();
-            CarteQuartier cq = joueur.piocherQuartier();
-            if (cq != null) {
-                joueur.getQuartiers().add(cq);
-            }
+            joueur.ajouterQuartierEnMain();
         }
 
         for (int i = 0; i < n; i++) {
