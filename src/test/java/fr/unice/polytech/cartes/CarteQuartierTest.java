@@ -1,12 +1,13 @@
-package fr.unice.polytech;
+package fr.unice.polytech.cartes;
 
-import fr.unice.polytech.cartes.CarteQuartier;
+import fr.unice.polytech.MoteurDeJeu;
 import org.junit.jupiter.api.RepeatedTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CarteQuartierTest {
+
     @RepeatedTest(MoteurDeJeu.iterationTest)
     void notEmpty() {
         CarteQuartier cq = new CarteQuartier(5.4, "Manoir", "Noblesse", 4);
@@ -22,5 +23,11 @@ class CarteQuartierTest {
         assertEquals("Noblesse", cq2.getGemme());
         assertEquals(4, cq2.getPrix());
         assertNotEquals(null, cq2.getDescription());
+    }
+
+    @RepeatedTest(MoteurDeJeu.iterationTest)
+    void toStringVide() {
+        CarteQuartier carteQuartierVide = new CarteQuartier(0.0, "", "", 0.0);
+        assertEquals("CarteQuartier{id=" + carteQuartierVide.getIdColoured() + ", nom=" + carteQuartierVide.getNomColoured() + ", gemme=" + carteQuartierVide.getGemmeColoured() + ", prix=" + carteQuartierVide.getPrixColoured() + ", description=" + carteQuartierVide.getDescriptionColoured() + "}", carteQuartierVide.toString());
     }
 }
