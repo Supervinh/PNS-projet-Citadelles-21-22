@@ -46,6 +46,7 @@ public class Affichage {
         log.fine(CouleurConsole.gold("  /     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.blue("Groupe.H"));
         log.fine(CouleurConsole.gold(" |      |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.white("Polytech Edition™"));
         log.fine(CouleurConsole.gold("  \\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.red("Jeu de Bots & IA"));
+        log.fine("");
     }
 
     public static void tourNumX(int numTour) {

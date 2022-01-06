@@ -185,7 +185,7 @@ public class Statistique {
         Object[] titre = this.titre;
         this.data = csvReader.getData();
 
-        Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", titre));
+        Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%" + this.largeurColonne(6) + "s", titre));
 
         StringBuilder separateur = new StringBuilder();
         for (int i = 0; i < this.titre.length; i++) {
@@ -194,7 +194,7 @@ public class Statistique {
         Affichage.ligneFormatted(separateur.toString());
 
         for (final Object[] row : this.data) {
-            Affichage.ligneFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", row));
+            Affichage.ligneFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%" + this.largeurColonne(6) + "s", row));
         }
     }
 

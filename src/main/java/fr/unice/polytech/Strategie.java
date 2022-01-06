@@ -63,13 +63,13 @@ public class Strategie {
      */
     public void setStrategie(String strategie) {
         switch (strategie) {
-            case "Rusher" -> iStrategie = new RusherQuartiers();
-            case "Merveille" -> iStrategie = new QuartierMerveilles();
             case "Agressif" -> iStrategie = new Agressif();
-            case "VStrat" -> iStrategie = new VStrat();
-            case "Commerce" -> iStrategie = new Commerce();
             case "Batisseur" -> iStrategie = new Batisseur();
+            case "Commerce" -> iStrategie = new Commerce();
             case "Opportuniste" -> iStrategie = new Opportuniste();
+            case "Merveille" -> iStrategie = new QuartierMerveilles();
+            case "Rusher" -> iStrategie = new RusherQuartiers();
+            case "VStrat" -> iStrategie = new VStrat();
             default -> iStrategie = new ComportementDefault();
         }
     }
