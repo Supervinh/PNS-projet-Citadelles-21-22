@@ -1,7 +1,9 @@
 package fr.unice.polytech.lecteurFichiers;
 
 import au.com.bytecode.opencsv.CSVReader;
+import fr.unice.polytech.Affichage;
 
+import java.io.File;
 import java.io.FileReader;
 
 /**
@@ -9,16 +11,15 @@ import java.io.FileReader;
  */
 public class CsvReader {
 
+    private final String pathFicher;
     /**
      * Permet de lire le csv.
      */
     private CSVReader reader;
-
     /**
      * On commence à lire à la ligne 0.
      */
     private int nombreLigne = 0;
-
     /**
      * Liste contenant les valeurs du fichier csv.
      */
@@ -27,12 +28,13 @@ public class CsvReader {
     /**
      * On instancie le tableau avec le nombre de lignes du fichier.
      */
-    public CsvReader() {
+    public CsvReader(String pathFicher) {
+        this.pathFicher = pathFicher;
         try {
             this.calculeLigne();
             this.data = new String[this.nombreLigne][5];
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Affichage.warning(e.getMessage());
         }
     }
 
@@ -54,13 +56,13 @@ public class CsvReader {
         String[] nextLine;
         int lineNum = 0;
         try {
-            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ';', ' ', 1);
+            this.reader = new CSVReader(new FileReader(this.pathFicher), ';', ' ', 1);
             while ((nextLine = this.reader.readNext()) != null) {
                 this.data[lineNum++] = nextLine;
             }
             this.reader.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Affichage.warning(e.getMessage());
         }
     }
 
@@ -69,13 +71,21 @@ public class CsvReader {
      */
     public void calculeLigne() {
         try {
-            this.reader = new CSVReader(new FileReader("src/main/resources/save/results.csv"), ';', ' ', 1);
+            this.reader = new CSVReader(new FileReader(this.pathFicher), ';', ' ', 1);
             while ((this.reader.readNext()) != null) {
                 this.nombreLigne++;
             }
             this.reader.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Affichage.warning(e.getMessage());
+            try {
+                File newFile = new File(this.pathFicher);
+                if (newFile.createNewFile()) {
+                    Affichage.warning("File created: " + newFile.getName());
+                }
+            } catch (Exception fatal) {
+                Affichage.severe(e.getMessage());
+            }
         }
     }
 }

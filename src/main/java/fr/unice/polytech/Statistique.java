@@ -35,7 +35,25 @@ public class Statistique {
     /**
      * Le tableau des informations que l'on récupère du csv.
      */
-    private String[][] data = new CsvReader().getData();
+    private String[][] data;
+
+    /**
+     * Le Nom du fichier dans le quelle on sauvegarde les données.
+     */
+    private final String nomFicher;
+
+    public Statistique(String nomFicher) {
+        this.nomFicher = "src/main/resources/save/" + nomFicher + ".csv";
+    }
+
+    /**
+     * Permet de récupérer une liste des titres du tableau.
+     *
+     * @return Les Titres du tableau.
+     */
+    public String[] getTitre() {
+        return this.titre;
+    }
 
     /**
      * Ajoute les statistiques que nous avons calculées.
@@ -84,8 +102,8 @@ public class Statistique {
      * Ajoute les statistiques calculées au fichier CSV.
      */
     public void ajoutAuxCSV() {
-        CsvReader csvReader = new CsvReader();
-        CsvEcriture ecritureCsv = new CsvEcriture();
+        CsvReader csvReader = new CsvReader(this.nomFicher);
+        CsvEcriture ecritureCsv = new CsvEcriture(this.nomFicher);
 
         csvReader.lireStatistiques();
         this.data = csvReader.getData();
@@ -161,7 +179,12 @@ public class Statistique {
      * Imprime le tableau sur la sortie standard.
      */
     public void printStatTableau() {
-        CsvReader csvReader = new CsvReader();
+        Affichage.info("");
+        String[] pathFicher = this.nomFicher.split("/");
+        String t = pathFicher[pathFicher.length - 1];
+        pathFicher = t.split("\\.");
+        Affichage.titreFormatted("Tableau des Statistiques: " + pathFicher[0]);
+        CsvReader csvReader = new CsvReader(this.nomFicher);
         Object[] titre = this.titre;
         this.data = csvReader.getData();
 

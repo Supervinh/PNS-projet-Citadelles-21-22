@@ -1,6 +1,7 @@
 package fr.unice.polytech.lecteurFichiers;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import fr.unice.polytech.Statistique;
 
 import java.io.FileWriter;
 
@@ -8,6 +9,12 @@ import java.io.FileWriter;
  * Permet d'écrire dans un fichier csv.
  */
 public class CsvEcriture {
+
+    private final String pathFicher;
+
+    public CsvEcriture(String pathFicher) {
+        this.pathFicher = pathFicher;
+    }
 
     /**
      * Permet d'écrire dans le fichier csv.
@@ -21,8 +28,7 @@ public class CsvEcriture {
      */
     public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) {
         try {
-            String csv = "src/main/resources/save/results.csv";
-            CSVWriter writer = new CSVWriter(new FileWriter(csv, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
+            CSVWriter writer = new CSVWriter(new FileWriter(this.pathFicher, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
             String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
             writer.writeNext(record);
             writer.close();
@@ -36,8 +42,13 @@ public class CsvEcriture {
      */
     public void clearCsv() {
         try {
-            FileWriter fw = new FileWriter("src/main/resources/save/results.csv", false);
-            fw.write("Nom;Victoires;Défaites;Parties;Ratio;ScoreMoyen\n");
+            FileWriter fw = new FileWriter(this.pathFicher, false);
+            StringBuilder title = new StringBuilder();
+            for (String t : new Statistique(this.pathFicher).getTitre()) {
+                title.append(t).append(";");
+            }
+            title.deleteCharAt(title.length() - 1).append("\n");
+            fw.write(title.toString());
             fw.close();
         } catch (Exception e) {
             throw new RuntimeException(e);

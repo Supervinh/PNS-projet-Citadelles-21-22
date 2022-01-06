@@ -115,8 +115,7 @@ public class MoteurDeJeu {
         Joueur.numJoueur = 0;
         this.nombre2Personnages = deck.getPersonnages().size();
         if (deck.getQuartiersPossibles().size() != 65 || nbJoueurs < 4 || nbJoueurs > 7) {
-            Affichage.malInitialise();
-            System.exit(0);
+            Affichage.severe("Jeu pas initié correctement.");
         }
     }
 
@@ -143,7 +142,6 @@ public class MoteurDeJeu {
      * Permet de lancer une partie entière.
      */
     public void jouer() {
-        Affichage.citadelle();
         this.initialiseJoueurs(joueurs, !nomAleatoire);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);

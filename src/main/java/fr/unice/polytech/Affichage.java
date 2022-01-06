@@ -42,14 +42,10 @@ public class Affichage {
     // MoteurDeJeu.java
 
     public static void citadelle() {
-        log.finer(CouleurConsole.gold("  __  ___ ___  _  ___   ___          ___"));
-        log.finer(CouleurConsole.gold(" /     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.blue("Groupe.H"));
-        log.finer(CouleurConsole.gold(" |     |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.white("Polytech Edition™"));
-        log.finer(CouleurConsole.gold(" \\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.red("Jeu de Bots & IA"));
-    }
-
-    public static void malInitialise() {
-        log.severe("Jeu pas initié correctement.");
+        log.fine(CouleurConsole.gold("   __  ___ ___  _  ___   ___          ___"));
+        log.fine(CouleurConsole.gold("  /     |   |  | | |  ╲  |    |   |   |") + "    " + CouleurConsole.blue("Groupe.H"));
+        log.fine(CouleurConsole.gold(" |      |   |  |_| |   | |__  |   |   |__") + "  " + CouleurConsole.white("Polytech Edition™"));
+        log.fine(CouleurConsole.gold("  \\__  _|_  |  | | |__╱  |__  |__ |__ |__") + "  " + CouleurConsole.red("Jeu de Bots & IA"));
     }
 
     public static void tourNumX(int numTour) {
@@ -146,7 +142,6 @@ public class Affichage {
 
 
     public static void titreFormatted(String titre) {
-        log.info("");
         log.info("");
         log.info(titre);
     }
@@ -314,6 +309,19 @@ public class Affichage {
         long duration = (long) ((System.nanoTime() - start) / (double) 1000000000);
         log.info("");
         log.info("Temps execution: " + duration + "s.");
-        log.info("Temps par partie: " + duration / (double) Main.nombrePartie + "s/game");
+        log.info("");
+    }
+
+    public static void info(String message) {
+        log.info(message);
+    }
+
+    public static void warning(String message) {
+        log.warning(CouleurConsole.red(message));
+    }
+
+    public static void severe(String message) {
+        log.severe(CouleurConsole.red(message));
+        System.exit(-1);
     }
 }

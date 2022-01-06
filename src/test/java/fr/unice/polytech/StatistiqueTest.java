@@ -10,12 +10,12 @@ import java.util.logging.Level;
 
 class StatistiqueTest {
     Statistique statistique;
-    String[][] data = new CsvReader().getData();
+    String[][] data = new CsvReader("src/main/resources/save/results.csv").getData();
 
     @BeforeEach
     void setUp() {
         MoteurDeJeu.setMessageLvl(Level.OFF);
-        this.statistique = new Statistique();
+        this.statistique = new Statistique("results");
     }
 
     // Lancer toute la method sans modifier le ficher CSV.
