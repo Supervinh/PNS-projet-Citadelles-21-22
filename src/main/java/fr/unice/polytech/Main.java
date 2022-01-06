@@ -13,7 +13,7 @@ public class Main {
         MoteurDeJeu mj;
         MoteurDeJeu.nbJoueurs = 7;
 
-        MoteurDeJeu.setMessageLvl(Level.INFO);
+        MoteurDeJeu.setMessageLvl(Level.ALL);
         Statistique statistique = new Statistique("Meilleure Bot contre les autres");
         long startTime = System.nanoTime();
         for (int i = 0; i < nombrePartie; i++) {

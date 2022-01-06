@@ -190,6 +190,10 @@ public class Affichage {
 
     // Deck.java
 
+    public static void plusDOr() {
+        log.finer(CouleurConsole.red("| ") + "Plus d'Or...");
+    }
+
     public static void plusDeQuartiers() {
         log.finer(CouleurConsole.purple("| ") + "Plus de Quartiers...");
     }
