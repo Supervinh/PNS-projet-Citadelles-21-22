@@ -367,7 +367,9 @@ public class Joueur implements Comparable<Joueur> {
      */
     public void piocherOr() {
         Affichage.orTitre();
+        int somme = this.or;
         this.ajouteOr(MoteurDeJeu.orAPiocher);
+        Affichage.or(this, this.or - somme);
     }
 
     /**
@@ -380,10 +382,8 @@ public class Joueur implements Comparable<Joueur> {
             this.or += MoteurDeJeu.banque.transaction(n);
         } else {
             if (MoteurDeJeu.banque.resteArgent()) {
-                int somme = this.or;
                 this.or += MoteurDeJeu.banque.transaction(n);
                 this.or = Math.max(this.or, 0);
-                Affichage.or(this, this.or - somme);
             } else {
                 Affichage.plusDOr();
                 if (MoteurDeJeu.deck.resteQuartier()) {
