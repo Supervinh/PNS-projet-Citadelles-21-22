@@ -19,17 +19,17 @@ public class CsvEcriture {
     /**
      * Permet d'écrire dans le fichier csv.
      *
-     * @param Nom       Le nom du joueur.
-     * @param Victoires Le nombre de victoires du joueur.
-     * @param Defaites  Le nombre de défaites du joueur.
-     * @param Parties   Le nombre de parties total joué.
-     * @param Ratio     Le ratio de victoire du joueur.
-     * @param Score     Le score moyen du joueur.
+     * @param nom       Le nom du joueur.
+     * @param victoires Le nombre de victoires du joueur.
+     * @param defaites  Le nombre de défaites du joueur.
+     * @param parties   Le nombre de parties total joué.
+     * @param ratio     Le ratio de victoire du joueur.
+     * @param score     Le score moyen du joueur.
      */
-    public void ecrireStatistiques(String Nom, int Victoires, int Defaites, int Parties, String Ratio, String Score) {
+    public void ecrireStatistiques(String nom, String strategie, int victoires, int defaites, int parties, String ratio, String score) {
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(this.pathFicher, true), ';', CSVWriter.NO_QUOTE_CHARACTER);
-            String[] record = (Nom + ";" + Victoires + ";" + Defaites + ";" + Parties + ";" + Ratio + ";" + Score).split(";");
+            String[] record = (nom + ";" + strategie + ";" + victoires + ";" + defaites + ";" + parties + ";" + ratio + ";" + score).split(";");
             writer.writeNext(record);
             writer.close();
         } catch (Exception e) {
