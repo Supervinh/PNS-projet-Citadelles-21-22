@@ -145,6 +145,6 @@ class MoteurDeJeuTest {
     @Test
     void tour2JeuException() {
         goodSetup();
-        assertThrows(java.lang.IllegalArgumentException.class, () -> m.tourDeJeu(joueurs.get(0)));
+        assertThrows(java.lang.Exception.class, () -> m.tourDeJeu(joueurs.get(0)));
     }
 }

@@ -210,7 +210,7 @@ public class MoteurDeJeu {
         joueur.calculePoints();
 
         if (!banque.sommeArgentCirculationCorrecte() || deck.getQuartiersPossibles().size() != 65 || deck.getPersonnagesPossibles().size() != 8) {
-            throw new IllegalArgumentException(
+            throw new RuntimeException(
                     "Erreur, Perte d'objet.");
         }
     }

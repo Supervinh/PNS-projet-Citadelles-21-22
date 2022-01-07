@@ -41,6 +41,11 @@ public class Statistique {
      */
     private String[][] data;
 
+    /**
+     * Le nombre de partie joué.
+     */
+    private int nombrePartie = 0;
+
     public Statistique(String nomFicher) {
         this.nomFicher = "src/main/resources/save/" + nomFicher + ".csv";
     }
@@ -60,6 +65,7 @@ public class Statistique {
      * @param moteurDeJeu Le moteur du jeu.
      */
     public void ajoutStats(MoteurDeJeu moteurDeJeu) {
+        this.nombrePartie++;
         this.ajoutGagnant(moteurDeJeu.obtenirGagnant(MoteurDeJeu.joueurs));
         this.ajoutScore(MoteurDeJeu.joueurs);
     }
@@ -89,9 +95,9 @@ public class Statistique {
             String nom = joueur.getNom();
             if (this.statistiqueScoreData.containsKey(nom)) {
                 double scoreMoy = this.statistiqueScoreData.get(nom);
-                this.statistiqueScoreData.replace(nom, scoreMoy + (joueur.getPoints() / (double) Main.nombrePartie));
+                this.statistiqueScoreData.replace(nom, ((scoreMoy + joueur.getPoints()) * 0.5));
             } else {
-                this.statistiqueScoreData.put(nom, joueur.getPoints() / (double) Main.nombrePartie);
+                this.statistiqueScoreData.put(nom, (double) joueur.getPoints());
             }
         }
     }
@@ -117,10 +123,10 @@ public class Statistique {
                     String nom = entry.getKey();
                     String strategie = this.strategieParNom(nom);
                     int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 2));
-                    int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 4));
+                    int partieTotal = this.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 4));
                     int defaiteTotal = partieTotal - victoireTotal;
                     String ratio = df.format(victoireTotal / (double) (partieTotal));
-                    double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
+                    double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 6).replace(',', '.'));
                     String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
                     ecritureCsv.ecrireStatistiques(nom, strategie, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
