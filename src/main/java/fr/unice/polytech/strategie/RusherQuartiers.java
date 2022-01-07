@@ -32,22 +32,24 @@ public class RusherQuartiers implements IStrategie {
     }
 
     /**
-     * On cible le personnage avec le plus de points sinon c'est aléatoire.
+     * Permet de choisir la cible d'une carte personnage.
+     * Si le joueur a choisi le voleur alors il cible l'architecte ou le marchand.
+     * Sinon il va cibler aléatoirement.
      *
-     * @param joueur Le joueur qui joue.
+     * @param joueur     Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.
      * @return La carte personnage ciblée.
      */
     @Override
     public CartePersonnage choixDeCibleCartePersonnage(Joueur joueur, ArrayList<CartePersonnage> ciblesTemp) {
-        MoteurDeJeu.joueurs.forEach(Joueur::calculePoints);
-        int scoreMax = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).mapToInt(Joueur::getPoints).max().orElse(0);
-        Joueur cibleJoueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getPoints() == scoreMax).findFirst().orElse(null);
-        if (cibleJoueur != null) {
-            return cibleJoueur.getStrategie().getIStrategie().choixDePersonnage(joueur, MoteurDeJeu.deck.getPersonnagesPossibles());
-        } else {
+        CartePersonnage personnageCible = null;
+        if (joueur.getPersonnage().getNom().equals("Voleur")) {
+            personnageCible = MoteurDeJeu.deck.getPersonnages().stream().filter(p -> p.getNom().equals("Architecte") || p.getNom().equals("Marchand")).findFirst().orElse(null);
+        }
+        if (personnageCible == null) {
             return IStrategie.super.choixDeCibleCartePersonnage(joueur, ciblesTemp);
         }
+        return personnageCible;
     }
 
     /**
