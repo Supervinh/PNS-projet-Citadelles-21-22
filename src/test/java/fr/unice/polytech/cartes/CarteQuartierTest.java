@@ -1,14 +1,14 @@
 package fr.unice.polytech.cartes;
 
 import fr.unice.polytech.MoteurDeJeu;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class CarteQuartierTest {
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void notEmpty() {
         CarteQuartier cq = new CarteQuartier(5.4, "Manoir", "Noblesse", 4);
         assertEquals(5.4, cq.getId());
@@ -25,13 +25,13 @@ class CarteQuartierTest {
         assertNotEquals(null, cq2.getDescription());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void toStringVide() {
         CarteQuartier carteQuartierVide = new CarteQuartier(0.0, "", "", 0.0);
         assertEquals("CarteQuartier{id=" + carteQuartierVide.getIdColoured() + ", nom=" + carteQuartierVide.getNomColoured() + ", gemme=" + carteQuartierVide.getGemmeColoured() + ", prix=" + carteQuartierVide.getPrixColoured() + ", description=" + carteQuartierVide.getDescriptionColoured() + "}", carteQuartierVide.toString());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void changerLaGemme() {
         CarteQuartier carteQuartierVide = new CarteQuartier(0.0, "", "", 0.0);
         CarteQuartier carteQuartierNouvelleGemme = new CarteQuartier(carteQuartierVide.getId(), carteQuartierVide.getNom(), carteQuartierVide.getGemme(), carteQuartierVide.getPrix());

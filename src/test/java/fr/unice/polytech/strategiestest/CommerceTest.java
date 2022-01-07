@@ -7,7 +7,7 @@ import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.Batisseur;
 import fr.unice.polytech.strategie.Commerce;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class CommerceTest {
         commerce.getStrategie().setStrategie("Commerce et Artisanat");
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixVoleur(){
         Joueur tropRiche = joueurs.get(0);
         tropRiche.ajouteOr(5);
@@ -42,7 +42,7 @@ public class CommerceTest {
         assertEquals("Voleur", commerce.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixArchitecte(){
         CarteQuartier carte1 = new CarteQuartier(15.1,"Prison","Soldatesque",2);
         CarteQuartier carte2 = new CarteQuartier(1.1,"Temple","Religion",1);
@@ -57,7 +57,7 @@ public class CommerceTest {
     }
 
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixCibleVoleur(){
         commerce.setPersonnage(new CartePersonnage(2,"Voleur",null));
         Commerce pouvoir = Mockito.mock(Commerce.class);
@@ -67,7 +67,7 @@ public class CommerceTest {
         assertEquals("Architecte",personnageCible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixCibleNotVoleur(){
         commerce.setPersonnage(new CartePersonnage(1,"Voleur",null));
         Commerce pouvoir = Mockito.mock(Commerce.class);
@@ -78,7 +78,7 @@ public class CommerceTest {
     }
 
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixQuartierCommerce(){
         CarteQuartier carte = new CarteQuartier(10.1, "Marche","Commerce et Artisanat",2);
         quartiers.add(carte);
@@ -89,7 +89,7 @@ public class CommerceTest {
         assertEquals(quartiers.get(0), commerceQuartier);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixQuartierNotCommerce(){
         CarteQuartier carte = new CarteQuartier(15.1,"Prison","Soldatesque",2);
         quartiers.add(carte);
@@ -100,7 +100,7 @@ public class CommerceTest {
         assertEquals(quartiers.get(0), commerceQuartier);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixMaxPoint(){
         joueurs.get(0).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 3));
         joueurs.get(2).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 1));

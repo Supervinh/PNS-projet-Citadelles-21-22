@@ -5,7 +5,7 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,17 +26,18 @@ public class AgressifTest {
         m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
+        joueurs.get(2).getStrategie().setStrategie("Agressif");
         m.setJoueurs(joueurs);
         agressif = joueurs.get(2);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixAssassin() {
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixCondottiere() {
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();
@@ -47,7 +48,7 @@ public class AgressifTest {
         assertEquals("Condottiere", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixMagicien() {
         ArrayList<CarteQuartier> mainVide = new ArrayList<>();
         agressif.setQuartiers(mainVide);
@@ -55,7 +56,7 @@ public class AgressifTest {
         assertEquals("Magicien", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixVoleur() {
         Joueur tropRiche = joueurs.get(0);
         tropRiche.ajouteOr(6);
@@ -63,7 +64,7 @@ public class AgressifTest {
         assertEquals("Voleur", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixAutre() {
         MoteurDeJeu.deck.getPersonnages().removeIf(p -> p.getNom().equals("Assassin") || p.getNom().equals("Voleur") || p.getNom().equals("Condottiere") || p.getNom().equals("Magicien"));
         agressif.piocherPersonnage();
@@ -73,88 +74,88 @@ public class AgressifTest {
         assertNotEquals("Condottiere", agressif.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerVoleur() {
         Joueur riche = joueurs.get(0);
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         riche.ajouteOr(6);
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Voleur", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerCondottiere() {
         Joueur bientotGagnant = joueurs.get(0);
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
-        for (int i=0; i<7;i++) quartiersConstruits.add(bientotGagnant.piocherQuartier());
+        for (int i = 0; i < 7; i++) quartiersConstruits.add(bientotGagnant.piocherQuartier());
         bientotGagnant.setQuartiersConstruits(quartiersConstruits);
         assertEquals(7, bientotGagnant.getQuartiersConstruits().size());
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Condottiere", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerCondottiereBis() {
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
-        for (int i=0; i<6;i++) quartiersConstruits.add(agressif.piocherQuartier());
+        for (int i = 0; i < 6; i++) quartiersConstruits.add(agressif.piocherQuartier());
         agressif.setQuartiersConstruits(quartiersConstruits);
         assertEquals(6, agressif.getQuartiersConstruits().size());
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Condottiere", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerRoi() {
         Joueur roi = joueurs.get(0);
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
-        for (int i=0; i<6;i++) quartiersConstruits.add(roi.piocherQuartier());
+        for (int i = 0; i < 6; i++) quartiersConstruits.add(roi.piocherQuartier());
         roi.setQuartiersConstruits(quartiersConstruits);
         assertEquals(6, roi.getQuartiersConstruits().size());
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Roi", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerArchitecte() {
         Joueur architecte = joueurs.get(0);
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         ArrayList<CarteQuartier> quartiersConstruits = new ArrayList<>();
-        for (int i=0; i<5;i++) quartiersConstruits.add(architecte.piocherQuartier());
+        for (int i = 0; i < 5; i++) quartiersConstruits.add(architecte.piocherQuartier());
         architecte.setQuartiersConstruits(quartiersConstruits);
         assertEquals(5, architecte.getQuartiersConstruits().size());
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Architecte", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void tuerArchitecteBis() {
         Joueur architecte = joueurs.get(0);
         agressif.piocherPersonnage();
         assertEquals("Assassin", agressif.getPersonnage().getNom());
         architecte.ajouteOr(4);
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Architecte", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void volerArchitecteBis() {
         Joueur tropRiche = joueurs.get(0);
         tropRiche.ajouteOr(6);
         agressif.piocherPersonnage();
         assertEquals("Voleur", agressif.getPersonnage().getNom());
-        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif,MoteurDeJeu.deck.getPersonnages());
+        CartePersonnage cible = agressif.getStrategie().getIStrategie().choixDeCibleCartePersonnage(agressif, MoteurDeJeu.deck.getPersonnages());
         assertEquals("Architecte", cible.getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void cibleBeaucoupCartesMain() {
         Joueur tropDeCartes = joueurs.get(0);
         ArrayList<CarteQuartier> mainVide = new ArrayList<>();
@@ -163,11 +164,11 @@ public class AgressifTest {
         assertEquals("Magicien", agressif.getPersonnage().getNom());
         tropDeCartes.ajouterQuartierEnMain();
         tropDeCartes.piocherPersonnage();
-        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif,joueurs);
+        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif, joueurs);
         assertEquals(tropDeCartes, cible);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void ciblePlusDePoints() {
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();
@@ -179,16 +180,16 @@ public class AgressifTest {
         Joueur autre = joueurs.get(1);
         autre.ajouteOr(4);
         autre.construireQuartier();
-        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif,joueurs);
+        Joueur cible = agressif.getStrategie().getIStrategie().choixDeCibleJoueur(agressif, joueurs);
         assertEquals(sixQuartiersConstruits, cible);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixQuartierMoinsCher() {
         agressif.piocherPersonnage();
         CarteQuartier moinsCher = agressif.getStrategie().getIStrategie().choixDeQuartier(agressif, agressif.getQuartiers());
         Collections.sort(agressif.getQuartiers());
-        assertEquals(agressif.getQuartiers().get(agressif.getQuartiers().size()-1), moinsCher);
+        assertEquals(agressif.getQuartiers().get(agressif.getQuartiers().size() - 1), moinsCher);
     }
 
 }

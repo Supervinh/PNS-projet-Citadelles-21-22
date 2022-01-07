@@ -6,7 +6,7 @@ import fr.unice.polytech.Strategie;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.pouvoirs.PouvoirArchitecte;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class PouvoirArchitecteTest {
         strategie.actionPersonnage();
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void piocheQuartierTest() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);
@@ -43,7 +43,7 @@ public class PouvoirArchitecteTest {
         assertEquals(2, architecte.getQuartiers().size());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void construire3Quartiers() {
         PouvoirArchitecte construire = Mockito.mock(PouvoirArchitecte.class);
         Mockito.doCallRealMethod().when(construire).utiliserPouvoir(architecte);

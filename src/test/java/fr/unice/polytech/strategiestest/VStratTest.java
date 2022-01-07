@@ -4,7 +4,7 @@ import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CarteQuartier;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,11 +24,12 @@ public class VStratTest {
         m.setNbJoueurs(5);
         joueurs = new ArrayList<>();
         m.initialiseJoueurs(joueurs, true);
+        joueurs.get(3).getStrategie().setStrategie("VStrat");
         m.setJoueurs(joueurs);
         vinh = joueurs.get(3);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixMagicien() {
         ArrayList<CarteQuartier> mainVide = new ArrayList<>();
         vinh.setQuartiers(mainVide);
@@ -36,14 +37,14 @@ public class VStratTest {
         assertEquals("Magicien", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixArchitecte() {
         vinh.ajouteOr(4);
         vinh.piocherPersonnage();
         assertEquals("Architecte", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixVoleur() {
         Joueur tropRiche = joueurs.get(0);
         tropRiche.ajouteOr(3);
@@ -51,7 +52,7 @@ public class VStratTest {
         assertEquals("Voleur", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixRoi() {
         vinh.getQuartiers().add(vinh.piocherQuartier());
         vinh.setQuartiersConstruits(vinh.getQuartiers());
@@ -60,7 +61,7 @@ public class VStratTest {
         assertEquals("Roi", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixEveque() {
         vinh.getQuartiers().clear();
         MoteurDeJeu.deck.getQuartiers().removeIf(q -> !q.getGemme().equals("Religion"));
@@ -71,13 +72,13 @@ public class VStratTest {
         assertEquals("Évêque", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixMarchand() {
         vinh.piocherPersonnage();
         assertEquals("Marchand", vinh.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void cibleBeaucoupCartesMain() {
         Joueur tropDeCartes = joueurs.get(0);
         ArrayList<CarteQuartier> mainVide = new ArrayList<>();
@@ -86,11 +87,11 @@ public class VStratTest {
         assertEquals("Magicien", vinh.getPersonnage().getNom());
         tropDeCartes.ajouterQuartierEnMain();
         tropDeCartes.piocherPersonnage();
-        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh,joueurs);
+        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh, joueurs);
         assertEquals(tropDeCartes, cible);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void ciblePlusDePoints() {
         Joueur sixQuartiersConstruits = joueurs.get(0);
         sixQuartiersConstruits.ajouterQuartierEnMain();
@@ -101,21 +102,17 @@ public class VStratTest {
         Joueur autre = joueurs.get(1);
         autre.ajouteOr(4);
         autre.construireQuartier();
-        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh,joueurs);
+        Joueur cible = vinh.getStrategie().getIStrategie().choixDeCibleJoueur(vinh, joueurs);
         assertEquals(sixQuartiersConstruits, cible);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixQuartierMoinsCher() {
         vinh.piocherPersonnage();
         CarteQuartier moinsCher = vinh.getStrategie().getIStrategie().choixDeQuartier(vinh, vinh.getQuartiers());
         Collections.sort(vinh.getQuartiers());
-        assertEquals(vinh.getQuartiers().get(vinh.getQuartiers().size()-1), moinsCher);
+        assertEquals(vinh.getQuartiers().get(vinh.getQuartiers().size() - 1), moinsCher);
     }
-
-
-
-
 
 
 }

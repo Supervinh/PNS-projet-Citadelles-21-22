@@ -5,7 +5,7 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.pouvoirs.PouvoirVoleur;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ class PouvoirVoleurTest {
 
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void aVole() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -57,7 +57,7 @@ class PouvoirVoleurTest {
         assertEquals(4, voleur.getOr());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void neVolePas() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).utiliserPouvoir(voleur);
@@ -67,7 +67,7 @@ class PouvoirVoleurTest {
         assertEquals(2, voleur.getOr());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void estMort() {
         PouvoirVoleur pouvoir = Mockito.mock(PouvoirVoleur.class);
         Mockito.doCallRealMethod().when(pouvoir).estPersonnageMort(personnage);

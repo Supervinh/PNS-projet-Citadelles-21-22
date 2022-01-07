@@ -115,9 +115,9 @@ public class MoteurDeJeu {
         Joueur.numJoueur = 0;
         this.nombre2Personnages = deck.getPersonnages().size();
         if (deck.getQuartiersPossibles().size() != 65 || nbJoueurs < 4 || nbJoueurs > 7) {
-            Affichage.malInitialise();
-            System.exit(0);
+            Affichage.severe("Jeu pas initié correctement.");
         }
+        this.initialiseJoueurs(joueurs, !nomAleatoire);
     }
 
     /**
@@ -143,8 +143,6 @@ public class MoteurDeJeu {
      * Permet de lancer une partie entière.
      */
     public void jouer() {
-        Affichage.citadelle();
-        this.initialiseJoueurs(joueurs, !nomAleatoire);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -234,11 +232,32 @@ public class MoteurDeJeu {
             }
         }
         joueurs.get(0).setRoi(true);
-        joueurs.get(0).getStrategie().setStrategie("Rusher");
-        joueurs.get(1).getStrategie().setStrategie("Merveille");
-        joueurs.get(2).getStrategie().setStrategie("Agressif");
-        joueurs.get(3).getStrategie().setStrategie("VStrat");
-        if (joueurs.size() > 4) joueurs.get(4).getStrategie().setStrategie("Commerce");
+    }
+
+    /**
+     * Initialise tous les joueurs avec une stratégie différente.
+     */
+    public void tousLesStrategies() {
+        String nomStrategie;
+        for (int i = 0; i < MoteurDeJeu.nbJoueurs; i++) {
+            nomStrategie = switch (i) {
+                case 0 -> "VStrat";
+                case 1 -> "Rusher";
+                case 2 -> "Batisseur";
+                case 3 -> "Merveille";
+                case 4 -> "Commerce";
+                case 5 -> "Opportuniste";
+                case 6 -> "Agressif";
+                default -> "";
+            };
+            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie(nomStrategie);
+        }
+    }
+
+    public void seulementMeilleurStrategie() {
+        for (int i = 0; i < MoteurDeJeu.nbJoueurs; i++) {
+            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie("VStrat");
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * La classe qui permet le calcul des statistiques.
@@ -25,17 +26,33 @@ public class Statistique {
     /**
      * Nom des colonnes de notre tableau de statistiques.
      */
-    private final String[] titre = new String[]{"Nom des Bots/IA", "Victoires", "Défaites", "Parties", "Ratio", "Points Moy"};
+    private final String[] titre = new String[]{"Nom des Bots", "Stratégie", "Victoires", "Défaites", "Parties", "Ratio", "Points Moy"};
 
     /**
      * Largeur de la marge.
      */
     private final int marge = 4;
-
+    /**
+     * Le Nom du fichier dans le quelle on sauvegarde les données.
+     */
+    private final String nomFicher;
     /**
      * Le tableau des informations que l'on récupère du csv.
      */
-    private String[][] data = new CsvReader().getData();
+    private String[][] data;
+
+    public Statistique(String nomFicher) {
+        this.nomFicher = "src/main/resources/save/" + nomFicher + ".csv";
+    }
+
+    /**
+     * Permet de récupérer une liste des titres du tableau.
+     *
+     * @return Les Titres du tableau.
+     */
+    public String[] getTitre() {
+        return this.titre;
+    }
 
     /**
      * Ajoute les statistiques que nous avons calculées.
@@ -53,7 +70,7 @@ public class Statistique {
      * @param joueur Le joueur.
      */
     private void ajoutGagnant(Joueur joueur) {
-        String nom = this.nomAvecStrategie(joueur.getNom());
+        String nom = joueur.getNom();
         if (this.statistiqueVictoireData.containsKey(nom)) {
             int nombreVictoire = this.statistiqueVictoireData.get(nom);
             this.statistiqueVictoireData.replace(nom, ++nombreVictoire);
@@ -68,9 +85,8 @@ public class Statistique {
      * @param joueurs Les joueurs de la partie.
      */
     private void ajoutScore(ArrayList<Joueur> joueurs) {
-        String nom;
         for (Joueur joueur : joueurs) {
-            nom = this.nomAvecStrategie(joueur.getNom());
+            String nom = joueur.getNom();
             if (this.statistiqueScoreData.containsKey(nom)) {
                 double scoreMoy = this.statistiqueScoreData.get(nom);
                 this.statistiqueScoreData.replace(nom, scoreMoy + (joueur.getPoints() / (double) Main.nombrePartie));
@@ -84,8 +100,8 @@ public class Statistique {
      * Ajoute les statistiques calculées au fichier CSV.
      */
     public void ajoutAuxCSV() {
-        CsvReader csvReader = new CsvReader();
-        CsvEcriture ecritureCsv = new CsvEcriture();
+        CsvReader csvReader = new CsvReader(this.nomFicher);
+        CsvEcriture ecritureCsv = new CsvEcriture(this.nomFicher);
 
         csvReader.lireStatistiques();
         this.data = csvReader.getData();
@@ -99,15 +115,15 @@ public class Statistique {
             for (Map.Entry<String, Integer> entry : this.statistiqueVictoireData.entrySet()) {
                 if (entry.getKey().contains("CPU" + (i + 1)) || !entry.getKey().contains("CPU")) {
                     String nom = entry.getKey();
-                    int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 1));
-                    int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 3));
+                    String strategie = this.strategieParNom(nom);
+                    int victoireTotal = entry.getValue() + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 2));
+                    int partieTotal = Main.nombrePartie + Integer.parseInt(this.getValeurTableau(trouverLigne(data, nom), 4));
                     int defaiteTotal = partieTotal - victoireTotal;
                     String ratio = df.format(victoireTotal / (double) (partieTotal));
-
                     double moyenCSV = Double.parseDouble(this.getValeurTableau(trouverLigne(data, nom), 5).replace(',', '.'));
                     String scoreMoyenTotal = df.format(0.5 * (this.statistiqueScoreData.get(nom) + (moyenCSV <= 0 ? this.statistiqueScoreData.get(nom) : moyenCSV)));
 
-                    ecritureCsv.ecrireStatistiques(nom, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
+                    ecritureCsv.ecrireStatistiques(nom, strategie, victoireTotal, defaiteTotal, partieTotal, ratio, scoreMoyenTotal);
                 }
             }
         }
@@ -117,9 +133,8 @@ public class Statistique {
      * Rajoute le nombre de défaites.
      */
     private void rajouteNonGagnant() {
-        String nom;
         for (Joueur joueur : MoteurDeJeu.joueurs) {
-            nom = this.nomAvecStrategie(joueur.getNom());
+            String nom = joueur.getNom();
             if (!this.statistiqueVictoireData.containsKey(nom)) {
                 this.statistiqueVictoireData.put(nom, 0);
             }
@@ -161,11 +176,16 @@ public class Statistique {
      * Imprime le tableau sur la sortie standard.
      */
     public void printStatTableau() {
-        CsvReader csvReader = new CsvReader();
+        String[] pathFicher = this.nomFicher.split("/");
+        String t = pathFicher[pathFicher.length - 1];
+        pathFicher = t.split("\\.");
+        if (MoteurDeJeu.messageLvl != Level.INFO) Affichage.info("");
+        Affichage.titreFormatted("Tableau des Statistiques: " + pathFicher[0]);
+        CsvReader csvReader = new CsvReader(this.nomFicher);
         Object[] titre = this.titre;
         this.data = csvReader.getData();
 
-        Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", titre));
+        Affichage.titreFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%" + this.largeurColonne(6) + "s", titre));
 
         StringBuilder separateur = new StringBuilder();
         for (int i = 0; i < this.titre.length; i++) {
@@ -174,7 +194,7 @@ public class Statistique {
         Affichage.ligneFormatted(separateur.toString());
 
         for (final Object[] row : this.data) {
-            Affichage.ligneFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s", row));
+            Affichage.ligneFormatted(String.format("%" + (this.largeurColonne(0) - this.marge) + "s%" + this.largeurColonne(1) + "s%" + this.largeurColonne(2) + "s%" + this.largeurColonne(3) + "s%" + this.largeurColonne(4) + "s%" + this.largeurColonne(5) + "s%" + this.largeurColonne(6) + "s", row));
         }
     }
 
@@ -199,12 +219,12 @@ public class Statistique {
      * @param nom Nom du joueur.
      * @return Le nom du joueur et de sa stratégie.
      */
-    private String nomAvecStrategie(String nom) {
+    private String strategieParNom(String nom) {
         Joueur joueur = MoteurDeJeu.joueurs.stream().filter(j -> j.getNom().equals(nom)).findFirst().orElse(null);
         if (joueur != null) {
-            return joueur.getNomStrategie() + " - " + nom;
+            return joueur.getNomStrategie();
         }
-        return nom;
+        return "Not Found";
     }
 
     /**

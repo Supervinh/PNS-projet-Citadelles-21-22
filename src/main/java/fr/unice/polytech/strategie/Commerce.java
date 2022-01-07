@@ -112,6 +112,6 @@ public class Commerce implements IStrategie {
      */
     @Override
     public String nomStrategie() {
-        return "Commerce et Artisanat";
+        return "Commercant";
     }
 }
