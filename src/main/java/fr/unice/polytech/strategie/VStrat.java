@@ -83,7 +83,9 @@ public class VStrat implements IStrategie {
     public Joueur choixDeCibleJoueur(Joueur joueur, ArrayList<Joueur> cibles) {
         if (joueur.getPersonnage().getNom().equals("Magicien")) {
             int nbreQuartierMain = MoteurDeJeu.joueurs.stream().filter(j -> j != joueur).map(Joueur::getQuartiers).mapToInt(ArrayList::size).max().orElse(0);
-            cibles.removeIf(j -> j.getQuartiers().size()!=0);
+            ArrayList<Joueur> ciblesTemp = new ArrayList<>(cibles);
+            ciblesTemp.removeIf(j -> j.getQuartiers().size()!=0);
+            if (!ciblesTemp.isEmpty()) return MoteurDeJeu.joueurs.stream().filter(j -> j.getQuartiers().size() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, ciblesTemp));
             return MoteurDeJeu.joueurs.stream().filter(j -> j.getQuartiers().size() == nbreQuartierMain).findFirst().orElseGet(() -> IStrategie.super.choixDeCibleJoueur(joueur, cibles));
         }
         MoteurDeJeu.joueurs.forEach(Joueur::calculePoints);
