@@ -9,9 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
         int nombrePartie = 1000;
-        MoteurDeJeu.nbJoueurs = 7;
         MoteurDeJeu mj;
 
+        MoteurDeJeu.nbJoueurs = 7;
         MoteurDeJeu.setMessageLvl(Level.INFO);
         Affichage.citadelle();
         long startTime = System.nanoTime();
@@ -26,6 +26,7 @@ public class Main {
         statistique.printStatTableau();
         Affichage.chrono(startTime);
 
+        MoteurDeJeu.nbJoueurs = 5;
         MoteurDeJeu.setMessageLvl(Level.INFO);
         startTime = System.nanoTime();
         statistique = new Statistique("Meilleure Bot contre lui-même");
