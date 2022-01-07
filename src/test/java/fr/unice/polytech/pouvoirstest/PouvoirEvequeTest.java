@@ -6,7 +6,7 @@ import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.pouvoirs.PouvoirEveque;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class PouvoirEvequeTest {
         quartiers.add(quartier);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void taxesAjoutTest() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).utiliserPouvoir(eveque);
@@ -44,7 +44,7 @@ public class PouvoirEvequeTest {
         assertEquals(1, eveque.getOr());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void pasTaxe() {
         PouvoirEveque taxe = Mockito.mock(PouvoirEveque.class);
         Mockito.doCallRealMethod().when(taxe).recupererTaxes(eveque);

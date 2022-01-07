@@ -1,7 +1,7 @@
 package fr.unice.polytech;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 import java.util.logging.Level;
@@ -20,19 +20,19 @@ class BanqueTest {
         this.moteurDeJeu = new MoteurDeJeu();
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void afficheBanqueDebut() {
         assertEquals("Banque{pieceEnJeu=" + this.banque.getPieceEnJeuColoured() + "}", this.banque.toString());
     }
 
     // À chaque tour vérifier que la somme d'argent en jeu est toujours bon.
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void bonneCirculationOrPendantTouteLaPartie() {
         this.moteurDeJeu.jouer();
         assertTrue(MoteurDeJeu.banque.sommeArgentCirculationCorrecte());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void bonneTransactions() {
         int somme = new Random().nextInt(35);
         if (somme > this.banque.getFonds()) {

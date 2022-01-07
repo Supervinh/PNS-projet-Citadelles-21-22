@@ -4,7 +4,7 @@ import fr.unice.polytech.MoteurDeJeu;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.QuartierMerveilles;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class QuartierMerveillesTest {
         quartiers.add(quartier);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void cartePrestige() {
         QuartierMerveilles pouvoir = Mockito.mock(QuartierMerveilles.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeQuartier(null, quartiers);

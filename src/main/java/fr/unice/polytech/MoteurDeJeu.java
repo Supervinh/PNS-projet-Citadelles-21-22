@@ -117,6 +117,7 @@ public class MoteurDeJeu {
         if (deck.getQuartiersPossibles().size() != 65 || nbJoueurs < 4 || nbJoueurs > 7) {
             Affichage.severe("Jeu pas initié correctement.");
         }
+        this.initialiseJoueurs(joueurs, !nomAleatoire);
     }
 
     /**
@@ -142,7 +143,6 @@ public class MoteurDeJeu {
      * Permet de lancer une partie entière.
      */
     public void jouer() {
-        this.initialiseJoueurs(joueurs, !nomAleatoire);
         this.printJoueursInitialises(joueurs);
         this.lancerTourDeJeu(joueurs);
         this.printGagnant(joueurs);
@@ -232,6 +232,32 @@ public class MoteurDeJeu {
             }
         }
         joueurs.get(0).setRoi(true);
+    }
+
+    /**
+     * Initialise tous les joueurs avec une stratégie différente.
+     */
+    public void tousLesStrategies() {
+        String nomStrategie;
+        for (int i = 0; i < MoteurDeJeu.nbJoueurs; i++) {
+            nomStrategie = switch (i) {
+                case 0 -> "VStrat";
+                case 1 -> "Rusher";
+                case 2 -> "Batisseur";
+                case 3 -> "Merveille";
+                case 4 -> "Commerce";
+                case 5 -> "Opportuniste";
+                case 6 -> "Agressif";
+                default -> "";
+            };
+            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie(nomStrategie);
+        }
+    }
+
+    public void seulementMeilleurStrategie() {
+        for (int i = 0; i < MoteurDeJeu.nbJoueurs; i++) {
+            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie("VStrat");
+        }
     }
 
     /**

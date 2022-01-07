@@ -6,7 +6,7 @@ import fr.unice.polytech.cartes.CartePersonnage;
 import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.strategie.Opportuniste;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -32,13 +32,13 @@ public class OpportunisteTest {
         opportuniste.getStrategie().setStrategie("Opportuniste");
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixCondottiere() {
         opportuniste.piocherPersonnage();
         assertEquals("Condottiere", opportuniste.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixEveque() {
         CarteQuartier carteReligion = new CarteQuartier(3.1, "Temple", "Religion", 1);
         opportuniste.getQuartiersConstruits().add(carteReligion);
@@ -46,7 +46,7 @@ public class OpportunisteTest {
         assertEquals("Évêque", opportuniste.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixVoleur() {
         opportuniste.ajouteOr(-opportuniste.getOr());
         joueurs.get(3).ajouteOr(4);
@@ -54,7 +54,7 @@ public class OpportunisteTest {
         assertEquals("Voleur", opportuniste.getPersonnage().getNom());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixQuartierReligion() {
         ArrayList<CarteQuartier> quartiers = new ArrayList<>();
         quartiers.add(new CarteQuartier(5.1, "Manoir", "Noblesse", 3));
@@ -66,7 +66,7 @@ public class OpportunisteTest {
         assertEquals("Religion", carteNoblesse.getGemme());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixParDefaut() {
         ArrayList<CarteQuartier> quartiers = new ArrayList<>();
         quartiers.add(new CarteQuartier(5.1, "Manoir", "Noblesse", 3));
@@ -78,7 +78,7 @@ public class OpportunisteTest {
         assertEquals("Soldatesque", carte.getGemme());
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixMaxPoint() {
         joueurs.get(0).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 3));
         joueurs.get(2).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 1));
@@ -88,7 +88,7 @@ public class OpportunisteTest {
         assertEquals(joueurs.get(0), joueurCible);
     }
 
-    @RepeatedTest(MoteurDeJeu.iterationTest)
+    @Test
     void choixCibleArchitecte() {
         opportuniste.setPersonnage(new CartePersonnage(1, "Voleur", null));
         Opportuniste pouvoir = Mockito.mock(Opportuniste.class);
