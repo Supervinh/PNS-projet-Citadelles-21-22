@@ -31,7 +31,7 @@ public class CommerceTest {
         m.initialiseJoueurs(joueurs,true);
         m.setJoueurs(joueurs);
         commerce = joueurs.get(1);
-        commerce.getStrategie().setStrategie("Commerce et Artisanat");
+        commerce.getStrategie().setStrategie("Commerce");
     }
 
     @Test
@@ -104,9 +104,11 @@ public class CommerceTest {
     void choixMaxPoint(){
         joueurs.get(0).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 3));
         joueurs.get(2).getQuartiersConstruits().add(new CarteQuartier(3.1, "Temple", "Religion", 1));
-        Batisseur pouvoir = Mockito.mock(Batisseur.class);
+        Commerce pouvoir = Mockito.mock(Commerce.class);
         Mockito.doCallRealMethod().when(pouvoir).choixDeCibleJoueur(commerce, joueurs);
         Joueur joueurCible = pouvoir.choixDeCibleJoueur(commerce, joueurs);
         assertEquals(joueurs.get(0),joueurCible);
     }
+
+
 }
