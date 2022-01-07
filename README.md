@@ -31,13 +31,13 @@ fait et les décisions qu'il prend. Le mode Warning qui s'affiche si notamment l
 qui s'affiche pendant un état critique du programme. Nous avons choisi de mettre tout l'affichage dans une seule classe.
 
 
-3 - un résumé de ce qui a été fait pour les statistiques en CSV (en quelques lignes max, quels choix ont été faits pour les réaliser)
+3 - Un résumé de ce qui a été fait pour les statistiques en CSV (en quelques lignes max, quels choix ont été faits pour les réaliser)
 Si le fichier existe déja on récupère les données préexistantes et on fait les calculs avec ces dernières. On efface les données parce qu'on les a récupérées, et 
 on écrit dans le CSV. Nous n'avons pas trouvé d'autres solutions que d'effacer le CSV pour réécrire dedans. L'idée de départ était de pouvoir sélectionner une seule ligne
 pour la modifier mais avec un peu de recherches nous nous sommes aperçus qu'on ne pouvait pas le faire avec un fichier CSV.
 
 
-4 - un résumé de ce qui a été fait pour le bot spécifique demandé (1 ou 2 bots selon le choix que vous avez fait, pas de problème...), 
+4 - Un résumé de ce qui a été fait pour le bot spécifique demandé (1 ou 2 bots selon le choix que vous avez fait, pas de problème...), 
 et éventuellement une comparaison avec votre meilleur bot et une analyse de pourquoi celui qui gagne est le meilleur.
 Pour le bot batisseur:
 Pour le bot opportuniste:
