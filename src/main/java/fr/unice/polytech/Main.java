@@ -8,14 +8,14 @@ import java.util.logging.Level;
 public class Main {
 
     public static void main(String[] args) {
-        int nombrePartie = 1000;
+        int nombrePartie = 10000;
         MoteurDeJeu mj;
 
         MoteurDeJeu.nbJoueurs = 7;
         MoteurDeJeu.setMessageLvl(Level.INFO);
         Affichage.citadelle();
         long startTime = System.nanoTime();
-        Statistique statistique = new Statistique("Meilleure Bot contre les autres");
+        Statistique statistique = new Statistique("Meilleur Bot contre les autres");
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.tousLesStrategies();
@@ -29,7 +29,7 @@ public class Main {
         MoteurDeJeu.nbJoueurs = 5;
         MoteurDeJeu.setMessageLvl(Level.INFO);
         startTime = System.nanoTime();
-        statistique = new Statistique("Meilleure Bot contre lui-même");
+        statistique = new Statistique("Meilleur Bot contre lui-même");
         for (int i = 0; i < nombrePartie; i++) {
             mj = new MoteurDeJeu();
             mj.seulementMeilleurStrategie();

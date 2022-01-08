@@ -266,7 +266,7 @@ public class MoteurDeJeu {
      */
     public void seulementMeilleurStrategie() {
         for (int i = 0; i < MoteurDeJeu.nbJoueurs; i++) {
-            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie("Commercant");
+            MoteurDeJeu.joueurs.get(i).getStrategie().setStrategie("Rusher");
         }
     }
 

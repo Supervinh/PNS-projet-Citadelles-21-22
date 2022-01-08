@@ -97,6 +97,6 @@ tout simplement son quartier le moins cher.
 Ces bots ont tendance à gagner parce qu'ils construisent assez rapidement et ne laissent pas le temps aux autres de
 construire leurs quartiers. 
 
-Ayant un taux de victoire quasiment identique, nous avons fait le choix de désigner le bot Commerçant comme étant notre
-meilleur bot, car nous pensons qu'il utilise des stratégies légèrement plus poussées, et donc intéressantes, que le bot
-Rusher.
+Ayant un taux de victoire quasiment identique, nous avons fait le choix de désigner le bot Rusher comme étant notre 
+meilleur bot, car il gagne dans une majorité des cas (même si Commerçant a ses chances de gagner aussi). Nous remarquons
+donc que l'aléatoire fait bien la part des choses et reste plus performant que les autres. 
