@@ -15,7 +15,7 @@ public class RusherQuartiers implements IStrategie {
 
     /**
      * Choisit en priorité le personnage de l'architecte sinon il choisit aléatoirement.
-     * Si il a moins de 3 pièces d'or il choisit en priorité le voleur sinon c'est aléatoire.
+     * S'il a moins de 3 pièces d'or il choisit en priorité le voleur sinon c'est aléatoire.
      *
      * @param joueur      Le joueur à jouer.
      * @param personnages Les cartes de personnages que l'on peut encore piocher.

@@ -1,9 +1,9 @@
 package fr.unice.polytech.strategie;
 
-import fr.unice.polytech.cartes.CartePersonnage;
-import fr.unice.polytech.cartes.CarteQuartier;
 import fr.unice.polytech.Joueur;
 import fr.unice.polytech.MoteurDeJeu;
+import fr.unice.polytech.cartes.CartePersonnage;
+import fr.unice.polytech.cartes.CarteQuartier;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +39,7 @@ public class Commerce implements IStrategie {
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Voleur")).findAny().orElse(null);
         if (joueur.getQuartiers().size() == 0 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Magicien")).findAny().orElse(null);
-        if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && joueur.getQuartiersConstruits().size()>4 && !joueur.isRoi() && choix == null)
+        if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && joueur.getQuartiersConstruits().size() > 4 && !joueur.isRoi() && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Roi")).findAny().orElse(null);
         if (joueur.getQuartiers().size() > 2 && joueur.getOr() > 5 && choix == null)
             choix = personnages.stream().filter(cp -> cp.getNom().equals("Architecte")).findAny().orElse(null);
@@ -54,7 +54,7 @@ public class Commerce implements IStrategie {
      * Si le joueur a choisi le voleur, il cible l'architecte ou le marchand.
      * Sinon il cible aléatoirement.
      *
-     * @param joueur Le joueur qui joue.
+     * @param joueur     Le joueur qui joue.
      * @param ciblesTemp Les cibles de personnages.
      * @return La carte personnage ciblée.
      */
@@ -96,8 +96,8 @@ public class Commerce implements IStrategie {
     public CarteQuartier choixDeQuartier(Joueur joueur, ArrayList<CarteQuartier> quartiers) {
         ArrayList<CarteQuartier> carteQuartiers = new ArrayList<>(quartiers);
         Collections.sort(carteQuartiers);
-        for (CarteQuartier q:carteQuartiers){
-            if (q.getGemme().equals("Commerce et Artisanat")){
+        for (CarteQuartier q : carteQuartiers) {
+            if (q.getGemme().equals("Commerce et Artisanat")) {
                 carteQuartiers.removeIf(qu -> !qu.getGemme().equals("Commerce et Artisanat"));
                 return carteQuartiers.get(carteQuartiers.size() - 1);
             }

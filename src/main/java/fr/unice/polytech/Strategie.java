@@ -65,7 +65,7 @@ public class Strategie {
         switch (strategie) {
             case "Agressif" -> iStrategie = new Agressif();
             case "Batisseur" -> iStrategie = new Batisseur();
-            case "Commerce" -> iStrategie = new Commerce();
+            case "Commercant" -> iStrategie = new Commerce();
             case "Opportuniste" -> iStrategie = new Opportuniste();
             case "Merveille" -> iStrategie = new QuartierMerveilles();
             case "Rusher" -> iStrategie = new RusherQuartiers();
