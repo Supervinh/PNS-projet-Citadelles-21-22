@@ -16,12 +16,12 @@ vers sa gauche, donc dans l'ordre croissant des identifiants des bots. Chaque jo
 personnage en fonction de la stratégie qu'il utilise. Le restant des cartes sont mises face cachée. Le joueur ayant
 pioché l'assassin commence et on continue dans l'ordre des personnages cités précédemment. Il a le choix entre piocher 2
 pièces d'or ou piocher 2 cartes quartiers et en choisir une. Une fois son choix fait, il peut construire des quartiers
-s'il a le nombre de pièces qu'il lui faut.
+s'il a le nombre de pièces d'or qu'il lui faut.
 
 Finalement, le pouvoir du personnage est utilisé. On continue ainsi de suite jusqu'à ce qu'au moins un joueur ait
 construit 8 quartiers, le jeu s'arrête alors et on déclare un gagnant.
 
-Puisqu'il n'y a que 30 pièces dans le jeu, nous avons un système de banque qui vérifie qu'il y ait toujours ces 30
+Puisqu'il n'y a que 30 pièces dans le jeu, nous avons un système de banque qui vérifie qu'il y a toujours ces 30
 pièces en jeu. On s'assure donc que personne n'a perdu de pièces en cours de route.
 
 Pour faciliter la compréhension du jeu, nous avons développé une interface très colorée et détaillée.
@@ -70,29 +70,33 @@ Nous avons choisi de séparer les conseils de Richard et d'Alphonse en 3 bots di
 
 Pour le bot bâtisseur : Le but du bâtisseur est de récupérer le plus d'or possible pour pouvoir construire le plus
 rapidement possible. Le choix de son personnage va donc dépendre de ce qu'il a construit comme quartiers. Si le joueur a
-au moins un quartier noblesse, il va prendre en priorité le roi qui rapporte des pièces d'or selon le nombre de
-quartiers noblesse construits. Il va prendre le marchand s'il a au moins un quartier commerce et artisanat de construit.
-Si le joueur a construit au moins 2 quartiers et a au moins 5 pièces d'or il prendra architecte ce qui peut lui
+au moins un quartier Noblesse, il va prendre en priorité le Roi qui rapporte des pièces d'or selon le nombre de
+quartiers Noblesse construits. Il va prendre le Marchand s'il a au moins un quartier Commerce et Artisanat de construit.
+Si le joueur a construit au moins 2 quartiers et a au moins 5 pièces d'or il prendra Architecte ce qui peut lui
 permettre de construire jusqu'à 3 quartiers en un seul tour.
 
 Pour le bot opportuniste : Le but de l'opportuniste est d'attaquer et de se faire attaquer le moins possible par les
-autres joueurs. Il va prendre en priorité le voleur pour récupérer de l'or vite fait. S'il a construit au moins un
-quartier religieux, il prendra l'évêque. S'il a plus que 1 pièce d'or il ne va prendre le condottière pour ralentir un
+autres joueurs. Il va prendre en priorité le Voleur pour récupérer de l'or rapidement. S'il a construit au moins un
+quartier Religieux, il prendra l'Évêque. S'il a plus que 1 pièce d'or il va prendre le Condottière pour ralentir un
 autre joueur.
 
 Pour le bot agressif : Le but de l'agressif est d'empêcher les autres d'avancer dans le jeu. Il va donc prendre en
-priorité l'assassin pour faire sauter le tour d'une personne. Si le bot voit qu'un autre joueur à plus de 5 quartiers de
-construits il va prendre le rôle du condottière pour pouvoir détruire un quartier. Si le joueur n'a plus de quartiers en
-main, il prendra le magicien pour pouvoir récupérer les cartes de quelqu'un d'autre. Si un joueur a plus de 7 pièces
-d'or le joueur va prendre le voleur pour pouvoir prendre de l'or.
+priorité l'Assassin pour faire sauter le tour d'une personne. Si le bot voit qu'un autre joueur à plus de 5 quartiers de
+construits il va prendre le rôle du Condottière pour pouvoir détruire un quartier. Si le joueur n'a plus de quartiers en
+main, il prendra le Magicien pour pouvoir récupérer les cartes de quelqu'un d'autre. Si un joueur a plus de 7 pièces
+d'or le joueur va prendre le Voleur pour pouvoir prendre de l'or.
 
 Nous avons deux meilleurs bots qui s'appellent Commerçant et Rusher, ils ont tous les deux comme but de construire le
 plus vite possible des quartiers pour essayer de finir en premier et remporter la partie. La seule différence entre ses
 deux bots est dans le choix de son personnage et le choix du quartier à construire. Le bot Rusher va choisir en priorité
-l'architecte et s'il a moins de 3 pièces d'or il va prendre le voleur. Le choix du personnage du bot Commerçant est
+l'Architecte et s'il a moins de 3 pièces d'or il va prendre le Voleur. Le choix du personnage du bot Commerçant est
 beaucoup plus poussé et repose sur ce qu'il a dans sa main au moment donné. Pour le choix du quartier à construire, le
-Commerçant va favoriser le quartier le moins cher avec la gemme commerce et artisanat, alors que le bot Rusher favorise
+Commerçant va favoriser le quartier le moins cher avec la gemme Commerce et Artisanat, alors que le bot Rusher favorise
 tout simplement son quartier le moins cher.
 
-Ces bots ont tendance à gagner parce qu'ils construisent assez rapidement et ne laisse pas le temps aux autres de
+Ces bots ont tendance à gagner parce qu'ils construisent assez rapidement et ne laissent pas le temps aux autres de
 construire leurs quartiers. 
+
+Ayant un taux de victoire quasiment identique, nous avons fait le choix de désigner le bot Commerçant comme étant notre
+meilleur bot, car nous pensons qu'il utilise des stratégies légèrement plus poussées, et donc intéressantes, que le bot
+Rusher.
