@@ -98,5 +98,4 @@ Ces bots ont tendance à gagner parce qu'ils construisent assez rapidement et ne
 construire leurs quartiers. 
 
 Ayant un taux de victoire quasiment identique, nous avons fait le choix de désigner le bot Rusher comme étant notre 
-meilleur bot, car il gagne dans une majorité des cas (même si Commerçant a ses chances de gagner aussi). Nous remarquons
-donc que l'aléatoire fait bien la part des choses et reste plus performant que les autres. 
+meilleur bot, car il gagne dans une majorité des cas (même si Commerçant a ses chances de gagner aussi). Bien que notre bot Rusher se repose principalement sur de l'aléatoire, nous pouvons remarquer que celà est suffisamment efficace puisqu'il reste plus performant que les autres bot.
